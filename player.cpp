@@ -15,15 +15,14 @@
 #include "renderer.h"
 #include "object2D.h"
 #include "input_keybord.h"
-
-//------------------------
-// マクロ定義
-//------------------------
-#define PLAYER_SPEED	(5.0f)	//プレイヤーの速度
+#include "texture.h"
+#include "sound.h"
+#include "bullet.h"
 
 //------------------------
 // 静的メンバ変数宣言
 //------------------------
+const float CPlayer::fPlayerSpeed = 5.0f;
 
 //===========================
 // コンストラクタ
@@ -51,7 +50,9 @@ HRESULT CPlayer::Init(D3DXVECTOR3 pos)
 
 	CObject2D::Init(m_Player.pos);
 
-	CObject2D::SetSize(100.0f, 100.0f);	//サイズの設定
+	CObject2D::SetSize(80.0f, 100.0f);	//サイズの設定
+
+	CObject2D::SetTexture(CTexture::TEXTURE_PLAYER);	//テクスチャの設定
 
 	m_Player.pos = CObject2D::GetPosition();
 
@@ -73,14 +74,29 @@ void CPlayer::Update()
 {
 	CObject2D::Update();
 
-	//プレイヤーの操作
+	//--------------------
+	// プレイヤーの操作
+	//--------------------
 	D3DXVECTOR3 move = OperationPlayer();
 
-	//移動量を更新(減衰)
+	//--------------------
+	// 移動量を更新(減衰)
+	//--------------------
 	m_Player.move.x += (0.0f - move.x) * 0.4f;
 	m_Player.move.y += (0.0f - move.y) * 0.4f;
 
-	CObject2D::AddMove(m_Player.move);
+	//--------------------
+	// 位置に移動量を加算
+	//--------------------
+	m_Player.pos = CObject2D::AddMove(m_Player.move);
+
+	//--------------------------
+	// 弾の発射
+	//--------------------------
+	if (CInputKeyboard::Trigger(DIK_SPACE))
+	{//SPACEキーが押された
+		CBullet::Create(m_Player.pos);
+	}
 }
 
 //===========================
@@ -122,43 +138,43 @@ D3DXVECTOR3 CPlayer::OperationPlayer()
 	{//Aキーが押された
 		if (CInputKeyboard::Press(DIK_W) == true)
 		{//Wキーが押された
-			m_Player.move.y += cosf(-D3DX_PI * 0.75f) * PLAYER_SPEED;		//上左移動
-			m_Player.move.x += sinf(-D3DX_PI * 0.75f) * PLAYER_SPEED;
+			m_Player.move.y += cosf(-D3DX_PI * 0.75f) * fPlayerSpeed;		//上左移動
+			m_Player.move.x += sinf(-D3DX_PI * 0.75f) * fPlayerSpeed;
 		}
 		else if (CInputKeyboard::Press(DIK_S) == true)
 		{//Sキーが押された
-			m_Player.move.y += cosf(D3DX_PI * 0.25f) * PLAYER_SPEED;		//下左移動
-			m_Player.move.x += sinf(-D3DX_PI * 0.25f) * PLAYER_SPEED;
+			m_Player.move.y += cosf(D3DX_PI * 0.25f) * fPlayerSpeed;		//下左移動
+			m_Player.move.x += sinf(-D3DX_PI * 0.25f) * fPlayerSpeed;
 		}
 		else
 		{
-			m_Player.move.x += sinf(-D3DX_PI * 0.5f) * PLAYER_SPEED;		//左移動
+			m_Player.move.x += sinf(-D3DX_PI * 0.5f) * fPlayerSpeed;		//左移動
 		}
 	}
 	else if (CInputKeyboard::Press(DIK_D) == true)
 	{//Dキーが押された
 		if (CInputKeyboard::Press(DIK_W) == true)
 		{//Wキーが押された
-			m_Player.move.y += cosf(-D3DX_PI * 0.75f) * PLAYER_SPEED;		//上右移動
-			m_Player.move.x += sinf(D3DX_PI * 0.75f) * PLAYER_SPEED;
+			m_Player.move.y += cosf(-D3DX_PI * 0.75f) * fPlayerSpeed;		//上右移動
+			m_Player.move.x += sinf(D3DX_PI * 0.75f) * fPlayerSpeed;
 		}
 		else if (CInputKeyboard::Press(DIK_S) == true)
 		{//Sキーが押された
-			m_Player.move.y += cosf(D3DX_PI * 0.25f) * PLAYER_SPEED;		//下右移動
-			m_Player.move.x += sinf(D3DX_PI * 0.25f) * PLAYER_SPEED;
+			m_Player.move.y += cosf(D3DX_PI * 0.25f) * fPlayerSpeed;		//下右移動
+			m_Player.move.x += sinf(D3DX_PI * 0.25f) * fPlayerSpeed;
 		}
 		else
 		{
-			m_Player.move.x += sinf(D3DX_PI * 0.5f) * PLAYER_SPEED;			//右移動
+			m_Player.move.x += sinf(D3DX_PI * 0.5f) * fPlayerSpeed;			//右移動
 		}
 	}
 	else if (CInputKeyboard::Press(DIK_W) == true)
 	{//Wキーが押された
-		m_Player.move.y += cosf(-D3DX_PI * 1.0f) * PLAYER_SPEED;			//上移動
+		m_Player.move.y += cosf(-D3DX_PI * 1.0f) * fPlayerSpeed;			//上移動
 	}
 	else if (CInputKeyboard::Press(DIK_S) == true)
 	{//Sキーが押された
-		m_Player.move.y += cosf(D3DX_PI * 0.0f) * PLAYER_SPEED;				//下移動
+		m_Player.move.y += cosf(D3DX_PI * 0.0f) * fPlayerSpeed;				//下移動
 	}
 
 	return m_Player.move;

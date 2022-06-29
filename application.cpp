@@ -15,13 +15,18 @@
 #include "input.h"
 #include "input_keybord.h"
 #include "input_joypad.h"
+#include "texture.h"
+#include "sound.h"
 #include "player.h"
+#include "bullet.h"
 
 //------------------------
 // 静的メンバ変数宣言
 //------------------------
 CRenderer	*CApplication::m_pRenderer = nullptr;	//レンダラー
 CInput		*CApplication::m_pInput = nullptr;		//インプット
+CTexture	*CApplication::m_pTexture = nullptr;	//テクスチャ
+CSound		*CApplication::m_pSound = nullptr;		//サウンド
 CPlayer		*CApplication::m_pPlayer = nullptr;		//プレイヤー
 
 //===========================
@@ -50,8 +55,10 @@ HRESULT CApplication::Init(HINSTANCE hInstance, HWND hWnd)
 	//--------------------------
 	m_pRenderer = new CRenderer;	//レンダリング
 	m_pInput = new CInput;			//インプット
+	m_pTexture = new CTexture;		//テクスチャ
+	m_pSound = new CSound;			//サウンド
 
-	//レンダリングの初期化
+									//レンダリングの初期化
 	if (FAILED(m_pRenderer->Init(hWnd, TRUE)))
 	{//初期化処理が失敗した場合
 		return -1;
@@ -59,6 +66,9 @@ HRESULT CApplication::Init(HINSTANCE hInstance, HWND hWnd)
 
 	//インプットの初期化
 	m_pInput->Init(hInstance, hWnd);
+
+	//サウンドの初期化
+	//m_pSound->Init(hWnd);
 
 	//プレイヤーの生成
 	m_pPlayer = CPlayer::Create();
@@ -71,6 +81,14 @@ HRESULT CApplication::Init(HINSTANCE hInstance, HWND hWnd)
 //===========================
 void CApplication::Uninit()
 {
+	//テクスチャの終了
+	if (m_pTexture != nullptr)
+	{
+		m_pTexture->ReleaseAll();
+		delete m_pTexture;
+		m_pTexture = nullptr;
+	}
+
 	//レンダリングの終了
 	if (m_pRenderer != nullptr)
 	{
@@ -89,6 +107,14 @@ void CApplication::Uninit()
 
 	//オブジェクトの全解放
 	CObject::ReleaseAll();
+
+	//サウンドの終了
+	/*if (m_pSound != nullptr)
+	{
+		m_pSound->Uninit();
+		delete m_pSound;
+		m_pSound = nullptr;
+	}*/
 
 }
 
@@ -127,4 +153,20 @@ CRenderer *CApplication::GetRenderer()
 CInput *CApplication::GetInput()
 {
 	return m_pInput;
+}
+
+//===========================
+// テクスチャの取得
+//===========================
+CTexture *CApplication::GetTexture()
+{
+	return m_pTexture;
+}
+
+//===========================
+// サウンドの取得
+//===========================
+CSound *CApplication::GetSound()
+{
+	return m_pSound;
 }

@@ -39,31 +39,36 @@ public:
 	CPlayer();				//コンストラクタ
 	~CPlayer() override;	//デストラクタ
 
-	//----------------
+	//------------------
 	// メンバ関数
-	//----------------
+	//------------------
 	HRESULT Init(D3DXVECTOR3 pos) override;
 	void Uninit() override;
 	void Update() override;
 	void Draw() override;
 
-	//----------------
+	//------------------
 	// 静的メンバ関数
-	//----------------
+	//------------------
 	static CPlayer *Create();
 
 private:
 	D3DXVECTOR3 OperationPlayer();	//操作
 
 private:
-	//----------------
+	//------------------
+	// 定数定義
+	//------------------
+	static const float fPlayerSpeed;	//プレイヤーの速度
+
+	//------------------
 	// メンバ変数
-	//----------------
+	//------------------
 	Player m_Player;	//プレイヤー構造体
 
-	//----------------
+	//------------------
 	// 静的メンバ変数
-	//----------------
+	//------------------
 };
 
 #endif // !_PLAYER_H_

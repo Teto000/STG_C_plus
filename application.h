@@ -17,6 +17,8 @@
 //-----------------------
 class CRenderer;	//レンダラー
 class CInput;		//インプット
+class CTexture;		//テクスチャ
+class CSound;		//サウンド
 class CPlayer;		//プレイヤー
 
 //-------------------------------------
@@ -41,6 +43,8 @@ public:
 	//------------------
 	static CRenderer *GetRenderer();	//レンダラーの取得
 	static CInput	 *GetInput();		//インプットの取得
+	static CTexture  *GetTexture();		//テクスチャの取得
+	static CSound	 *GetSound();		//サウンドの取得
 
 private:
 	//------------------
@@ -48,6 +52,8 @@ private:
 	//------------------
 	static CRenderer	*m_pRenderer;	//レンダラークラス
 	static CInput		*m_pInput;		//インプットクラス
+	static CTexture		*m_pTexture;	//テクスチャクラス
+	static CSound		*m_pSound;		//サウンドクラス
 	static CPlayer		*m_pPlayer;		//プレイヤークラス
 };
 

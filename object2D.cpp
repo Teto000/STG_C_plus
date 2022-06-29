@@ -211,6 +211,11 @@ void CObject2D::Draw()
 	// 頂点フォーマットの設定
 	pDevice->SetFVF(FVF_VERTEX_2D);
 
+	CTexture *pTexture = CApplication::GetTexture();
+
+	//テクスチャの設定
+	pDevice->SetTexture(0, pTexture->GetTexture(m_texture));
+
 	// ポリゴンの描画
 	pDevice->DrawPrimitive(D3DPT_TRIANGLESTRIP,	//プリミティブの種類
 						   0,					//描画する最初の頂点インデックス
@@ -236,9 +241,11 @@ D3DXVECTOR3 CObject2D::GetPosition()
 //===========================
 // 移動量の加算
 //===========================
-void CObject2D::AddMove(D3DXVECTOR3 move)
+D3DXVECTOR3 CObject2D::AddMove(D3DXVECTOR3 move)
 {
 	m_pos += move;
+
+	return m_pos;
 }
 
 //===========================
@@ -270,6 +277,14 @@ void CObject2D::SetTexCIE(float left ,float fRight)
 
 	//頂点バッファをアンロックする
 	m_pVtxBuff->Unlock();
+}
+
+//===========================
+// テクスチャの設定
+//===========================
+void CObject2D::SetTexture(CTexture::TEXTURE texture)
+{
+	m_texture = texture;
 }
 
 //===========================

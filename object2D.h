@@ -12,6 +12,7 @@
 //--------------------------------
 #include <d3dx9.h>
 #include "object.h"
+#include "texture.h"
 
 //--------------------------------
 // オブジェクト2Dクラスの定義
@@ -31,9 +32,10 @@ public:
 	virtual void Draw() override;
 	
 	void SetPosition(D3DXVECTOR3 pos);			//位置の設定
-	void AddMove(D3DXVECTOR3 move);				//移動量の加算
+	D3DXVECTOR3 AddMove(D3DXVECTOR3 move);		//移動量の加算
 	void SetSize(float fWidth, float fHeight);	//大きさの設定
 	void SetTexCIE(float left, float fRight);	//テクスチャ座標の設定
+	void SetTexture(CTexture::TEXTURE texture);	//テクスチャの設定
 
 	//ゲッター
 	D3DXVECTOR3 GetPosition() override;		//位置の取得
@@ -52,6 +54,7 @@ private:
 	float m_fScal;		//大きさ
 
 	LPDIRECT3DVERTEXBUFFER9 m_pVtxBuff;	//頂点バッファへのポインタ
+	CTexture::TEXTURE m_texture;		//テクスチャ
 };
 
 #endif // !_OBJECT_H_
