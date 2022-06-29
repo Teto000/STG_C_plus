@@ -21,6 +21,7 @@ const char* CTexture::s_FileName[] =
 {// テクスチャのパス
 	"data/TEXTURE/Player.png",		//プレイヤー
 	"data/TEXTURE/Bullet.png",		//弾
+	"data/TEXTURE/Explosion.png",	//爆発
 };
 
 static_assert(sizeof(CTexture::s_FileName) / sizeof(CTexture::s_FileName[0]) == CTexture::TEXTURE_MAX, "aho");

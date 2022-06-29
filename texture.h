@@ -21,9 +21,10 @@ public: /* 定義 */
 	enum TEXTURE
 	{
 		TEXTURE_PLAYER = 0,		//プレイヤー
-		TEXTURE_BULLET,
+		TEXTURE_BULLET,			//弾
+		TEXTURE_EXPLOSION,		//爆発
 		TEXTURE_MAX,
-		TEXTURE_NONE,		//使用しない
+		TEXTURE_NONE,			//使用しない
 	};
 
 	static const char* s_FileName[];	// ファイルパス

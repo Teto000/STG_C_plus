@@ -17,6 +17,7 @@
 #include "input_keybord.h"
 #include "application.h"
 #include "player.h"
+#include "explosion.h"
 
 //------------------------
 // 静的メンバ変数宣言
@@ -81,7 +82,7 @@ void CBullet::Uninit()
 void CBullet::Update()
 {
 	//移動量の加算
-	CObject2D::AddMove(m_aBullet.move);
+	m_aBullet.pos = CObject2D::AddMove(m_aBullet.move);
 
 	CObject2D::Update();
 
@@ -91,9 +92,9 @@ void CBullet::Update()
 	//寿命が尽きた
 	if (m_aBullet.nLife <= 0.0f)
 	{
+		CExplosion::Create(m_aBullet.pos);//爆発の生成
 		Uninit();
 		CObject2D::Release();	//弾の開放
-		//CExplosion::Create(pos);//爆発の生成
 	}
 
 	//画面端の処理
