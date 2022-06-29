@@ -23,6 +23,7 @@
 // 静的メンバ変数宣言
 //------------------------
 const float CPlayer::fPlayerSpeed = 5.0f;
+D3DXCOLOR CPlayer::m_col = D3DXCOLOR(1.0f, 1.0f, 1.0f,1.0f);
 
 //===========================
 // コンストラクタ
@@ -93,10 +94,7 @@ void CPlayer::Update()
 	//--------------------------
 	// 弾の発射
 	//--------------------------
-	if (CInputKeyboard::Trigger(DIK_SPACE))
-	{//SPACEキーが押された
-		CBullet::Create(m_Player.pos);
-	}
+	CBullet::ShotBullet(m_Player.pos, m_Player.rot);
 }
 
 //===========================
@@ -105,6 +103,7 @@ void CPlayer::Update()
 void CPlayer::Draw()
 {
 	CObject2D::Draw();
+	CObject2D::SetColor(m_col);
 }
 
 //===========================
@@ -178,4 +177,12 @@ D3DXVECTOR3 CPlayer::OperationPlayer()
 	}
 
 	return m_Player.move;
+}
+
+//===========================
+// 色の設定
+//===========================
+void CPlayer::SetCol(D3DXCOLOR col)
+{
+	m_col = col;
 }

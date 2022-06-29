@@ -31,11 +31,14 @@ public:
 	virtual void Update() override;
 	virtual void Draw() override;
 	
-	void SetPosition(D3DXVECTOR3 pos);			//位置の設定
 	D3DXVECTOR3 AddMove(D3DXVECTOR3 move);		//移動量の加算
+
+	//セッター
+	void SetPosition(D3DXVECTOR3 pos);			//位置の設定
 	void SetSize(float fWidth, float fHeight);	//大きさの設定
 	void SetTexCIE(float left, float fRight);	//テクスチャ座標の設定
 	void SetTexture(CTexture::TEXTURE texture);	//テクスチャの設定
+	void SetColor(D3DXCOLOR col);				//色の設定
 
 	//ゲッター
 	D3DXVECTOR3 GetPosition() override;		//位置の取得

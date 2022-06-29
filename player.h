@@ -51,6 +51,7 @@ public:
 	// 静的メンバ関数
 	//------------------
 	static CPlayer *Create();
+	static void SetCol(D3DXCOLOR col);	//色の設定
 
 private:
 	D3DXVECTOR3 OperationPlayer();	//操作
@@ -69,6 +70,7 @@ private:
 	//------------------
 	// 静的メンバ変数
 	//------------------
+	static D3DXCOLOR m_col;
 };
 
 #endif // !_PLAYER_H_

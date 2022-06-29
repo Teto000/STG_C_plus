@@ -16,11 +16,15 @@
 #include "object2D.h"
 #include "input_keybord.h"
 #include "application.h"
+#include "player.h"
 
 //------------------------
 // 静的メンバ変数宣言
 //------------------------
 const float CBullet::fBulletSpeed = 5.0f;	//弾の速度
+
+int CBullet::s_nShotTime;		//弾の発射時間を数える
+int CBullet::s_nChageTime;		//弾のチャージ時間
 
 //===========================
 // コンストラクタ
@@ -49,7 +53,14 @@ HRESULT CBullet::Init(D3DXVECTOR3 pos)
 
 	CObject2D::Init(pos);
 
-	CObject2D::SetSize(50.0f, 50.0f);	//サイズの設定
+	if (m_aBullet.type == BULLETSTATE_NORMAL)
+	{
+		CObject2D::SetSize(50.0f, 50.0f);	//サイズの設定
+	}
+	else if (m_aBullet.type == BULLETSTATE_CHARGE)
+	{
+		CObject2D::SetSize(80.0f, 80.0f);
+	}
 
 	CObject2D::SetTexture(CTexture::TEXTURE_BULLET);	//テクスチャの設定
 
@@ -74,20 +85,19 @@ void CBullet::Update()
 
 	CObject2D::Update();
 
-	D3DXVECTOR3 pos = CObject2D::GetPosition();
-
 	//寿命の減少
 	m_aBullet.nLife--;
 
 	//寿命が尽きた
 	if (m_aBullet.nLife <= 0.0f)
 	{
+		Uninit();
 		CObject2D::Release();	//弾の開放
 		//CExplosion::Create(pos);//爆発の生成
 	}
 
 	//画面端の処理
-	if (pos.x >= 1280.0f)
+	if (m_aBullet.pos.x >= 1280.0f)
 	{
 		CObject2D::Release();
 	}
@@ -154,7 +164,7 @@ void CBullet::Draw()
 //===========================
 // 生成
 //===========================
-CBullet *CBullet::Create(D3DXVECTOR3 pos)
+CBullet *CBullet::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, BULLETSTATE type)
 {
 	CBullet *pBullet = nullptr;
 
@@ -166,9 +176,58 @@ CBullet *CBullet::Create(D3DXVECTOR3 pos)
 	if (pBullet != nullptr)
 	{//NULLチェック
 		//初期化
+		pBullet->m_aBullet.move = move;		//移動量の代入
+		pBullet->m_aBullet.type = type;		//種類の代入
 		pBullet->Init(pos);
+
 		pBullet->SetObjType(OBJTYPE_BULLET);
 	}
 
 	return pBullet;
+}
+
+//=======================
+// 弾の発射
+//=======================
+void CBullet::ShotBullet(D3DXVECTOR3 pos, D3DXVECTOR3 rot)
+{
+	rot.x = rot.x - D3DX_PI / 2;	//右を前に変更
+
+	s_nShotTime++;
+	s_nShotTime %= nShotTime;	//発射時間をリセット
+
+	//---------------------------
+	// 通常弾
+	//---------------------------
+	if (!CInputKeyboard::Press(DIK_1) && s_nShotTime == 0)
+	{//SPACEキーが押されている間 かつ 弾の発射時間が0なら
+		//プレイヤーの向きに弾を発射する
+		Create(pos, D3DXVECTOR3(-sinf(rot.x) * fBulletSpeed, -cosf(rot.x) * fBulletSpeed, 0.0f), BULLETSTATE_NORMAL);
+	}
+
+	//---------------------------
+	// チャージショット
+	//---------------------------
+	if (CInputKeyboard::Press(DIK_1))
+	{//1キーが押されている間
+		s_nChageTime++;		//チャージ時間を加算
+
+		if (s_nChageTime >= 40)
+		{//チャージ時間が10以上なら
+			CPlayer::SetCol(D3DXCOLOR(1.0f, 0.5f, 0.5f, 1.0f));	//プレイヤーの色を変更
+		}
+	}
+
+	if (CInputKeyboard::Release(DIK_1) && s_nChageTime >= 40)
+	{//1キーを離したとき かつ チャージ状態なら
+		Create(pos, D3DXVECTOR3(-sinf(rot.x) * fBulletSpeed, -cosf(rot.x) * fBulletSpeed, 0.0f), BULLETSTATE_CHARGE);
+
+		s_nChageTime = 0;	//チャージ時間をリセット
+		s_nShotTime = 0;	//通常弾のの発射時間リセット
+		CPlayer::SetCol(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));	//プレイヤーの色を変更
+	}
+	else if (CInputKeyboard::Release(DIK_1) && s_nChageTime < 40)
+	{
+		s_nChageTime = 0;	//チャージ時間をリセット
+	}
 }

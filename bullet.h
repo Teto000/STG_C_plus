@@ -29,13 +29,6 @@ public:
 		BULLETSTATE_MAX
 	}BULLETSTATE;
 
-	typedef enum
-	{
-		BULLETGATE_PLAYER = 0,
-		BULLETGATE_EQUIP,
-		BULLETGATE_MAX
-	}BULLETGATE;
-
 	//---------------------------
 	// 弾の構造体の定義
 	//---------------------------
@@ -49,7 +42,6 @@ public:
 		float fHeight;		//高さ
 		bool bUse;			//使用しているか
 		BULLETSTATE type;	//種類
-		BULLETGATE gate;	//発射口
 	}Bullet;
 
 	CBullet();				//コンストラクタ
@@ -66,18 +58,26 @@ public:
 	//----------------
 	// 静的メンバ関数
 	//----------------
-	static CBullet *Create(D3DXVECTOR3 pos);
+	static CBullet *Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, BULLETSTATE type);
+	static void ShotBullet(D3DXVECTOR3 pos, D3DXVECTOR3 rot);
 
 private:
 	//----------------
 	// 定数定義
 	//----------------
 	static const float fBulletSpeed;	//弾の速度
+	static const int nShotTime = 30;	//弾の発射時間
 
 	//----------------
 	// メンバ変数
 	//----------------
 	Bullet m_aBullet;	//弾の構造体
+
+	//----------------
+	// 静的メンバ変数
+	//----------------
+	static int s_nShotTime;		//弾の発射時間を数える
+	static int s_nChageTime;	//弾のチャージ時間
 };
 
 #endif // !_BULLET_H_

@@ -28,12 +28,12 @@ CObject2D::CObject2D() : CObject()
 {
 	m_pVtxBuff = nullptr;	//頂点バッファへのポインタ
 
-	m_pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	//位置
-	m_move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	//移動量
+	m_pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		//位置
+	m_move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		//移動量
 	m_fWidth = 0.0f;	//幅
 	m_fHeight = 0.0f;	//高さ
-	m_fRot = 0.0f;	//回転角度
-	m_fScal = 0.0f;	//大きさ
+	m_fRot = 0.0f;		//回転角度
+	m_fScal = 0.0f;		//大きさ
 }
 
 //===========================
@@ -301,4 +301,26 @@ float CObject2D::GetWidth()
 float CObject2D::GetHeight()
 {
 	return m_fHeight;
+}
+
+//===========================
+// 色の設定
+//===========================
+void CObject2D::SetColor(D3DXCOLOR col)
+{
+	VERTEX_2D*pVtx;		//頂点情報へのポインタ
+
+	//頂点バッファをロックし、頂点情報へのポインタを取得
+	m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
+
+	//------------------------
+	// 頂点カラーの設定
+	//------------------------
+	pVtx[0].col = col;
+	pVtx[1].col = col;
+	pVtx[2].col = col;
+	pVtx[3].col = col;
+
+	//頂点バッファをアンロックする
+	m_pVtxBuff->Unlock();
 }
