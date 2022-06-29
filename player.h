@@ -43,14 +43,17 @@ public:
 	// ƒƒ“ƒoŠÖ”
 	//----------------
 	HRESULT Init(D3DXVECTOR3 pos) override;
-	void Uninit(void) override;
-	void Update(void) override;
-	void Draw(void) override;
+	void Uninit() override;
+	void Update() override;
+	void Draw() override;
 
 	//----------------
 	// Ã“Iƒƒ“ƒoŠÖ”
 	//----------------
 	static CPlayer *Create();
+
+private:
+	D3DXVECTOR3 OperationPlayer();	//‘€ì
 
 private:
 	//----------------
