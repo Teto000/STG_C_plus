@@ -1,11 +1,11 @@
 //=====================================
 //
-// プレイヤーヘッダー
+// HPヘッダー
 // Author : Sato Teruto
 //
 //=====================================
-#ifndef _PLAYER_H_
-#define _PLAYER_H_	
+#ifndef _HP_H_
+#define _HP_H_	
 
 //--------------------------
 // インクルード
@@ -15,29 +15,35 @@
 //--------------------------
 // プレイヤークラス
 //--------------------------
-class CPlayer : public CObject2D
+class CHp : public CObject2D
 {
 public:
 	//---------------------------
-	// プレイヤー構造体の定義
+	// HP列挙型の定義
+	//---------------------------
+	typedef enum
+	{
+		HPTYPE_NOMAL = 0,
+		HPTYPE_PLAYER,
+		HPTYPE_ENEMY,
+		HPTYPE_MAX,
+	}HPTYPE;
+
+	//---------------------------
+	// HP構造体の定義
 	//---------------------------
 	typedef struct
 	{
 		D3DXVECTOR3 pos;	//位置
 		D3DXVECTOR3 move;	//移動量
-		D3DXVECTOR3 rot;	//移動量
-		D3DXCOLOR col;		//色
-		int nLife;			//体力
-		int nMaxLife;		//最大体力
-		int nRemLife;		//残り体力
-		int nAttack;		//攻撃力
-		float nSpeed;		//速度
 		float fWidth;		//幅
 		float fHeight;		//高さ
-	}Player;
-
-	CPlayer();				//コンストラクタ
-	~CPlayer() override;	//デストラクタ
+		float fLength;		//HPバーの長さ
+		HPTYPE type;		//種類
+	}HP;
+	
+	CHp();				//コンストラクタ
+	~CHp() override;	//デストラクタ
 
 	//------------------
 	// メンバ関数
@@ -47,33 +53,24 @@ public:
 	void Update() override;
 	void Draw() override;
 
-	//ゲッター
-	int GetRemLife();
-
 	//------------------
 	// 静的メンバ関数
 	//------------------
-	static CPlayer *Create();
-	static void SetCol(D3DXCOLOR col);	//色の設定
-
-private:
-	D3DXVECTOR3 OperationPlayer();	//操作
+	static CHp *Create();
 
 private:
 	//------------------
 	// 定数定義
 	//------------------
-	static const float fPlayerSpeed;	//プレイヤーの速度
 
 	//------------------
 	// メンバ変数
 	//------------------
-	Player m_Player;	//プレイヤー構造体
+	HP m_aHP;	//HP構造体
 
 	//------------------
 	// 静的メンバ変数
 	//------------------
-	static D3DXCOLOR m_col;
 };
 
-#endif // !_PLAYER_H_
+#endif // !_HP_H_

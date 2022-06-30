@@ -75,7 +75,7 @@ HRESULT CApplication::Init(HINSTANCE hInstance, HWND hWnd)
 	//プレイヤーの生成
 	m_pPlayer = CPlayer::Create();
 
-	//プレイヤーの敵
+	//敵の生成
 	m_pEnemy = CEnemy::Create();
 
 	return S_OK;

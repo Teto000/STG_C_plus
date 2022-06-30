@@ -32,6 +32,7 @@ public:
 		OBJTYPE_ENEMY,		//“G
 		OBJTYPE_BULLET,		//’e
 		OBJTYPE_EXPLOSION,	//”š”­
+		OBJTYPE_HP,			//HP
 		OBJTYPE_MAX,
 		OBJTYPE_INVALID
 	};

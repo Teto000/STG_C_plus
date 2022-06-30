@@ -24,6 +24,7 @@ public: /* ’è‹` */
 		TEXTURE_BULLET,			//’e
 		TEXTURE_EXPLOSION,		//”š”­
 		TEXTURE_ENEMYBIRD,		//’¹Œ^‚Ì“G
+		TEXTURE_RING,			//—Ö
 		TEXTURE_MAX,
 		TEXTURE_NONE,			//Žg—p‚µ‚È‚¢
 	};

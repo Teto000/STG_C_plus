@@ -9,6 +9,7 @@
 // インクルード
 //------------------------
 #include <assert.h>
+#include <memory.h>
 #include "explosion.h"
 #include "main.h"
 #include "renderer.h"
@@ -31,8 +32,7 @@
 //===========================
 CExplosion::CExplosion() : CObject2D()
 {
-	m_nCnterAnim = 0;
-	m_nPatternAnim = 0;
+	memset(&m_Explosion, 0, sizeof(m_Explosion));	//構造体のクリア
 }
 
 //===========================
@@ -48,13 +48,20 @@ CExplosion::~CExplosion()
 //===========================
 HRESULT CExplosion::Init(D3DXVECTOR3 pos)
 {
-	CObject2D::Init(pos);
+	//------------------
+	// 構造体の初期化
+	//------------------
+	m_Explosion.nLife = 100;
+	m_Explosion.pos = pos;
+	m_Explosion.col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+	m_Explosion.fWidth = 80.0f;
+	m_Explosion.fHeight = 80.0f;
 
-	CObject2D::SetSize(80.0f, 80.0f);	//サイズの設定
+	CObject2D::Init(m_Explosion.pos);
 
-	CObject2D::SetTexCIE(0.0f, 1.0f / TEX_DIVISION);	//テクスチャ座標の設定
+	CObject2D::SetSize(m_Explosion.fWidth, m_Explosion.fHeight);	//サイズの設定
 
-	CObject2D::SetTexture(CTexture::TEXTURE_EXPLOSION);	//テクスチャの設定
+	CObject2D::SetTexture(CTexture::TEXTURE_RING);	//テクスチャの設定
 
 	return S_OK;
 }
@@ -74,23 +81,33 @@ void CExplosion::Update()
 {
 	CObject2D::Update();
 
-	float fPart = (1.0f / TEX_DIVISION);
+	//--------------------
+	// 拡大
+	//--------------------
+	m_Explosion.fWidth += 3;
+	m_Explosion.fHeight += 3;
 
-	m_nCnterAnim++;
+	CObject2D::SetPosition(m_Explosion.pos);	//位置の設定
+	CObject2D::SetSize(m_Explosion.fWidth, m_Explosion.fHeight);	//サイズの設定
+	CObject2D::SetVtxCIE(m_Explosion.pos, m_Explosion.fWidth, m_Explosion.fHeight);	//頂点座標の設定
 
-	if ((m_nCnterAnim % TEX_DIVISION) == 0)
+	//--------------------
+	// 徐々に透過
+	//--------------------
+	m_Explosion.col.a -= 0.1f;
+	SetColor(m_Explosion.col);
+	
+	//--------------------
+	// 寿命
+	//--------------------
+	//寿命の減少
+	m_Explosion.nLife--;
+
+	//寿命が尽きた
+	if (m_Explosion.nLife <= 0)
 	{
-		m_nPatternAnim++;
-
-		CObject2D::SetTexCIE((fPart *m_nPatternAnim), (fPart * (m_nPatternAnim + 1)));
-
-		if (m_nPatternAnim >= TEX_DIVISION)
-		{//パターンが最大数に達したら
-			m_nCnterAnim = 0;
-			m_nPatternAnim = 0;
-			CObject2D::Uninit();
-			CObject2D::Release();	//解放
-		}
+		CObject2D::Uninit();
+		CObject2D::Release();	//解放
 	}
 }
 

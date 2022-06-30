@@ -40,7 +40,6 @@ public:
 		int nLife;			//õ–½
 		float fWidth;		//•
 		float fHeight;		//‚‚³
-		bool bUse;			//g—p‚µ‚Ä‚¢‚é‚©
 		BULLETSTATE type;	//í—Ş
 	}Bullet;
 

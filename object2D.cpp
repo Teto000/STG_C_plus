@@ -267,9 +267,7 @@ void CObject2D::SetTexCIE(float left ,float fRight)
 	//頂点バッファをロックし、頂点情報へのポインタを取得
 	m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
 
-	//------------------------
-	// テクスチャ座標の設定
-	//------------------------
+	//テクスチャ座標の設定
 	pVtx[0].tex = D3DXVECTOR2(left, 0.0f);
 	pVtx[1].tex = D3DXVECTOR2(fRight, 0.0f);
 	pVtx[2].tex = D3DXVECTOR2(left, 1.0f);
@@ -285,6 +283,26 @@ void CObject2D::SetTexCIE(float left ,float fRight)
 void CObject2D::SetTexture(CTexture::TEXTURE texture)
 {
 	m_texture = texture;
+}
+
+//===========================
+// 頂点座標の設定
+//===========================
+void CObject2D::SetVtxCIE(D3DXVECTOR3 pos, float fWidth, float fHeight)
+{
+	VERTEX_2D*pVtx;		//頂点情報へのポインタ
+
+	//頂点バッファをロックし、頂点情報へのポインタを取得
+	m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
+
+	//頂点座標の設定
+	pVtx[0].pos = pos + D3DXVECTOR3(-fWidth / 2, -fHeight / 2, 0.0f);
+	pVtx[1].pos = pos + D3DXVECTOR3(fWidth / 2, -fHeight / 2, 0.0f);
+	pVtx[2].pos = pos + D3DXVECTOR3(-fWidth / 2, fHeight / 2, 0.0f);
+	pVtx[3].pos = pos + D3DXVECTOR3(fWidth / 2, fHeight / 2, 0.0f);
+
+	//頂点バッファをアンロックする
+	m_pVtxBuff->Unlock();
 }
 
 //===========================

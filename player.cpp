@@ -186,3 +186,11 @@ void CPlayer::SetCol(D3DXCOLOR col)
 {
 	m_col = col;
 }
+
+//===========================
+// Žc‚è‘Ì—Í‚ÌŽæ“¾
+//===========================
+int CPlayer::GetRemLife()
+{
+	return m_Player.nRemLife;
+}
