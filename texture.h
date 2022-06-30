@@ -23,6 +23,7 @@ public: /* 定義 */
 		TEXTURE_PLAYER = 0,		//プレイヤー
 		TEXTURE_BULLET,			//弾
 		TEXTURE_EXPLOSION,		//爆発
+		TEXTURE_ENEMYBIRD,		//鳥型の敵
 		TEXTURE_MAX,
 		TEXTURE_NONE,			//使用しない
 	};

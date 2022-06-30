@@ -20,6 +20,7 @@ class CInput;		//インプット
 class CTexture;		//テクスチャ
 class CSound;		//サウンド
 class CPlayer;		//プレイヤー
+class CEnemy;		//敵
 
 //-------------------------------------
 // アプリケーションクラスの定義
@@ -55,6 +56,7 @@ private:
 	static CTexture		*m_pTexture;	//テクスチャクラス
 	static CSound		*m_pSound;		//サウンドクラス
 	static CPlayer		*m_pPlayer;		//プレイヤークラス
+	static CEnemy		*m_pEnemy;		//敵クラス
 };
 
 #endif // !_APPLICATION_H_

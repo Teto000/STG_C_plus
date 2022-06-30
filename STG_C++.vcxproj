@@ -150,6 +150,7 @@
   <ItemGroup>
     <ClCompile Include="application.cpp" />
     <ClCompile Include="bullet.cpp" />
+    <ClCompile Include="enemy.cpp" />
     <ClCompile Include="explosion.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="input_joypad.cpp" />
@@ -165,6 +166,7 @@
   <ItemGroup>
     <ClInclude Include="application.h" />
     <ClInclude Include="bullet.h" />
+    <ClInclude Include="enemy.h" />
     <ClInclude Include="explosion.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="input_joypad.h" />

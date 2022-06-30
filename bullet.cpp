@@ -1,6 +1,6 @@
 //===================================
 //
-// ƒoƒŒƒbƒg‚Ìˆ—
+// ’e‚Ìˆ—
 // Author : Sato Teruto
 //
 //===================================
@@ -146,6 +146,8 @@ void CBullet::Update()
 			if (BulletPos.x + BulletWidth / 2 >= fLeft && BulletPos.x - BulletWidth / 2 <= fRight
 				&& BulletPos.y - BulletHeight / 2 <= fBottom && BulletPos.y + BulletHeight / 2 >= fTop)
 			{
+				CExplosion::Create(m_aBullet.pos);//”š”­‚Ì¶¬
+
 				//’e‚ÌÁ–Å
 				Uninit();
 				CObject2D::Release();

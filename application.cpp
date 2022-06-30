@@ -19,6 +19,7 @@
 #include "sound.h"
 #include "player.h"
 #include "bullet.h"
+#include "enemy.h"
 
 //------------------------
 // 静的メンバ変数宣言
@@ -28,6 +29,7 @@ CInput		*CApplication::m_pInput = nullptr;		//インプット
 CTexture	*CApplication::m_pTexture = nullptr;	//テクスチャ
 CSound		*CApplication::m_pSound = nullptr;		//サウンド
 CPlayer		*CApplication::m_pPlayer = nullptr;		//プレイヤー
+CEnemy		*CApplication::m_pEnemy = nullptr;		//敵
 
 //===========================
 // コンストラクタ
@@ -72,6 +74,9 @@ HRESULT CApplication::Init(HINSTANCE hInstance, HWND hWnd)
 
 	//プレイヤーの生成
 	m_pPlayer = CPlayer::Create();
+
+	//プレイヤーの敵
+	m_pEnemy = CEnemy::Create();
 
 	return S_OK;
 }
