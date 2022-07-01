@@ -15,6 +15,7 @@
 #include "renderer.h"
 #include "object2D.h"
 #include "player.h"
+#include "application.h"
 
 //------------------------
 // 静的メンバ変数宣言
@@ -25,7 +26,7 @@
 //===========================
 CHp::CHp() : CObject2D()
 {
-	memset(&m_aHP, 0, sizeof(m_aHP));	//構造体のクリア
+	memset(&m_HP, 0, sizeof(m_HP));	//構造体のクリア
 }
 
 //===========================
@@ -42,15 +43,15 @@ CHp::~CHp()
 HRESULT CHp::Init(D3DXVECTOR3 pos)
 {
 	//位置の設定
-	m_aHP.pos = pos;
+	m_HP.pos = pos;
 
-	CObject2D::Init(m_aHP.pos);
+	CObject2D::Init(m_HP.pos);
 
 	CObject2D::SetSize(80.0f, 100.0f);	//サイズの設定
 
 	CObject2D::SetTexture(CTexture::TEXTURE_PLAYER);	//テクスチャの設定
 
-	m_aHP.pos = CObject2D::GetPosition();
+	m_HP.pos = CObject2D::GetPosition();
 
 	return S_OK;
 }
@@ -86,31 +87,29 @@ void CHp::Update()
 		//オブジェクトの種類の取得
 		CObject::EObjType type = pObject->GetObjType();
 
-		////=============================
-		//// プレイヤーの処理
-		////=============================
-		//if (type == OBJTYPE_PLAYER)
-		//{
-		//	//プレイヤーの残り体力を取得
-		//	int PlayerLife = GetRemLife();
+		//=============================
+		// プレイヤーの処理
+		//=============================
+		if (type == OBJTYPE_PLAYER)
+		{
+			CPlayer *pPlayer = CApplication::GetPlayer();
 
-		//	//--------------------
-		//	// HPが0になったら
-		//	//--------------------
-		//	if (m_aHP.fLength * pPlayer->nRemLife <= 0)
-		//	{
-		//		Uninit();
-		//		CObject2D::Release();
-		//	}
+			//プレイヤーの残り体力を取得
+			int PlayerLife = pPlayer->GetRemLife();
 
-		//	//---------------------------
-		//	// 頂点座標の移動
-		//	//---------------------------
-		//	pVtx[0].pos = hp->pos + D3DXVECTOR3(-hp->fWidth / 2, -hp->fHeight / 2, 0.0f);
-		//	pVtx[1].pos = hp->pos + D3DXVECTOR3(-hp->fWidth / 2 + (hp->fLength * pPlayer->nRemLife), -hp->fHeight / 2, 0.0f);
-		//	pVtx[2].pos = hp->pos + D3DXVECTOR3(-hp->fWidth / 2, hp->fHeight / 2, 0.0f);
-		//	pVtx[3].pos = hp->pos + D3DXVECTOR3(-hp->fWidth / 2 + (hp->fLength * pPlayer->nRemLife), hp->fHeight / 2, 0.0f);
-		//}
+			//頂点座標の設定
+			CObject2D::SetVtxCIE_SP(m_HP.pos, m_HP.fWidth,
+				m_HP.fWidth / 2 + (m_HP.fLength * PlayerLife), m_HP.fHeight, m_HP.fHeight);
+
+			//--------------------
+			// HPが0になったら
+			//--------------------
+			if (m_HP.fLength * PlayerLife <= 0)
+			{
+				Uninit();
+				CObject2D::Release();
+			}
+		}
 	}
 }
 
@@ -125,7 +124,7 @@ void CHp::Draw()
 //===========================
 // 生成
 //===========================
-CHp *CHp::Create()
+CHp *CHp::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, float fWidth, float fHeight, HPTYPE type)
 {
 	CHp *pHP = nullptr;
 
@@ -134,10 +133,17 @@ CHp *CHp::Create()
 	//----------------------------------
 	pHP = new CHp;	//生成
 
+	//構造体に値を代入
+	pHP->m_HP.pos = pos;
+	pHP->m_HP.move = move;
+	pHP->m_HP.fWidth = fWidth;
+	pHP->m_HP.fHeight = fHeight;
+	pHP->m_HP.type = type;
+
 	if (pHP != nullptr)
 	{//NULLチェック
-	 //初期化
-		pHP->Init(D3DXVECTOR3(400.0f, SCREEN_HEIGHT / 2, 0.0f));
+		//初期化
+		pHP->Init(pHP->m_HP.pos);
 		pHP->SetObjType(OBJTYPE_HP);
 	}
 

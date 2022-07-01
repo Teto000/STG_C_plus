@@ -32,7 +32,7 @@ int CBullet::s_nChageTime;		//弾のチャージ時間
 //===========================
 CBullet::CBullet() : CObject2D()
 {
-	memset(&m_aBullet, 0, sizeof(m_aBullet));	//構造体のクリア
+	memset(&m_Bullet, 0, sizeof(m_Bullet));	//構造体のクリア
 }
 
 //===========================
@@ -49,16 +49,16 @@ CBullet::~CBullet()
 HRESULT CBullet::Init(D3DXVECTOR3 pos)
 {
 	//メンバ変数の初期化
-	m_aBullet.move = D3DXVECTOR3(fBulletSpeed, 0.0f, 0.0f);
-	m_aBullet.nLife = 100;
+	m_Bullet.move = D3DXVECTOR3(fBulletSpeed, 0.0f, 0.0f);
+	m_Bullet.nLife = 100;
 
 	CObject2D::Init(pos);
 
-	if (m_aBullet.type == BULLETSTATE_NORMAL)
+	if (m_Bullet.type == BULLETSTATE_NORMAL)
 	{
 		CObject2D::SetSize(50.0f, 50.0f);	//サイズの設定
 	}
-	else if (m_aBullet.type == BULLETSTATE_CHARGE)
+	else if (m_Bullet.type == BULLETSTATE_CHARGE)
 	{
 		CObject2D::SetSize(80.0f, 80.0f);
 	}
@@ -82,23 +82,23 @@ void CBullet::Uninit()
 void CBullet::Update()
 {
 	//移動量の加算
-	m_aBullet.pos = CObject2D::AddMove(m_aBullet.move);
+	m_Bullet.pos = CObject2D::AddMove(m_Bullet.move);
 
 	CObject2D::Update();
 
 	//寿命の減少
-	m_aBullet.nLife--;
+	m_Bullet.nLife--;
 
 	//寿命が尽きた
-	if (m_aBullet.nLife <= 0.0f)
+	if (m_Bullet.nLife <= 0.0f)
 	{
-		CExplosion::Create(m_aBullet.pos);//爆発の生成
+		CExplosion::Create(m_Bullet.pos);//爆発の生成
 		Uninit();
 		CObject2D::Release();	//弾の開放
 	}
 
 	//画面端の処理
-	if (m_aBullet.pos.x >= 1280.0f)
+	if (m_Bullet.pos.x >= 1280.0f)
 	{
 		CObject2D::Release();
 	}
@@ -146,7 +146,7 @@ void CBullet::Update()
 			if (BulletPos.x + BulletWidth / 2 >= fLeft && BulletPos.x - BulletWidth / 2 <= fRight
 				&& BulletPos.y - BulletHeight / 2 <= fBottom && BulletPos.y + BulletHeight / 2 >= fTop)
 			{
-				CExplosion::Create(m_aBullet.pos);//爆発の生成
+				CExplosion::Create(m_Bullet.pos);//爆発の生成
 
 				//弾の消滅
 				Uninit();
@@ -179,8 +179,8 @@ CBullet *CBullet::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, BULLETSTATE type)
 	if (pBullet != nullptr)
 	{//NULLチェック
 		//初期化
-		pBullet->m_aBullet.move = move;		//移動量の代入
-		pBullet->m_aBullet.type = type;		//種類の代入
+		pBullet->m_Bullet.move = move;		//移動量の代入
+		pBullet->m_Bullet.type = type;		//種類の代入
 		pBullet->Init(pos);
 
 		pBullet->SetObjType(OBJTYPE_BULLET);

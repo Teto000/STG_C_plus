@@ -175,3 +175,11 @@ CSound *CApplication::GetSound()
 {
 	return m_pSound;
 }
+
+//===========================
+// ƒvƒŒƒCƒ„[‚Ìæ“¾
+//===========================
+CPlayer	 *CApplication::GetPlayer()
+{
+	return m_pPlayer;
+}

@@ -38,7 +38,9 @@ public:
 	void SetSize(float fWidth, float fHeight);	//大きさの設定
 	void SetTexCIE(float left, float fRight);	//テクスチャ座標の設定
 	void SetTexture(CTexture::TEXTURE texture);	//テクスチャの設定
-	void SetVtxCIE(D3DXVECTOR3 pos, float fWidth, float fHeight);	//頂点座標の設定
+	void SetVtxCIE(D3DXVECTOR3 pos, float fWidth, float fHeight);		//頂点座標の設定
+	void SetVtxCIE_SP(D3DXVECTOR3 pos, float fWidth1,
+					float fWidth2, float fHeight1, float fHeight2);	//頂点座標の設定(特殊)
 	void SetColor(D3DXCOLOR col);				//色の設定
 
 	//ゲッター

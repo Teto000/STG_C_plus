@@ -56,7 +56,7 @@ public:
 	//------------------
 	// 静的メンバ関数
 	//------------------
-	static CHp *Create();
+	static CHp *Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, float fWidth, float fHeight, HPTYPE type);
 
 private:
 	//------------------
@@ -66,7 +66,7 @@ private:
 	//------------------
 	// メンバ変数
 	//------------------
-	HP m_aHP;	//HP構造体
+	HP m_HP;	//HP構造体
 
 	//------------------
 	// 静的メンバ変数

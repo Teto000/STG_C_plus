@@ -46,6 +46,7 @@ public:
 	static CInput	 *GetInput();		//インプットの取得
 	static CTexture  *GetTexture();		//テクスチャの取得
 	static CSound	 *GetSound();		//サウンドの取得
+	static CPlayer	 *GetPlayer();		//プレイヤーの取得
 
 private:
 	//------------------
