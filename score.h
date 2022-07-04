@@ -25,7 +25,7 @@ public:
 		int nScore;			//値
 		float fWidth;		//幅
 		float fHeight;		//高さ
-		float fInterval;	//間隔
+		float fSpace;		//間隔
 	}Score;
 
 	CScore();				//コンストラクタ
@@ -39,8 +39,7 @@ public:
 	void Update() override;
 	void Draw()	  override;
 
-	static void SetScore(int nScore);
-	static void AddScore(int nValue);
+	void Add(int nValue);
 
 	//----------------
 	// 静的メンバ関数
@@ -49,12 +48,12 @@ public:
 
 private:
 	//----------------
-	// 定数
-	//----------------
-	static const int m_nMaxScore = 6;	//スコアの桁の最大数
-
-	//----------------
 	// メンバ変数
 	//----------------
 	Score m_Score;	//スコア構造体
+
+	//----------------
+	// 静的メンバ変数
+	//----------------
+	static int m_nScore;
 };

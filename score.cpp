@@ -12,6 +12,11 @@
 #include <memory.h>
 #include "score.h"
 
+//------------------------
+// 静的メンバ変数宣言
+//------------------------
+int CScore::m_nScore = 0;
+
 //===========================
 // コンストラクタ
 //===========================
@@ -37,7 +42,7 @@ HRESULT CScore::Init(D3DXVECTOR3 pos)
 	m_Score.pos = pos;
 	m_Score.fWidth = 15.0f;		//幅
 	m_Score.fHeight = 25.0f;	//高さ
-	m_Score.fInterval = 35.0f;	//間隔
+	m_Score.fSpace = 35.0f;		//間隔
 
 	CObject2D::Init(m_Score.pos);
 
@@ -84,8 +89,14 @@ CScore *CScore::Create()
 	{//NULLチェック
 		//初期化
 		pScore->Init(D3DXVECTOR3(1000.0f, 50.0f, 0.0f));
+		pScore->SetScore(0);
 		pScore->SetObjType(OBJTYPE_SCORE);
 	}
 
 	return pScore;
+}
+
+void CScore::Add(int nValue)
+{
+	CObject2D::AddScore(m_nScore, nValue);	//スコアの加算
 }

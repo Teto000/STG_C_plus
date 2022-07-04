@@ -39,16 +39,23 @@ public:
 	void SetTexCIE(float left, float fRight);	//テクスチャ座標の設定
 	void SetTexture(CTexture::TEXTURE texture);	//テクスチャの設定
 	void SetVtxCIE(D3DXVECTOR3 pos, float fWidth, float fHeight);		//頂点座標の設定
-	void SetVtxCIE_SP(D3DXVECTOR3 pos, float fWidth1,
-					float fWidth2, float fHeight1, float fHeight2);	//頂点座標の設定(特殊)
+	void SetVtxCIE_Gauge(D3DXVECTOR3 pos, float fWidth1,
+						float fWidth2, float fHeight1, float fHeight2);	//頂点座標の設定(ゲージ)
 	void SetColor(D3DXCOLOR col);				//色の設定
-
+	void SetScore(int nScore);					//スコアの設定
+	void AddScore(int nScore, int nValue);		//スコアの加算
+	
 	//ゲッター
 	D3DXVECTOR3 GetPosition() override;		//位置の取得
 	float GetWidth() override;				//幅の取得
 	float GetHeight() override;				//高さの取得
 
 private:
+	//----------------
+	// 定数
+	//----------------
+	static const int m_nMaxScore = 6;	//スコアの桁の最大数
+
 	//----------------
 	// メンバ変数
 	//----------------

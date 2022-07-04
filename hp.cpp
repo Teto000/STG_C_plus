@@ -12,21 +12,16 @@
 #include <memory.h>
 #include "hp.h"
 #include "main.h"
-#include "renderer.h"
 #include "object2D.h"
 #include "player.h"
 #include "application.h"
-
-//------------------------
-// 静的メンバ変数宣言
-//------------------------
 
 //===========================
 // コンストラクタ
 //===========================
 CHp::CHp() : CObject2D()
 {
-	memset(&m_HP, 0, sizeof(m_HP));	//構造体のクリア
+	memset(&m_HP, 0, sizeof(HP));	//構造体のクリア
 }
 
 //===========================
@@ -99,7 +94,7 @@ void CHp::Update()
 			int PlayerLife = pPlayer->GetRemLife();
 
 			//頂点座標の設定
-			CObject2D::SetVtxCIE_SP(m_HP.pos, m_HP.fWidth,
+			CObject2D::SetVtxCIE_Gauge(m_HP.pos, m_HP.fWidth,
 				m_HP.fWidth / 2 + (m_HP.fLength * PlayerLife), m_HP.fHeight, m_HP.fHeight);
 
 			//--------------------

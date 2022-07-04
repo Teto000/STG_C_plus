@@ -105,7 +105,7 @@ void CPlayer::Update()
 	//--------------------------
 	// HP‚Ì•\Ž¦
 	//--------------------------
-	//CHp::Create(D3DXVECTOR3(200.0f, 100.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 300.0f, 50.0f, CHp::HPTYPE_PLAYER);
+	CHp::Create(D3DXVECTOR3(200.0f, 100.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 300.0f, 50.0f, CHp::HPTYPE_PLAYER);
 }
 
 //===========================

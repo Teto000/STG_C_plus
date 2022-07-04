@@ -308,7 +308,7 @@ void CObject2D::SetVtxCIE(D3DXVECTOR3 pos, float fWidth, float fHeight)
 //===========================
 // 頂点座標の設定(特殊)
 //===========================
-void CObject2D::SetVtxCIE_SP(D3DXVECTOR3 pos, 
+void CObject2D::SetVtxCIE_Gauge(D3DXVECTOR3 pos, 
 	float fLeft,float fRight, float fUp, float fDown)
 {
 	VERTEX_2D*pVtx;		//頂点情報へのポインタ
@@ -359,6 +359,77 @@ void CObject2D::SetColor(D3DXCOLOR col)
 	pVtx[1].col = col;
 	pVtx[2].col = col;
 	pVtx[3].col = col;
+
+	//頂点バッファをアンロックする
+	m_pVtxBuff->Unlock();
+}
+
+//=====================
+// スコアの設定処理
+//=====================
+void CObject2D::SetScore(int nScore)
+{
+	int aPosTexU[m_nMaxScore];	//各桁の数字を格納
+
+	VERTEX_2D*pVtx;		//頂点情報へのポインタ
+
+	//頂点バッファをロックし、頂点情報へのポインタを取得
+	m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
+
+	aPosTexU[0] = nScore % 1000000 / 100000;
+	aPosTexU[1] = nScore % 100000 / 10000;
+	aPosTexU[2] = nScore % 10000 / 1000;
+	aPosTexU[3] = nScore % 1000 / 100;
+	aPosTexU[4] = nScore % 100 / 10;
+	aPosTexU[5] = nScore % 10 / 1;
+
+	//テクスチャ座標の設定
+	for (int i = 0; i < m_nMaxScore; i++)
+	{
+		pVtx[0].tex = D3DXVECTOR2(0.0f + aPosTexU[i] * 0.1f, 0.0f);
+		pVtx[1].tex = D3DXVECTOR2(0.1f + aPosTexU[i] * 0.1f, 0.0f);
+		pVtx[2].tex = D3DXVECTOR2(0.0f + aPosTexU[i] * 0.1f, 1.0f);
+		pVtx[3].tex = D3DXVECTOR2(0.1f + aPosTexU[i] * 0.1f, 1.0f);
+
+		pVtx += 4;
+	}
+
+	//頂点バッファをアンロックする
+	m_pVtxBuff->Unlock();
+}
+
+//=====================
+// スコアの加算処理
+//=====================
+void CObject2D::AddScore(int nScore, int nValue)
+{
+	int aPosTexU[m_nMaxScore];
+
+	//スコアの加算
+	nScore += nValue;
+
+	VERTEX_2D*pVtx;		//頂点情報へのポインタ
+
+	//頂点バッファをロックし、頂点情報へのポインタを取得
+	m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
+
+	aPosTexU[0] = nScore % 1000000 / 100000;
+	aPosTexU[1] = nScore % 100000 / 10000;
+	aPosTexU[2] = nScore % 10000 / 1000;
+	aPosTexU[3] = nScore % 1000 / 100;
+	aPosTexU[4] = nScore % 100 / 10;
+	aPosTexU[5] = nScore % 10 / 1;
+
+	//テクスチャ座標の設定
+	for (int i = 0; i < m_nMaxScore; i++)
+	{
+		pVtx[0].tex = D3DXVECTOR2(0.0f + aPosTexU[i] * 0.1f, 0.0f);
+		pVtx[1].tex = D3DXVECTOR2(0.1f + aPosTexU[i] * 0.1f, 0.0f);
+		pVtx[2].tex = D3DXVECTOR2(0.0f + aPosTexU[i] * 0.1f, 1.0f);
+		pVtx[3].tex = D3DXVECTOR2(0.1f + aPosTexU[i] * 0.1f, 1.0f);
+
+		pVtx += 4;		//頂点データのポインタを4つ分集める
+	}
 
 	//頂点バッファをアンロックする
 	m_pVtxBuff->Unlock();

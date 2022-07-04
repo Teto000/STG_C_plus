@@ -20,6 +20,7 @@
 #include "player.h"
 #include "bullet.h"
 #include "enemy.h"
+#include "score.h"
 
 //------------------------
 // 静的メンバ変数宣言
@@ -30,6 +31,7 @@ CTexture	*CApplication::m_pTexture = nullptr;	//テクスチャ
 CSound		*CApplication::m_pSound = nullptr;		//サウンド
 CPlayer		*CApplication::m_pPlayer = nullptr;		//プレイヤー
 CEnemy		*CApplication::m_pEnemy = nullptr;		//敵
+CScore		*CApplication::m_pScore = nullptr;		//スコア
 
 //===========================
 // コンストラクタ
@@ -77,6 +79,9 @@ HRESULT CApplication::Init(HINSTANCE hInstance, HWND hWnd)
 
 	//敵の生成
 	m_pEnemy = CEnemy::Create();
+
+	//スコアの生成
+	//m_pScore = CScore::Create();
 
 	return S_OK;
 }
