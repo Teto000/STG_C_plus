@@ -44,12 +44,13 @@ HRESULT CHp::Init(D3DXVECTOR3 pos)
 {
 	//位置の設定
 	m_HP.pos = pos;
+	m_HP.fLength = (m_HP.fWidth / 100);
 
 	CObject2D::Init(m_HP.pos);
 
 	CObject2D::SetSize(80.0f, 100.0f);	//サイズの設定
 
-	CObject2D::SetTexture(CTexture::TEXTURE_PLAYER);	//テクスチャの設定
+	CObject2D::SetTexture(CTexture::TEXTURE_NONE);	//テクスチャの設定
 
 	m_HP.pos = CObject2D::GetPosition();
 

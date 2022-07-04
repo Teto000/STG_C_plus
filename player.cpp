@@ -23,7 +23,7 @@
 //------------------------
 // 静的メンバ変数宣言
 //------------------------
-const float CPlayer::fPlayerSpeed = 5.0f;
+const float CPlayer::fPlayerSpeed = (30.0f / 5.0f);
 D3DXCOLOR CPlayer::m_col = D3DXCOLOR(1.0f, 1.0f, 1.0f,1.0f);
 
 //===========================
@@ -49,6 +49,11 @@ HRESULT CPlayer::Init(D3DXVECTOR3 pos)
 {
 	//位置の設定
 	m_Player.pos = pos;
+	m_Player.nLife = nPlayerLife;	//体力
+	m_Player.nMaxLife = nPlayerLife;//最大体力
+	m_Player.nRemLife = nMaxLife;	//残り体力
+	m_Player.nAttack = 10;			//攻撃力
+	m_Player.nSpeed = fPlayerSpeed;	//速度
 
 	CObject2D::Init(m_Player.pos);
 

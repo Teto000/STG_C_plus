@@ -63,7 +63,9 @@ private:
 	//------------------
 	// 定数定義
 	//------------------
-	static const float fPlayerSpeed;	//プレイヤーの速度
+	static const float fPlayerSpeed;			//プレイヤーの速度
+	static const int nPlayerLife = (150 / 5);	//プレイヤーの体力
+	static const int nMaxLife = 100;	//最大体力
 
 	//------------------
 	// メンバ変数
