@@ -47,8 +47,6 @@ HRESULT CHp::Init(D3DXVECTOR3 pos)
 
 	CObject2D::SetTexture(CTexture::TEXTURE_NONE);	//テクスチャの設定
 
-	m_HP.pos = CObject2D::GetPosition();
-
 	return S_OK;
 }
 
@@ -65,48 +63,52 @@ void CHp::Uninit()
 //===========================
 void CHp::Update()
 {
-	CObject2D::Update();
+	//CObject2D::Update();
 
-	//-------------------
-	// HPの減少
-	//-------------------
-	for (int i = 0; i < MAX_OBJECT; i++)
-	{
-		CObject *pObject;
-		pObject = CObject::GETObject(i);
+	////-------------------
+	//// HPの減少
+	////-------------------
+	//for (int i = 0; i < MAX_OBJECT; i++)
+	//{
+	//	CObject *pObject;
+	//	pObject = CObject::GETObject(i);
 
-		if (pObject == nullptr)
-		{
-			continue;
-		}
+	//	if (pObject == nullptr)
+	//	{
+	//		continue;
+	//	}
 
-		//オブジェクトの種類の取得
-		CObject::EObjType type = pObject->GetObjType();
+	//	//オブジェクトの種類の取得
+	//	CObject::EObjType type = pObject->GetObjType();
 
-		//=============================
-		// プレイヤーの処理
-		//=============================
-		if (type == OBJTYPE_PLAYER)
-		{
-			CPlayer *pPlayer = CApplication::GetPlayer();
+	//	//=============================
+	//	// プレイヤーの処理
+	//	//=============================
+	//	if (type == OBJTYPE_PLAYER)
+	//	{
+	//		CPlayer *pPlayer = CApplication::GetPlayer();
 
-			//プレイヤーの残り体力を取得
-			int PlayerLife = pPlayer->GetRemLife();
+	//		//プレイヤーの残り体力を取得
+	//		int PlayerLife = pPlayer->GetRemLife();
 
-			//頂点座標の設定
-			CObject2D::SetVtxCIE_Gauge(m_HP.pos, m_HP.fWidth,
-				m_HP.fWidth / 2 + (m_HP.fLength * PlayerLife), m_HP.fHeight, m_HP.fHeight);
+	//		//頂点座標の設定
+	//		CObject2D::SetVtxCIE_Gauge(m_HP.pos, m_HP.fWidth,
+	//			m_HP.fWidth / 2 + (m_HP.fLength * 100), m_HP.fHeight, m_HP.fHeight);
 
-			//--------------------
-			// HPが0になったら
-			//--------------------
-			if (m_HP.fLength * PlayerLife <= 0)
-			{
-				Uninit();
-				CObject2D::Release();
-			}
-		}
-	}
+	//		//--------------------
+	//		// HPが0になったら
+	//		//--------------------
+	//		if (m_HP.fLength * PlayerLife <= 0)
+	//		{
+	//			Uninit();
+	//			CObject2D::Release();
+	//		}
+	//	}
+	//}
+
+	//頂点座標の設定
+	CObject2D::SetVtxCIE_Gauge(m_HP.pos, m_HP.fWidth,
+		m_HP.fWidth / 2 + (m_HP.fLength * 100), m_HP.fHeight, m_HP.fHeight);
 }
 
 //===========================

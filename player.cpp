@@ -63,6 +63,11 @@ HRESULT CPlayer::Init(D3DXVECTOR3 pos)
 
 	m_Player.pos = CObject2D::GetPosition();
 
+	//--------------------------
+	// HP‚Ì•\Ž¦
+	//--------------------------
+	CHp::Create(D3DXVECTOR3(200.0f, 100.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 300.0f, 50.0f, CHp::HPTYPE_PLAYER);
+
 	return S_OK;
 }
 
@@ -101,11 +106,6 @@ void CPlayer::Update()
 	// ’e‚Ì”­ŽË
 	//--------------------------
 	CBullet::ShotBullet(m_Player.pos, m_Player.rot);
-
-	//--------------------------
-	// HP‚Ì•\Ž¦
-	//--------------------------
-	CHp::Create(D3DXVECTOR3(200.0f, 100.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 300.0f, 50.0f, CHp::HPTYPE_PLAYER);
 }
 
 //===========================
