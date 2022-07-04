@@ -94,7 +94,7 @@ void CExplosion::Update()
 	//--------------------
 	// èôÅXÇ…ìßâﬂ
 	//--------------------
-	m_Explosion.col.a -= 0.1f;
+	m_Explosion.col.a -= 0.05f;
 	SetColor(m_Explosion.col);
 	
 	//--------------------
