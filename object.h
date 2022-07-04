@@ -33,6 +33,7 @@ public:
 		OBJTYPE_BULLET,		//íe
 		OBJTYPE_EXPLOSION,	//îöî≠
 		OBJTYPE_HP,			//HP
+		OBJTYPE_SCORE,		//ÉXÉRÉA
 		OBJTYPE_MAX,
 		OBJTYPE_INVALID
 	};
