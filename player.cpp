@@ -66,7 +66,7 @@ HRESULT CPlayer::Init(D3DXVECTOR3 pos)
 	//--------------------------
 	// HPの表示
 	//--------------------------
-	CHp::Create(D3DXVECTOR3(200.0f, 100.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 300.0f, 50.0f, CHp::HPTYPE_PLAYER);
+	CHp::Create(D3DXVECTOR3(400.0f, 100.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 1200.0f, 50.0f, CHp::HPTYPE_PLAYER);
 
 	return S_OK;
 }
@@ -106,6 +106,15 @@ void CPlayer::Update()
 	// 弾の発射
 	//--------------------------
 	CBullet::ShotBullet(m_Player.pos, m_Player.rot);
+
+	//--------------------------
+	// 体力の減少
+	//--------------------------
+	if (CInputKeyboard::Press(DIK_L))
+	{//Lキーが押された
+		m_Player.nLife--;	//プレイヤーの体力の減少
+		m_Player.nRemLife = m_Player.nLife * 100 / m_Player.nMaxLife;	//残り体力を計算
+	}
 }
 
 //===========================
