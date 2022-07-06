@@ -79,6 +79,7 @@ void CScore::Update()
 	//テクスチャ座標の設定
 	CObject2D::SetTexCIE(0.0f + m_aPosTexU[nNum] * 0.1f, 0.1f + m_aPosTexU[nNum] * 0.1f);
 
+	//配列を進める
 	if (nNum >= nMaxScore - 1)
 	{
 		nNum = 0;

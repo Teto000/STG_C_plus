@@ -160,18 +160,20 @@ void CHp::Subtract(int nRemLife)
 		-m_HP.fWidth / 2 + (m_HP.fLength * nRemLife), -m_HP.fHeight / 2, m_HP.fHeight / 2);
 
 	//-------------------------
-	// HPÇ™20%à»â∫Ç…Ç»Ç¡ÇΩÇÁ
+	// HPÇ≤Ç∆ÇÃèàóù
 	//-------------------------
 	if (nRemLife <= 20)
-	{
+	{//HPÇ™20%à»â∫Ç…Ç»Ç¡ÇΩÇÁ
+		//ê‘êFÇ…Ç∑ÇÈ
 		CObject2D::SetColor(D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));
 	}
-
-	//--------------------
-	// HPÇ™0Ç…Ç»Ç¡ÇΩÇÁ
-	//--------------------
-	if (m_HP.fLength * nRemLife <= 0)
-	{
+	else if (nRemLife <= 50)
+	{//HPÇ™50%à»â∫Ç…Ç»Ç¡ÇΩÇÁ
+		CObject2D::SetColor(D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f));
+	}
+	else if (m_HP.fLength * nRemLife <= 0)
+	{//HPÇ™0Ç…Ç»Ç¡ÇΩÇÁ
+		//HPÉoÅ[ÇÃè¡ãé
 		Uninit();
 		CObject2D::Release();
 	}
