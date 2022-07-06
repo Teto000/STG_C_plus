@@ -45,6 +45,7 @@ HRESULT CHp::Init(D3DXVECTOR3 pos)
 	m_HP.fLength = (m_HP.fWidth / 100);
 
 	CObject2D::Init(m_HP.pos);
+	CObject2D::SetColor(D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f));
 
 	//頂点座標の設定
 	CObject2D::SetVtxCIE_Gauge(m_HP.pos, -m_HP.fWidth / 2,
@@ -93,6 +94,14 @@ void CHp::Update()
 		CObject2D::SetVtxCIE_Gauge(m_HP.pos, -m_HP.fWidth / 2,
 			-m_HP.fWidth / 2 + (m_HP.fLength * m_nPlayerLife), -m_HP.fHeight / 2, m_HP.fHeight / 2);
 
+		//-------------------------
+		// HPが20%以下になったら
+		//-------------------------
+		if (m_nPlayerLife <= 20)
+		{
+			CObject2D::SetColor(D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));
+		}
+
 		//--------------------
 		// HPが0になったら
 		//--------------------
@@ -114,6 +123,14 @@ void CHp::Update()
 		//頂点座標の設定
 		CObject2D::SetVtxCIE_Gauge(m_HP.pos, -m_HP.fWidth / 2,
 			-m_HP.fWidth / 2 + (m_HP.fLength * m_nEnemyLife), -m_HP.fHeight / 2, m_HP.fHeight / 2);
+
+		//-------------------------
+		// HPが20%以下になったら
+		//-------------------------
+		if (m_nEnemyLife <= 20)
+		{
+			CObject2D::SetColor(D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));
+		}
 
 		//--------------------
 		// HPが0になったら
