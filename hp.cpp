@@ -90,26 +90,8 @@ void CHp::Update()
 		//プレイヤーの残り体力を取得
 		m_nPlayerLife = pPlayer->GetRemLife();
 
-		//頂点座標の設定
-		CObject2D::SetVtxCIE_Gauge(m_HP.pos, -m_HP.fWidth / 2,
-			-m_HP.fWidth / 2 + (m_HP.fLength * m_nPlayerLife), -m_HP.fHeight / 2, m_HP.fHeight / 2);
-
-		//-------------------------
-		// HPが20%以下になったら
-		//-------------------------
-		if (m_nPlayerLife <= 20)
-		{
-			CObject2D::SetColor(D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));
-		}
-
-		//--------------------
-		// HPが0になったら
-		//--------------------
-		if (m_HP.fLength * m_nPlayerLife <= 0)
-		{
-			Uninit();
-			CObject2D::Release();
-		}
+		//HP減少時の処理
+		Reduce(m_nPlayerLife);
 		break;
 
 		//=============================
@@ -120,26 +102,8 @@ void CHp::Update()
 		//敵の残り体力を取得
 		m_nEnemyLife = pEnemy->GetRemLife();
 
-		//頂点座標の設定
-		CObject2D::SetVtxCIE_Gauge(m_HP.pos, -m_HP.fWidth / 2,
-			-m_HP.fWidth / 2 + (m_HP.fLength * m_nEnemyLife), -m_HP.fHeight / 2, m_HP.fHeight / 2);
-
-		//-------------------------
-		// HPが20%以下になったら
-		//-------------------------
-		if (m_nEnemyLife <= 20)
-		{
-			CObject2D::SetColor(D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));
-		}
-
-		//--------------------
-		// HPが0になったら
-		//--------------------
-		if (m_HP.fLength * m_nEnemyLife <= 0)
-		{
-			Uninit();
-			CObject2D::Release();
-		}
+		//HP減少時の処理
+		Reduce(m_nEnemyLife);
 		break;
 
 	default:
@@ -182,4 +146,33 @@ CHp *CHp::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, float fWidth, float fHeight,
 	}
 
 	return pHP;
+}
+
+//===========================
+// HP減少時の処理
+//===========================
+void CHp::Reduce(int nRemLife)
+{
+	//-------------------------
+	// 頂点座標の設定
+	//-------------------------
+	CObject2D::SetVtxCIE_Gauge(m_HP.pos, -m_HP.fWidth / 2,
+		-m_HP.fWidth / 2 + (m_HP.fLength * nRemLife), -m_HP.fHeight / 2, m_HP.fHeight / 2);
+
+	//-------------------------
+	// HPが20%以下になったら
+	//-------------------------
+	if (nRemLife <= 20)
+	{
+		CObject2D::SetColor(D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));
+	}
+
+	//--------------------
+	// HPが0になったら
+	//--------------------
+	if (m_HP.fLength * nRemLife <= 0)
+	{
+		Uninit();
+		CObject2D::Release();
+	}
 }
