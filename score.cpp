@@ -47,7 +47,7 @@ HRESULT CScore::Init(D3DXVECTOR3 pos)
 	m_Score.fHeight = 50.0f;	//‚‚³
 	m_Score.fSpace = 35.0f;		//ŠÔŠu
 
-	m_nScore = 36458;
+	m_nScore = 0;	//ƒXƒRƒA‚Ì‰Šúİ’è
 
 	CObject2D::Init(m_Score.pos);
 
