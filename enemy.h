@@ -18,6 +18,22 @@
 class CEnemy : public CObject2D
 {
 public:
+	//---------------------------
+	// 敵の構造体の定義
+	//---------------------------
+	typedef struct
+	{
+		D3DXVECTOR3 pos;	//位置
+		D3DXVECTOR3 move;	//移動量
+		D3DXVECTOR3 rot;	//向き
+		int nLife;			//体力
+		int nMaxLife;		//最大体力
+		int nRemLife;		//残り体力
+		float fWidth;		//幅
+		float fHeight;		//高さ
+		bool bUse;			//使用しているか
+	}Enemy;
+
 	CEnemy();			//コンストラクタ
 	~CEnemy() override;	//デストラクタ
 
@@ -28,6 +44,9 @@ public:
 	void Uninit(void) override;
 	void Update(void) override;
 	void Draw(void) override;
+
+	//ゲッター
+	int GetRemLife();
 
 	//----------------
 	// 静的メンバ関数
@@ -44,7 +63,7 @@ private:
 	//----------------
 	// メンバ変数
 	//----------------
-	D3DXVECTOR3 m_pos;
+	Enemy m_Enemy;
 
 	//----------------
 	// 静的メンバ変数

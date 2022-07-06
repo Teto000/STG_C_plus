@@ -317,10 +317,10 @@ void CObject2D::SetVtxCIE_Gauge(D3DXVECTOR3 pos,
 	m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
 
 	//頂点座標の設定
-	pVtx[0].pos = pos + D3DXVECTOR3(fLeft / 2, fUp / 2, 0.0f);
-	pVtx[1].pos = pos + D3DXVECTOR3(fRight / 2, fUp / 2, 0.0f);
-	pVtx[2].pos = pos + D3DXVECTOR3(fLeft / 2, fDown / 2, 0.0f);
-	pVtx[3].pos = pos + D3DXVECTOR3(fRight / 2, fDown / 2, 0.0f);
+	pVtx[0].pos = pos + D3DXVECTOR3(fLeft, fUp, 0.0f);
+	pVtx[1].pos = pos + D3DXVECTOR3(fRight, fUp, 0.0f);
+	pVtx[2].pos = pos + D3DXVECTOR3(fLeft, fDown, 0.0f);
+	pVtx[3].pos = pos + D3DXVECTOR3(fRight, fDown, 0.0f);
 
 	//頂点バッファをアンロックする
 	m_pVtxBuff->Unlock();

@@ -67,7 +67,8 @@ private:
 	// メンバ変数
 	//------------------
 	HP m_HP;	//HP構造体
-	int m_nPlayerLife;
+	int m_nPlayerLife;	//プレイヤーの体力受け取り用
+	int m_nEnemyLife;	//エネミーの体力受け取り用
 
 	//------------------
 	// 静的メンバ変数

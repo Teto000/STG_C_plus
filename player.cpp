@@ -66,7 +66,8 @@ HRESULT CPlayer::Init(D3DXVECTOR3 pos)
 	//--------------------------
 	// HP‚Ì•\Ž¦
 	//--------------------------
-	CHp::Create(D3DXVECTOR3(400.0f, 100.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 1200.0f, 50.0f, CHp::HPTYPE_PLAYER);
+	CHp::Create(D3DXVECTOR3(350.0f, 100.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f)
+				, 600.0f, 40.0f, CHp::HPTYPE_PLAYER);
 
 	return S_OK;
 }

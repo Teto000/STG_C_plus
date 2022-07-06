@@ -14,6 +14,7 @@
 #include "main.h"
 #include "object2D.h"
 #include "player.h"
+#include "enemy.h"
 #include "application.h"
 
 //===========================
@@ -23,6 +24,7 @@ CHp::CHp() : CObject2D()
 {
 	memset(&m_HP, 0, sizeof(HP));	//構造体のクリア
 	m_nPlayerLife = 0;
+	m_nEnemyLife = 0;
 }
 
 //===========================
@@ -46,7 +48,7 @@ HRESULT CHp::Init(D3DXVECTOR3 pos)
 
 	//頂点座標の設定
 	CObject2D::SetVtxCIE_Gauge(m_HP.pos, -m_HP.fWidth / 2,
-		-m_HP.fWidth / 2 + (m_HP.fLength * m_nPlayerLife), -m_HP.fHeight, m_HP.fHeight);
+		-m_HP.fWidth / 2 + (m_HP.fLength * 100), -m_HP.fHeight / 2, m_HP.fHeight / 2);
 
 	CObject2D::SetTexture(CTexture::TEXTURE_NONE);	//テクスチャの設定
 
@@ -69,44 +71,62 @@ void CHp::Update()
 	CObject2D::Update();
 
 	//-------------------
+	// クラスの取得
+	//-------------------
+	CPlayer *pPlayer = CApplication::GetPlayer();	//プレイヤー
+	CEnemy *pEnemy = CApplication::GetEnemy();		//敵
+
+	//-------------------
 	// HPの減少
 	//-------------------
-	for (int i = 0; i < MAX_OBJECT; i++)
+	switch (m_HP.type)
 	{
-		CObject *pObject;
-		pObject = CObject::GETObject(i);
-
-		if (pObject == nullptr)
-		{
-			continue;
-		}
-
-		//オブジェクトの種類の取得
-		CObject::EObjType type = pObject->GetObjType();
-
 		//=============================
 		// プレイヤーの処理
 		//=============================
-		if (type == OBJTYPE_PLAYER)
+	case HPTYPE_PLAYER:
+
+		//プレイヤーの残り体力を取得
+		m_nPlayerLife = pPlayer->GetRemLife();
+
+		//頂点座標の設定
+		CObject2D::SetVtxCIE_Gauge(m_HP.pos, -m_HP.fWidth / 2,
+			-m_HP.fWidth / 2 + (m_HP.fLength * m_nPlayerLife), -m_HP.fHeight / 2, m_HP.fHeight / 2);
+
+		//--------------------
+		// HPが0になったら
+		//--------------------
+		if (m_HP.fLength * m_nPlayerLife <= 0)
 		{
-			CPlayer *pPlayer = CApplication::GetPlayer();
-
-			//プレイヤーの残り体力を取得
-			m_nPlayerLife = pPlayer->GetRemLife();
-
-			//頂点座標の設定
-			CObject2D::SetVtxCIE_Gauge(m_HP.pos, -m_HP.fWidth / 2,
-				-m_HP.fWidth / 2 + (m_HP.fLength * m_nPlayerLife), -m_HP.fHeight, m_HP.fHeight);
-
-			//--------------------
-			// HPが0になったら
-			//--------------------
-			if (m_HP.fLength * m_nPlayerLife <= 0)
-			{
-				Uninit();
-				CObject2D::Release();
-			}
+			Uninit();
+			CObject2D::Release();
 		}
+		break;
+
+		//=============================
+		// 敵の処理
+		//=============================
+	case HPTYPE_ENEMY:
+
+		//敵の残り体力を取得
+		m_nEnemyLife = pEnemy->GetRemLife();
+
+		//頂点座標の設定
+		CObject2D::SetVtxCIE_Gauge(m_HP.pos, -m_HP.fWidth / 2,
+			-m_HP.fWidth / 2 + (m_HP.fLength * m_nEnemyLife), -m_HP.fHeight / 2, m_HP.fHeight / 2);
+
+		//--------------------
+		// HPが0になったら
+		//--------------------
+		if (m_HP.fLength * m_nEnemyLife <= 0)
+		{
+			Uninit();
+			CObject2D::Release();
+		}
+		break;
+
+	default:
+		break;
 	}
 }
 

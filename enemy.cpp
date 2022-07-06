@@ -9,6 +9,7 @@
 // インクルード
 //------------------------
 #include <assert.h>
+#include <memory.h>
 #include "enemy.h"
 #include "main.h"
 #include "renderer.h"
@@ -16,6 +17,7 @@
 #include "input_keybord.h"
 #include "bullet.h"
 #include "texture.h"
+#include "hp.h"
 
 //------------------------
 // 静的メンバ変数宣言
@@ -32,7 +34,7 @@ int CEnemy::m_CntTime = 0;
 //===========================
 CEnemy::CEnemy() : CObject2D()
 {
-	m_pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	memset(&m_Enemy, 0, sizeof(Enemy));	//構造体のクリア
 }
 
 //===========================
@@ -49,17 +51,26 @@ CEnemy::~CEnemy()
 HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 {
 	//位置の設定
-	m_pos = pos;
+	m_Enemy.pos = pos;			//位置
+	m_Enemy.fWidth = 100.0f;	//幅
+	m_Enemy.fHeight = 100.0f;	//高さ
+	m_Enemy.nLife = 120;		//体力
+	m_Enemy.nMaxLife = 120;		//最大体力
+	m_Enemy.nRemLife = 100;		//残り体力
 
-	CObject2D::Init(m_pos);
+	CObject2D::Init(m_Enemy.pos);
 
-	CObject2D::SetSize(100.0f, 100.0f);	//サイズの設定
+	CObject2D::SetSize(m_Enemy.fWidth, m_Enemy.fHeight);	//サイズの設定
 
 	CObject2D::SetTexCIE(0.0f, 0.5f);	//テクスチャ座標の設定
 
 	CObject2D::SetTexture(CTexture::TEXTURE_ENEMYBIRD);	//テクスチャの設定
 
-	m_pos = CObject2D::GetPosition();
+	//--------------------------
+	// HPの表示
+	//--------------------------
+	CHp::Create(D3DXVECTOR3(m_Enemy.pos.x, m_Enemy.pos.y - (m_Enemy.fHeight / 2 + 20.0f), m_Enemy.pos.z)
+		, D3DXVECTOR3(0.0f, 0.0f, 0.0f), m_Enemy.fWidth, 10.0f, CHp::HPTYPE_ENEMY);
 
 	return S_OK;
 }
@@ -94,6 +105,15 @@ void CEnemy::Update()
 	{
 		CObject2D::SetTexCIE(0.5f, 1.0f);
 	}
+
+	//--------------------------
+	// 体力の減少
+	//--------------------------
+	if (CInputKeyboard::Press(DIK_M))
+	{
+		m_Enemy.nLife--;	//プレイヤーの体力の減少
+		m_Enemy.nRemLife = m_Enemy.nLife * 100 / m_Enemy.nMaxLife;	//残り体力を計算
+	}
 }
 
 //===========================
@@ -124,4 +144,12 @@ CEnemy *CEnemy::Create()
 	}
 
 	return pEnemy;
+}
+
+//===========================
+// 残り体力の取得
+//===========================
+int CEnemy::GetRemLife()
+{
+	return m_Enemy.nRemLife;
 }
