@@ -11,11 +11,14 @@
 #include <assert.h>
 #include <memory.h>
 #include "score.h"
+#include "texture.h"
 
 //------------------------
 // 静的メンバ変数宣言
 //------------------------
 int CScore::m_nScore = 0;
+int CScore::m_aPosTexU[nMaxScore] = {};
+int CScore::nNum = 0;
 
 //===========================
 // コンストラクタ
@@ -40,11 +43,17 @@ HRESULT CScore::Init(D3DXVECTOR3 pos)
 {
 	//構造体の初期化
 	m_Score.pos = pos;
-	m_Score.fWidth = 15.0f;		//幅
-	m_Score.fHeight = 25.0f;	//高さ
+	m_Score.fWidth = 30.0f;		//幅
+	m_Score.fHeight = 50.0f;	//高さ
 	m_Score.fSpace = 35.0f;		//間隔
 
+	m_nScore = 36458;
+
 	CObject2D::Init(m_Score.pos);
+
+	CObject2D::SetSize(m_Score.fWidth, m_Score.fHeight);
+
+	CObject2D::SetTexture(CTexture::TEXTURE_NUMBER);	//テクスチャの設定
 
 	return S_OK;
 }
@@ -63,8 +72,22 @@ void CScore::Uninit()
 void CScore::Update()
 {
 	CObject2D::Update();
-}
 
+	//桁ごとの値を求める
+	m_aPosTexU[nNum] = m_nScore % (1000000 / (int)pow(10, nNum)) / (100000 / (int)pow(10, nNum));
+
+	//テクスチャ座標の設定
+	CObject2D::SetTexCIE(0.0f + m_aPosTexU[nNum] * 0.1f, 0.1f + m_aPosTexU[nNum] * 0.1f);
+
+	if (nNum >= nMaxScore - 1)
+	{
+		nNum = 0;
+	}
+	else 
+	{
+		nNum++;
+	}
+}
 //===========================
 // 描画
 //===========================
@@ -83,20 +106,33 @@ CScore *CScore::Create()
 	//----------------------------------
 	// プレイヤーの生成と初期化
 	//----------------------------------
-	pScore = new CScore;	//生成
+	for (int i = 0; i < nMaxScore; i++)
+	{
+		pScore = new CScore;	//生成
 
-	if (pScore != nullptr)
-	{//NULLチェック
-		//初期化
-		pScore->Init(D3DXVECTOR3(1000.0f, 50.0f, 0.0f));
-		pScore->SetScore(0);
-		pScore->SetObjType(OBJTYPE_SCORE);
+		if (pScore != nullptr)
+		{//NULLチェック
+			//初期化
+			pScore->Init(D3DXVECTOR3(1000.0f + (i * 35.0f), 50.0f, 0.0f));
+			pScore->SetObjType(OBJTYPE_SCORE);
+		}
 	}
 
 	return pScore;
 }
 
-void CScore::Add(int nValue)
+//===========================
+// 数値の加算
+//===========================
+void CScore::AddScore(int nValue)
 {
-	CObject2D::AddScore(m_nScore, nValue);	//スコアの加算
+	m_nScore += nValue;
+}
+
+//===========================
+// 数値の取得
+//===========================
+int CScore::GetScore()
+{
+	return m_nScore;
 }

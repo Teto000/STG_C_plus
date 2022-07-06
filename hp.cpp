@@ -82,28 +82,28 @@ void CHp::Update()
 	//-------------------
 	switch (m_HP.type)
 	{
-		//=============================
-		// プレイヤーの処理
-		//=============================
+	//=============================
+	// プレイヤーの処理
+	//=============================
 	case HPTYPE_PLAYER:
 
 		//プレイヤーの残り体力を取得
 		m_nPlayerLife = pPlayer->GetRemLife();
 
 		//HP減少時の処理
-		Reduce(m_nPlayerLife);
+		Subtract(m_nPlayerLife);
 		break;
 
-		//=============================
-		// 敵の処理
-		//=============================
+	//=============================
+	// 敵の処理
+	//=============================
 	case HPTYPE_ENEMY:
 
 		//敵の残り体力を取得
 		m_nEnemyLife = pEnemy->GetRemLife();
 
 		//HP減少時の処理
-		Reduce(m_nEnemyLife);
+		Subtract(m_nEnemyLife);
 		break;
 
 	default:
@@ -151,7 +151,7 @@ CHp *CHp::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, float fWidth, float fHeight,
 //===========================
 // HP減少時の処理
 //===========================
-void CHp::Reduce(int nRemLife)
+void CHp::Subtract(int nRemLife)
 {
 	//-------------------------
 	// 頂点座標の設定

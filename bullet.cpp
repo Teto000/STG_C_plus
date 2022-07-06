@@ -18,6 +18,7 @@
 #include "application.h"
 #include "player.h"
 #include "explosion.h"
+#include "score.h"
 
 //------------------------
 // 静的メンバ変数宣言
@@ -51,12 +52,14 @@ HRESULT CBullet::Init(D3DXVECTOR3 pos)
 	//メンバ変数の初期化
 	m_Bullet.move = D3DXVECTOR3(fBulletSpeed, 0.0f, 0.0f);
 	m_Bullet.nLife = 100;
+	m_Bullet.fWidth = 50.0f;
+	m_Bullet.fHeight = 50.0f;
 
 	CObject2D::Init(pos);
 
 	if (m_Bullet.type == BULLETSTATE_NORMAL)
 	{
-		CObject2D::SetSize(50.0f, 50.0f);	//サイズの設定
+		CObject2D::SetSize(m_Bullet.fWidth, m_Bullet.fHeight);	//サイズの設定
 	}
 	else if (m_Bullet.type == BULLETSTATE_CHARGE)
 	{
@@ -147,6 +150,7 @@ void CBullet::Update()
 				&& BulletPos.y - BulletHeight / 2 <= fBottom && BulletPos.y + BulletHeight / 2 >= fTop)
 			{
 				CExplosion::Create(m_Bullet.pos);//爆発の生成
+				CScore::AddScore(50);
 
 				//弾の消滅
 				Uninit();

@@ -45,6 +45,8 @@ public:
 	void Update(void) override;
 	void Draw(void) override;
 
+	void SubLife(int nLife);	//‘Ì—Í‚ÌŒ¸­
+
 	//ƒQƒbƒ^[
 	int GetRemLife();
 

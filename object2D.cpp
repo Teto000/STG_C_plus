@@ -76,31 +76,6 @@ HRESULT CObject2D::Init(D3DXVECTOR3 pos)
 	pVtx[3].pos = m_pos + D3DXVECTOR3(m_fWidth / 2, m_fHeight / 2, 0.0f);
 
 	//------------------------
-	// 頂点座標の設定(回転)
-	//------------------------
-	/*float fLength = sqrtf((m_fWidth * m_fHeight) + (m_fWidth * m_fHeight)) / 2;	//対角線の長さを算出する
-	float fAngle = atan2f(m_fWidth, m_fHeight);									//対角線の角度を算出
-
-	//------------------------
-	// 頂点情報を設定
-	//------------------------
-	pVtx[0].pos.x = m_pos.x + sinf(m_fRot + (D3DX_PI + fAngle)) * fLength;
-	pVtx[0].pos.y = m_pos.y + cosf(m_fRot + (D3DX_PI + fAngle)) * fLength;
-	pVtx[0].pos.z = 0.0f;
-
-	pVtx[1].pos.x = m_pos.x + sinf(m_fRot + (D3DX_PI - fAngle)) * fLength;
-	pVtx[1].pos.y = m_pos.y + cosf(m_fRot + (D3DX_PI - fAngle)) * fLength;
-	pVtx[1].pos.z = 0.0f;
-
-	pVtx[2].pos.x = m_pos.x + sinf(m_fRot - (0 + fAngle)) * fLength;
-	pVtx[2].pos.y = m_pos.y + cosf(m_fRot - (0 + fAngle)) * fLength;
-	pVtx[2].pos.z = 0.0f;
-
-	pVtx[3].pos.x = m_pos.x + sinf(m_fRot - (0 - fAngle)) * fLength;
-	pVtx[3].pos.y = m_pos.y + cosf(m_fRot - (0 - fAngle)) * fLength;
-	pVtx[3].pos.z = 0.0f;*/
-
-	//------------------------
 	// rhwの設定
 	//------------------------
 	pVtx[0].rhw = 1.0f;
@@ -153,14 +128,6 @@ void CObject2D::Update()
 	//頂点バッファをロックし、頂点情報へのポインタを取得
   	m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
 
-	//===============================
-	// ポリゴンの回転・拡縮
-	//===============================
-	/*m_fRot -= ROT;		//回転角度を加算
-	m_fScal += SCAL;	//拡縮の変動
-	m_fWidth += sinf(2.0f * m_fScal);	//幅の計算
-	m_fHeight += sinf(2.0f * m_fScal);	//高さの計算*/
-
 	//------------------------
 	// 頂点座標の設定
 	//------------------------
@@ -168,31 +135,6 @@ void CObject2D::Update()
 	pVtx[1].pos = m_pos + D3DXVECTOR3(m_fWidth / 2, -m_fHeight / 2, 0.0f);
 	pVtx[2].pos = m_pos + D3DXVECTOR3(-m_fWidth / 2, m_fHeight / 2, 0.0f);
 	pVtx[3].pos = m_pos + D3DXVECTOR3(m_fWidth / 2, m_fHeight / 2, 0.0f);
-
-	//------------------------
-	// 頂点座標の設定(回転)
-	//------------------------
-	/*float fLength = sqrtf((m_fWidth * m_fHeight) + (m_fWidth * m_fHeight)) / 2;	//対角線の長さを算出する
-	float fAngle = atan2f(m_fWidth, m_fHeight);									//対角線の角度を算出
-
-	//------------------------
-	// 頂点情報を設定
-	//------------------------
-	pVtx[0].pos.x = m_pos.x + sinf(m_fRot + (D3DX_PI + fAngle)) * fLength;
-	pVtx[0].pos.y = m_pos.y + cosf(m_fRot + (D3DX_PI + fAngle)) * fLength;
-	pVtx[0].pos.z = 0.0f;
-
-	pVtx[1].pos.x = m_pos.x + sinf(m_fRot + (D3DX_PI - fAngle)) * fLength;
-	pVtx[1].pos.y = m_pos.y + cosf(m_fRot + (D3DX_PI - fAngle)) * fLength;
-	pVtx[1].pos.z = 0.0f;
-
-	pVtx[2].pos.x = m_pos.x + sinf(m_fRot - (0 + fAngle)) * fLength;
-	pVtx[2].pos.y = m_pos.y + cosf(m_fRot - (0 + fAngle)) * fLength;
-	pVtx[2].pos.z = 0.0f;
-
-	pVtx[3].pos.x = m_pos.x + sinf(m_fRot - (0 - fAngle)) * fLength;
-	pVtx[3].pos.y = m_pos.y + cosf(m_fRot - (0 - fAngle)) * fLength;
-	pVtx[3].pos.z = 0.0f;*/
 
 	//頂点バッファをアンロックする
 	m_pVtxBuff->Unlock();
@@ -327,6 +269,28 @@ void CObject2D::SetVtxCIE_Gauge(D3DXVECTOR3 pos,
 }
 
 //===========================
+// 頂点座標の設定(スコア)
+//===========================
+void CObject2D::SetVtxCIE_Score(D3DXVECTOR3 pos, float fWidth, float fHeight,float fSpace)
+{
+	VERTEX_2D*pVtx;		//頂点情報へのポインタ
+
+	//頂点バッファをロックし、頂点情報へのポインタを取得
+	m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
+
+	//頂点座標の設定
+	pVtx[0].pos = pos + D3DXVECTOR3(-fWidth / 2, -fHeight / 2, 0.0f);
+	pVtx[1].pos = pos + D3DXVECTOR3(fWidth / 2, -fHeight / 2, 0.0f);
+	pVtx[2].pos = pos + D3DXVECTOR3(-fWidth / 2, fHeight / 2, 0.0f);
+	pVtx[3].pos = pos + D3DXVECTOR3(fWidth / 2, fHeight / 2, 0.0f);
+
+	pos.x += fSpace;
+
+	//頂点バッファをアンロックする
+	m_pVtxBuff->Unlock();
+}
+
+//===========================
 // 幅の取得
 //===========================
 float CObject2D::GetWidth()
@@ -359,77 +323,6 @@ void CObject2D::SetColor(D3DXCOLOR col)
 	pVtx[1].col = col;
 	pVtx[2].col = col;
 	pVtx[3].col = col;
-
-	//頂点バッファをアンロックする
-	m_pVtxBuff->Unlock();
-}
-
-//=====================
-// スコアの設定処理
-//=====================
-void CObject2D::SetScore(int nScore)
-{
-	int aPosTexU[m_nMaxScore];	//各桁の数字を格納
-
-	VERTEX_2D*pVtx;		//頂点情報へのポインタ
-
-	//頂点バッファをロックし、頂点情報へのポインタを取得
-	m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
-
-	aPosTexU[0] = nScore % 1000000 / 100000;
-	aPosTexU[1] = nScore % 100000 / 10000;
-	aPosTexU[2] = nScore % 10000 / 1000;
-	aPosTexU[3] = nScore % 1000 / 100;
-	aPosTexU[4] = nScore % 100 / 10;
-	aPosTexU[5] = nScore % 10 / 1;
-
-	//テクスチャ座標の設定
-	for (int i = 0; i < m_nMaxScore; i++)
-	{
-		pVtx[0].tex = D3DXVECTOR2(0.0f + aPosTexU[i] * 0.1f, 0.0f);
-		pVtx[1].tex = D3DXVECTOR2(0.1f + aPosTexU[i] * 0.1f, 0.0f);
-		pVtx[2].tex = D3DXVECTOR2(0.0f + aPosTexU[i] * 0.1f, 1.0f);
-		pVtx[3].tex = D3DXVECTOR2(0.1f + aPosTexU[i] * 0.1f, 1.0f);
-
-		pVtx += 4;
-	}
-
-	//頂点バッファをアンロックする
-	m_pVtxBuff->Unlock();
-}
-
-//=====================
-// スコアの加算処理
-//=====================
-void CObject2D::AddScore(int nScore, int nValue)
-{
-	int aPosTexU[m_nMaxScore];
-
-	//スコアの加算
-	nScore += nValue;
-
-	VERTEX_2D*pVtx;		//頂点情報へのポインタ
-
-	//頂点バッファをロックし、頂点情報へのポインタを取得
-	m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
-
-	aPosTexU[0] = nScore % 1000000 / 100000;
-	aPosTexU[1] = nScore % 100000 / 10000;
-	aPosTexU[2] = nScore % 10000 / 1000;
-	aPosTexU[3] = nScore % 1000 / 100;
-	aPosTexU[4] = nScore % 100 / 10;
-	aPosTexU[5] = nScore % 10 / 1;
-
-	//テクスチャ座標の設定
-	for (int i = 0; i < m_nMaxScore; i++)
-	{
-		pVtx[0].tex = D3DXVECTOR2(0.0f + aPosTexU[i] * 0.1f, 0.0f);
-		pVtx[1].tex = D3DXVECTOR2(0.1f + aPosTexU[i] * 0.1f, 0.0f);
-		pVtx[2].tex = D3DXVECTOR2(0.0f + aPosTexU[i] * 0.1f, 1.0f);
-		pVtx[3].tex = D3DXVECTOR2(0.1f + aPosTexU[i] * 0.1f, 1.0f);
-
-		pVtx += 4;		//頂点データのポインタを4つ分集める
-	}
 
 	//頂点バッファをアンロックする
 	m_pVtxBuff->Unlock();

@@ -81,7 +81,7 @@ HRESULT CApplication::Init(HINSTANCE hInstance, HWND hWnd)
 	m_pEnemy = CEnemy::Create();
 
 	//ÉXÉRÉAÇÃê∂ê¨
-	//m_pScore = CScore::Create();
+	m_pScore = CScore::Create();
 
 	return S_OK;
 }

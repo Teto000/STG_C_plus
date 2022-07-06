@@ -53,7 +53,7 @@ public:
 	void Update() override;
 	void Draw() override;
 
-	void Reduce(int nRemLife);	//HPŒ¸­‚Ìˆ—
+	void Subtract(int nRemLife);	//HPŒ¸­‚Ìˆ—
 
 	//------------------
 	// Ã“Iƒƒ“ƒoŠÖ”
