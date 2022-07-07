@@ -24,7 +24,7 @@ public:
 	typedef enum
 	{
 		BULLETSTATE_NORMAL = 0,
-		BULLETSTATE_BEAM,
+		BULLETSTATE_HORMING,
 		BULLETSTATE_CHARGE,
 		BULLETSTATE_MAX
 	}BULLETSTATE;
@@ -54,6 +54,9 @@ public:
 	void Update() override;
 	void Draw()	  override;
 
+	//ホーミング弾
+	D3DXVECTOR3 Homing(float& posX, float& posY, float& moveX, float& moveY);
+
 	//----------------
 	// 静的メンバ関数
 	//----------------
@@ -70,7 +73,8 @@ private:
 	//----------------
 	// メンバ変数
 	//----------------
-	Bullet m_Bullet;	//弾の構造体
+	Bullet m_Bullet;		//弾の構造体
+	D3DXVECTOR3 m_Tirget;	//ホーミング目標
 
 	//----------------
 	// 静的メンバ変数

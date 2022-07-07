@@ -189,7 +189,7 @@ CSound *CApplication::GetSound()
 //===========================
 // ƒvƒŒƒCƒ„[‚Ìæ“¾
 //===========================
-CPlayer	 *CApplication::GetPlayer()
+CPlayer *CApplication::GetPlayer()
 {
 	return m_pPlayer;
 }
@@ -197,7 +197,7 @@ CPlayer	 *CApplication::GetPlayer()
 //===========================
 // “G‚Ìæ“¾
 //===========================
-CEnemy	 *CApplication::GetEnemy()
+CEnemy *CApplication::GetEnemy()
 {
 	return m_pEnemy;
 }
