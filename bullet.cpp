@@ -19,6 +19,7 @@
 #include "player.h"
 #include "explosion.h"
 #include "score.h"
+#include "effect.h"
 
 //------------------------
 // 静的メンバ変数宣言
@@ -84,10 +85,13 @@ void CBullet::Uninit()
 //===========================
 void CBullet::Update()
 {
+	CObject2D::Update();
+
+	//エフェクトの生成
+	CEffect::Create(m_Bullet.pos);
+
 	//移動量の加算
 	m_Bullet.pos = CObject2D::AddMove(m_Bullet.move);
-
-	CObject2D::Update();
 
 	//寿命の減少
 	m_Bullet.nLife--;

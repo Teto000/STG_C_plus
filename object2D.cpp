@@ -173,14 +173,6 @@ void CObject2D::SetPosition(D3DXVECTOR3 pos)
 }
 
 //===========================
-// 位置の取得
-//===========================
-D3DXVECTOR3 CObject2D::GetPosition()
-{
-	return m_pos;
-}
-
-//===========================
 // 移動量の加算
 //===========================
 D3DXVECTOR3 CObject2D::AddMove(D3DXVECTOR3 move)
@@ -197,6 +189,28 @@ void CObject2D::SetSize(float fWidth, float fHeight)
 {
 	m_fWidth = fWidth;		//幅の設定
 	m_fHeight = fHeight;	//高さの設定
+}
+
+//===========================
+// 色の設定
+//===========================
+void CObject2D::SetColor(D3DXCOLOR col)
+{
+	VERTEX_2D*pVtx;		//頂点情報へのポインタ
+
+						//頂点バッファをロックし、頂点情報へのポインタを取得
+	m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
+
+	//------------------------
+	// 頂点カラーの設定
+	//------------------------
+	pVtx[0].col = col;
+	pVtx[1].col = col;
+	pVtx[2].col = col;
+	pVtx[3].col = col;
+
+	//頂点バッファをアンロックする
+	m_pVtxBuff->Unlock();
 }
 
 //===========================
@@ -290,6 +304,38 @@ void CObject2D::SetVtxCIE_Score(D3DXVECTOR3 pos, float fWidth, float fHeight,flo
 	m_pVtxBuff->Unlock();
 }
 
+//=========================================
+// αブレンディングを加算合成に設定
+//=========================================
+void CObject2D::SetAddALPHA()
+{
+	LPDIRECT3DDEVICE9 pDevice = CApplication::GetRenderer()->GetDevice();	//デバイスの取得
+
+	pDevice->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);
+	pDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+	pDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ONE);
+}
+
+//=========================================
+// αブレンディングを元に戻す
+//=========================================
+void CObject2D::ResAddALPHA()
+{
+	LPDIRECT3DDEVICE9 pDevice = CApplication::GetRenderer()->GetDevice();	//デバイスの取得
+
+	pDevice->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);
+	pDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+	pDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+}
+
+//===========================
+// 位置の取得
+//===========================
+D3DXVECTOR3 CObject2D::GetPosition()
+{
+	return m_pos;
+}
+
 //===========================
 // 幅の取得
 //===========================
@@ -304,26 +350,4 @@ float CObject2D::GetWidth()
 float CObject2D::GetHeight()
 {
 	return m_fHeight;
-}
-
-//===========================
-// 色の設定
-//===========================
-void CObject2D::SetColor(D3DXCOLOR col)
-{
-	VERTEX_2D*pVtx;		//頂点情報へのポインタ
-
-	//頂点バッファをロックし、頂点情報へのポインタを取得
-	m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
-
-	//------------------------
-	// 頂点カラーの設定
-	//------------------------
-	pVtx[0].col = col;
-	pVtx[1].col = col;
-	pVtx[2].col = col;
-	pVtx[3].col = col;
-
-	//頂点バッファをアンロックする
-	m_pVtxBuff->Unlock();
 }

@@ -25,6 +25,7 @@ const char* CTexture::s_FileName[] =
 	"data/TEXTURE/EnemyBird.png",	//鳥型の敵
 	"data/TEXTURE/Ring.png",		//輪
 	"data/TEXTURE/Number.png",		//数字
+	"data/TEXTURE/Effect.jpg",		//エフェクト
 };
 
 static_assert(sizeof(CTexture::s_FileName) / sizeof(CTexture::s_FileName[0]) == CTexture::TEXTURE_MAX, "aho");

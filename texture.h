@@ -26,6 +26,7 @@ public: /* 定義 */
 		TEXTURE_ENEMYBIRD,		//鳥型の敵
 		TEXTURE_RING,			//輪
 		TEXTURE_NUMBER,			//数字
+		TEXTURE_EFFECT,			//エフェクト
 		TEXTURE_MAX,
 		TEXTURE_NONE,			//使用しない
 	};

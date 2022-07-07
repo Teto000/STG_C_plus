@@ -34,6 +34,7 @@ public:
 		OBJTYPE_EXPLOSION,	//爆発
 		OBJTYPE_HP,			//HP
 		OBJTYPE_SCORE,		//スコア
+		OBJTYPE_EFFECT,		//エフェクト
 		OBJTYPE_MAX,
 		OBJTYPE_INVALID
 	};

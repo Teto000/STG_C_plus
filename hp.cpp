@@ -162,19 +162,20 @@ void CHp::Subtract(int nRemLife)
 	//-------------------------
 	// HPごとの処理
 	//-------------------------
-	if (nRemLife <= 20)
+	if (nRemLife <= 0)
+	{//HPが0になったら
+		//HPバーの消去
+		Uninit();
+		CObject2D::Release();
+	}
+	else if (nRemLife <= 20)
 	{//HPが20%以下になったら
 		//赤色にする
 		CObject2D::SetColor(D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));
 	}
 	else if (nRemLife <= 50)
 	{//HPが50%以下になったら
+		//黄色にする
 		CObject2D::SetColor(D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f));
-	}
-	else if (m_HP.fLength * nRemLife <= 0)
-	{//HPが0になったら
-		//HPバーの消去
-		Uninit();
-		CObject2D::Release();
 	}
 }

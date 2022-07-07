@@ -33,18 +33,30 @@ public:
 	
 	D3DXVECTOR3 AddMove(D3DXVECTOR3 move);		//移動量の加算
 
-	//セッター
+	//----------------
+	// セッター
+	//----------------
 	void SetPosition(D3DXVECTOR3 pos);			//位置の設定
 	void SetSize(float fWidth, float fHeight);	//大きさの設定
+	void SetColor(D3DXCOLOR col);				//色の設定
+
+	/* ↓テクスチャ↓ */
 	void SetTexCIE(float left, float fRight);	//テクスチャ座標の設定
 	void SetTexture(CTexture::TEXTURE texture);	//テクスチャの設定
+
+	/* ↓頂点座標↓ */
 	void SetVtxCIE(D3DXVECTOR3 pos, float fWidth, float fHeight);		//頂点座標の設定
 	void SetVtxCIE_Gauge(D3DXVECTOR3 pos, float fWidth1,
 						float fWidth2, float fHeight1, float fHeight2);	//頂点座標の設定(ゲージ)
 	void SetVtxCIE_Score(D3DXVECTOR3 pos, float fWidth, float fHeight, float fSpace);	//頂点座標の設定(スコア)
-	void SetColor(D3DXCOLOR col);				//色の設定
+
+	/* ↓描画↓ */
+	void SetAddALPHA();		//αブレンディングを加算合成に設定
+	void ResAddALPHA();		//αブレンディングを元に戻す
 	
-	//ゲッター
+	//----------------
+	// ゲッター
+	//----------------
 	D3DXVECTOR3 GetPosition() override;		//位置の取得
 	float GetWidth() override;				//幅の取得
 	float GetHeight() override;				//高さの取得
