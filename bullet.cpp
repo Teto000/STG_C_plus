@@ -54,7 +54,6 @@ HRESULT CBullet::Init(D3DXVECTOR3 pos)
 {
 	//メンバ変数の初期化
 	m_Bullet.pos = pos;
-	m_Bullet.nLife = 100;
 	m_Bullet.fWidth = 50.0f;
 	m_Bullet.fHeight = 50.0f;
 
@@ -62,11 +61,18 @@ HRESULT CBullet::Init(D3DXVECTOR3 pos)
 
 	if (m_Bullet.type == BULLETSTATE_NORMAL)
 	{
+		m_Bullet.nLife = 100;
 		CObject2D::SetSize(m_Bullet.fWidth, m_Bullet.fHeight);	//サイズの設定
 	}
 	else if (m_Bullet.type == BULLETSTATE_CHARGE)
 	{
+		m_Bullet.nLife = 100;
 		CObject2D::SetSize(m_Bullet.fWidth * 1.5f, m_Bullet.fHeight * 1.5f);
+	}
+	else if (m_Bullet.type == BULLETSTATE_HORMING)
+	{
+		m_Bullet.nLife = 200;
+		CObject2D::SetSize(m_Bullet.fWidth, m_Bullet.fHeight);	//サイズの設定
 	}
 
 	CObject2D::SetTexture(CTexture::TEXTURE_BULLET);	//テクスチャの設定
