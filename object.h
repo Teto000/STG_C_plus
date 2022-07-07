@@ -35,6 +35,7 @@ public:
 		OBJTYPE_HP,			//HP
 		OBJTYPE_SCORE,		//スコア
 		OBJTYPE_EFFECT,		//エフェクト
+		OBJTYPE_BG,			//背景
 		OBJTYPE_MAX,
 		OBJTYPE_INVALID
 	};

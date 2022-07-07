@@ -21,17 +21,19 @@
 #include "bullet.h"
 #include "enemy.h"
 #include "score.h"
+#include "bg.h"
 
 //------------------------
 // 静的メンバ変数宣言
 //------------------------
-CRenderer	*CApplication::m_pRenderer = nullptr;	//レンダラー
-CInput		*CApplication::m_pInput = nullptr;		//インプット
-CTexture	*CApplication::m_pTexture = nullptr;	//テクスチャ
-CSound		*CApplication::m_pSound = nullptr;		//サウンド
-CPlayer		*CApplication::m_pPlayer = nullptr;		//プレイヤー
-CEnemy		*CApplication::m_pEnemy = nullptr;		//敵
-CScore		*CApplication::m_pScore = nullptr;		//スコア
+CRenderer *CApplication::m_pRenderer = nullptr;	//レンダラー
+CInput	  *CApplication::m_pInput = nullptr;	//インプット
+CTexture  *CApplication::m_pTexture = nullptr;	//テクスチャ
+CSound	  *CApplication::m_pSound = nullptr;	//サウンド
+CPlayer	  *CApplication::m_pPlayer = nullptr;	//プレイヤー
+CEnemy	  *CApplication::m_pEnemy = nullptr;	//敵
+CScore	  *CApplication::m_pScore = nullptr;	//スコア
+CBg		  *CApplication::m_pBG = nullptr;		//背景
 
 //===========================
 // コンストラクタ
@@ -62,7 +64,7 @@ HRESULT CApplication::Init(HINSTANCE hInstance, HWND hWnd)
 	m_pTexture = new CTexture;		//テクスチャ
 	m_pSound = new CSound;			//サウンド
 
-									//レンダリングの初期化
+	//レンダリングの初期化
 	if (FAILED(m_pRenderer->Init(hWnd, TRUE)))
 	{//初期化処理が失敗した場合
 		return -1;
@@ -73,6 +75,9 @@ HRESULT CApplication::Init(HINSTANCE hInstance, HWND hWnd)
 
 	//サウンドの初期化
 	//m_pSound->Init(hWnd);
+
+	//背景の生成
+	m_pBG = CBg::Create();
 
 	//プレイヤーの生成
 	m_pPlayer = CPlayer::Create();

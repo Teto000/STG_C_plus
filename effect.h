@@ -26,7 +26,6 @@ public:
 		D3DXVECTOR3 pos;	//位置
 		D3DXCOLOR col;		//色
 		float fRadius;		//半径(大きさ)
-		int nLife;			//寿命
 	}Effect;
 
 	CEffect();				//コンストラクタ

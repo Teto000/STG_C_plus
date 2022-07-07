@@ -22,6 +22,7 @@ class CSound;		//サウンド
 class CPlayer;		//プレイヤー
 class CEnemy;		//敵
 class CScore;		//スコア
+class CBg;			//背景
 
 //-------------------------------------
 // アプリケーションクラスの定義
@@ -61,6 +62,7 @@ private:
 	static CPlayer		*m_pPlayer;		//プレイヤークラス
 	static CEnemy		*m_pEnemy;		//敵クラス
 	static CScore		*m_pScore;		//スコアクラス
+	static CBg			*m_pBG;			//背景クラス
 };
 
 #endif // !_APPLICATION_H_

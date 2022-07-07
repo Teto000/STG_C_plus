@@ -39,7 +39,6 @@ HRESULT CEffect::Init(D3DXVECTOR3 pos)
 {
 	//構造体の初期化
 	m_Effect.pos = pos;			//位置
-	m_Effect.nLife = 100;		//寿命
 	m_Effect.fRadius = 50.0f;	//半径
 	m_Effect.col = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);	//色
 
@@ -71,7 +70,7 @@ void CEffect::Update()
 	m_Effect.fRadius -= 1.5f;
 
 	//徐々に透明にする
-	m_Effect.col.a -= 0.05f;
+	m_Effect.col.a -= 0.01f;
 
 	if (m_Effect.fRadius <= 0.0f || m_Effect.col.a <= 0.0f)
 	{//小さくなって消えた or 完全に透明なら
