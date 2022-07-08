@@ -214,6 +214,40 @@ void CObject2D::SetColor(D3DXCOLOR col)
 }
 
 //===========================
+// 左右画面端の設定
+//===========================
+void CObject2D::SetScreenX(float posX, float fLeft, float fRight)
+{
+	if (posX <= fLeft)
+	{
+		posX = fLeft;
+	}
+	else if (posX >= fRight)
+	{
+		posX = fRight;
+	}
+
+	m_pos.x = posX;
+}
+
+//===========================
+// 上下画面端の設定
+//===========================
+void CObject2D::SetScreenY(float posY, float fUp, float fDown)
+{
+	if (posY <= fUp)
+	{
+		posY = fUp;
+	}
+	else if (posY >= fDown)
+	{
+		posY = fDown;
+	}
+
+	m_pos.y = posY;
+}
+
+//===========================
 // テクスチャ座標の設定
 //===========================
 void CObject2D::SetTexCIE(float left ,float fRight)

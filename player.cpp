@@ -52,12 +52,14 @@ HRESULT CPlayer::Init(D3DXVECTOR3 pos)
 	m_Player.nLife = nPlayerLife;	//体力
 	m_Player.nMaxLife = nPlayerLife;//最大体力
 	m_Player.nRemLife = nMaxLife;	//残り体力
+	m_Player.fWidth = 80.0f;		//幅
+	m_Player.fHeight = 100.0f;		//高さ
 	m_Player.nAttack = 10;			//攻撃力
 	m_Player.nSpeed = fPlayerSpeed;	//速度
 
 	CObject2D::Init(m_Player.pos);
 
-	CObject2D::SetSize(80.0f, 100.0f);	//サイズの設定
+	CObject2D::SetSize(m_Player.fWidth, m_Player.fHeight);	//サイズの設定
 
 	CObject2D::SetTexture(CTexture::TEXTURE_PLAYER);	//テクスチャの設定
 
@@ -102,6 +104,12 @@ void CPlayer::Update()
 	// 位置に移動量を加算
 	//--------------------
 	m_Player.pos = CObject2D::AddMove(m_Player.move);
+
+	//--------------------
+	// 画面端の設定
+	//--------------------
+	CObject2D::SetScreenX(m_Player.pos.x, 0.0f + m_Player.fWidth / 2, SCREEN_WIDTH - m_Player.fWidth / 2);
+	CObject2D::SetScreenY(m_Player.pos.y, 0.0f + m_Player.fHeight / 2, SCREEN_HEIGHT - m_Player.fHeight / 2);
 
 	//--------------------------
 	// 弾の発射

@@ -39,6 +39,8 @@ public:
 	void SetPosition(D3DXVECTOR3 pos);			//位置の設定
 	void SetSize(float fWidth, float fHeight);	//大きさの設定
 	void SetColor(D3DXCOLOR col);				//色の設定
+	void SetScreenX(float posX, float fLeft, float fRight);	//左右画面端の設定
+	void SetScreenY(float posY, float fUp, float fDown);	//上下画面端の設定
 
 	/* ↓テクスチャ↓ */
 	void SetTexCIE(float left, float fRight);	//テクスチャ座標の設定
