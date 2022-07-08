@@ -25,7 +25,7 @@
 //------------------------
 // 静的メンバ変数宣言
 //------------------------
-const float CBullet::fBulletSpeed = 5.0f;	//弾の速度
+float CBullet::fBulletSpeed = 1.05f;	//弾の速度
 
 int CBullet::s_nShotTime;		//弾の発射時間を数える
 int CBullet::s_nChageTime;		//弾のチャージ時間
@@ -331,6 +331,9 @@ D3DXVECTOR3 CBullet::Homing(float& posX, float& posY, float& moveX, float& moveY
 			moveY = vy3;
 		}
 	}
+
+	moveX *= fBulletSpeed;
+	moveY *= fBulletSpeed;
 
 	return D3DXVECTOR3(moveX, moveY, 0.0f);
 }

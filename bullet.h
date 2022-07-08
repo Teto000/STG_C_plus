@@ -67,7 +67,7 @@ private:
 	//----------------
 	// 定数定義
 	//----------------
-	static const float fBulletSpeed;	//弾の速度
+	//static const float fBulletSpeed;	//弾の速度
 	static const int nShotTime = 30;	//弾の発射時間
 
 	//----------------
@@ -81,6 +81,7 @@ private:
 	//----------------
 	static int s_nShotTime;		//弾の発射時間を数える
 	static int s_nChageTime;	//弾のチャージ時間
+	static float fBulletSpeed;	//弾の速度
 };
 
 #endif // !_BULLET_H_
