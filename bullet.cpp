@@ -25,10 +25,11 @@
 //------------------------
 // 静的メンバ変数宣言
 //------------------------
-float CBullet::fBulletSpeed = 1.05f;	//弾の速度
+const float CBullet::fBulletSpeed = 10.0f;	//弾の速度
+float CBullet::fBulletSpeed_Homing = 1.05f;	//弾の速度(ホーミング)
 
-int CBullet::s_nShotTime;		//弾の発射時間を数える
-int CBullet::s_nChageTime;		//弾のチャージ時間
+int CBullet::m_nShotTime;		//弾の発射時間を数える
+int CBullet::m_nChageTime;		//弾のチャージ時間
 
 //===========================
 // コンストラクタ
@@ -119,9 +120,8 @@ void CBullet::Update()
 		Uninit();
 		CObject2D::Release();	//弾の開放
 	}
-
 	//画面端の処理
-	if (m_Bullet.pos.x >= 1280.0f)
+	else if (m_Bullet.pos.x >= 1280.0f)
 	{
 		Uninit();
 		CObject2D::Release();
@@ -130,56 +130,14 @@ void CBullet::Update()
 	//------------------------
 	// 敵との当たり判定
 	//------------------------
-	for (int i = 0; i < MAX_OBJECT; i++)
+	if (CObject2D::GetCollision(OBJTYPE_ENEMY) == true)
 	{
-		CObject *pObject;
-		pObject = CObject::GETObject(i);
+		CExplosion::Create(m_Bullet.pos);//爆発の生成
+		CScore::AddScore(50);
 
-		if (pObject == nullptr)
-		{
-			continue;
-		}
-
-		//オブジェクトの種類の取得
-		CObject::EObjType type = pObject->GetObjType();
-
-		//------------------
-		// 弾の情報を取得
-		//------------------
-		D3DXVECTOR3 BulletPos = CObject2D::GetPosition();	//位置
-		float BulletWidth = CObject2D::GetWidth();			//幅
-		float BulletHeight = CObject2D::GetHeight();		//高さ
-
-		if (type == OBJTYPE_ENEMY)
-		{//オブジェクトの種類が敵なら
-			//------------------
-			// 敵の情報を取得
-			//------------------
-			D3DXVECTOR3 EnemyPos = pObject->GetPosition();	//位置
-			float EnemyWidth = pObject->GetWidth();			//幅
-			float EnemyHeight = pObject->GetHeight();		//高さ
-
-			m_Tirget = EnemyPos;
-
-			float fLeft = EnemyPos.x - (EnemyWidth / 2);	//敵の左側
-			float fRight = EnemyPos.x + (EnemyWidth / 2);	//敵の右側
-			float fTop = EnemyPos.y - (EnemyHeight / 2);	//敵の上側
-			float fBottom = EnemyPos.y + (EnemyHeight / 2);	//敵の下側
-
-			//------------------
-			// 当たり判定
-			//------------------
-			if (BulletPos.x + BulletWidth / 2 >= fLeft && BulletPos.x - BulletWidth / 2 <= fRight
-				&& BulletPos.y - BulletHeight / 2 <= fBottom && BulletPos.y + BulletHeight / 2 >= fTop)
-			{
-				CExplosion::Create(m_Bullet.pos);//爆発の生成
-				CScore::AddScore(50);
-
-				//弾の消滅
-				Uninit();
-				CObject2D::Release();
-			}
-		}
+		//弾の消滅
+		Uninit();
+		CObject2D::Release();
 	}
 }
 
@@ -223,13 +181,13 @@ void CBullet::ShotBullet(D3DXVECTOR3 pos, D3DXVECTOR3 rot)
 {
 	rot.x = rot.x - D3DX_PI / 2;	//右を前に変更
 
-	s_nShotTime++;
-	s_nShotTime %= nShotTime;	//発射時間をリセット
+	m_nShotTime++;
+	m_nShotTime %= nShotTime;	//発射時間をリセット
 
 	//---------------------------
 	// 通常弾
 	//---------------------------
-	if (!CInputKeyboard::Press(DIK_1) && s_nShotTime == 0)
+	if (!CInputKeyboard::Press(DIK_1) && m_nShotTime == 0)
 	{//SPACEキーが押されている間 かつ 弾の発射時間が0なら
 		//プレイヤーの向きに弾を発射する
 		//Create(pos, D3DXVECTOR3(-sinf(rot.x) * fBulletSpeed, -cosf(rot.x) * fBulletSpeed, 0.0f), BULLETSTATE_NORMAL);
@@ -241,25 +199,25 @@ void CBullet::ShotBullet(D3DXVECTOR3 pos, D3DXVECTOR3 rot)
 	//---------------------------
 	if (CInputKeyboard::Press(DIK_1))
 	{//1キーが押されている間
-		s_nChageTime++;		//チャージ時間を加算
+		m_nChageTime++;		//チャージ時間を加算
 
-		if (s_nChageTime >= 40)
+		if (m_nChageTime >= 40)
 		{//チャージ時間が10以上なら
 			CPlayer::SetCol(D3DXCOLOR(1.0f, 0.5f, 0.5f, 1.0f));	//プレイヤーの色を変更
 		}
 	}
 
-	if (CInputKeyboard::Release(DIK_1) && s_nChageTime >= 40)
+	if (CInputKeyboard::Release(DIK_1) && m_nChageTime >= 40)
 	{//1キーを離したとき かつ チャージ状態なら
 		Create(pos, D3DXVECTOR3(-sinf(rot.x) * fBulletSpeed, -cosf(rot.x) * fBulletSpeed, 0.0f), BULLETSTATE_CHARGE);
 
-		s_nChageTime = 0;	//チャージ時間をリセット
-		s_nShotTime = 0;	//通常弾のの発射時間リセット
+		m_nChageTime = 0;	//チャージ時間をリセット
+		m_nShotTime = 0;	//通常弾のの発射時間リセット
 		CPlayer::SetCol(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));	//プレイヤーの色を変更
 	}
-	else if (CInputKeyboard::Release(DIK_1) && s_nChageTime < 40)
+	else if (CInputKeyboard::Release(DIK_1) && m_nChageTime < 40)
 	{
-		s_nChageTime = 0;	//チャージ時間をリセット
+		m_nChageTime = 0;	//チャージ時間をリセット
 	}
 }
 
@@ -280,13 +238,13 @@ D3DXVECTOR3 CBullet::Homing(float& posX, float& posY, float& moveX, float& moveY
 
 	if (d)
 	{
-		vx1 = (m_Tirget.x - posX) / d * fBulletSpeed;
-		vy1 = (m_Tirget.y - posY) / d * fBulletSpeed;
+		vx1 = (m_Tirget.x - posX) / d * fBulletSpeed_Homing;
+		vy1 = (m_Tirget.y - posY) / d * fBulletSpeed_Homing;
 	}
 	else
 	{
 		vx1 = 0;
-		vy1 = fBulletSpeed;
+		vy1 = fBulletSpeed_Homing;
 	}
 
 	//右回り旋回角度上限の速度ベクトル(vx2,vy2)を求める
@@ -324,8 +282,8 @@ D3DXVECTOR3 CBullet::Homing(float& posX, float& posY, float& moveX, float& moveY
 		}
 	}
 
-	moveX *= fBulletSpeed;
-	moveY *= fBulletSpeed;
+	moveX *= fBulletSpeed_Homing;
+	moveY *= fBulletSpeed_Homing;
 
 	return D3DXVECTOR3(moveX, moveY, 0.0f);
 }

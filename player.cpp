@@ -124,6 +124,15 @@ void CPlayer::Update()
 		m_Player.nLife--;	//プレイヤーの体力の減少
 		m_Player.nRemLife = m_Player.nLife * 100 / m_Player.nMaxLife;	//残り体力を計算
 	}
+
+	//------------------------
+	// 敵との当たり判定
+	//------------------------
+	if (CObject2D::GetCollision(OBJTYPE_ENEMY) == true)
+	{
+		m_Player.nLife--;	//プレイヤーの体力の減少
+		m_Player.nRemLife = m_Player.nLife * 100 / m_Player.nMaxLife;	//残り体力を計算
+	}
 }
 
 //===========================

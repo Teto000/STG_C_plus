@@ -67,7 +67,7 @@ private:
 	//----------------
 	// 定数定義
 	//----------------
-	//static const float fBulletSpeed;	//弾の速度
+	static const float fBulletSpeed;	//弾の速度
 	static const int nShotTime = 30;	//弾の発射時間
 
 	//----------------
@@ -79,9 +79,9 @@ private:
 	//----------------
 	// 静的メンバ変数
 	//----------------
-	static int s_nShotTime;		//弾の発射時間を数える
-	static int s_nChageTime;	//弾のチャージ時間
-	static float fBulletSpeed;	//弾の速度
+	static int m_nShotTime;		//弾の発射時間を数える
+	static int m_nChageTime;	//弾のチャージ時間
+	static float fBulletSpeed_Homing;	//弾の速度
 };
 
 #endif // !_BULLET_H_

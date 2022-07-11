@@ -40,9 +40,9 @@ HRESULT CBarrier::Init(D3DXVECTOR3 pos)
 {
 	//ˆÊ’u‚Ìİ’è
 	m_Barrier.pos = pos;			//ˆÊ’u
-	m_Barrier.nLife = 120;		//‘Ì—Í
-	m_Barrier.fWidth = 100.0f;	//•
-	m_Barrier.fHeight = 100.0f;	//‚‚³
+	m_Barrier.nLife = 120;			//‘Ì—Í
+	m_Barrier.fWidth = 100.0f;		//•
+	m_Barrier.fHeight = 100.0f;		//‚‚³
 
 	CObject2D::Init(m_Barrier.pos);
 

@@ -59,9 +59,10 @@ public:
 	//----------------
 	// ゲッター
 	//----------------
-	D3DXVECTOR3 GetPosition() override;		//位置の取得
-	float GetWidth() override;				//幅の取得
-	float GetHeight() override;				//高さの取得
+	D3DXVECTOR3 GetPosition() override;					//位置の取得
+	float GetWidth() override;							//幅の取得
+	float GetHeight() override;							//高さの取得
+	bool GetCollision(CObject::EObjType TirgetType);	//当たり判定の取得
 
 private:
 	//----------------

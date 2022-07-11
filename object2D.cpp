@@ -248,6 +248,59 @@ void CObject2D::SetScreenY(float posY, float fUp, float fDown)
 }
 
 //===========================
+// 当たり判定の取得
+//===========================
+bool CObject2D::GetCollision(CObject::EObjType TirgetType)
+{
+	for (int i = 0; i < MAX_OBJECT; i++)
+	{
+		CObject *pObject;
+		pObject = CObject::GETObject(i);
+
+		if (pObject == nullptr)
+		{
+			continue;
+		}
+
+		//オブジェクトの種類の取得
+		CObject::EObjType type = pObject->GetObjType();
+
+		//------------------
+		// 弾の情報を取得
+		//------------------
+		D3DXVECTOR3 BulletPos = CObject2D::GetPosition();	//位置
+		float BulletWidth = CObject2D::GetWidth();			//幅
+		float BulletHeight = CObject2D::GetHeight();		//高さ
+
+		if (type == TirgetType)
+		{//オブジェクトの種類が敵なら
+			//------------------
+			// 敵の情報を取得
+			//------------------
+			D3DXVECTOR3 TirgetPos = pObject->GetPosition();	//位置
+			float TirgetWidth = pObject->GetWidth();		//幅
+			float TirgetHeight = pObject->GetHeight();		//高さ
+
+
+			float fLeft = TirgetPos.x - (TirgetWidth / 2);		//敵の左側
+			float fRight = TirgetPos.x + (TirgetWidth / 2);		//敵の右側
+			float fTop = TirgetPos.y - (TirgetHeight / 2);		//敵の上側
+			float fBottom = TirgetPos.y + (TirgetHeight / 2);	//敵の下側
+
+			//------------------
+			// 当たり判定
+			//------------------
+			if (BulletPos.x + BulletWidth / 2 >= fLeft && BulletPos.x - BulletWidth / 2 <= fRight
+				&& BulletPos.y - BulletHeight / 2 <= fBottom && BulletPos.y + BulletHeight / 2 >= fTop)
+			{
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+//===========================
 // テクスチャ座標の設定
 //===========================
 void CObject2D::SetTexCIE(float left ,float fRight)
@@ -256,7 +309,7 @@ void CObject2D::SetTexCIE(float left ,float fRight)
 
 	//頂点バッファをロックし、頂点情報へのポインタを取得
 	m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
-
+	
 	//テクスチャ座標の設定
 	pVtx[0].tex = D3DXVECTOR2(left, 0.0f);
 	pVtx[1].tex = D3DXVECTOR2(fRight, 0.0f);
