@@ -121,7 +121,7 @@ void CBullet::Update()
 		CObject2D::Release();	//íeÇÃäJï˙
 	}
 	//âÊñ í[ÇÃèàóù
-	else if (m_Bullet.pos.x >= 1280.0f)
+	else if (m_Bullet.pos.x >= SCREEN_WIDTH)
 	{
 		Uninit();
 		CObject2D::Release();
@@ -130,7 +130,9 @@ void CBullet::Update()
 	//------------------------
 	// ìGÇ∆ÇÃìñÇΩÇËîªíË
 	//------------------------
-	if (CObject2D::GetCollision(OBJTYPE_ENEMY) == true)
+	m_Tirget = CObject2D::GetTargetPos();
+
+	if (CObject2D::GetCollision(OBJTYPE_ENEMY))
 	{
 		CExplosion::Create(m_Bullet.pos);//îöî≠ÇÃê∂ê¨
 		CScore::AddScore(50);

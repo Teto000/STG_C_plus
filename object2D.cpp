@@ -248,59 +248,6 @@ void CObject2D::SetScreenY(float posY, float fUp, float fDown)
 }
 
 //===========================
-// 当たり判定の取得
-//===========================
-bool CObject2D::GetCollision(CObject::EObjType TirgetType)
-{
-	for (int i = 0; i < MAX_OBJECT; i++)
-	{
-		CObject *pObject;
-		pObject = CObject::GETObject(i);
-
-		if (pObject == nullptr)
-		{
-			continue;
-		}
-
-		//オブジェクトの種類の取得
-		CObject::EObjType type = pObject->GetObjType();
-
-		//------------------
-		// 弾の情報を取得
-		//------------------
-		D3DXVECTOR3 BulletPos = CObject2D::GetPosition();	//位置
-		float BulletWidth = CObject2D::GetWidth();			//幅
-		float BulletHeight = CObject2D::GetHeight();		//高さ
-
-		if (type == TirgetType)
-		{//オブジェクトの種類が敵なら
-			//------------------
-			// 敵の情報を取得
-			//------------------
-			D3DXVECTOR3 TirgetPos = pObject->GetPosition();	//位置
-			float TirgetWidth = pObject->GetWidth();		//幅
-			float TirgetHeight = pObject->GetHeight();		//高さ
-
-
-			float fLeft = TirgetPos.x - (TirgetWidth / 2);		//敵の左側
-			float fRight = TirgetPos.x + (TirgetWidth / 2);		//敵の右側
-			float fTop = TirgetPos.y - (TirgetHeight / 2);		//敵の上側
-			float fBottom = TirgetPos.y + (TirgetHeight / 2);	//敵の下側
-
-			//------------------
-			// 当たり判定
-			//------------------
-			if (BulletPos.x + BulletWidth / 2 >= fLeft && BulletPos.x - BulletWidth / 2 <= fRight
-				&& BulletPos.y - BulletHeight / 2 <= fBottom && BulletPos.y + BulletHeight / 2 >= fTop)
-			{
-				return true;
-			}
-		}
-	}
-	return false;
-}
-
-//===========================
 // テクスチャ座標の設定
 //===========================
 void CObject2D::SetTexCIE(float left ,float fRight)
@@ -424,6 +371,14 @@ D3DXVECTOR3 CObject2D::GetPosition()
 }
 
 //===========================
+// 相手の位置の取得
+//===========================
+D3DXVECTOR3 CObject2D::GetTargetPos()
+{
+	return m_TargetPos;
+}
+
+//===========================
 // 幅の取得
 //===========================
 float CObject2D::GetWidth()
@@ -437,4 +392,57 @@ float CObject2D::GetWidth()
 float CObject2D::GetHeight()
 {
 	return m_fHeight;
+}
+
+//===========================
+// 当たり判定の取得
+//===========================
+bool CObject2D::GetCollision(CObject::EObjType TirgetType)
+{
+	for (int i = 0; i < MAX_OBJECT; i++)
+	{
+		CObject *pObject;
+		pObject = CObject::GETObject(i);
+
+		if (pObject == nullptr)
+		{
+			continue;
+		}
+
+		//オブジェクトの種類の取得
+		CObject::EObjType type = pObject->GetObjType();
+
+		//------------------
+		// 自分の情報を取得
+		//------------------
+		D3DXVECTOR3 SourcePos = CObject2D::GetPosition();	//位置
+		float SourceWidth = CObject2D::GetWidth();			//幅
+		float SourceHeight = CObject2D::GetHeight();		//高さ
+
+		if (type == TirgetType)
+		{//オブジェクトの種類が目的の相手なら
+			//------------------
+			// 相手の情報を取得
+			//------------------
+			m_TargetPos = pObject->GetPosition();			//位置
+			float TirgetWidth = pObject->GetWidth();		//幅
+			float TirgetHeight = pObject->GetHeight();		//高さ
+
+
+			float fLeft = m_TargetPos.x - (TirgetWidth / 2);		//敵の左側
+			float fRight = m_TargetPos.x + (TirgetWidth / 2);		//敵の右側
+			float fTop = m_TargetPos.y - (TirgetHeight / 2);		//敵の上側
+			float fBottom = m_TargetPos.y + (TirgetHeight / 2);	//敵の下側
+
+			//------------------
+			// 当たり判定
+			//------------------
+			if (SourcePos.x + SourceWidth / 2 >= fLeft && SourcePos.x - SourceWidth / 2 <= fRight
+				&& SourcePos.y - SourceHeight / 2 <= fBottom && SourcePos.y + SourceHeight / 2 >= fTop)
+			{
+				return true;
+			}
+		}
+	}
+	return false;
 }

@@ -60,6 +60,7 @@ public:
 	// ゲッター
 	//----------------
 	D3DXVECTOR3 GetPosition() override;					//位置の取得
+	D3DXVECTOR3 GetTargetPos();							//相手の位置の取得
 	float GetWidth() override;							//幅の取得
 	float GetHeight() override;							//高さの取得
 	bool GetCollision(CObject::EObjType TirgetType);	//当たり判定の取得
@@ -69,6 +70,7 @@ private:
 	// メンバ変数
 	//----------------
 	D3DXVECTOR3 m_pos;	//位置
+	D3DXVECTOR3 m_TargetPos;	//相手の位置
 	D3DXVECTOR3 m_move;	//移動量
 	float m_fWidth;		//幅
 	float m_fHeight;	//高さ
