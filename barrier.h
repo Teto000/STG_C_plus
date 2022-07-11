@@ -25,7 +25,6 @@ public:
 	{
 		D3DXVECTOR3 pos;	//ˆÊ’u
 		D3DXVECTOR3 move;	//ˆÚ“®—Ê
-		int nLife;			//õ–½
 		float fWidth;		//•
 		float fHeight;		//‚‚³
 	};

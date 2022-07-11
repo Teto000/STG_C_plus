@@ -15,7 +15,7 @@
 //------------------------
 // マクロ定義
 //------------------------
-#define MAX_OBJECT	(256)	//オブジェクトの最大数
+#define MAX_OBJECT	(512)	//オブジェクトの最大数
 
 //--------------------------
 // オブジェクトクラス
@@ -36,6 +36,7 @@ public:
 		OBJTYPE_SCORE,		//スコア
 		OBJTYPE_EFFECT,		//エフェクト
 		OBJTYPE_BG,			//背景
+		OBJTYPE_BARRIER,	//バリア
 		OBJTYPE_MAX,
 		OBJTYPE_INVALID
 	};

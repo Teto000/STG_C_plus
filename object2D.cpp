@@ -432,7 +432,7 @@ bool CObject2D::GetCollision(CObject::EObjType TirgetType)
 			float fLeft = m_TargetPos.x - (TirgetWidth / 2);		//“G‚Ì¶‘¤
 			float fRight = m_TargetPos.x + (TirgetWidth / 2);		//“G‚Ì‰E‘¤
 			float fTop = m_TargetPos.y - (TirgetHeight / 2);		//“G‚Ìã‘¤
-			float fBottom = m_TargetPos.y + (TirgetHeight / 2);	//“G‚Ì‰º‘¤
+			float fBottom = m_TargetPos.y + (TirgetHeight / 2);		//“G‚Ì‰º‘¤
 
 			//------------------
 			// “–‚½‚è”»’è

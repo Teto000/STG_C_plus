@@ -1,6 +1,6 @@
 //===================================
 //
-// エネミーの処理
+// バリアの処理
 // Author : Sato Teruto
 //
 //===================================
@@ -39,16 +39,15 @@ CBarrier::~CBarrier()
 HRESULT CBarrier::Init(D3DXVECTOR3 pos)
 {
 	//位置の設定
-	m_Barrier.pos = pos;			//位置
-	m_Barrier.nLife = 120;			//体力
-	m_Barrier.fWidth = 100.0f;		//幅
-	m_Barrier.fHeight = 100.0f;		//高さ
+	m_Barrier.pos = pos;	//位置
 
 	CObject2D::Init(m_Barrier.pos);
 
 	CObject2D::SetSize(m_Barrier.fWidth, m_Barrier.fHeight);	//サイズの設定
 
-	CObject2D::SetTexture(CTexture::TEXTURE_ENEMYBIRD);	//テクスチャの設定
+	CObject2D::SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f));	//色の設定
+
+	CObject2D::SetTexture(CTexture::TEXTURE_BULLET);	//テクスチャの設定
 
 	return S_OK;
 }
@@ -66,7 +65,7 @@ void CBarrier::Uninit()
 //===========================
 void CBarrier::Update()
 {
-
+	CObject2D::Update();
 }
 
 //===========================
@@ -82,19 +81,24 @@ void CBarrier::Draw()
 //===========================
 CBarrier *CBarrier::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, float fWidth, float fHeight)
 {
-	CBarrier *pEnemy = nullptr;
+	CBarrier *pBarrier = nullptr;
 
 	//----------------------------------
 	// プレイヤーの生成と初期化
 	//----------------------------------zz
-	pEnemy = new CBarrier;	//生成
+	pBarrier = new CBarrier;	//生成
 
-	if (pEnemy != nullptr)
+	if (pBarrier != nullptr)
 	{//NULLチェック
-	 //初期化
-		pEnemy->Init(D3DXVECTOR3(800.0f, SCREEN_HEIGHT / 2, 0.0f));
-		pEnemy->SetObjType(OBJTYPE_ENEMY);
+		//構造体に代入
+		pBarrier->m_Barrier.move = move;				//移動量
+		pBarrier->m_Barrier.fWidth = fWidth + 50.0f;	//幅
+		pBarrier->m_Barrier.fHeight = fHeight + 50.0f;	//高さ
+
+		//初期化
+		pBarrier->Init(pos);
+		pBarrier->SetObjType(OBJTYPE_BARRIER);
 	}
 
-	return pEnemy;
+	return pBarrier;
 }

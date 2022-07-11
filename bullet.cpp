@@ -53,13 +53,18 @@ CBullet::~CBullet()
 //===========================
 HRESULT CBullet::Init(D3DXVECTOR3 pos)
 {
-	//メンバ変数の初期化
+	//----------------------------
+	// メンバ変数の初期化
+	//----------------------------
 	m_Bullet.pos = pos;
 	m_Bullet.fWidth = 50.0f;
 	m_Bullet.fHeight = 50.0f;
 
 	CObject2D::Init(m_Bullet.pos);
 
+	//----------------------------
+	// 種類別の情報の設定
+	//----------------------------
 	if (m_Bullet.type == BULLETSTATE_NORMAL)
 	{
 		m_Bullet.nLife = 100;
@@ -97,7 +102,8 @@ void CBullet::Update()
 	CObject2D::Update();
 
 	if (m_Bullet.type == BULLETSTATE_HORMING)
-	{
+	{//ホーミング弾なら
+		m_Tirget = CObject2D::GetTargetPos();	//敵の位置の取得
 		D3DXVECTOR3 move = Homing(m_Bullet.pos.x, m_Bullet.pos.y, m_Bullet.move.x, m_Bullet.move.y);
 		m_Bullet.pos = CObject2D::AddMove(move);
 	}
@@ -130,12 +136,19 @@ void CBullet::Update()
 	//------------------------
 	// 敵との当たり判定
 	//------------------------
-	m_Tirget = CObject2D::GetTargetPos();
-
 	if (CObject2D::GetCollision(OBJTYPE_ENEMY))
 	{
-		CExplosion::Create(m_Bullet.pos);//爆発の生成
-		CScore::AddScore(50);
+		CExplosion::Create(m_Bullet.pos);	//爆発の生成
+		CScore::AddScore(50);				//スコアの加算
+
+		//弾の消滅
+		Uninit();
+		CObject2D::Release();
+	}
+	else if (CObject2D::GetCollision(OBJTYPE_BARRIER))
+	{
+		CExplosion::Create(m_Bullet.pos);	//爆発の生成
+		CScore::AddScore(50);				//スコアの加算
 
 		//弾の消滅
 		Uninit();

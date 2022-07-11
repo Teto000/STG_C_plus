@@ -67,10 +67,10 @@ void CEffect::Update()
 	CObject2D::Update();
 
 	//™X‚É¬‚³‚­‚·‚é
-	m_Effect.fRadius -= 1.5f;
+	m_Effect.fRadius -= 1.0f;
 
 	//™X‚É“§–¾‚É‚·‚é
-	m_Effect.col.a -= 0.01f;
+	m_Effect.col.a -= 0.05f;
 
 	if (m_Effect.fRadius <= 0.0f || m_Effect.col.a <= 0.0f)
 	{//¬‚³‚­‚È‚Á‚ÄÁ‚¦‚½ or Š®‘S‚É“§–¾‚È‚ç

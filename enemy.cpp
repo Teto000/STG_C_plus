@@ -18,6 +18,7 @@
 #include "bullet.h"
 #include "texture.h"
 #include "hp.h"
+#include "barrier.h"
 
 //------------------------
 // 静的メンバ変数宣言
@@ -72,6 +73,11 @@ HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 	CHp::Create(D3DXVECTOR3(m_Enemy.pos.x, m_Enemy.pos.y - (m_Enemy.fHeight / 2 + 20.0f), m_Enemy.pos.z)
 		, D3DXVECTOR3(0.0f, 0.0f, 0.0f), m_Enemy.fWidth, 10.0f, CHp::HPTYPE_ENEMY);
 
+	//--------------------------
+	// バリアの生成
+	//--------------------------
+	CBarrier::Create(m_Enemy.pos, m_Enemy.move, m_Enemy.fWidth, m_Enemy.fHeight);
+
 	return S_OK;
 }
 
@@ -111,7 +117,7 @@ void CEnemy::Update()
 	//--------------------------
 	if (CInputKeyboard::Press(DIK_M))
 	{
-		m_Enemy.nLife--;	//プレイヤーの体力の減少
+		m_Enemy.nLife--;	//敵の体力の減少
 		m_Enemy.nRemLife = m_Enemy.nLife * 100 / m_Enemy.nMaxLife;	//残り体力を計算
 	}
 }
@@ -132,8 +138,8 @@ CEnemy *CEnemy::Create()
 	CEnemy *pEnemy = nullptr;
 
 	//----------------------------------
-	// プレイヤーの生成と初期化
-	//----------------------------------zz
+	// 敵の生成と初期化
+	//----------------------------------
 	pEnemy = new CEnemy;	//生成
 
 	if (pEnemy != nullptr)
