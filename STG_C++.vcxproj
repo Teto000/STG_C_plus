@@ -151,6 +151,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="application.cpp" />
+    <ClCompile Include="barrier.cpp" />
     <ClCompile Include="bg.cpp" />
     <ClCompile Include="bullet.cpp" />
     <ClCompile Include="effect.cpp" />
@@ -171,6 +172,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="application.h" />
+    <ClInclude Include="barrier.h" />
     <ClInclude Include="bg.h" />
     <ClInclude Include="bullet.h" />
     <ClInclude Include="effect.h" />

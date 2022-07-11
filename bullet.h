@@ -32,7 +32,7 @@ public:
 	//---------------------------
 	// 弾の構造体の定義
 	//---------------------------
-	typedef struct
+	struct Bullet
 	{
 		D3DXVECTOR3 pos;	//位置
 		D3DXVECTOR3 move;	//移動量
@@ -41,7 +41,7 @@ public:
 		float fWidth;		//幅
 		float fHeight;		//高さ
 		BULLETSTATE type;	//種類
-	}Bullet;
+	};
 
 	CBullet();				//コンストラクタ
 	~CBullet() override;	//デストラクタ

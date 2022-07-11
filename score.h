@@ -16,17 +16,6 @@
 class CScore : public CObject2D
 {
 public:
-	//----------------------
-	// スコアの構造体
-	//----------------------
-	typedef struct
-	{
-		D3DXVECTOR3 pos;	//位置
-		float fWidth;		//幅
-		float fHeight;		//高さ
-		float fSpace;		//間隔
-	}Score;
-
 	CScore();				//コンストラクタ
 	~CScore() override;		//デストラクタ
 
@@ -52,10 +41,14 @@ private:
 	// 定数
 	//----------------
 	static const int nMaxScore = 6;
+
 	//----------------
 	// メンバ変数
 	//----------------
-	Score m_Score;	//スコア構造体
+	D3DXVECTOR3 pos;	//位置
+	float fWidth;		//幅
+	float fHeight;		//高さ
+	float fSpace;		//間隔
 
 	//----------------
 	// 静的メンバ変数

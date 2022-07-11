@@ -9,7 +9,6 @@
 // インクルード
 //------------------------
 #include <assert.h>
-#include <memory.h>
 #include "score.h"
 #include "texture.h"
 
@@ -25,7 +24,10 @@ int CScore::nNum = 0;
 //===========================
 CScore::CScore() : CObject2D()
 {
-	memset(&m_Score, 0, sizeof(Score));	//構造体のクリア
+	pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	fWidth = 0.0f;
+	fHeight = 0.0;
+	fSpace = 0.0f;
 }
 
 //===========================
@@ -42,16 +44,16 @@ CScore::~CScore()
 HRESULT CScore::Init(D3DXVECTOR3 pos)
 {
 	//構造体の初期化
-	m_Score.pos = pos;
-	m_Score.fWidth = 30.0f;		//幅
-	m_Score.fHeight = 50.0f;	//高さ
-	m_Score.fSpace = 35.0f;		//間隔
+	pos = pos;
+	fWidth = 30.0f;		//幅
+	fHeight = 50.0f;	//高さ
+	fSpace = 35.0f;		//間隔
 
 	m_nScore = 0;	//スコアの初期設定
 
-	CObject2D::Init(m_Score.pos);
+	CObject2D::Init(pos);
 
-	CObject2D::SetSize(m_Score.fWidth, m_Score.fHeight);
+	CObject2D::SetSize(fWidth, fHeight);
 
 	CObject2D::SetTexture(CTexture::TEXTURE_NUMBER);	//テクスチャの設定
 

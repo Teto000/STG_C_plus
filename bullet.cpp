@@ -119,14 +119,6 @@ void CBullet::Update()
 		Uninit();
 		CObject2D::Release();	//弾の開放
 	}
-	//目標地点に弾が着いたら爆発
-	//else if (m_Bullet.pos.x <= m_tirget.x + 5.0f && m_Bullet.pos.x >= m_tirget.x - 5.0f
-	//	&& m_Bullet.pos.y <= m_tirget.y + 5.0f && m_Bullet.pos.y >= m_tirget.y - 5.0f)
-	//{
-	//	CExplosion::Create(m_Bullet.pos);//爆発の生成
-	//	Uninit();
-	//	CObject2D::Release();	//弾の開放
-	//}
 
 	//画面端の処理
 	if (m_Bullet.pos.x >= 1280.0f)
@@ -298,7 +290,7 @@ D3DXVECTOR3 CBullet::Homing(float& posX, float& posY, float& moveX, float& moveY
 	}
 
 	//右回り旋回角度上限の速度ベクトル(vx2,vy2)を求める
-	float rad = (D3DX_PI / 180) * 3.0f;
+	float rad = (D3DX_PI / 180) * 5.0f; //旋回角度上限
 	float vx2 = cosf(rad) * vx0 - sinf(rad) * vy0;
 	float vy2 = sinf(rad) * vx0 + cosf(rad) * vy0;
 

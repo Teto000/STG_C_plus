@@ -21,12 +21,12 @@ public:
 	//--------------------------
 	// エフェクト構造体の定義
 	//--------------------------
-	typedef struct
+	struct Effect
 	{
 		D3DXVECTOR3 pos;	//位置
 		D3DXCOLOR col;		//色
 		float fRadius;		//半径(大きさ)
-	}Effect;
+	};
 
 	CEffect();				//コンストラクタ
 	~CEffect() override;	//デストラクタ

@@ -21,7 +21,7 @@ public:
 	//---------------------------
 	// 敵の構造体の定義
 	//---------------------------
-	typedef struct
+	struct Enemy
 	{
 		D3DXVECTOR3 pos;	//位置
 		D3DXVECTOR3 move;	//移動量
@@ -32,7 +32,7 @@ public:
 		float fWidth;		//幅
 		float fHeight;		//高さ
 		bool bUse;			//使用しているか
-	}Enemy;
+	};
 
 	CEnemy();			//コンストラクタ
 	~CEnemy() override;	//デストラクタ

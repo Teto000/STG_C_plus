@@ -32,7 +32,7 @@ public:
 	//---------------------------
 	// HP構造体の定義
 	//---------------------------
-	typedef struct
+	struct HP
 	{
 		D3DXVECTOR3 pos;	//位置
 		D3DXVECTOR3 move;	//移動量
@@ -40,7 +40,7 @@ public:
 		float fHeight;		//高さ
 		float fLength;		//HPバーの長さ
 		HPTYPE type;		//種類
-	}HP;
+	};
 	
 	CHp();				//コンストラクタ
 	~CHp() override;	//デストラクタ

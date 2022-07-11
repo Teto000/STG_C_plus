@@ -109,7 +109,7 @@ void CPlayer::Update()
 	// âÊñ í[ÇÃê›íË
 	//--------------------
 	CObject2D::SetScreenX(m_Player.pos.x, 0.0f + m_Player.fWidth / 2, SCREEN_WIDTH - m_Player.fWidth / 2);
-	CObject2D::SetScreenY(m_Player.pos.y, 0.0f + m_Player.fHeight / 2, SCREEN_HEIGHT - m_Player.fHeight / 2);
+	CObject2D::SetScreenY(m_Player.pos.y, 0.0f + 180.0f, SCREEN_HEIGHT - m_Player.fHeight / 2);
 
 	//--------------------------
 	// íeÇÃî≠éÀ

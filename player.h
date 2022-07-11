@@ -21,7 +21,7 @@ public:
 	//---------------------------
 	// プレイヤー構造体の定義
 	//---------------------------
-	typedef struct
+	struct Player
 	{
 		D3DXVECTOR3 pos;	//位置
 		D3DXVECTOR3 move;	//移動量
@@ -34,7 +34,7 @@ public:
 		float nSpeed;		//速度
 		float fWidth;		//幅
 		float fHeight;		//高さ
-	}Player;
+	};
 
 	CPlayer();				//コンストラクタ
 	~CPlayer() override;	//デストラクタ
@@ -63,9 +63,9 @@ private:
 	//------------------
 	// 定数定義
 	//------------------
-	static const float fPlayerSpeed;			//プレイヤーの速度
-	static const int nPlayerLife = 300;	//プレイヤーの体力
-	static const int nMaxLife = 100;	//最大体力(%)
+	static const float fPlayerSpeed;		//プレイヤーの速度
+	static const int nPlayerLife = 300;		//プレイヤーの体力
+	static const int nMaxLife = 100;		//最大体力(%)
 
 	//------------------
 	// メンバ変数

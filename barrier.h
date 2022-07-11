@@ -1,11 +1,11 @@
 //=====================================
 //
-// エクスプロージョンヘッダー
+// バリアヘッダー
 // Author : Sato Teruto
 //
 //=====================================
-#ifndef _EXPLOSION_H_
-#define _EXPLOSION_H_	
+#ifndef _BARRIER_H_
+#define _BARRIER_H_	
 
 //--------------------------
 // インクルード
@@ -13,25 +13,25 @@
 #include "object2D.h"
 
 //--------------------------
-// エクスプロージョンクラス
+// バレットクラス
 //--------------------------
-class CExplosion : public CObject2D
+class CBarrier : public CObject2D
 {
 public:
 	//---------------------------
-	// 爆発構造体の定義
+	// 弾の構造体の定義
 	//---------------------------
-	struct Explosion
+	struct Barrier
 	{
 		D3DXVECTOR3 pos;	//位置
-		D3DXCOLOR col;		//色
+		D3DXVECTOR3 move;	//移動量
 		int nLife;			//寿命
 		float fWidth;		//幅
 		float fHeight;		//高さ
 	};
 
-	CExplosion();			//コンストラクタ
-	~CExplosion() override;	//デストラクタ
+	CBarrier();				//コンストラクタ
+	~CBarrier() override;	//デストラクタ
 
 	//----------------
 	// メンバ関数
@@ -44,17 +44,13 @@ public:
 	//----------------
 	// 静的メンバ関数
 	//----------------
-	static CExplosion *Create(D3DXVECTOR3 pos);
+	static CBarrier *Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, float fWidth, float fHeight);
 
 private:
 	//----------------
 	// メンバ変数
-	//----------------
-	Explosion m_Explosion;	//爆発構造体
-
-	//----------------
-	// 静的メンバ変数
-	//----------------
+	//----------------s
+	Barrier m_Barrier;
 };
 
-#endif // !_EXPLOSION_H_
+#endif // !_BARRIER_H_
