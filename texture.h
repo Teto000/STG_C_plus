@@ -28,6 +28,7 @@ public: /* 定義 */
 		TEXTURE_NUMBER,			//数字
 		TEXTURE_EFFECT,			//エフェクト
 		TEXTURE_BG,				//背景
+		TEXTURE_BARRIER,		//バリア
 		TEXTURE_MAX,
 		TEXTURE_NONE,			//使用しない
 	};

@@ -89,7 +89,6 @@ void CExplosion::Update()
 
 	CObject2D::SetPosition(m_Explosion.pos);	//位置の設定
 	CObject2D::SetSize(m_Explosion.fWidth, m_Explosion.fHeight);	//サイズの設定
-	CObject2D::SetVtxCIE(m_Explosion.pos, m_Explosion.fWidth, m_Explosion.fHeight);	//頂点座標の設定
 
 	//--------------------
 	// 徐々に透過

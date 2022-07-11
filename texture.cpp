@@ -27,6 +27,7 @@ const char* CTexture::s_FileName[] =
 	"data/TEXTURE/Number.png",		//数字
 	"data/TEXTURE/Effect.jpg",		//エフェクト
 	"data/TEXTURE/BG.png",			//背景
+	"data/TEXTURE/Barrier.png",		//バリア
 };
 
 static_assert(sizeof(CTexture::s_FileName) / sizeof(CTexture::s_FileName[0]) == CTexture::TEXTURE_MAX, "aho");

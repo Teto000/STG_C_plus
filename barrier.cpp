@@ -45,9 +45,9 @@ HRESULT CBarrier::Init(D3DXVECTOR3 pos)
 
 	CObject2D::SetSize(m_Barrier.fWidth, m_Barrier.fHeight);	//サイズの設定
 
-	CObject2D::SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f));	//色の設定
+	CObject2D::SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.3f));	//色の設定
 
-	CObject2D::SetTexture(CTexture::TEXTURE_BULLET);	//テクスチャの設定
+	CObject2D::SetTexture(CTexture::TEXTURE_NONE);	//テクスチャの設定
 
 	return S_OK;
 }

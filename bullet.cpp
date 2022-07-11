@@ -136,16 +136,13 @@ void CBullet::Update()
 	//------------------------
 	// 敵との当たり判定
 	//------------------------
-	if (CObject2D::GetCollision(OBJTYPE_ENEMY))
+	if (CObject2D::GetCollision(OBJTYPE_BARRIER))
 	{
-		CExplosion::Create(m_Bullet.pos);	//爆発の生成
-		CScore::AddScore(50);				//スコアの加算
-
 		//弾の消滅
 		Uninit();
 		CObject2D::Release();
 	}
-	else if (CObject2D::GetCollision(OBJTYPE_BARRIER))
+	else if (CObject2D::GetCollision(OBJTYPE_ENEMY))
 	{
 		CExplosion::Create(m_Bullet.pos);	//爆発の生成
 		CScore::AddScore(50);				//スコアの加算
