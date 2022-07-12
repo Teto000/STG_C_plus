@@ -162,6 +162,7 @@
     <ClCompile Include="input_joypad.cpp" />
     <ClCompile Include="input_keybord.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="number.cpp" />
     <ClCompile Include="object.cpp" />
     <ClCompile Include="object2D.cpp" />
     <ClCompile Include="player.cpp" />
@@ -183,6 +184,7 @@
     <ClInclude Include="input_joypad.h" />
     <ClInclude Include="input_keybord.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="number.h" />
     <ClInclude Include="object.h" />
     <ClInclude Include="object2D.h" />
     <ClInclude Include="player.h" />

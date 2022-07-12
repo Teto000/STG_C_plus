@@ -66,6 +66,12 @@ void CBarrier::Uninit()
 void CBarrier::Update()
 {
 	CObject2D::Update();
+
+	if (CObject2D::GetCollision(OBJTYPE_BULLET))
+	{
+		Uninit();
+		CObject2D::Release();
+	}
 }
 
 //===========================
