@@ -18,10 +18,10 @@
 #include "application.h"
 #include "player.h"
 #include "explosion.h"
-#include "score.h"
+#include "number.h"
 #include "effect.h"
 #include "enemy.h"
-#include "number.h"
+#include "score.h"
 
 //------------------------
 // 静的メンバ変数宣言
@@ -146,7 +146,10 @@ void CBullet::Update()
 	else if (CObject2D::GetCollision(OBJTYPE_ENEMY))
 	{
 		CExplosion::Create(m_Bullet.pos);	//爆発の生成
-		CScore::AddScore(50);				//スコアの加算
+
+		CScore::AddScore(1);
+
+		//ダメージの表示
 		CNumber::Create(m_Bullet.pos, 20.0f, 30.0f, 20.0f, 2, 87);
 
 		//弾の消滅

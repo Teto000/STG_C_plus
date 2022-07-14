@@ -50,6 +50,7 @@ public:
 	static CSound	 *GetSound();		//サウンドの取得
 	static CPlayer	 *GetPlayer();		//プレイヤーの取得
 	static CEnemy	 *GetEnemy();		//敵の取得
+	static CScore	 *GetScore();		//数値の取得
 
 private:
 	//------------------

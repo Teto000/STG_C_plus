@@ -1,6 +1,6 @@
 //===================================
 //
-// ナンバー処理
+// 消える数値を表示する処理
 // Author : Sato Teruto
 //
 //===================================
@@ -16,7 +16,8 @@
 //------------------------
 // 静的メンバ変数宣言
 //------------------------
-int CNumber::nNum = 0;
+int CNumber::m_nValue = 0;
+int CNumber::m_nNum = 0;
 
 //===========================
 // コンストラクタ
@@ -68,24 +69,25 @@ void CNumber::Update()
 {
 	CObject2D::Update();
 
+	//桁数の計算
 	int First = (int)pow(10, m_Number.nDigit);
 	int Second = (int)pow(10, m_Number.nDigit - 1);
-	int a = (int)pow(10, nNum);
+	int a = (int)pow(10, m_nNum);
 
 	//桁ごとの値を求める
-	m_aPosTexU[nNum] = m_Number.nNumber % (First / a) / (Second / a);
+	m_aPosTexU[m_nNum] = m_nValue % (First / a) / (Second / a);
 
 	//テクスチャ座標の設定
-	CObject2D::SetTexCIE(0.0f + m_aPosTexU[nNum] * 0.1f, 0.1f + m_aPosTexU[nNum] * 0.1f);
+	CObject2D::SetTexCIE(0.0f + m_aPosTexU[m_nNum] * 0.1f, 0.1f + m_aPosTexU[m_nNum] * 0.1f);
 
 	//配列を進める
-	if (nNum >= m_Number.nDigit - 1)
+	if (m_nNum >= m_Number.nDigit - 1)
 	{
-		nNum = 0;
+		m_nNum = 0;
 	}
 	else
 	{
-		nNum++;
+		m_nNum++;
 	}
 
 	//寿命の減少
@@ -105,10 +107,11 @@ void CNumber::Draw()
 	CObject2D::Draw();
 }
 
-//===========================
-// 生成
-//===========================
-CNumber *CNumber::Create(D3DXVECTOR3 pos, float fWidth, float fHeight, float fSpace, int nDigit, int nNumber)
+//====================================
+// 生成(位置,幅,高さ,間隔,桁数,数値)
+//====================================
+CNumber *CNumber::Create(D3DXVECTOR3 pos, float fWidth, float fHeight, float fSpace,
+						int nDigit, int nNumber)
 {
 	CNumber *pNumber = nullptr;
 
@@ -126,13 +129,12 @@ CNumber *CNumber::Create(D3DXVECTOR3 pos, float fWidth, float fHeight, float fSp
 			pNumber->m_Number.fHeight = fHeight;	//高さ
 			pNumber->m_Number.fSpace = fSpace;		//間隔
 			pNumber->m_Number.nDigit = nDigit;		//桁数
-			pNumber->m_Number.nNumber = nNumber;	//値
+			pNumber->m_nValue = nNumber;			//値
 
 			//初期化
 			pNumber->Init(D3DXVECTOR3(pos.x + i * fSpace, pos.y, pos.z));
 			pNumber->SetObjType(OBJTYPE_SCORE);
 		}
 	}
-
 	return pNumber;
 }

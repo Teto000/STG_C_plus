@@ -4,6 +4,8 @@
 // Author:Teruto Sato
 //
 //============================
+#ifndef _NUMBER_H_
+#define _NUMBER_H_	//二重インクルード防止
 
 //--------------------------
 // インクルード
@@ -22,7 +24,6 @@ public:
 	struct Number
 	{
 		D3DXVECTOR3 pos;	//位置
-		int nNumber;		//値
 		int nLife;			//寿命
 		int nDigit;			//桁数
 		float fWidth;		//幅
@@ -44,7 +45,8 @@ public:
 	//----------------
 	// 静的メンバ関数
 	//----------------
-	static CNumber *Create(D3DXVECTOR3 pos, float fWidth, float fHeight, float fSpace, int nDigit, int nNumber);
+	static CNumber *Create(D3DXVECTOR3 pos, float fWidth, float fHeight, float fSpace,
+							int nDigit, int nNumber);
 
 private:
 	//----------------
@@ -61,5 +63,8 @@ private:
 	//----------------
 	// 静的メンバ変数
 	//----------------
-	static int nNum;
+	static int m_nValue;	//値
+	static int m_nNum;		//配列カウント用
 };
+
+#endif

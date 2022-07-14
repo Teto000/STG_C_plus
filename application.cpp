@@ -32,7 +32,7 @@ CTexture  *CApplication::m_pTexture = nullptr;	//テクスチャ
 CSound	  *CApplication::m_pSound = nullptr;	//サウンド
 CPlayer	  *CApplication::m_pPlayer = nullptr;	//プレイヤー
 CEnemy	  *CApplication::m_pEnemy = nullptr;	//敵
-CScore	  *CApplication::m_pScore = nullptr;	//スコア
+CScore	  *CApplication::m_pScore = nullptr;	//数値
 CBg		  *CApplication::m_pBG = nullptr;		//背景
 
 //===========================
@@ -200,4 +200,12 @@ CPlayer *CApplication::GetPlayer()
 CEnemy *CApplication::GetEnemy()
 {
 	return m_pEnemy;
+}
+
+//===========================
+// 数値の取得
+//===========================
+CScore *CApplication::GetScore()
+{
+	return m_pScore;
 }
