@@ -84,8 +84,8 @@ void CExplosion::Update()
 	//--------------------
 	// 拡大
 	//--------------------
-	m_Explosion.fWidth += 3;
-	m_Explosion.fHeight += 3;
+	//m_Explosion.fWidth += 3;
+	//m_Explosion.fHeight += 3;
 
 	CObject2D::SetPosition(m_Explosion.pos);	//位置の設定
 	CObject2D::SetSize(m_Explosion.fWidth, m_Explosion.fHeight);	//サイズの設定
@@ -93,14 +93,14 @@ void CExplosion::Update()
 	//--------------------
 	// 徐々に透過
 	//--------------------
-	m_Explosion.col.a -= 0.05f;
+	//m_Explosion.col.a -= 0.05f;
 	SetColor(m_Explosion.col);
 	
 	//--------------------
 	// 寿命
 	//--------------------
 	//寿命の減少
-	m_Explosion.nLife--;
+	//m_Explosion.nLife--;
 
 	//寿命が尽きた
 	if (m_Explosion.nLife <= 0)

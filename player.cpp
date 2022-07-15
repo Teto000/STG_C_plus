@@ -114,7 +114,7 @@ void CPlayer::Update()
 	//--------------------------
 	// íeÇÃî≠éÀ
 	//--------------------------
-	CBullet::ShotBullet(m_Player.pos, m_Player.rot);
+	//CBullet::ShotBullet(m_Player.pos, m_Player.rot);
 
 	//--------------------------
 	// ëÃóÕÇÃå∏è≠

@@ -22,6 +22,7 @@
 #include "effect.h"
 #include "enemy.h"
 #include "score.h"
+#include "barrier.h"
 
 //------------------------
 // 静的メンバ変数宣言
@@ -135,16 +136,10 @@ void CBullet::Update()
 	}
 
 	//------------------------
-	// 敵との当たり判定
+	// 当たり判定
 	//------------------------
-	if (CObject2D::GetCollision(OBJTYPE_BARRIER))
-	{
-		//弾の消滅
-		//Uninit();
-		//CObject2D::Release();
-	}
-	else if (CObject2D::GetCollision(OBJTYPE_ENEMY))
-	{
+	if (CObject2D::GetCollision(OBJTYPE_ENEMY))
+	{//敵と当たった
 		CExplosion::Create(m_Bullet.pos);	//爆発の生成
 
 		CScore::AddScore(1);
@@ -152,6 +147,12 @@ void CBullet::Update()
 		//ダメージの表示
 		CNumber::Create(m_Bullet.pos, 20.0f, 30.0f, 20.0f, 2, 87);
 
+		//弾の消滅
+		Uninit();
+		CObject2D::Release();
+	}
+	else if (CObject2D::GetCollision(OBJTYPE_BARRIER))
+	{//バリアと当たった
 		//弾の消滅
 		Uninit();
 		CObject2D::Release();

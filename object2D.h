@@ -64,6 +64,7 @@ public:
 	float GetWidth() override;							//•‚Ìæ“¾
 	float GetHeight() override;							//‚‚³‚Ìæ“¾
 	bool GetCollision(CObject::EObjType TirgetType);	//“–‚½‚è”»’è‚Ìæ“¾
+	D3DXVECTOR3 MoveCircle(D3DXVECTOR3 CenterPos, float fAngle, float fLength);	//ˆÊ’u‚ğ‰~Œ`‚É“®‚©‚·
 
 private:
 	//----------------
