@@ -37,6 +37,7 @@ public:
 		OBJTYPE_EFFECT,		//エフェクト
 		OBJTYPE_BG,			//背景
 		OBJTYPE_BARRIER,	//バリア
+		OBJTYPE_LEVEL,		//レベル
 		OBJTYPE_MAX,
 		OBJTYPE_INVALID
 	};

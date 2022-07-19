@@ -99,6 +99,12 @@
     <ClCompile Include="score.cpp">
       <Filter>ソース ファイル\Application\Object\2D</Filter>
     </ClCompile>
+    <ClCompile Include="level.cpp">
+      <Filter>ソース ファイル\Application\Object\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="exp.cpp">
+      <Filter>ソース ファイル\Application\Object\2D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -159,6 +165,12 @@
       <Filter>ヘッダー ファイル\Application\Object\2D</Filter>
     </ClInclude>
     <ClInclude Include="score.h">
+      <Filter>ヘッダー ファイル\Application\Object\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="level.h">
+      <Filter>ヘッダー ファイル\Application\Object\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="exp.h">
       <Filter>ヘッダー ファイル\Application\Object\2D</Filter>
     </ClInclude>
   </ItemGroup>

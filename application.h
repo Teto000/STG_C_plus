@@ -23,6 +23,7 @@ class CPlayer;		//プレイヤー
 class CEnemy;		//敵
 class CScore;		//スコア
 class CBg;			//背景
+class CLevel;		//レベル
 
 //-------------------------------------
 // アプリケーションクラスの定義
@@ -64,6 +65,7 @@ private:
 	static CEnemy		*m_pEnemy;		//敵クラス
 	static CScore		*m_pScore;		//スコアクラス
 	static CBg			*m_pBG;			//背景クラス
+	static CLevel		*m_pLevel;		//レベルクラス
 };
 
 #endif // !_APPLICATION_H_
