@@ -121,19 +121,6 @@ void CEnemy::Update()
 		m_Enemy.nLife--;	//敵の体力の減少
 		m_Enemy.nRemLife = m_Enemy.nLife * 100 / m_Enemy.nMaxLife;	//残り体力を計算
 	}
-
-	//円形に移動する
-	D3DXVECTOR3 CirclePos = CObject2D::MoveCircle(m_Enemy.pos, m_Enemy.rot.x, 150.0f);
-
-	//位置の設定
-	CObject2D::SetPosition(m_Enemy.pos);
-
-	if (m_CntTime == 0)
-	{
-		CExplosion::Create(CirclePos);	//爆発の生成
-
-		m_Enemy.rot.x += 30.0f;
-	}
 }
 
 //===========================

@@ -13,7 +13,7 @@
 #include "object2D.h"
 
 //--------------------------
-// プレイヤークラス
+// レベルクラス
 //--------------------------
 class CLevel : public CObject2D
 {
@@ -39,8 +39,8 @@ private:
 	// メンバ変数
 	//------------------
 	D3DXVECTOR3 m_pos;	//位置
-	float m_fWidth;		//幅
-	float m_fHeight;	//高さ
+	D3DXVECTOR3 m_rot;	//回転
+	float m_fLength;	//幅
 };
 
 #endif // !_LEVEL_H_

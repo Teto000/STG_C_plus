@@ -16,6 +16,7 @@
 #include "input_keybord.h"
 #include "texture.h"
 #include "sound.h"
+#include "exp.h"
 
 //===========================
 // コンストラクタ
@@ -23,8 +24,8 @@
 CLevel::CLevel() : CObject2D()
 {
 	m_pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	//位置
-	m_fWidth = 0.0f;	//幅
-	m_fHeight = 0.0f;	//高さ
+	m_rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	//回転
+	m_fLength = 0.0f;	//幅
 }
 
 //===========================
@@ -41,12 +42,11 @@ CLevel::~CLevel()
 HRESULT CLevel::Init(D3DXVECTOR3 pos)
 {
 	m_pos = pos;
-	m_fWidth = 100.0f;
-	m_fHeight = 100.0f;
+	m_fLength = 100.0f;
 
 	CObject2D::Init(m_pos);
 
-	CObject2D::SetSize(m_fWidth, m_fHeight);
+	CObject2D::SetSize(m_fLength, m_fLength);
 
 	CObject2D::SetTexture(CTexture::TEXTURE_RING);	//テクスチャの設定
 
@@ -67,6 +67,19 @@ void CLevel::Uninit()
 void CLevel::Update()
 {
 	CObject2D::Update();
+
+	//円形に移動する
+	D3DXVECTOR3 CirclePos = CObject2D::MoveCircle(m_pos, m_rot.x, m_fLength);
+
+	//位置の設定
+	CObject2D::SetPosition(m_pos);
+
+	if (CInputKeyboard::Trigger(DIK_K))
+	{
+		CExp::Create(CirclePos,m_rot,m_fLength);	//経験値ゲージの生成
+
+		m_rot.x += 30.0f;
+	}
 }
 
 //===========================
