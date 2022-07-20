@@ -121,6 +121,16 @@ void CEnemy::Update()
 		m_Enemy.nLife--;	//“G‚Ì‘Ì—Í‚ÌŒ¸­
 		m_Enemy.nRemLife = m_Enemy.nLife * 100 / m_Enemy.nMaxLife;	//c‚è‘Ì—Í‚ğŒvZ
 	}
+
+	//--------------------------
+	// ‘Ì—Í‚ªs‚«‚½
+	//--------------------------
+	if (m_Enemy.nLife <= 0)
+	{
+		//“G‚ÌÁ–Å
+		Uninit();
+		CObject2D::Release();
+	}
 }
 
 //===========================

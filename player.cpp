@@ -119,8 +119,20 @@ void CPlayer::Update()
 	//--------------------------
 	// 体力の減少
 	//--------------------------
-	if (CInputKeyboard::Press(DIK_L))
-	{//Lキーが押された
+	if (CInputKeyboard::Press(DIK_UP))
+	{//↑キーが押されたら
+		if (m_Player.nRemLife <= 100)
+		{
+			m_Player.nLife++;	//プレイヤーの体力の増加
+			m_Player.nRemLife = m_Player.nLife * 100 / m_Player.nMaxLife;	//残り体力を計算
+		}
+	}
+
+	//--------------------------
+	// 体力の減少
+	//--------------------------
+	if (CInputKeyboard::Press(DIK_DOWN))
+	{//↓キーが押されたら
 		m_Player.nLife--;	//プレイヤーの体力の減少
 		m_Player.nRemLife = m_Player.nLife * 100 / m_Player.nMaxLife;	//残り体力を計算
 	}
@@ -132,6 +144,16 @@ void CPlayer::Update()
 	{
 		m_Player.nLife--;	//プレイヤーの体力の減少
 		m_Player.nRemLife = m_Player.nLife * 100 / m_Player.nMaxLife;	//残り体力を計算
+	}
+
+	//--------------------------
+	// 体力が尽きた
+	//--------------------------
+	if (m_Player.nLife <= 0)
+	{
+		//敵の消滅
+		Uninit();
+		CObject2D::Release();
 	}
 }
 

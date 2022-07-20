@@ -42,7 +42,7 @@ CLevel::~CLevel()
 HRESULT CLevel::Init(D3DXVECTOR3 pos)
 {
 	m_pos = pos;
-	m_fLength = 150;	//ïù
+	m_fLength = 100;	//ïù
 
 	CObject2D::Init(m_pos);
 

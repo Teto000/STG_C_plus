@@ -178,4 +178,9 @@ void CHp::Subtract(int nRemLife)
 		//â©êFÇ…Ç∑ÇÈ
 		CObject2D::SetColor(D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f));
 	}
+	else
+	{
+		//óŒêFÇ…Ç∑ÇÈ
+		CObject2D::SetColor(D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f));
+	}
 }
