@@ -90,11 +90,22 @@ void CNumber::Update()
 		m_nNum++;
 	}
 
-	//õ–½‚ÌŒ¸­
-	m_Number.nLife--;
+	////õ–½‚ÌŒ¸­
+	//m_Number.nLife--;
 
-	if (m_Number.nLife <= 0)
-	{
+	//if (m_Number.nLife <= 0)
+	//{
+	//	Uninit();
+	//	CObject2D::Release();
+	//}
+
+	//c‚Ék¬
+	m_Number.fHeight--;
+
+	CObject2D::SetSize(m_Number.fWidth, m_Number.fHeight);
+
+	if (m_Number.fHeight <= 0)
+	{//‚‚³‚ª–³‚­‚È‚Á‚½‚ç
 		Uninit();
 		CObject2D::Release();
 	}

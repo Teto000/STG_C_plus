@@ -45,6 +45,9 @@ HRESULT CExp::Init(D3DXVECTOR3 pos)
 
 	CObject2D::Init(m_pos);
 
+	//頂点座標の設定(回転)
+	CObject2D::SetVtxCIE_Rot(m_pos, m_rot, m_fWidth, m_fHeight);
+
 	CObject2D::SetTexture(CTexture::TEXTURE_EXP);	//テクスチャの設定
 
 	return S_OK;
@@ -74,9 +77,11 @@ void CExp::Update()
 		m_rot.x += D3DXToRadian(360);
 	}
 
-	//ゲージが一周したら
+	//----------------------------
+	// レベルアップの処理
+	//----------------------------
 	if (m_rot.x <= D3DXToRadian(-330))
-	{
+	{//ゲージが一周したら
 		for (int i = 0; i < MAX_OBJECT; i++)
 		{
 			CObject *pObject;
@@ -92,6 +97,7 @@ void CExp::Update()
 
 			if (type == CObject::OBJTYPE_EXP)
 			{
+				//経験値ゲージの消去
 				Uninit();
 				CObject2D::Release();
 			}
