@@ -67,6 +67,36 @@ void CExp::Update()
 
 	//頂点座標の設定(回転)
 	CObject2D::SetVtxCIE_Rot(m_pos, m_rot, m_fWidth, m_fHeight);
+
+	//角度の正規化
+	if (m_rot.x <= D3DXToRadian(-360))
+	{
+		m_rot.x += D3DXToRadian(360);
+	}
+
+	//ゲージが一周したら
+	if (m_rot.x <= D3DXToRadian(-330))
+	{
+		for (int i = 0; i < MAX_OBJECT; i++)
+		{
+			CObject *pObject;
+			pObject = CObject::GETObject(i);
+
+			if (pObject == nullptr)
+			{
+				continue;
+			}
+
+			//オブジェクトの種類の取得
+			CObject::EObjType type = pObject->GetObjType();
+
+			if (type == CObject::OBJTYPE_EXP)
+			{
+				Uninit();
+				CObject2D::Release();
+			}
+		}
+	}
 }
 
 //===========================
