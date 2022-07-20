@@ -36,9 +36,9 @@ public:
 	//----------------
 	// セッター
 	//----------------
-	void SetPosition(D3DXVECTOR3 pos);			//位置の設定
-	void SetSize(float fWidth, float fHeight);	//大きさの設定
-	void SetColor(D3DXCOLOR col);				//色の設定
+	void SetPosition(D3DXVECTOR3 pos);						//位置の設定
+	void SetSize(float fWidth, float fHeight);				//大きさの設定
+	void SetColor(D3DXCOLOR col);							//色の設定
 	void SetScreenX(float posX, float fLeft, float fRight);	//左右画面端の設定
 	void SetScreenY(float posY, float fUp, float fDown);	//上下画面端の設定
 
@@ -47,9 +47,10 @@ public:
 	void SetTexture(CTexture::TEXTURE texture);	//テクスチャの設定
 
 	/* ↓頂点座標↓ */
-	void SetVtxCIE(D3DXVECTOR3 pos, float fWidth, float fHeight);		//頂点座標の設定
+	void SetVtxCIE(D3DXVECTOR3 pos, float fWidth, float fHeight);						//頂点座標の設定
+	void SetVtxCIE_Rot(D3DXVECTOR3 pos, D3DXVECTOR3 rot, float fWidth, float fHeight);	//頂点座標の設定(回転)
 	void SetVtxCIE_Gauge(D3DXVECTOR3 pos, float fWidth1,
-						float fWidth2, float fHeight1, float fHeight2);	//頂点座標の設定(ゲージ)
+						float fWidth2, float fHeight1, float fHeight2);					//頂点座標の設定(ゲージ)
 	void SetVtxCIE_Score(D3DXVECTOR3 pos, float fWidth, float fHeight, float fSpace);	//頂点座標の設定(スコア)
 
 	/* ↓描画↓ */

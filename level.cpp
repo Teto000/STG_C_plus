@@ -78,7 +78,7 @@ void CLevel::Update()
 	{
 		CExp::Create(CirclePos,m_rot,m_fLength);	//経験値ゲージの生成
 
-		m_rot.x += 30.0f;
+		m_rot.x += 90.0f;
 	}
 }
 
