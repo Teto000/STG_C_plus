@@ -40,7 +40,8 @@ private:
 	//------------------
 	D3DXVECTOR3 m_pos;	//à íu
 	D3DXVECTOR3 m_rot;	//âÒì]
-	float m_fLength;	//îºåa
+	float m_fWidth;		//ïù
+	float m_fHeight;	//çÇÇ≥
 };
 
 #endif // !_EXP_H_

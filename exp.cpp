@@ -23,7 +23,8 @@ CExp::CExp() : CObject2D()
 {
 	m_pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	//ˆÊ’u
 	m_rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	//‰ñ“]
-	m_fLength = 0.0f;	//”¼Œa
+	m_fWidth = 0.0f;	//•
+	m_fHeight = 0.0f;	//‚‚³
 }
 
 //===========================
@@ -64,8 +65,8 @@ void CExp::Update()
 {
 	CObject2D::Update();
 
-	//’¸“_À•W‚Ì‰ñ“]
-	CObject2D::SetVtxCIE_Rot(m_pos, m_rot, 70.0f, m_fLength / 2);
+	//’¸“_À•W‚ÌÝ’è(‰ñ“])
+	CObject2D::SetVtxCIE_Rot(m_pos, m_rot, m_fWidth, m_fHeight);
 }
 
 //===========================
@@ -92,7 +93,8 @@ CExp *CExp::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, float fLength)
 	{//NULLƒ`ƒFƒbƒN
 		//ƒƒ“ƒo•Ï”‚É‘ã“ü
 		pExp->m_rot = D3DXVECTOR3(D3DXToRadian(-rot.x),0.0f,0.0f);	//‰ñ“]
-		pExp->m_fLength = fLength;	//”¼Œa
+		pExp->m_fWidth = fLength * 0.7f;
+		pExp->m_fHeight = fLength / 2;	//‚‚³
 
 		//‰Šú‰»
 		pExp->Init(pos);
