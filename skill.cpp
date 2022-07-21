@@ -20,7 +20,7 @@
 //------------------------
 // 静的メンバ変数宣言
 //------------------------
-const float CSkill::nSkillSpeed = 4.0f;	//速度
+const float CSkill::nSkillSpeed = 7.0f;	//速度
 
 //===========================
 // コンストラクタ
@@ -49,13 +49,13 @@ HRESULT CSkill::Init(D3DXVECTOR3 pos)
 	m_Skill.move = D3DXVECTOR3(nSkillSpeed, 0.0f, 0.0f);
 	m_Skill.fWidth = 300.0f;
 	m_Skill.fHeight = 80.0f;
-	m_Skill.pos = D3DXVECTOR3(pos.x - (m_Skill.fWidth / 2), pos.y, pos.z);
+	m_Skill.pos = D3DXVECTOR3(pos.x - (m_Skill.fWidth / 2), pos.y - (m_Skill.fHeight / 2), pos.z);
 
 	CObject2D::Init(m_Skill.pos);
 
 	CObject2D::SetSize(m_Skill.fWidth, m_Skill.fHeight);
 
-	CObject2D::SetTexture(CTexture::TEXTURE_NONE);	//テクスチャの設定
+	CObject2D::SetTexture(CTexture::TEXTURE_SKILL_HPHEAL);	//テクスチャの設定
 
 	return S_OK;
 }
@@ -79,7 +79,7 @@ void CSkill::Update()
 	// スキル表示
 	//--------------------------
 	//画面端から移動
-	if (m_Skill.pos.x >= m_Skill.fWidth / 2)
+	if (m_Skill.pos.x >= (m_Skill.fWidth / 2))
 	{
 		//移動の停止
 		m_Skill.move.x = 0;
@@ -87,7 +87,7 @@ void CSkill::Update()
 		//タイマーを加算
 		m_nCntTimer++;
 
-		if (m_nCntTimer >= 30)
+		if (m_nCntTimer >= nMaxTimer)
 		{//一定時間経過
 			//画面端から見えなくなったら
 			m_Skill.move.x = -nSkillSpeed;
@@ -129,7 +129,7 @@ CSkill *CSkill::Create()
 	if (pSkill != nullptr)
 	{//NULLチェック
 	 //初期化
-		pSkill->Init(D3DXVECTOR3(0.0f, 500.0f, 0.0f));
+		pSkill->Init(D3DXVECTOR3(0.0f, 720.0f, 0.0f));
 		pSkill->SetObjType(OBJTYPE_SKILL);
 	}
 

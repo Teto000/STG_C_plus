@@ -106,6 +106,13 @@ void CBullet::Update()
 	if (m_Bullet.type == BULLETSTATE_HORMING)
 	{//ホーミング弾なら
 		m_Tirget = CObject2D::GetTargetPos();	//敵の位置の取得
+
+		if (m_Tirget.x == 0.0f, m_Tirget.y == 0.0f)
+		{//ターゲットが消えたら
+			//横に向かって飛ぶ
+			m_Tirget = D3DXVECTOR3(1280.0f, m_Bullet.pos.y, 0.0f);
+		}
+
 		D3DXVECTOR3 move = Homing(m_Bullet.pos.x, m_Bullet.pos.y, m_Bullet.move.x, m_Bullet.move.y);
 		m_Bullet.pos = CObject2D::AddMove(move);
 	}

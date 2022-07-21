@@ -116,7 +116,7 @@ void CEnemy::Update()
 	//--------------------------
 	// ‘Ì—Í‚ÌŒ¸­
 	//--------------------------
-	if (CInputKeyboard::Press(DIK_M))
+	if (CInputKeyboard::Press(DIK_LEFT))
 	{
 		m_Enemy.nLife--;	//“G‚Ì‘Ì—Í‚ÌŒ¸­
 		m_Enemy.nRemLife = m_Enemy.nLife * 100 / m_Enemy.nMaxLife;	//c‚è‘Ì—Í‚ğŒvZ

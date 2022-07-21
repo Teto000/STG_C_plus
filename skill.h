@@ -50,6 +50,7 @@ private:
 	// ’è”
 	//----------------
 	static const float nSkillSpeed;
+	static const int nMaxTimer = 60;
 
 	//----------------
 	// ƒƒ“ƒo•Ï”
