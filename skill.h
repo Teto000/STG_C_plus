@@ -47,9 +47,15 @@ public:
 
 private:
 	//----------------
+	// ’è”
+	//----------------
+	static const float nSkillSpeed;
+
+	//----------------
 	// ƒƒ“ƒo•Ï”
 	//----------------
 	Skill m_Skill;
+	int m_nCntTimer;
 };
 
 #endif // !_PLAYER_H_
