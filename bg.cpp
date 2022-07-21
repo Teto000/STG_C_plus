@@ -103,7 +103,7 @@ CBg *CBg::Create()
 
 	if (pBG != nullptr)
 	{//NULLチェック
-	 //初期化
+		//初期化
 		pBG->Init(D3DXVECTOR3(SCREEN_WIDTH / 2,SCREEN_HEIGHT / 2,0.0f));
 		pBG->SetObjType(OBJTYPE_BG);
 	}

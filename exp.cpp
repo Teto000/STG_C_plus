@@ -82,9 +82,10 @@ void CExp::Update()
 	//----------------------------
 	if (m_rot.x <= D3DXToRadian(-330))
 	{//ƒQ[ƒW‚ªˆêŽü‚µ‚½‚ç
+		CObject *pObject;
+
 		for (int i = 0; i < MAX_OBJECT; i++)
 		{
-			CObject *pObject;
 			pObject = CObject::GETObject(i);
 
 			if (pObject == nullptr)

@@ -81,14 +81,14 @@ HRESULT CApplication::Init(HINSTANCE hInstance, HWND hWnd)
 	//背景の生成
 	m_pBG = CBg::Create();
 
-	//レベルの生成
-	m_pLevel = CLevel::Create();
-
 	//プレイヤーの生成
 	m_pPlayer = CPlayer::Create();
 
 	//敵の生成
 	m_pEnemy = CEnemy::Create();
+
+	//レベルの生成
+	m_pLevel = CLevel::Create();
 
 	//スコアの生成
 	m_pScore = CScore::Create();

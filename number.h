@@ -24,7 +24,6 @@ public:
 	struct Number
 	{
 		D3DXVECTOR3 pos;	//ˆÊ’u
-		int nLife;			//õ–½
 		int nDigit;			//Œ…”
 		float fWidth;		//•
 		float fHeight;		//‚‚³

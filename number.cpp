@@ -43,7 +43,6 @@ HRESULT CNumber::Init(D3DXVECTOR3 pos)
 {
 	//\‘¢‘Ì‚Ì‰Šú‰»
 	m_Number.pos = pos;
-	m_Number.nLife = 25;
 
 	CObject2D::Init(m_Number.pos);
 
@@ -90,17 +89,8 @@ void CNumber::Update()
 		m_nNum++;
 	}
 
-	////õ–½‚ÌŒ¸­
-	//m_Number.nLife--;
-
-	//if (m_Number.nLife <= 0)
-	//{
-	//	Uninit();
-	//	CObject2D::Release();
-	//}
-
 	//c‚Ék¬
-	m_Number.fHeight--;
+	m_Number.fHeight -= 1.5f;
 
 	CObject2D::SetSize(m_Number.fWidth, m_Number.fHeight);
 
