@@ -68,7 +68,7 @@ private:
 	// ’è”’è‹`
 	//----------------
 	static const float fBulletSpeed;	//’e‚Ì‘¬“x
-	static const int nShotTime = 30;	//’e‚Ì”­ËŠÔ
+	static const int nShotTime = 20;	//’e‚Ì”­ËŠÔ
 
 	//----------------
 	// ƒƒ“ƒo•Ï”

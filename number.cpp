@@ -69,15 +69,15 @@ void CNumber::Update()
 	CObject2D::Update();
 
 	//桁数の計算
-	int First = (int)pow(10, m_Number.nDigit);
-	int Second = (int)pow(10, m_Number.nDigit - 1);
-	int a = (int)pow(10, m_nNum);
+	int nFirst = (int)pow(10, m_Number.nDigit);
+	int nSecond = (int)pow(10, (m_Number.nDigit - 1));
+	int nDigit = (int)pow(10, m_nNum);
 
 	//桁ごとの値を求める
-	m_aPosTexU[m_nNum] = m_nValue % (First / a) / (Second / a);
+	m_aPosTexU[m_nNum] = m_nValue % (nFirst / nDigit) / (nSecond / nDigit);
 
 	//テクスチャ座標の設定
-	CObject2D::SetTexCIE(0.0f + m_aPosTexU[m_nNum] * 0.1f, 0.1f + m_aPosTexU[m_nNum] * 0.1f);
+	CObject2D::SetTexCIE(m_aPosTexU[m_nNum] * 0.1f, m_aPosTexU[m_nNum] * 0.1f + 0.1f);
 
 	//配列を進める
 	if (m_nNum >= m_Number.nDigit - 1)

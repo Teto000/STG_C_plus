@@ -122,7 +122,7 @@ void CPlayer::Update()
 	//増加
 	if (CInputKeyboard::Press(DIK_UP))
 	{//↑キーが押されたら
-		if (m_Player.nRemLife <= 100)
+		if (m_Player.nRemLife < 100)
 		{//体力の上限じゃないなら
 			m_Player.nLife++;	//プレイヤーの体力の増加
 			m_Player.nRemLife = m_Player.nLife * 100 / m_Player.nMaxLife;	//残り体力を計算

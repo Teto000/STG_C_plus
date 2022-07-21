@@ -401,17 +401,16 @@ void CObject2D::ResAddALPHA()
 //===========================
 D3DXVECTOR3 CObject2D::MoveCircle(D3DXVECTOR3 CenterPos, float fAngle, float fLength)
 {
-	// 中心座標に角度と長さを使用した円の位置を加算する
-	// 度数法の角度を弧度法に変換
-	float fRadius = fAngle * (D3DX_PI / 180.0f) - D3DX_PI * 0.5f;
+	//角度の上側を0にする
+	float fNewAngle = D3DXToRadian(fAngle) - D3DXToRadian(90);
 
-	// 三角関数を使用し、円の位置を割り出す。
-	float fAdd_X = (float)(cos(fRadius) * fLength);
-	float fAdd_Y = (float)(sin(fRadius) * fLength);
+	//円の位置までの距離を求める
+	float fDistX = (float)(cos(fNewAngle) * fLength);
+	float fDistY = (float)(sin(fNewAngle) * fLength);
 
-	// 結果ででた位置を中心位置に加算し、それを描画位置とする
-	m_pos.x = CenterPos.x + fAdd_X;
-	m_pos.y = CenterPos.y + fAdd_Y;
+	//円の位置に移動する
+	m_pos.x = CenterPos.x + fDistX;
+	m_pos.y = CenterPos.y + fDistY;
 
 	return m_pos;
 }

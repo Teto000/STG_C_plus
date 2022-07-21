@@ -42,6 +42,8 @@ public:
 	void SetScreenX(float posX, float fLeft, float fRight);	//左右画面端の設定
 	void SetScreenY(float posY, float fUp, float fDown);	//上下画面端の設定
 
+	D3DXVECTOR3 MoveCircle(D3DXVECTOR3 CenterPos, float fAngle, float fLength);	//位置を円形に動かす
+
 	/* ↓テクスチャ↓ */
 	void SetTexCIE(float left, float fRight);	//テクスチャ座標の設定
 	void SetTexture(CTexture::TEXTURE texture);	//テクスチャの設定
@@ -65,7 +67,6 @@ public:
 	float GetWidth() override;							//幅の取得
 	float GetHeight() override;							//高さの取得
 	bool GetCollision(CObject::EObjType TirgetType);	//当たり判定の取得
-	D3DXVECTOR3 MoveCircle(D3DXVECTOR3 CenterPos, float fAngle, float fLength);	//位置を円形に動かす
 
 private:
 	//----------------
