@@ -19,6 +19,7 @@
 #include "sound.h"
 #include "bullet.h"
 #include "hp.h"
+#include "skill.h"
 
 //------------------------
 // 静的メンバ変数宣言
@@ -132,6 +133,28 @@ void CPlayer::Update()
 	else if (CInputKeyboard::Press(DIK_DOWN))
 	{//↓キーが押されたら
 		m_Player.nLife--;	//プレイヤーの体力の減少
+		m_Player.nRemLife = m_Player.nLife * 100 / m_Player.nMaxLife;	//残り体力を計算
+	}
+
+	//--------------------------
+	// スキルの発動
+	//--------------------------
+	if (CInputKeyboard::Trigger(DIK_O))
+	{
+		CSkill::Create();
+
+		//-----------------------
+		// 体力の回復
+		//-----------------------
+		if (m_Player.nLife + 30 >= m_Player.nMaxLife)
+		{//回復して上限なら
+			m_Player.nLife = m_Player.nMaxLife;	//体力を最大にする
+		}
+		else
+		{//それ以外なら
+			m_Player.nLife += 30;	//体力を回復
+		}
+
 		m_Player.nRemLife = m_Player.nLife * 100 / m_Player.nMaxLife;	//残り体力を計算
 	}
 

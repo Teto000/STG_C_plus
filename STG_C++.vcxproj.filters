@@ -105,6 +105,9 @@
     <ClCompile Include="exp.cpp">
       <Filter>ソース ファイル\Application\Object\2D</Filter>
     </ClCompile>
+    <ClCompile Include="skill.cpp">
+      <Filter>ソース ファイル\Application\Object\2D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -171,6 +174,9 @@
       <Filter>ヘッダー ファイル\Application\Object\2D</Filter>
     </ClInclude>
     <ClInclude Include="exp.h">
+      <Filter>ヘッダー ファイル\Application\Object\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="skill.h">
       <Filter>ヘッダー ファイル\Application\Object\2D</Filter>
     </ClInclude>
   </ItemGroup>

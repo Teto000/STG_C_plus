@@ -39,6 +39,7 @@ public:
 		OBJTYPE_BARRIER,	//バリア
 		OBJTYPE_LEVEL,		//レベル
 		OBJTYPE_EXP,		//経験値
+		OBJTYPE_SKILL,		//スキル
 		OBJTYPE_MAX,
 		OBJTYPE_INVALID
 	};
