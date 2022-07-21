@@ -117,8 +117,9 @@ void CPlayer::Update()
 	CBullet::ShotBullet(m_Player.pos, m_Player.rot);
 
 	//--------------------------
-	// 体力の減少
+	// 体力の変動
 	//--------------------------
+	//増加
 	if (CInputKeyboard::Press(DIK_UP))
 	{//↑キーが押されたら
 		if (m_Player.nRemLife <= 100)
@@ -127,11 +128,8 @@ void CPlayer::Update()
 			m_Player.nRemLife = m_Player.nLife * 100 / m_Player.nMaxLife;	//残り体力を計算
 		}
 	}
-
-	//--------------------------
-	// 体力の減少
-	//--------------------------
-	if (CInputKeyboard::Press(DIK_DOWN))
+	//減少
+	else if (CInputKeyboard::Press(DIK_DOWN))
 	{//↓キーが押されたら
 		m_Player.nLife--;	//プレイヤーの体力の減少
 		m_Player.nRemLife = m_Player.nLife * 100 / m_Player.nMaxLife;	//残り体力を計算

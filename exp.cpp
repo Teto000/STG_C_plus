@@ -71,16 +71,10 @@ void CExp::Update()
 	//頂点座標の設定(回転)
 	CObject2D::SetVtxCIE_Rot(m_pos, m_rot, m_fWidth, m_fHeight);
 
-	//角度の正規化
-	if (m_rot.x <= D3DXToRadian(-360))
-	{
-		m_rot.x += D3DXToRadian(360);
-	}
-
 	//----------------------------
 	// レベルアップの処理
 	//----------------------------
-	if (m_rot.x <= D3DXToRadian(-330))
+	if (m_rot.x <= D3DXToRadian(-360))
 	{//ゲージが一周したら
 		CObject *pObject;
 
@@ -99,8 +93,11 @@ void CExp::Update()
 			if (type == CObject::OBJTYPE_EXP)
 			{
 				//経験値ゲージの消去
-				Uninit();
-				CObject2D::Release();
+				pObject->Uninit();
+				pObject->Release();
+
+				//角度の正規化
+				m_rot.x += D3DXToRadian(360);
 			}
 		}
 	}

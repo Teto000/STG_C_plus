@@ -54,6 +54,8 @@ public:
 	virtual void Update() = 0;
 	virtual void Draw() = 0;
 
+	void Release();
+
 	//----------------
 	// Ã“Iƒƒ“ƒoŠÖ”
 	//----------------
@@ -71,9 +73,6 @@ public:
 	virtual D3DXVECTOR3 GetPosition() = 0;
 	virtual float GetWidth() = 0;
 	virtual float GetHeight() = 0;
-
-protected:
-	void Release();
 
 private:
 	//----------------
