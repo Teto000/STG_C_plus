@@ -119,8 +119,7 @@ void CEnemy::Update()
 	//--------------------------
 	if (CInputKeyboard::Press(DIK_LEFT))
 	{
-		m_Enemy.nLife--;	//敵の体力の減少
-		m_Enemy.nRemLife = m_Enemy.nLife * 100 / m_Enemy.nMaxLife;	//残り体力を計算
+		SubLife(1);
 	}
 
 	//--------------------------
@@ -133,6 +132,11 @@ void CEnemy::Update()
 		//敵の消滅
 		Uninit();
 		CObject2D::Release();
+	}
+	else
+	{
+		//残り体力を計算
+		m_Enemy.nRemLife = m_Enemy.nLife * 100 / m_Enemy.nMaxLife;
 	}
 }
 
@@ -154,13 +158,16 @@ CEnemy *CEnemy::Create()
 	//----------------------------------
 	// 敵の生成と初期化
 	//----------------------------------
-	pEnemy = new CEnemy;	//生成
+	for (int i = 0; i < 3; i++)
+	{
+		pEnemy = new CEnemy;	//生成
 
-	if (pEnemy != nullptr)
-	{//NULLチェック
-		//初期化
-		pEnemy->Init(D3DXVECTOR3(800.0f, SCREEN_HEIGHT / 2, 0.0f));
-		pEnemy->SetObjType(OBJTYPE_ENEMY);
+		if (pEnemy != nullptr)
+		{//NULLチェック
+			//初期化
+			pEnemy->Init(D3DXVECTOR3(800.0f, 300.0f + 150.0f * i, 0.0f));
+			pEnemy->SetObjType(OBJTYPE_ENEMY);
+		}
 	}
 
 	return pEnemy;
@@ -172,7 +179,6 @@ CEnemy *CEnemy::Create()
 void CEnemy::SubLife(int nLife)
 {
 	m_Enemy.nLife -= nLife;
-	m_Enemy.nRemLife = m_Enemy.nLife * 100 / m_Enemy.nMaxLife;	//残り体力を計算
 }
 
 //===========================

@@ -36,6 +36,8 @@ public:
 	{
 		D3DXVECTOR3 pos;	//位置
 		D3DXVECTOR3 move;	//移動量
+		int nLife;			//体力受け取り用
+		int nRemLife;		//残り体力受け取り用
 		float fWidth;		//幅
 		float fHeight;		//高さ
 		float fLength;		//HPバーの長さ
@@ -69,11 +71,6 @@ private:
 	// メンバ変数
 	//------------------
 	HP m_HP;				//HP構造体
-	int m_nLife_Player;		//プレイヤーの体力受け取り用
-	int m_nLife_Enemy;		//エネミーの体力受け取り用
-	int m_nRemLife_Player;	//プレイヤーの残り体力受け取り用
-	int m_nRemLife_Enemy;	//エネミーの残り体力受け取り用
-
 
 	//------------------
 	// 静的メンバ変数

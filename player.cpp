@@ -126,14 +126,12 @@ void CPlayer::Update()
 		if (m_Player.nRemLife < 100)
 		{//体力の上限じゃないなら
 			m_Player.nLife++;	//プレイヤーの体力の増加
-			m_Player.nRemLife = m_Player.nLife * 100 / m_Player.nMaxLife;	//残り体力を計算
 		}
 	}
 	//減少
 	else if (CInputKeyboard::Trigger(DIK_DOWN))
 	{//↓キーが押されたら
-		m_Player.nLife--;	//プレイヤーの体力の減少
-		m_Player.nRemLife = m_Player.nLife * 100 / m_Player.nMaxLife;	//残り体力を計算
+		m_Player.nLife-= 299;	//プレイヤーの体力の減少
 	}
 
 	//--------------------------
@@ -154,8 +152,6 @@ void CPlayer::Update()
 		{//それ以外なら
 			m_Player.nLife += 30;	//体力を回復
 		}
-
-		m_Player.nRemLife = m_Player.nLife * 100 / m_Player.nMaxLife;	//残り体力を計算
 	}
 
 	//------------------------
@@ -164,7 +160,6 @@ void CPlayer::Update()
 	if (CObject2D::GetCollision(OBJTYPE_ENEMY))
 	{
 		m_Player.nLife--;	//プレイヤーの体力の減少
-		m_Player.nRemLife = m_Player.nLife * 100 / m_Player.nMaxLife;	//残り体力を計算
 	}
 
 	//--------------------------
@@ -175,6 +170,11 @@ void CPlayer::Update()
 		//敵の消滅
 		Uninit();
 		CObject2D::Release();
+	}
+	else
+	{
+		//残り体力を計算
+		m_Player.nRemLife = m_Player.nLife * 100 / m_Player.nMaxLife;
 	}
 }
 

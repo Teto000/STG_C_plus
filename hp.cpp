@@ -23,10 +23,6 @@
 CHp::CHp() : CObject2D()
 {
 	memset(&m_HP, 0, sizeof(HP));	//構造体のクリア
-	m_nLife_Player = 0;
-	m_nLife_Enemy = 0;
-	m_nRemLife_Player = 0;
-	m_nRemLife_Enemy = 0;
 }
 
 //===========================
@@ -90,13 +86,10 @@ void CHp::Update()
 	case HPTYPE_PLAYER:
 
 		//プレイヤーの体力を取得
-		m_nLife_Player = pPlayer->GetLife();
+		m_HP.nLife = pPlayer->GetLife();
 
 		//プレイヤーの残り体力を取得
-		m_nRemLife_Player = pPlayer->GetRemLife();
-
-		//HP減少時の処理
-		Subtract(m_nLife_Player, m_nRemLife_Player);
+		m_HP.nRemLife = pPlayer->GetRemLife();
 		break;
 
 	//=============================
@@ -105,18 +98,18 @@ void CHp::Update()
 	case HPTYPE_ENEMY:
 
 		//敵の体力を取得
-		m_nLife_Enemy = pPlayer->GetLife();
+		m_HP.nLife = pEnemy->GetLife();
 
 		//敵の残り体力を取得
-		m_nRemLife_Enemy = pEnemy->GetRemLife();
-
-		//HP減少時の処理
-		Subtract(m_nLife_Enemy, m_nRemLife_Enemy);
+		m_HP.nRemLife = pEnemy->GetRemLife();
 		break;
 
 	default:
 		break;
 	}
+
+	//HP減少時の処理
+	Subtract(m_HP.nLife, m_HP.nRemLife);
 }
 
 //===========================
