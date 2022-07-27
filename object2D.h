@@ -72,13 +72,13 @@ private:
 	//----------------
 	// メンバ変数
 	//----------------
-	D3DXVECTOR3 m_pos;	//位置
+	D3DXVECTOR3 m_pos;			//位置
 	D3DXVECTOR3 m_TargetPos;	//相手の位置
-	D3DXVECTOR3 m_move;	//移動量
-	float m_fWidth;		//幅
-	float m_fHeight;	//高さ
-	float m_fRot;		//回転角度
-	float m_fScal;		//大きさ
+	D3DXVECTOR3 m_move;			//移動量
+	float m_fWidth;				//幅
+	float m_fHeight;			//高さ
+	float m_fRot;				//回転角度
+	float m_fScal;				//大きさ
 
 	LPDIRECT3DVERTEXBUFFER9 m_pVtxBuff;	//頂点バッファへのポインタ
 	CTexture::TEXTURE m_texture;		//テクスチャ

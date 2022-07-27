@@ -169,6 +169,7 @@ CEnemy *CEnemy::Create()
 void CEnemy::SubLife(int nLife)
 {
 	m_Enemy.nLife -= nLife;
+	m_Enemy.nRemLife = m_Enemy.nLife * 100 / m_Enemy.nMaxLife;	//Žc‚è‘Ì—Í‚ðŒvŽZ
 }
 
 //===========================

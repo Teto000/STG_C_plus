@@ -148,15 +148,15 @@ void CBullet::Update()
 	//------------------------
 	if (CObject2D::GetCollision(OBJTYPE_ENEMY))
 	{//敵と当たった
+		CApplication::GetEnemy()->SubLife(10);	//敵の体力の減少
+
 		CExplosion::Create(m_Bullet.pos);	//爆発の生成
 
-		CScore::AddScore(1);
+		CScore::AddScore(1);	//スコアの加算
 
-		//ダメージの表示
-		CNumber::Create(m_Bullet.pos, 20.0f, 30.0f, 20.0f, 2, 87);
+		CNumber::Create(m_Bullet.pos, 20.0f, 30.0f, 20.0f, 2, 87);	//ダメージの表示
 
-		//経験値の取得
-		CLevel::AddExp(10);
+		CLevel::AddExp(10);		//経験値の取得
 
 		//弾の消滅
 		Uninit();
