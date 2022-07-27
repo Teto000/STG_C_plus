@@ -20,6 +20,7 @@
 #include "hp.h"
 #include "barrier.h"
 #include "explosion.h"
+#include "level.h"
 
 //------------------------
 // 静的メンバ変数宣言
@@ -127,6 +128,8 @@ void CEnemy::Update()
 	//--------------------------
 	if (m_Enemy.nLife <= 0)
 	{
+		CLevel::AddExp(10);		//経験値の取得
+
 		//敵の消滅
 		Uninit();
 		CObject2D::Release();

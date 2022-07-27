@@ -23,7 +23,6 @@
 #include "enemy.h"
 #include "score.h"
 #include "barrier.h"
-#include "level.h"
 
 //------------------------
 // 静的メンバ変数宣言
@@ -148,15 +147,21 @@ void CBullet::Update()
 	//------------------------
 	if (CObject2D::GetCollision(OBJTYPE_ENEMY))
 	{//敵と当たった
-		CApplication::GetEnemy()->SubLife(10);	//敵の体力の減少
+		if(m_Bullet.type == BULLETSTATE_CHARGE)
+		{//チャージショットなら
+			//ダメージ上昇
+			CApplication::GetEnemy()->SubLife(10 * 3);	//敵の体力の減少
+		}
+		else
+		{//それ以外なら
+			CApplication::GetEnemy()->SubLife(10);	//敵の体力の減少
+		}
 
 		CExplosion::Create(m_Bullet.pos);	//爆発の生成
 
 		CScore::AddScore(1);	//スコアの加算
 
 		CNumber::Create(m_Bullet.pos, 20.0f, 30.0f, 20.0f, 2, 87);	//ダメージの表示
-
-		CLevel::AddExp(10);		//経験値の取得
 
 		//弾の消滅
 		Uninit();
@@ -216,18 +221,17 @@ void CBullet::ShotBullet(D3DXVECTOR3 pos, D3DXVECTOR3 rot)
 	//---------------------------
 	// 通常弾
 	//---------------------------
-	if (!CInputKeyboard::Press(DIK_1) && m_nShotTime == 0)
-	{//SPACEキーが押されている間 かつ 弾の発射時間が0なら
+	if (!CInputKeyboard::Press(DIK_SPACE) && m_nShotTime == 0)
+	{//チャージしていない時 かつ 弾の発射時間が0なら
 		//プレイヤーの向きに弾を発射する
-		//Create(pos, D3DXVECTOR3(-sinf(rot.x) * fBulletSpeed, -cosf(rot.x) * fBulletSpeed, 0.0f), BULLETSTATE_NORMAL);
-		Create(pos, D3DXVECTOR3(0.0f,0.0f,0.0f), BULLETSTATE_HORMING);
+		Create(pos, D3DXVECTOR3(-sinf(rot.x) * fBulletSpeed, -cosf(rot.x) * fBulletSpeed, 0.0f), BULLETSTATE_NORMAL);
 	}
 
 	//---------------------------
 	// チャージショット
 	//---------------------------
-	if (CInputKeyboard::Press(DIK_1))
-	{//1キーが押されている間
+	if (CInputKeyboard::Press(DIK_SPACE))
+	{//SPACEキーが押されている間
 		m_nChageTime++;		//チャージ時間を加算
 
 		if (m_nChageTime >= 40)
@@ -236,15 +240,16 @@ void CBullet::ShotBullet(D3DXVECTOR3 pos, D3DXVECTOR3 rot)
 		}
 	}
 
-	if (CInputKeyboard::Release(DIK_1) && m_nChageTime >= 40)
-	{//1キーを離したとき かつ チャージ状態なら
+	if (CInputKeyboard::Release(DIK_SPACE) && m_nChageTime >= 40)
+	{//SPACEキーを離したとき かつ チャージ状態なら
 		Create(pos, D3DXVECTOR3(-sinf(rot.x) * fBulletSpeed, -cosf(rot.x) * fBulletSpeed, 0.0f), BULLETSTATE_CHARGE);
+		//Create(pos, D3DXVECTOR3(0.0f, 0.0f, 0.0f), BULLETSTATE_HORMING);
 
 		m_nChageTime = 0;	//チャージ時間をリセット
 		m_nShotTime = 0;	//通常弾のの発射時間リセット
 		CPlayer::SetCol(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));	//プレイヤーの色を変更
 	}
-	else if (CInputKeyboard::Release(DIK_1) && m_nChageTime < 40)
+	else if (CInputKeyboard::Release(DIK_SPACE) && m_nChageTime < 40)
 	{
 		m_nChageTime = 0;	//チャージ時間をリセット
 	}

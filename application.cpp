@@ -208,7 +208,7 @@ CEnemy *CApplication::GetEnemy()
 }
 
 //===========================
-// 数値の取得
+// スコアの取得
 //===========================
 CScore *CApplication::GetScore()
 {
