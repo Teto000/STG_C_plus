@@ -69,6 +69,7 @@ private:
 	//----------------
 	static const float fBulletSpeed;	//弾の速度
 	static const int nShotTime = 20;	//弾の発射時間
+	static const int nMaxHoming = 3;	//ホーミング弾発射の最大数
 
 	//----------------
 	// メンバ変数

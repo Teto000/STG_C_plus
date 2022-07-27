@@ -23,8 +23,10 @@
 CHp::CHp() : CObject2D()
 {
 	memset(&m_HP, 0, sizeof(HP));	//構造体のクリア
-	m_nPlayerLife = 0;
-	m_nEnemyLife = 0;
+	m_nLife_Player = 0;
+	m_nLife_Enemy = 0;
+	m_nRemLife_Player = 0;
+	m_nRemLife_Enemy = 0;
 }
 
 //===========================
@@ -87,11 +89,14 @@ void CHp::Update()
 	//=============================
 	case HPTYPE_PLAYER:
 
+		//プレイヤーの体力を取得
+		m_nLife_Player = pPlayer->GetLife();
+
 		//プレイヤーの残り体力を取得
-		m_nPlayerLife = pPlayer->GetRemLife();
+		m_nRemLife_Player = pPlayer->GetRemLife();
 
 		//HP減少時の処理
-		Subtract(m_nPlayerLife);
+		Subtract(m_nLife_Player, m_nRemLife_Player);
 		break;
 
 	//=============================
@@ -99,11 +104,14 @@ void CHp::Update()
 	//=============================
 	case HPTYPE_ENEMY:
 
+		//敵の体力を取得
+		m_nLife_Enemy = pPlayer->GetLife();
+
 		//敵の残り体力を取得
-		m_nEnemyLife = pEnemy->GetRemLife();
+		m_nRemLife_Enemy = pEnemy->GetRemLife();
 
 		//HP減少時の処理
-		Subtract(m_nEnemyLife);
+		Subtract(m_nLife_Enemy, m_nRemLife_Enemy);
 		break;
 
 	default:
@@ -151,22 +159,34 @@ CHp *CHp::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, float fWidth, float fHeight,
 //===========================
 // HP減少時の処理
 //===========================
-void CHp::Subtract(int nRemLife)
+void CHp::Subtract(int nLife, int nRemLife)
 {
 	//-------------------------
 	// 頂点座標の設定
 	//-------------------------
-	CObject2D::SetVtxCIE_Gauge(m_HP.pos, -m_HP.fWidth / 2,
-		-m_HP.fWidth / 2 + (m_HP.fLength * nRemLife), -m_HP.fHeight / 2, m_HP.fHeight / 2);
+	if (nRemLife >= 1)
+	{//残り体力(%)があるなら
+		//その体力分の座標を設定
+		CObject2D::SetVtxCIE_Gauge(m_HP.pos, -m_HP.fWidth / 2,
+			-m_HP.fWidth / 2 + (m_HP.fLength * nRemLife), -m_HP.fHeight / 2, m_HP.fHeight / 2);
+	}
+	else if (nRemLife == 0 && nLife > 0)
+	{//残り体力が0% かつ 体力が0じゃないなら
+		CObject2D::SetVtxCIE_Gauge(m_HP.pos, -m_HP.fWidth / 2,
+			-m_HP.fWidth / 2 + m_HP.fLength, -m_HP.fHeight / 2, m_HP.fHeight / 2);
+	}
 
 	//-------------------------
 	// HPごとの処理
 	//-------------------------
 	if (nRemLife <= 0)
 	{//HPが0になったら
-		//HPバーの消去
-		Uninit();
-		CObject2D::Release();
+		if (nLife <= 0)
+		{
+			//HPバーの消去
+			Uninit();
+			CObject2D::Release();
+		}
 	}
 	else if (nRemLife <= 20)
 	{//HPが20%以下になったら

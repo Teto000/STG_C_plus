@@ -53,7 +53,7 @@ public:
 	void Update() override;
 	void Draw() override;
 
-	void Subtract(int nRemLife);	//HP減少時の処理
+	void Subtract(int nLife, int nRemLife);	//HP減少時の処理
 
 	//------------------
 	// 静的メンバ関数
@@ -68,9 +68,12 @@ private:
 	//------------------
 	// メンバ変数
 	//------------------
-	HP m_HP;	//HP構造体
-	int m_nPlayerLife;	//プレイヤーの体力受け取り用
-	int m_nEnemyLife;	//エネミーの体力受け取り用
+	HP m_HP;				//HP構造体
+	int m_nLife_Player;		//プレイヤーの体力受け取り用
+	int m_nLife_Enemy;		//エネミーの体力受け取り用
+	int m_nRemLife_Player;	//プレイヤーの残り体力受け取り用
+	int m_nRemLife_Enemy;	//エネミーの残り体力受け取り用
+
 
 	//------------------
 	// 静的メンバ変数

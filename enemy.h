@@ -47,6 +47,7 @@ public:
 	void SubLife(int nLife);	//‘Ì—Í‚ÌŒ¸­
 
 	//ƒQƒbƒ^[
+	int GetLife();
 	int GetRemLife();
 
 	//----------------

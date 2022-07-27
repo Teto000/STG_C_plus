@@ -130,7 +130,7 @@ void CPlayer::Update()
 		}
 	}
 	//減少
-	else if (CInputKeyboard::Press(DIK_DOWN))
+	else if (CInputKeyboard::Trigger(DIK_DOWN))
 	{//↓キーが押されたら
 		m_Player.nLife--;	//プレイヤーの体力の減少
 		m_Player.nRemLife = m_Player.nLife * 100 / m_Player.nMaxLife;	//残り体力を計算
@@ -266,6 +266,14 @@ D3DXVECTOR3 CPlayer::OperationPlayer()
 void CPlayer::SetCol(D3DXCOLOR col)
 {
 	m_col = col;
+}
+
+//===========================
+// 体力の取得
+//===========================
+int CPlayer::GetLife()
+{
+	return m_Player.nLife;
 }
 
 //===========================

@@ -48,6 +48,7 @@ public:
 	void Draw() override;
 
 	//ƒQƒbƒ^[
+	int GetLife();
 	int GetRemLife();
 
 	//------------------

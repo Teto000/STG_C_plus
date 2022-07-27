@@ -103,8 +103,12 @@ void CBullet::Update()
 {
 	CObject2D::Update();
 
-	if (m_Bullet.type == BULLETSTATE_HORMING)
-	{//ホーミング弾なら
+	switch (m_Bullet.type)
+	{
+	//----------------------
+	// ホーミング弾なら
+	//----------------------
+	case BULLETSTATE_HORMING:
 		m_Tirget = CObject2D::GetTargetPos();	//敵の位置の取得
 
 		if (m_Tirget.x == 0.0f, m_Tirget.y == 0.0f)
@@ -112,14 +116,23 @@ void CBullet::Update()
 			//横に向かって飛ぶ
 			m_Tirget = D3DXVECTOR3(1280.0f, m_Bullet.pos.y, 0.0f);
 		}
-
-		D3DXVECTOR3 move = Homing(m_Bullet.pos.x, m_Bullet.pos.y, m_Bullet.move.x, m_Bullet.move.y);
-		m_Bullet.pos = CObject2D::AddMove(move);
-	}
-	else
-	{
+		
+		if (m_Bullet.nLife <= 170)
+		{//ホーミング弾の寿命が150以下なら
+			//敵に向かってホーミング
+			D3DXVECTOR3 move = Homing(m_Bullet.pos.x, m_Bullet.pos.y, m_Bullet.move.x, m_Bullet.move.y);
+			m_Bullet.pos = CObject2D::AddMove(move);
+		}
+		else
+		{
+			//移動量の加算
+			m_Bullet.pos = CObject2D::AddMove(m_Bullet.move);
+		}
+		break;
+	default:
 		//移動量の加算
 		m_Bullet.pos = CObject2D::AddMove(m_Bullet.move);
+		break;
 	}
 
 	//エフェクトの生成
@@ -242,8 +255,12 @@ void CBullet::ShotBullet(D3DXVECTOR3 pos, D3DXVECTOR3 rot)
 
 	if (CInputKeyboard::Release(DIK_SPACE) && m_nChageTime >= 40)
 	{//SPACEキーを離したとき かつ チャージ状態なら
-		Create(pos, D3DXVECTOR3(-sinf(rot.x) * fBulletSpeed, -cosf(rot.x) * fBulletSpeed, 0.0f), BULLETSTATE_CHARGE);
-		//Create(pos, D3DXVECTOR3(0.0f, 0.0f, 0.0f), BULLETSTATE_HORMING);
+		//Create(pos, D3DXVECTOR3(-sinf(rot.x) * fBulletSpeed, -cosf(rot.x) * fBulletSpeed, 0.0f), BULLETSTATE_CHARGE);
+		
+		for (int i = 0; i < nMaxHoming; i++)
+		{
+			Create(pos, D3DXVECTOR3(-5.0f, (float)(nMaxHoming - (i * nMaxHoming)), 0.0f), BULLETSTATE_HORMING);
+		}
 
 		m_nChageTime = 0;	//チャージ時間をリセット
 		m_nShotTime = 0;	//通常弾のの発射時間リセット
