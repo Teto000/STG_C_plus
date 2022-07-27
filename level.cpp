@@ -18,6 +18,11 @@
 #include "sound.h"
 #include "exp.h"
 
+//-----------------------------
+// 静的メンバ変数宣言
+//-----------------------------
+int CLevel::m_nValue;
+
 //===========================
 // コンストラクタ
 //===========================
@@ -74,7 +79,7 @@ void CLevel::Update()
 	//位置の設定
 	CObject2D::SetPosition(m_pos);
 
-	if (CInputKeyboard::Trigger(DIK_K))
+	if (m_nValue >= 10)
 	{
 		CExp::Create(CirclePos,m_rot,m_fLength * 0.6f);	//経験値ゲージの生成
 
@@ -86,6 +91,8 @@ void CLevel::Update()
 		{
 			m_rot.x += 30.0f;
 		}
+
+		m_nValue = 0;
 	}
 }
 
@@ -117,4 +124,12 @@ CLevel *CLevel::Create()
 	}
 
 	return pLevel;
+}
+
+//===========================
+// 経験値の加算
+//===========================
+void CLevel::AddExp(int nValue)
+{
+	m_nValue += nValue;
 }

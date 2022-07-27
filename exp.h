@@ -18,7 +18,7 @@
 class CExp : public CObject2D
 {
 public:
-	CExp();			//コンストラクタ
+	CExp();				//コンストラクタ
 	~CExp() override;	//デストラクタ
 
 	//------------------

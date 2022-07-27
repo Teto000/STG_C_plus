@@ -33,6 +33,7 @@ public:
 	// 静的メンバ関数
 	//------------------
 	static CLevel *Create();
+	static void AddExp(int nValue);
 
 private:
 	//------------------
@@ -41,6 +42,11 @@ private:
 	D3DXVECTOR3 m_pos;	//位置
 	D3DXVECTOR3 m_rot;	//回転
 	float m_fLength;	//幅
+
+	//------------------
+	// 静的メンバ変数
+	//------------------
+	static int m_nValue;	//値
 };
 
 #endif // !_LEVEL_H_

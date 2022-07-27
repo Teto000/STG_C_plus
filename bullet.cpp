@@ -23,6 +23,7 @@
 #include "enemy.h"
 #include "score.h"
 #include "barrier.h"
+#include "level.h"
 
 //------------------------
 // 静的メンバ変数宣言
@@ -153,6 +154,9 @@ void CBullet::Update()
 
 		//ダメージの表示
 		CNumber::Create(m_Bullet.pos, 20.0f, 30.0f, 20.0f, 2, 87);
+
+		//経験値の取得
+		CLevel::AddExp(10);
 
 		//弾の消滅
 		Uninit();
