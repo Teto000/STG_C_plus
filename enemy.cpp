@@ -22,22 +22,13 @@
 #include "explosion.h"
 #include "level.h"
 
-//------------------------
-// 静的メンバ変数宣言
-//------------------------
-int CEnemy::m_CntTime = 0;
-
-//------------------------
-// マクロ定義
-//------------------------
-#define ENEMY_SPEED	(5.0f)	//プレイヤーの速度
-
 //===========================
 // コンストラクタ
 //===========================
 CEnemy::CEnemy() : CObject2D()
 {
 	memset(&m_Enemy, 0, sizeof(Enemy));	//構造体のクリア
+	m_CntTime = 0;
 }
 
 //===========================
@@ -73,7 +64,7 @@ HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 	// HPの表示
 	//--------------------------
 	CHp::Create(D3DXVECTOR3(m_Enemy.pos.x, m_Enemy.pos.y - (m_Enemy.fHeight / 2 + 20.0f), m_Enemy.pos.z)
-		, D3DXVECTOR3(0.0f, 0.0f, 0.0f), m_Enemy.fWidth, 10.0f, CHp::HPTYPE_ENEMY);
+						, D3DXVECTOR3(0.0f, 0.0f, 0.0f), m_Enemy.fWidth, 10.0f, CHp::HPTYPE_ENEMY);
 
 	//--------------------------
 	// バリアの生成
@@ -151,23 +142,20 @@ void CEnemy::Draw()
 //===========================
 // 生成
 //===========================
-CEnemy *CEnemy::Create()
+CEnemy *CEnemy::Create(D3DXVECTOR3 pos)
 {
 	CEnemy *pEnemy = nullptr;
 
 	//----------------------------------
 	// 敵の生成と初期化
 	//----------------------------------
-	for (int i = 0; i < 3; i++)
-	{
-		pEnemy = new CEnemy;	//生成
+	pEnemy = new CEnemy;	//生成
 
-		if (pEnemy != nullptr)
-		{//NULLチェック
-			//初期化
-			pEnemy->Init(D3DXVECTOR3(800.0f, 300.0f + 150.0f * i, 0.0f));
-			pEnemy->SetObjType(OBJTYPE_ENEMY);
-		}
+	if (pEnemy != nullptr)
+	{//NULLチェック
+		//初期化
+		pEnemy->Init(pos);
+		pEnemy->SetObjType(OBJTYPE_ENEMY);
 	}
 
 	return pEnemy;

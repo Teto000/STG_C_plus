@@ -50,6 +50,7 @@ public:
 	//ゲッター
 	int GetLife();
 	int GetRemLife();
+	int GetAttack();
 
 	//------------------
 	// 静的メンバ関数
@@ -67,11 +68,13 @@ private:
 	static const float fPlayerSpeed;		//プレイヤーの速度
 	static const int nPlayerLife = 300;		//プレイヤーの体力
 	static const int nMaxLife = 100;		//最大体力(%)
+	static const int nShotTime = 20;		//弾の発射時間
 
 	//------------------
 	// メンバ変数
 	//------------------
 	Player m_Player;	//プレイヤー構造体
+	int m_nShotTime;	//弾の発射時間を数える
 
 	//------------------
 	// 静的メンバ変数

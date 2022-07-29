@@ -109,7 +109,7 @@ void CHp::Update()
 	}
 
 	//HP減少時の処理
-	Subtract(m_HP.nLife, m_HP.nRemLife);
+	SubHP(m_HP.nLife, m_HP.nRemLife);
 }
 
 //===========================
@@ -152,7 +152,7 @@ CHp *CHp::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, float fWidth, float fHeight,
 //===========================
 // HP減少時の処理
 //===========================
-void CHp::Subtract(int nLife, int nRemLife)
+void CHp::SubHP(int nLife, int nRemLife)
 {
 	//-------------------------
 	// 頂点座標の設定
@@ -165,6 +165,7 @@ void CHp::Subtract(int nLife, int nRemLife)
 	}
 	else if (nRemLife == 0 && nLife > 0)
 	{//残り体力が0% かつ 体力が0じゃないなら
+		//1%分のゲージを維持
 		CObject2D::SetVtxCIE_Gauge(m_HP.pos, -m_HP.fWidth / 2,
 			-m_HP.fWidth / 2 + m_HP.fLength, -m_HP.fHeight / 2, m_HP.fHeight / 2);
 	}
@@ -172,14 +173,11 @@ void CHp::Subtract(int nLife, int nRemLife)
 	//-------------------------
 	// HPごとの処理
 	//-------------------------
-	if (nRemLife <= 0)
-	{//HPが0になったら
-		if (nLife <= 0)
-		{
-			//HPバーの消去
-			Uninit();
-			CObject2D::Release();
-		}
+	if (nRemLife <= 0 && nLife <= 0)
+	{//HPが0になった かつ 体力がなかったら
+		//HPバーの消去
+		Uninit();
+		CObject2D::Release();
 	}
 	else if (nRemLife <= 20)
 	{//HPが20%以下になったら

@@ -27,11 +27,9 @@
 //------------------------
 // 静的メンバ変数宣言
 //------------------------
-const float CBullet::fBulletSpeed = 10.0f;	//弾の速度
-float CBullet::fBulletSpeed_Homing = 1.05f;	//弾の速度(ホーミング)
-
-int CBullet::m_nShotTime;		//弾の発射時間を数える
-int CBullet::m_nChageTime;		//弾のチャージ時間
+const float CBullet::fBulletSpeed = 10.0f;			//弾の速度
+const float CBullet::fBulletSpeed_Homing = 1.05f;	//弾の速度(ホーミング)
+int CBullet::m_nChageTime;	//弾のチャージ時間
 
 //===========================
 // コンストラクタ
@@ -103,6 +101,10 @@ void CBullet::Update()
 {
 	CObject2D::Update();
 
+	m_Bullet.rot.x -= 0.1f;
+
+	SetVtxCIE_Rot(m_Bullet.pos, m_Bullet.rot, m_Bullet.fWidth, m_Bullet.fHeight);
+
 	switch (m_Bullet.type)
 	{
 	//----------------------
@@ -136,7 +138,7 @@ void CBullet::Update()
 	}
 
 	//エフェクトの生成
-	CEffect::Create(m_Bullet.pos);
+	//CEffect::Create(m_Bullet.pos);
 
 	//寿命の減少
 	m_Bullet.nLife--;
@@ -167,14 +169,16 @@ void CBullet::Update()
 		}
 		else
 		{//それ以外なら
-			CApplication::GetEnemy()->SubLife(10);	//敵の体力の減少
+			CApplication::GetEnemy()->SubLife(40);	//敵の体力の減少
 		}
 
 		CExplosion::Create(m_Bullet.pos);	//爆発の生成
 
 		CScore::AddScore(1);	//スコアの加算
 
-		CNumber::Create(m_Bullet.pos, 20.0f, 30.0f, 20.0f, 2, 87);	//ダメージの表示
+		int PlayerAttack = CApplication::GetPlayer()->GetAttack();
+
+		CNumber::Create(m_Bullet.pos, 20.0f, 30.0f, 20.0f, 2, PlayerAttack);	//ダメージの表示
 
 		//弾の消滅
 		Uninit();
@@ -224,12 +228,9 @@ CBullet *CBullet::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, BULLETSTATE type)
 //=======================
 // 弾の発射
 //=======================
-void CBullet::ShotBullet(D3DXVECTOR3 pos, D3DXVECTOR3 rot)
+void CBullet::ShotBullet(D3DXVECTOR3 pos, D3DXVECTOR3 rot, int m_nShotTime)
 {
 	rot.x = rot.x - D3DX_PI / 2;	//右を前に変更
-
-	m_nShotTime++;
-	m_nShotTime %= nShotTime;	//発射時間をリセット
 
 	//---------------------------
 	// 通常弾

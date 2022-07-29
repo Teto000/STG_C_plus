@@ -9,6 +9,7 @@
 // インクルード
 //------------------------
 #include <assert.h>
+#include <time.h>
 #include "application.h"
 #include "renderer.h"
 #include "object2D.h"
@@ -66,6 +67,9 @@ HRESULT CApplication::Init(HINSTANCE hInstance, HWND hWnd)
 	m_pTexture = new CTexture;		//テクスチャ
 	m_pSound = new CSound;			//サウンド
 
+	//時刻をもとにしたランダムな値を生成
+	srand((unsigned int)time(NULL));
+
 	//レンダリングの初期化
 	if (FAILED(m_pRenderer->Init(hWnd, TRUE)))
 	{//初期化処理が失敗した場合
@@ -85,7 +89,7 @@ HRESULT CApplication::Init(HINSTANCE hInstance, HWND hWnd)
 	m_pPlayer = CPlayer::Create();
 
 	//敵の生成
-	m_pEnemy = CEnemy::Create();
+	m_pEnemy = CEnemy::Create(D3DXVECTOR3(800.0f, 360.0, 0.0f));
 
 	//レベルの生成
 	m_pLevel = CLevel::Create();
@@ -148,6 +152,14 @@ void CApplication::Update()
 
 	//レンダリングの更新
 	m_pRenderer->Update();
+
+	if (CInputKeyboard::Trigger(DIK_RETURN))
+	{
+		int nRand = rand() % 520 + 200;
+
+		//敵の生成
+		m_pEnemy = CEnemy::Create(D3DXVECTOR3(800.0f, (float)nRand, 0.0f));
+	}
 }
 
 //===========================

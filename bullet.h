@@ -61,15 +61,15 @@ public:
 	// 静的メンバ関数
 	//----------------
 	static CBullet *Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, BULLETSTATE type);
-	static void ShotBullet(D3DXVECTOR3 pos, D3DXVECTOR3 rot);
+	static void ShotBullet(D3DXVECTOR3 pos, D3DXVECTOR3 rot, int m_nShotTime);
 
 private:
 	//----------------
 	// 定数定義
 	//----------------
 	static const float fBulletSpeed;	//弾の速度
-	static const int nShotTime = 20;	//弾の発射時間
 	static const int nMaxHoming = 3;	//ホーミング弾発射の最大数
+	static const float fBulletSpeed_Homing;	//弾の速度
 
 	//----------------
 	// メンバ変数
@@ -80,9 +80,7 @@ private:
 	//----------------
 	// 静的メンバ変数
 	//----------------
-	static int m_nShotTime;		//弾の発射時間を数える
-	static int m_nChageTime;	//弾のチャージ時間
-	static float fBulletSpeed_Homing;	//弾の速度
+	static int	 m_nChageTime;			//弾のチャージ時間
 };
 
 #endif // !_BULLET_H_

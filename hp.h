@@ -55,26 +55,18 @@ public:
 	void Update() override;
 	void Draw() override;
 
-	void Subtract(int nLife, int nRemLife);	//HP減少時の処理
+	void SubHP(int nLife, int nRemLife);	//HP減少時の処理
 
 	//------------------
 	// 静的メンバ関数
 	//------------------
-	static CHp *Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, float fWidth, float fHeight, HPTYPE type);
+	static CHp *Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, float fWidth, float fHeight, HPTYPE typez);
 
 private:
 	//------------------
-	// 定数定義
-	//------------------
-
-	//------------------
 	// メンバ変数
 	//------------------
-	HP m_HP;				//HP構造体
-
-	//------------------
-	// 静的メンバ変数
-	//------------------
+	HP m_HP;	//HP構造体
 };
 
 #endif // !_HP_H_

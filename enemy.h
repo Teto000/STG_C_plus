@@ -13,6 +13,11 @@
 #include "object2D.h"
 
 //--------------------------
+// 前方宣言
+//--------------------------
+class CHp;
+
+//--------------------------
 // エネミークラス
 //--------------------------
 class CEnemy : public CObject2D
@@ -53,7 +58,7 @@ public:
 	//----------------
 	// 静的メンバ関数
 	//----------------
-	static CEnemy *Create();
+	static CEnemy *Create(D3DXVECTOR3 pos);
 
 private:
 	//----------------
@@ -66,11 +71,7 @@ private:
 	// メンバ変数
 	//----------------
 	Enemy m_Enemy;
-
-	//----------------
-	// 静的メンバ変数
-	//----------------
-	static int m_CntTime;	//テクスチャ切り替え時間のカウント
+	int m_CntTime;	//テクスチャ切り替え時間のカウントz
 };
 
 #endif // !_PLAYER_H_

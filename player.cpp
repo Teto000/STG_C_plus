@@ -115,7 +115,10 @@ void CPlayer::Update()
 	//--------------------------
 	// ’e‚Ì”­Ë
 	//--------------------------
-	CBullet::ShotBullet(m_Player.pos, m_Player.rot);
+	m_nShotTime++;
+	m_nShotTime %= nShotTime;	//”­ËŠÔ‚ğƒŠƒZƒbƒg
+
+	CBullet::ShotBullet(m_Player.pos, m_Player.rot, m_nShotTime);
 
 	//--------------------------
 	// ‘Ì—Í‚Ì•Ï“®
@@ -282,4 +285,12 @@ int CPlayer::GetLife()
 int CPlayer::GetRemLife()
 {
 	return m_Player.nRemLife;
+}
+
+//===========================
+// UŒ‚—Í‚Ìæ“¾
+//===========================
+int CPlayer::GetAttack()
+{
+	return m_Player.nAttack;
 }
