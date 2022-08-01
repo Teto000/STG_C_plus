@@ -28,7 +28,6 @@
 CEnemy::CEnemy() : CObject2D()
 {
 	memset(&m_Enemy, 0, sizeof(Enemy));	//構造体のクリア
-	m_CntTime = 0;
 }
 
 //===========================
@@ -63,8 +62,8 @@ HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 	//--------------------------
 	// HPの表示
 	//--------------------------
-	CHp::Create(D3DXVECTOR3(m_Enemy.pos.x, m_Enemy.pos.y - (m_Enemy.fHeight / 2 + 20.0f), m_Enemy.pos.z)
-						, D3DXVECTOR3(0.0f, 0.0f, 0.0f), m_Enemy.fWidth, 10.0f, CHp::HPTYPE_ENEMY);
+	//CHp::Create(D3DXVECTOR3(m_Enemy.pos.x, m_Enemy.pos.y - (m_Enemy.fHeight / 2 + 20.0f), m_Enemy.pos.z)
+	//					, D3DXVECTOR3(0.0f, 0.0f, 0.0f), m_Enemy.fWidth, 10.0f, CHp::HPTYPE_ENEMY);
 
 	//--------------------------
 	// バリアの生成
