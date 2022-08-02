@@ -55,7 +55,6 @@ public:
 	virtual void Update() = 0;
 	virtual void Draw() = 0;
 	virtual bool IsUsed() { return true; };
-	virtual void Destroy() {};
 
 	void Release();
 

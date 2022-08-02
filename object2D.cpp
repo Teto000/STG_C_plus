@@ -14,6 +14,7 @@
 #include "renderer.h"
 #include "application.h"
 #include "input_keybord.h"
+#include "enemy.h"
 
 //------------------------
 // マクロ定義
@@ -492,9 +493,14 @@ bool CObject2D::GetCollision(CObject::EObjType TirgetType)
 			if (SourcePos.x + SourceWidth / 2 >= fLeft && SourcePos.x - SourceWidth / 2 <= fRight
 				&& SourcePos.y - SourceHeight / 2 <= fBottom && SourcePos.y + SourceHeight / 2 >= fTop)
 			{
+				//オブジェクトの種類が敵なら
 				if (type == OBJTYPE_ENEMY)
 				{
-					pObject->Destroy();
+					//pObjectをCEnemy型にダウンキャスト
+					CEnemy* pEnemy = (CEnemy*)pObject;
+
+					//敵の体力の減少
+					pEnemy->SubLife(40);
 				}
 
 				return true;

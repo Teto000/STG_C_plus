@@ -63,7 +63,7 @@ HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 	// HPÇÃï\é¶
 	//--------------------------
 	//CHp::Create(D3DXVECTOR3(m_Enemy.pos.x, m_Enemy.pos.y - (m_Enemy.fHeight / 2 + 20.0f), m_Enemy.pos.z)
-	//					, D3DXVECTOR3(0.0f, 0.0f, 0.0f), m_Enemy.fWidth, 10.0f, CHp::HPTYPE_ENEMY);
+	//			, D3DXVECTOR3(0.0f, 0.0f, 0.0f), m_Enemy.fWidth, 10.0f, CHp::HPTYPE_ENEMY);
 
 	//--------------------------
 	// ÉoÉäÉAÇÃê∂ê¨
@@ -117,6 +117,7 @@ void CEnemy::Update()
 	//--------------------------
 	if (!IsUsed())
 	{
+		//è¡ãéèàóù
 		Destroy();
 	}
 	else
@@ -170,7 +171,7 @@ bool CEnemy::IsUsed()
 }
 
 //===========================
-// è¡ãé
+// è¡ãéèàóù
 //===========================
 void CEnemy::Destroy()
 {

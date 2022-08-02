@@ -44,7 +44,8 @@ public:
 	void Update(void) override;
 	void Draw(void) override;
 	bool IsUsed() override;
-	void Destroy() override;
+
+	void Destroy();
 
 	void SubLife(int nLife);	//‘Ì—Í‚ÌŒ¸­
 
