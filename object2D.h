@@ -30,6 +30,8 @@ public:
 	virtual void Uninit() override;
 	virtual void Update() override;
 	virtual void Draw() override;
+	virtual bool IsUsed() override { return true; };
+	virtual void Destroy() override {};
 	
 	D3DXVECTOR3 AddMove(D3DXVECTOR3 move);		//ˆÚ“®—Ê‚Ì‰ÁŽZ
 

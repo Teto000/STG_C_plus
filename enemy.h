@@ -43,6 +43,8 @@ public:
 	void Uninit(void) override;
 	void Update(void) override;
 	void Draw(void) override;
+	bool IsUsed() override;
+	void Destroy() override;
 
 	void SubLife(int nLife);	//‘Ì—Í‚ÌŒ¸­
 

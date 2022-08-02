@@ -162,15 +162,15 @@ void CBullet::Update()
 	//------------------------
 	if (CObject2D::GetCollision(OBJTYPE_ENEMY))
 	{//敵と当たった
-		if(m_Bullet.type == BULLETSTATE_CHARGE)
-		{//チャージショットなら
-			//ダメージ上昇
-			CApplication::GetEnemy()->SubLife(10 * 3);	//敵の体力の減少
-		}
-		else
-		{//それ以外なら
-			CApplication::GetEnemy()->SubLife(40);	//敵の体力の減少
-		}
+		//if(m_Bullet.type == BULLETSTATE_CHARGE)
+		//{//チャージショットなら
+		//	//ダメージ上昇
+		//	CApplication::GetEnemy()->SubLife(10 * 3);	//敵の体力の減少
+		//}
+		//else
+		//{//それ以外なら
+		//	CApplication::GetEnemy()->SubLife(40);	//敵の体力の減少
+		//}
 
 		CExplosion::Create(m_Bullet.pos);	//爆発の生成
 

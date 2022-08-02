@@ -113,15 +113,11 @@ void CEnemy::Update()
 	}
 
 	//--------------------------
-	// 体力が尽きた
+	// 終了条件を満たしたら
 	//--------------------------
-	if (m_Enemy.nLife <= 0)
+	if (!IsUsed())
 	{
-		CLevel::AddExp(10);		//経験値の取得
-
-		//敵の消滅
-		Uninit();
-		CObject2D::Release();
+		Destroy();
 	}
 	else
 	{
@@ -158,6 +154,31 @@ CEnemy *CEnemy::Create(D3DXVECTOR3 pos)
 	}
 
 	return pEnemy;
+}
+
+//===========================
+// 終了条件処理
+//===========================
+bool CEnemy::IsUsed()
+{
+	if (m_Enemy.nLife <= 0)
+	{
+		return false;
+	}
+
+	return true;
+}
+
+//===========================
+// 消去
+//===========================
+void CEnemy::Destroy()
+{
+	CLevel::AddExp(10);		//経験値の取得
+
+	//敵の消滅
+	Uninit();
+	CObject2D::Release();
 }
 
 //===========================

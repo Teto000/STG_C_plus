@@ -492,6 +492,11 @@ bool CObject2D::GetCollision(CObject::EObjType TirgetType)
 			if (SourcePos.x + SourceWidth / 2 >= fLeft && SourcePos.x - SourceWidth / 2 <= fRight
 				&& SourcePos.y - SourceHeight / 2 <= fBottom && SourcePos.y + SourceHeight / 2 >= fTop)
 			{
+				if (type == OBJTYPE_ENEMY)
+				{
+					pObject->Destroy();
+				}
+
 				return true;
 			}
 		}
