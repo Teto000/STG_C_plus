@@ -25,6 +25,7 @@
 // 静的メンバ変数宣言
 //------------------------
 const float CPlayer::fPlayerSpeed = (30.0f / 5.0f);
+int CPlayer::nShotTime = 20;
 D3DXCOLOR CPlayer::m_col = D3DXCOLOR(1.0f, 1.0f, 1.0f,1.0f);
 
 //===========================
@@ -140,22 +141,7 @@ void CPlayer::Update()
 	//--------------------------
 	// スキルの発動
 	//--------------------------
-	if (CInputKeyboard::Trigger(DIK_O))
-	{
-		CSkill::Create();
-
-		//-----------------------
-		// 体力の回復
-		//-----------------------
-		if (m_Player.nLife + 30 >= m_Player.nMaxLife)
-		{//回復して上限なら
-			m_Player.nLife = m_Player.nMaxLife;	//体力を最大にする
-		}
-		else
-		{//それ以外なら
-			m_Player.nLife += 30;	//体力を回復
-		}
-	}
+	SetSkill();
 
 	//------------------------
 	// 敵との当たり判定
@@ -261,6 +247,39 @@ D3DXVECTOR3 CPlayer::OperationPlayer()
 	}
 
 	return m_Player.move;
+}
+
+//===========================
+// スキルの発動
+//===========================
+void CPlayer::SetSkill()
+{
+	//-----------------------
+	// 体力の回復
+	//-----------------------
+	if (CInputKeyboard::Trigger(DIK_1))
+	{//1キーが押されたら
+		CSkill::Create(CSkill::SKILLTYPE_HEAL);
+
+		if (m_Player.nLife + 30 >= m_Player.nMaxLife)
+		{//回復して上限なら
+			m_Player.nLife = m_Player.nMaxLife;	//体力を最大にする
+		}
+		else
+		{//それ以外なら
+			m_Player.nLife += 30;	//体力を回復
+		}
+	}
+
+	//-----------------------
+	// 弾速の強化
+	//-----------------------
+	if (CInputKeyboard::Trigger(DIK_2))
+	{//2キーが押されたら
+		CSkill::Create(CSkill::SKILLTYPE_SPEEDUP_FIRE);
+
+		nShotTime = 10;
+	}
 }
 
 //===========================

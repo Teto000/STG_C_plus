@@ -20,17 +20,21 @@ class CTexture
 public: /* 定義 */
 	enum TEXTURE
 	{
-		TEXTURE_PLAYER = 0,		//プレイヤー
-		TEXTURE_BULLET,			//弾
-		TEXTURE_EXPLOSION,		//爆発
-		TEXTURE_ENEMYBIRD,		//鳥型の敵
-		TEXTURE_RING,			//輪
-		TEXTURE_NUMBER,			//数字
-		TEXTURE_EFFECT,			//エフェクト
-		TEXTURE_BG,				//背景
-		TEXTURE_BARRIER,		//バリア
-		TEXTURE_EXP,			//経験値
-		TEXTURE_SKILL_HPHEAL,	//スキル(体力回復)
+		TEXTURE_PLAYER = 0,			//プレイヤー
+		TEXTURE_BULLET,				//弾
+		TEXTURE_EXPLOSION,			//爆発
+		TEXTURE_ENEMYBIRD,			//鳥型の敵
+		TEXTURE_RING,				//輪
+		TEXTURE_NUMBER,				//数字
+		TEXTURE_EFFECT,				//エフェクト
+		TEXTURE_BG,					//背景
+		TEXTURE_BARRIER,			//バリア
+		TEXTURE_EXP,				//経験値
+
+		/* ↓ スキル ↓*/
+		TEXTURE_SKILL_HPHEAL,		//スキル(体力回復)
+		TEXTURE_SKILL_SPEEDUP_FIRE,	//スキル(弾速強化)
+
 		TEXTURE_MAX,
 		TEXTURE_NONE,			//使用しない
 	};

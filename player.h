@@ -47,6 +47,8 @@ public:
 	void Update() override;
 	void Draw() override;
 
+	void SetSkill();
+
 	//ゲッター
 	int GetLife();
 	int GetRemLife();
@@ -68,7 +70,6 @@ private:
 	static const float fPlayerSpeed;		//プレイヤーの速度
 	static const int nPlayerLife = 300;		//プレイヤーの体力
 	static const int nMaxLife = 100;		//最大体力(%)
-	static const int nShotTime = 20;		//弾の発射時間
 
 	//------------------
 	// メンバ変数
@@ -79,6 +80,7 @@ private:
 	//------------------
 	// 静的メンバ変数
 	//------------------
+	static int nShotTime;	//弾の発射時間
 	static D3DXCOLOR m_col;
 };
 

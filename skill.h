@@ -19,6 +19,15 @@ class CSkill : public CObject2D
 {
 public:
 	//---------------------------
+	// スキル列挙型の定義
+	//---------------------------
+	enum SKILLTYPE
+	{
+		SKILLTYPE_HEAL = 0,			//回復
+		SKILLTYPE_SPEEDUP_FIRE,		//発射速度強化
+	};
+
+	//---------------------------
 	// スキル構造体の定義
 	//---------------------------
 	struct Skill
@@ -27,6 +36,7 @@ public:
 		D3DXVECTOR3 move;	//移動量
 		float fWidth;		//幅
 		float fHeight;		//高さ
+		SKILLTYPE type;		//種類
 	};
 
 	CSkill();			//コンストラクタ
@@ -43,7 +53,7 @@ public:
 	//----------------
 	// 静的メンバ関数
 	//----------------
-	static CSkill *Create();
+	static CSkill *Create(SKILLTYPE type);
 
 private:
 	//----------------

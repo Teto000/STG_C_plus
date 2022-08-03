@@ -55,7 +55,19 @@ HRESULT CSkill::Init(D3DXVECTOR3 pos)
 
 	CObject2D::SetSize(m_Skill.fWidth, m_Skill.fHeight);
 
-	CObject2D::SetTexture(CTexture::TEXTURE_SKILL_HPHEAL);	//テクスチャの設定
+	switch (m_Skill.type)
+	{
+	case SKILLTYPE_HEAL:
+		CObject2D::SetTexture(CTexture::TEXTURE_SKILL_HPHEAL);	//テクスチャの設定
+		break;
+
+	case SKILLTYPE_SPEEDUP_FIRE:
+		CObject2D::SetTexture(CTexture::TEXTURE_SKILL_SPEEDUP_FIRE);	//テクスチャの設定
+		break;
+
+	default:
+		break;
+	}
 
 	return S_OK;
 }
@@ -117,7 +129,7 @@ void CSkill::Draw()
 //===========================
 // 生成
 //===========================
-CSkill *CSkill::Create()
+CSkill *CSkill::Create(SKILLTYPE type)
 {
 	CSkill *pSkill = nullptr;
 
@@ -128,7 +140,10 @@ CSkill *CSkill::Create()
 
 	if (pSkill != nullptr)
 	{//NULLチェック
-	 //初期化
+		//構造体に代入
+		pSkill->m_Skill.type = type;
+
+		//初期化
 		pSkill->Init(D3DXVECTOR3(0.0f, 720.0f, 0.0f));
 		pSkill->SetObjType(OBJTYPE_SKILL);
 	}

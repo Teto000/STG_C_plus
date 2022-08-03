@@ -45,12 +45,13 @@ HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 {
 	//位置の設定
 	m_Enemy.pos = pos;			//位置
-	m_Enemy.move = D3DXVECTOR3(-4.0f, 0.0f, 0.0f);
 	m_Enemy.fWidth = 100.0f;	//幅
 	m_Enemy.fHeight = 100.0f;	//高さ
 	m_Enemy.nLife = 120;		//体力
 	m_Enemy.nMaxLife = 120;		//最大体力
 	m_Enemy.nRemLife = 100;		//残り体力
+
+	m_Enemy.move = D3DXVECTOR3(-4.0f, 0.0f, 0.0f);
 
 	CObject2D::Init(m_Enemy.pos);
 
@@ -108,7 +109,20 @@ void CEnemy::Update()
 	//-------------------------------
 	// 敵の移動
 	//-------------------------------
-	CObject2D::AddMove(m_Enemy.move);
+	switch (m_Enemy.type)
+	{
+	case ENEMYTYPE_NORMAL:
+		CObject2D::AddMove(m_Enemy.move);
+		break;
+
+	case ENEMYTYPE_CURVE:
+		m_Enemy.move.x = sinf(m_Enemy.move.x);
+		CObject2D::AddMove(m_Enemy.move);
+		break;
+
+	default:
+		break;
+	}
 
 	//--------------------------
 	// 体力の減少
@@ -144,7 +158,7 @@ void CEnemy::Draw()
 //===========================
 // 生成
 //===========================
-CEnemy *CEnemy::Create(D3DXVECTOR3 pos)
+CEnemy *CEnemy::Create(D3DXVECTOR3 pos, CEnemy::ENEMYTYPE type)
 {
 	CEnemy *pEnemy = nullptr;
 
@@ -155,6 +169,9 @@ CEnemy *CEnemy::Create(D3DXVECTOR3 pos)
 
 	if (pEnemy != nullptr)
 	{//NULLチェック
+		//構造体に代入
+		pEnemy->m_Enemy.type = type;
+
 		//初期化
 		pEnemy->Init(pos);
 		pEnemy->SetObjType(OBJTYPE_ENEMY);

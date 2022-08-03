@@ -19,17 +19,20 @@
 //==================================================
 const char* CTexture::s_FileName[] =
 {// テクスチャのパス
-	"data/TEXTURE/Player.png",		//プレイヤー
-	"data/TEXTURE/Bullet.png",		//弾
-	"data/TEXTURE/Explosion.png",	//爆発
-	"data/TEXTURE/EnemyBird.png",	//鳥型の敵
-	"data/TEXTURE/Ring.png",		//輪
-	"data/TEXTURE/Number.png",		//数字
-	"data/TEXTURE/Effect.jpg",		//エフェクト
-	"data/TEXTURE/BG.png",			//背景
-	"data/TEXTURE/Barrier.png",		//バリア
-	"data/TEXTURE/Exp.png",			//経験値
-	"data/TEXTURE/Skill_HPheal.png",//スキル(体力回復)
+	"data/TEXTURE/Player.png",				//プレイヤー
+	"data/TEXTURE/Bullet.png",				//弾
+	"data/TEXTURE/Explosion.png",			//爆発
+	"data/TEXTURE/EnemyBird.png",			//鳥型の敵
+	"data/TEXTURE/Ring.png",				//輪
+	"data/TEXTURE/Number.png",				//数字
+	"data/TEXTURE/Effect.jpg",				//エフェクト
+	"data/TEXTURE/BG.png",					//背景
+	"data/TEXTURE/Barrier.png",				//バリア
+	"data/TEXTURE/Exp.png",					//経験値
+
+	/* ↓ スキル ↓*/
+	"data/TEXTURE/Skill/HPheal.png",		//スキル(体力回復)
+	"data/TEXTURE/Skill/SpeedUp_Fire.png",	//スキル(弾速強化)
 };
 
 static_assert(sizeof(CTexture::s_FileName) / sizeof(CTexture::s_FileName[0]) == CTexture::TEXTURE_MAX, "aho");

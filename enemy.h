@@ -19,6 +19,15 @@ class CEnemy : public CObject2D
 {
 public:
 	//---------------------------
+	// 敵の列挙型の定義
+	//---------------------------
+	enum ENEMYTYPE
+	{
+		ENEMYTYPE_NORMAL = 0,	//直進する敵
+		ENEMYTYPE_CURVE,		//上下にカーブする敵
+	};
+
+	//---------------------------
 	// 敵の構造体の定義
 	//---------------------------
 	struct Enemy
@@ -31,6 +40,7 @@ public:
 		int nRemLife;		//残り体力
 		float fWidth;		//幅
 		float fHeight;		//高さ
+		ENEMYTYPE type;		//種類
 	};
 
 	CEnemy();			//コンストラクタ
@@ -56,7 +66,7 @@ public:
 	//----------------
 	// 静的メンバ関数
 	//----------------
-	static CEnemy *Create(D3DXVECTOR3 pos);
+	static CEnemy *Create(D3DXVECTOR3 pos, CEnemy::ENEMYTYPE type);
 
 private:
 	//----------------

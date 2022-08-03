@@ -88,9 +88,6 @@ HRESULT CApplication::Init(HINSTANCE hInstance, HWND hWnd)
 	//プレイヤーの生成
 	m_pPlayer = CPlayer::Create();
 
-	//敵の生成
-	m_pEnemy = CEnemy::Create(D3DXVECTOR3(800.0f, 360.0, 0.0f));
-
 	//レベルの生成
 	m_pLevel = CLevel::Create();
 
@@ -161,7 +158,8 @@ void CApplication::Update()
 		int nRand = rand() % 520 + 200;
 
 		//敵の生成
-		m_pEnemy = CEnemy::Create(D3DXVECTOR3(1300, (float)nRand, 0.0f));
+		m_pEnemy = CEnemy::Create(D3DXVECTOR3(1300, (float)nRand, 0.0f),
+									CEnemy::ENEMYTYPE_CURVE);
 	}
 }
 
