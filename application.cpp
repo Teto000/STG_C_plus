@@ -43,7 +43,7 @@ CLevel	  *CApplication::m_pLevel = nullptr;	//レベル
 //===========================
 CApplication::CApplication()
 {
-
+	m_EnemyCnt = 0;
 }
 
 //===========================
@@ -153,12 +153,15 @@ void CApplication::Update()
 	//レンダリングの更新
 	m_pRenderer->Update();
 
-	if (CInputKeyboard::Trigger(DIK_RETURN))
+	m_EnemyCnt++;
+	m_EnemyCnt %= 80;
+
+	if (m_EnemyCnt == 0)
 	{
 		int nRand = rand() % 520 + 200;
 
 		//敵の生成
-		m_pEnemy = CEnemy::Create(D3DXVECTOR3(800.0f, (float)nRand, 0.0f));
+		m_pEnemy = CEnemy::Create(D3DXVECTOR3(1300, (float)nRand, 0.0f));
 	}
 }
 

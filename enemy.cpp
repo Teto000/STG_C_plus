@@ -45,6 +45,7 @@ HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 {
 	//ˆÊ’u‚Ìİ’è
 	m_Enemy.pos = pos;			//ˆÊ’u
+	m_Enemy.move = D3DXVECTOR3(-4.0f, 0.0f, 0.0f);
 	m_Enemy.fWidth = 100.0f;	//•
 	m_Enemy.fHeight = 100.0f;	//‚‚³
 	m_Enemy.nLife = 120;		//‘Ì—Í
@@ -103,6 +104,11 @@ void CEnemy::Update()
 	{
 		CObject2D::SetTexCIE(0.5f, 1.0f);
 	}
+
+	//-------------------------------
+	// “G‚ÌˆÚ“®
+	//-------------------------------
+	CObject2D::AddMove(m_Enemy.move);
 
 	//--------------------------
 	// ‘Ì—Í‚ÌŒ¸­

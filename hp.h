@@ -41,7 +41,7 @@ public:
 		float fWidth;		//幅
 		float fHeight;		//高さ
 		float fLength;		//HPバーの長さ
-		HPTYPE type;		//種類
+		HPTYPE type;		//種類z
 	};
 	
 	CHp();				//コンストラクタ

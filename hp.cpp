@@ -74,6 +74,7 @@ void CHp::Update()
 	//-------------------
 	CPlayer *pPlayer = CApplication::GetPlayer();	//ƒvƒŒƒCƒ„[
 	CEnemy *pEnemy = CApplication::GetEnemy();		//“G
+	//CEnemy enemy;
 
 	//-------------------
 	// HP‚ÌŒ¸­
@@ -96,9 +97,8 @@ void CHp::Update()
 	// “G‚Ìˆ—
 	//=============================
 	case HPTYPE_ENEMY:
-
 		//“G‚Ì‘Ì—Í‚ðŽæ“¾
-		m_HP.nLife = pEnemy->GetLife();
+		m_HP.nLife = pEnemy->GetLife();//pEnemy->GetLife();
 
 		//“G‚ÌŽc‚è‘Ì—Í‚ðŽæ“¾
 		m_HP.nRemLife = pEnemy->GetRemLife();
