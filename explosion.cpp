@@ -107,7 +107,6 @@ void CExplosion::Update()
 	{
 		Uninit();
 		return;
-//		CObject2D::Release();	//‰ð•ú
 	}
 }
 

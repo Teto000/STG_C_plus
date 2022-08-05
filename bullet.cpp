@@ -193,14 +193,12 @@ void CBullet::Update()
 		//’e‚ÌÁ–Å
 		Uninit();
 		return;
-//		CObject2D::Release();
 	}
 	else if (CObject2D::GetCollision(OBJTYPE_BARRIER))
 	{//ƒoƒŠƒA‚Æ“–‚½‚Á‚½
 		//’e‚ÌÁ–Å
 		Uninit();
 		return;
-//		CObject2D::Release();
 	}
 }
 

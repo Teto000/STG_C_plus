@@ -76,7 +76,7 @@ void CEffect::Update()
 	{//小さくなって消えた or 完全に透明なら
 		//エフェクトの消去
 		Uninit();
-		CObject2D::Release();
+		return;
 	}
 	else
 	{

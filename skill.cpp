@@ -111,7 +111,7 @@ void CSkill::Update()
 	{
 		//スキル表示の消去
 		Uninit();
-		CObject2D::Release();
+		return;
 	}
 
 	//位置に移動量を加算

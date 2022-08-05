@@ -94,7 +94,7 @@ void CExp::Update()
 			{
 				//経験値ゲージの消去
 				pObject->Uninit();
-//				pObject->Release();
+				return;
 
 				//角度の正規化
 				m_rot.x += D3DXToRadian(360);

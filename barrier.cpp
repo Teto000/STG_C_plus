@@ -70,7 +70,7 @@ void CBarrier::Update()
 	if (CObject2D::GetCollision(OBJTYPE_BULLET))
 	{
 		Uninit();
-		CObject2D::Release();
+		return;
 	}
 }
 

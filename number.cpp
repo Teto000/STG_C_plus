@@ -98,7 +98,6 @@ void CNumber::Update()
 	{//‚‚³‚ª–³‚­‚È‚Á‚½‚ç
 		Uninit();
 		return;
-//		CObject2D::Release();
 	}
 }
 

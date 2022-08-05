@@ -158,7 +158,7 @@ void CPlayer::Update()
 	{
 		//“G‚ÌÁ–Å
 		Uninit();
-		CObject2D::Release();
+		return;
 	}
 	else
 	{

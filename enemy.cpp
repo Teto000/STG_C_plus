@@ -207,7 +207,7 @@ void CEnemy::Destroy()
 
 	//“G‚ÌÁ–Å
 	Uninit();
-//	CObject2D::Release();
+	return;
 }
 
 //===========================
