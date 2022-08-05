@@ -8,8 +8,6 @@
 //------------------------
 // インクルード
 //------------------------
-#include <assert.h>
-#include <memory.h>
 #include "bullet.h"
 #include "main.h"
 #include "renderer.h"
@@ -36,8 +34,14 @@ int CBullet::m_nChageTime;	//弾のチャージ時間
 //===========================
 CBullet::CBullet() : CObject2D()
 {
-	memset(&m_Bullet, 0, sizeof(m_Bullet));	//構造体のクリア
-	m_Tirget = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	m_pos = D3DXVECTOR3(0.0f,0.0f,0.0f);		//位置
+	m_Tirget = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	//目標
+	m_move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		//移動量
+	m_rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		//回転
+	m_nLife = 0;				//寿命
+	m_fWidth = 0.0f;			//幅
+	m_fHeight = 0.0f;			//高さ
+	m_type = BULLETSTATE_MAX;	//種類
 }
 
 //===========================
@@ -56,29 +60,29 @@ HRESULT CBullet::Init(D3DXVECTOR3 pos)
 	//----------------------------
 	// メンバ変数の初期化
 	//----------------------------
-	m_Bullet.pos = pos;
-	m_Bullet.fWidth = 50.0f;
-	m_Bullet.fHeight = 50.0f;
+	m_pos = pos;
+	m_fWidth = 50.0f;
+	m_fHeight = 50.0f;
 
-	CObject2D::Init(m_Bullet.pos);
+	CObject2D::Init(m_pos);
 
 	//----------------------------
 	// 種類別の情報の設定
 	//----------------------------
-	if (m_Bullet.type == BULLETSTATE_NORMAL)
+	if (m_type == BULLETSTATE_NORMAL)
 	{
-		m_Bullet.nLife = 100;
-		CObject2D::SetSize(m_Bullet.fWidth, m_Bullet.fHeight);	//サイズの設定
+		m_nLife = 100;
+		CObject2D::SetSize(m_fWidth, m_fHeight);	//サイズの設定
 	}
-	else if (m_Bullet.type == BULLETSTATE_CHARGE)
+	else if (m_type == BULLETSTATE_CHARGE)
 	{
-		m_Bullet.nLife = 100;
-		CObject2D::SetSize(m_Bullet.fWidth * 1.5f, m_Bullet.fHeight * 1.5f);
+		m_nLife = 100;
+		CObject2D::SetSize(m_fWidth * 1.5f, m_fHeight * 1.5f);
 	}
-	else if (m_Bullet.type == BULLETSTATE_HORMING)
+	else if (m_type == BULLETSTATE_HORMING)
 	{
-		m_Bullet.nLife = 200;
-		CObject2D::SetSize(m_Bullet.fWidth, m_Bullet.fHeight);	//サイズの設定
+		m_nLife = 200;
+		CObject2D::SetSize(m_fWidth, m_fHeight);	//サイズの設定
 	}
 
 	CObject2D::SetTexture(CTexture::TEXTURE_BULLET);	//テクスチャの設定
@@ -101,11 +105,11 @@ void CBullet::Update()
 {
 	CObject2D::Update();
 
-	m_Bullet.rot.x -= 0.1f;
+	m_rot.x -= 0.1f;
 
-	SetVtxCIE_Rot(m_Bullet.pos, m_Bullet.rot, m_Bullet.fWidth, m_Bullet.fHeight);
+	SetVtxCIE_Rot(m_pos, m_rot, m_fWidth, m_fHeight);
 
-	switch (m_Bullet.type)
+	switch (m_type)
 	{
 	//----------------------
 	// ホーミング弾なら
@@ -116,43 +120,43 @@ void CBullet::Update()
 		if (m_Tirget.x == 0.0f, m_Tirget.y == 0.0f)
 		{//ターゲットが消えたら
 			//横に向かって飛ぶ
-			m_Tirget = D3DXVECTOR3(1280.0f, m_Bullet.pos.y, 0.0f);
+			m_Tirget = D3DXVECTOR3(1280.0f, m_pos.y, 0.0f);
 		}
 		
-		if (m_Bullet.nLife <= 170)
+		if (m_nLife <= 170)
 		{//ホーミング弾の寿命が150以下なら
 			//敵に向かってホーミング
-			D3DXVECTOR3 move = Homing(m_Bullet.pos.x, m_Bullet.pos.y, m_Bullet.move.x, m_Bullet.move.y);
-			m_Bullet.pos = CObject2D::AddMove(move);
+			D3DXVECTOR3 move = Homing(m_pos.x, m_pos.y, m_move.x, m_move.y);
+			m_pos = CObject2D::AddMove(move);
 		}
 		else
 		{
 			//移動量の加算
-			m_Bullet.pos = CObject2D::AddMove(m_Bullet.move);
+			m_pos = CObject2D::AddMove(m_move);
 		}
 		break;
 	default:
 		//移動量の加算
-		m_Bullet.pos = CObject2D::AddMove(m_Bullet.move);
+		m_pos = CObject2D::AddMove(m_move);
 		break;
 	}
 
 	//エフェクトの生成
-	//CEffect::Create(m_Bullet.pos);
+	//CEffect::Create(m_pos);
 
 	//寿命の減少
-	m_Bullet.nLife--;
+	m_nLife--;
 
 	//寿命が尽きた
-	if (m_Bullet.nLife <= 0.0f)
+	if (m_nLife <= 0.0f)
 	{
-		CExplosion::Create(m_Bullet.pos);//爆発の生成
+		CExplosion::Create(m_pos);//爆発の生成
 		Uninit();
 		return;
 //		CObject2D::Release();	//弾の開放
 	}
 	//画面端の処理
-	else if (m_Bullet.pos.x >= SCREEN_WIDTH)
+	else if (m_pos.x >= SCREEN_WIDTH)
 	{
 		Uninit();
 		return;
@@ -166,7 +170,7 @@ void CBullet::Update()
 
 	if (pHitObject != nullptr)
 	{//敵と当たった
-		//if(m_Bullet.type == BULLETSTATE_CHARGE)
+		//if(m_type == BULLETSTATE_CHARGE)
 		//{//チャージショットなら
 		//	//ダメージ上昇
 		//	CApplication::GetEnemy()->SubLife(10 * 3);	//敵の体力の減少
@@ -182,13 +186,13 @@ void CBullet::Update()
 		//敵の体力の減少
 		pEnemy->SubLife(40);
 
-		CExplosion::Create(m_Bullet.pos);	//爆発の生成
+		CExplosion::Create(m_pos);	//爆発の生成
 
 		CScore::AddScore(1);	//スコアの加算
 
 		int PlayerAttack = CApplication::GetPlayer()->GetAttack();
 
-		CNumber::Create(m_Bullet.pos, 20.0f, 30.0f, 20.0f, 2, PlayerAttack);	//ダメージの表示
+		CNumber::Create(m_pos, 20.0f, 30.0f, 20.0f, 2, PlayerAttack);	//ダメージの表示
 
 		//弾の消滅
 		Uninit();
@@ -225,8 +229,8 @@ CBullet *CBullet::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, BULLETSTATE type)
 	if (pBullet != nullptr)
 	{//NULLチェック
 		//初期化
-		pBullet->m_Bullet.move = move;		//移動量の代入
-		pBullet->m_Bullet.type = type;		//種類の代入
+		pBullet->m_move = move;		//移動量の代入
+		pBullet->m_type = type;		//種類の代入
 		pBullet->Init(pos);
 
 		pBullet->SetObjType(OBJTYPE_BULLET);

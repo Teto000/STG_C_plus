@@ -18,18 +18,6 @@
 class CExplosion : public CObject2D
 {
 public:
-	//---------------------------
-	// 爆発構造体の定義
-	//---------------------------
-	struct Explosion
-	{
-		D3DXVECTOR3 pos;	//位置
-		D3DXCOLOR col;		//色
-		int nLife;			//寿命
-		float fWidth;		//幅
-		float fHeight;		//高さ
-	};
-
 	CExplosion();			//コンストラクタ
 	~CExplosion() override;	//デストラクタ
 
@@ -50,11 +38,11 @@ private:
 	//----------------
 	// メンバ変数
 	//----------------
-	Explosion m_Explosion;	//爆発構造体
-
-	//----------------
-	// 静的メンバ変数
-	//----------------
+	D3DXVECTOR3 m_pos;	//位置
+	D3DXCOLOR m_col;	//色
+	int m_nLife;		//寿命
+	float m_fWidth;		//幅
+	float m_fHeight;	//高さ
 };
 
 #endif // !_EXPLOSION_H_

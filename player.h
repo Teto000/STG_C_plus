@@ -18,24 +18,6 @@
 class CPlayer : public CObject2D
 {
 public:
-	//---------------------------
-	// プレイヤー構造体の定義
-	//---------------------------
-	struct Player
-	{
-		D3DXVECTOR3 pos;	//位置
-		D3DXVECTOR3 move;	//移動量
-		D3DXVECTOR3 rot;	//移動量
-		D3DXCOLOR col;		//色
-		int nLife;			//体力
-		int nMaxLife;		//最大体力
-		int nRemLife;		//残り体力
-		int nAttack;		//攻撃力
-		float nSpeed;		//速度
-		float fWidth;		//幅
-		float fHeight;		//高さ
-	};
-
 	CPlayer();				//コンストラクタ
 	~CPlayer() override;	//デストラクタ
 
@@ -74,8 +56,17 @@ private:
 	//------------------
 	// メンバ変数
 	//------------------
-	Player m_Player;	//プレイヤー構造体
+	D3DXVECTOR3 m_pos;	//位置
+	D3DXVECTOR3 m_move;	//移動量
+	D3DXVECTOR3 m_rot;	//移動量
+	int m_nLife;		//体力
+	int m_nMaxLife;		//最大体力
+	int m_nRemLife;		//残り体力
+	int m_nAttack;		//攻撃力
 	int m_nShotTime;	//弾の発射時間を数える
+	float m_nSpeed;		//速度
+	float m_fWidth;		//幅
+	float m_fHeight;	//高さ
 
 	//------------------
 	// 静的メンバ変数

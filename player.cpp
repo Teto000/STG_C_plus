@@ -9,7 +9,6 @@
 // インクルード
 //------------------------
 #include <assert.h>
-#include <memory.h>
 #include "player.h"
 #include "main.h"
 #include "renderer.h"
@@ -33,7 +32,17 @@ D3DXCOLOR CPlayer::m_col = D3DXCOLOR(1.0f, 1.0f, 1.0f,1.0f);
 //===========================
 CPlayer::CPlayer() : CObject2D()
 {
-	memset(&m_Player, 0, sizeof(Player));	//構造体のクリア
+	m_pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		//位置
+	m_move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		//移動量
+	m_rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		//移動量
+	m_nLife = 0;		//体力
+	m_nMaxLife = 0;		//最大体力
+	m_nRemLife = 0;		//残り体力
+	m_nAttack = 0;		//攻撃力
+	m_nShotTime = 0;	//弾の発射時間を数える
+	m_nSpeed = 0.0f;	//速度
+	m_fWidth = 0.0f;	//幅
+	m_fHeight = 0.0f;	//高さ
 }
 
 //===========================
@@ -50,22 +59,22 @@ CPlayer::~CPlayer()
 HRESULT CPlayer::Init(D3DXVECTOR3 pos)
 {
 	//位置の設定
-	m_Player.pos = pos;
-	m_Player.nLife = nPlayerLife;	//体力
-	m_Player.nMaxLife = nPlayerLife;//最大体力
-	m_Player.nRemLife = nMaxLife;	//残り体力
-	m_Player.fWidth = 80.0f;		//幅
-	m_Player.fHeight = 100.0f;		//高さ
-	m_Player.nAttack = 10;			//攻撃力
-	m_Player.nSpeed = fPlayerSpeed;	//速度
+	m_pos = pos;
+	m_nLife = nPlayerLife;		//体力
+	m_nMaxLife = nPlayerLife;	//最大体力
+	m_nRemLife = nMaxLife;		//残り体力
+	m_fWidth = 80.0f;			//幅
+	m_fHeight = 100.0f;			//高さ
+	m_nAttack = 10;				//攻撃力
+	m_nSpeed = fPlayerSpeed;	//速度
 
-	CObject2D::Init(m_Player.pos);
+	CObject2D::Init(m_pos);
 
-	CObject2D::SetSize(m_Player.fWidth, m_Player.fHeight);	//サイズの設定
+	CObject2D::SetSize(m_fWidth, m_fHeight);	//サイズの設定
 
 	CObject2D::SetTexture(CTexture::TEXTURE_PLAYER);	//テクスチャの設定
 
-	m_Player.pos = CObject2D::GetPosition();
+	m_pos = CObject2D::GetPosition();
 
 	//--------------------------
 	// HPの表示
@@ -99,19 +108,19 @@ void CPlayer::Update()
 	//--------------------
 	// 移動量を更新(減衰)
 	//--------------------
-	m_Player.move.x += (0.0f - move.x) * 0.4f;
-	m_Player.move.y += (0.0f - move.y) * 0.4f;
+	m_move.x += (0.0f - move.x) * 0.4f;
+	m_move.y += (0.0f - move.y) * 0.4f;
 
 	//--------------------
 	// 位置に移動量を加算
 	//--------------------
-	m_Player.pos = CObject2D::AddMove(m_Player.move);
+	m_pos = CObject2D::AddMove(m_move);
 
 	//--------------------
 	// 画面端の設定
 	//--------------------
-	CObject2D::SetScreenX(m_Player.pos.x, 0.0f + m_Player.fWidth / 2, SCREEN_WIDTH - m_Player.fWidth / 2);
-	CObject2D::SetScreenY(m_Player.pos.y, 0.0f + 180.0f, SCREEN_HEIGHT - m_Player.fHeight / 2);
+	CObject2D::SetScreenX(m_pos.x, 0.0f + m_fWidth / 2, SCREEN_WIDTH - m_fWidth / 2);
+	CObject2D::SetScreenY(m_pos.y, 0.0f + 180.0f, SCREEN_HEIGHT - m_fHeight / 2);
 
 	//--------------------------
 	// 弾の発射
@@ -119,7 +128,7 @@ void CPlayer::Update()
 	m_nShotTime++;
 	m_nShotTime %= nShotTime;	//発射時間をリセット
 
-	CBullet::ShotBullet(m_Player.pos, m_Player.rot, m_nShotTime);
+	CBullet::ShotBullet(m_pos, m_rot, m_nShotTime);
 
 	//--------------------------
 	// 体力の変動
@@ -127,15 +136,15 @@ void CPlayer::Update()
 	//増加
 	if (CInputKeyboard::Press(DIK_UP))
 	{//↑キーが押されたら
-		if (m_Player.nRemLife < 100)
+		if (m_nRemLife < 100)
 		{//体力の上限じゃないなら
-			m_Player.nLife++;	//プレイヤーの体力の増加
+			m_nLife++;	//プレイヤーの体力の増加
 		}
 	}
 	//減少
 	else if (CInputKeyboard::Trigger(DIK_DOWN))
 	{//↓キーが押されたら
-		m_Player.nLife-= 299;	//プレイヤーの体力の減少
+		m_nLife-= 299;	//プレイヤーの体力の減少
 	}
 
 	//--------------------------
@@ -148,13 +157,13 @@ void CPlayer::Update()
 	//------------------------
 	if (CObject2D::GetCollision(OBJTYPE_ENEMY))
 	{
-		m_Player.nLife--;	//プレイヤーの体力の減少
+		m_nLife--;	//プレイヤーの体力の減少
 	}
 
 	//--------------------------
 	// 体力が尽きた
 	//--------------------------
-	if (m_Player.nLife <= 0)
+	if (m_nLife <= 0)
 	{
 		//敵の消滅
 		Uninit();
@@ -163,7 +172,7 @@ void CPlayer::Update()
 	else
 	{
 		//残り体力を計算
-		m_Player.nRemLife = m_Player.nLife * 100 / m_Player.nMaxLife;
+		m_nRemLife = m_nLife * 100 / m_nMaxLife;
 	}
 }
 
@@ -207,46 +216,46 @@ D3DXVECTOR3 CPlayer::OperationPlayer()
 	{//Aキーが押された
 		if (CInputKeyboard::Press(DIK_W) == true)
 		{//Wキーが押された
-			m_Player.move.y += cosf(-D3DX_PI * 0.75f) * fPlayerSpeed;		//上左移動
-			m_Player.move.x += sinf(-D3DX_PI * 0.75f) * fPlayerSpeed;
+			m_move.y += cosf(-D3DX_PI * 0.75f) * fPlayerSpeed;		//上左移動
+			m_move.x += sinf(-D3DX_PI * 0.75f) * fPlayerSpeed;
 		}
 		else if (CInputKeyboard::Press(DIK_S) == true)
 		{//Sキーが押された
-			m_Player.move.y += cosf(D3DX_PI * 0.25f) * fPlayerSpeed;		//下左移動
-			m_Player.move.x += sinf(-D3DX_PI * 0.25f) * fPlayerSpeed;
+			m_move.y += cosf(D3DX_PI * 0.25f) * fPlayerSpeed;		//下左移動
+			m_move.x += sinf(-D3DX_PI * 0.25f) * fPlayerSpeed;
 		}
 		else
 		{
-			m_Player.move.x += sinf(-D3DX_PI * 0.5f) * fPlayerSpeed;		//左移動
+			m_move.x += sinf(-D3DX_PI * 0.5f) * fPlayerSpeed;		//左移動
 		}
 	}
 	else if (CInputKeyboard::Press(DIK_D) == true)
 	{//Dキーが押された
 		if (CInputKeyboard::Press(DIK_W) == true)
 		{//Wキーが押された
-			m_Player.move.y += cosf(-D3DX_PI * 0.75f) * fPlayerSpeed;		//上右移動
-			m_Player.move.x += sinf(D3DX_PI * 0.75f) * fPlayerSpeed;
+			m_move.y += cosf(-D3DX_PI * 0.75f) * fPlayerSpeed;		//上右移動
+			m_move.x += sinf(D3DX_PI * 0.75f) * fPlayerSpeed;
 		}
 		else if (CInputKeyboard::Press(DIK_S) == true)
 		{//Sキーが押された
-			m_Player.move.y += cosf(D3DX_PI * 0.25f) * fPlayerSpeed;		//下右移動
-			m_Player.move.x += sinf(D3DX_PI * 0.25f) * fPlayerSpeed;
+			m_move.y += cosf(D3DX_PI * 0.25f) * fPlayerSpeed;		//下右移動
+			m_move.x += sinf(D3DX_PI * 0.25f) * fPlayerSpeed;
 		}
 		else
 		{
-			m_Player.move.x += sinf(D3DX_PI * 0.5f) * fPlayerSpeed;			//右移動
+			m_move.x += sinf(D3DX_PI * 0.5f) * fPlayerSpeed;			//右移動
 		}
 	}
 	else if (CInputKeyboard::Press(DIK_W) == true)
 	{//Wキーが押された
-		m_Player.move.y += cosf(-D3DX_PI * 1.0f) * fPlayerSpeed;			//上移動
+		m_move.y += cosf(-D3DX_PI * 1.0f) * fPlayerSpeed;			//上移動
 	}
 	else if (CInputKeyboard::Press(DIK_S) == true)
 	{//Sキーが押された
-		m_Player.move.y += cosf(D3DX_PI * 0.0f) * fPlayerSpeed;				//下移動
+		m_move.y += cosf(D3DX_PI * 0.0f) * fPlayerSpeed;				//下移動
 	}
 
-	return m_Player.move;
+	return m_move;
 }
 
 //===========================
@@ -261,13 +270,13 @@ void CPlayer::SetSkill()
 	{//1キーが押されたら
 		CSkill::Create(CSkill::SKILLTYPE_HEAL);
 
-		if (m_Player.nLife + 30 >= m_Player.nMaxLife)
+		if (m_nLife + 30 >= m_nMaxLife)
 		{//回復して上限なら
-			m_Player.nLife = m_Player.nMaxLife;	//体力を最大にする
+			m_nLife = m_nMaxLife;	//体力を最大にする
 		}
 		else
 		{//それ以外なら
-			m_Player.nLife += 30;	//体力を回復
+			m_nLife += 30;	//体力を回復
 		}
 	}
 
@@ -295,7 +304,7 @@ void CPlayer::SetCol(D3DXCOLOR col)
 //===========================
 int CPlayer::GetLife()
 {
-	return m_Player.nLife;
+	return m_nLife;
 }
 
 //===========================
@@ -303,7 +312,7 @@ int CPlayer::GetLife()
 //===========================
 int CPlayer::GetRemLife()
 {
-	return m_Player.nRemLife;
+	return m_nRemLife;
 }
 
 //===========================
@@ -311,5 +320,5 @@ int CPlayer::GetRemLife()
 //===========================
 int CPlayer::GetAttack()
 {
-	return m_Player.nAttack;
+	return m_nAttack;
 }

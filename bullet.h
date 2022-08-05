@@ -29,20 +29,6 @@ public:
 		BULLETSTATE_MAX
 	}BULLETSTATE;
 
-	//---------------------------
-	// 弾の構造体の定義
-	//---------------------------
-	struct Bullet
-	{
-		D3DXVECTOR3 pos;	//位置
-		D3DXVECTOR3 move;	//移動量
-		D3DXVECTOR3 rot;	//回転
-		int nLife;			//寿命
-		float fWidth;		//幅
-		float fHeight;		//高さ
-		BULLETSTATE type;	//種類
-	};
-
 	CBullet();				//コンストラクタ
 	~CBullet() override;	//デストラクタ
 
@@ -74,7 +60,13 @@ private:
 	//----------------
 	// メンバ変数
 	//----------------s
-	Bullet m_Bullet;		//弾の構造体
+	D3DXVECTOR3 m_pos;		//位置
+	D3DXVECTOR3 m_move;		//移動量
+	D3DXVECTOR3 m_rot;		//回転
+	int m_nLife;			//寿命
+	float m_fWidth;			//幅
+	float m_fHeight;		//高さ
+	BULLETSTATE m_type;		//種類
 	D3DXVECTOR3 m_Tirget;	//ホーミング目標の位置
 
 	//----------------

@@ -8,8 +8,6 @@
 //------------------------
 // インクルード
 //------------------------
-#include <assert.h>
-#include <memory.h>
 #include "explosion.h"
 #include "main.h"
 #include "renderer.h"
@@ -32,7 +30,11 @@
 //===========================
 CExplosion::CExplosion() : CObject2D()
 {
-	memset(&m_Explosion, 0, sizeof(m_Explosion));	//構造体のクリア
+	m_pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		//位置
+	m_col = D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f);	//色
+	m_nLife = 0;		//寿命
+	m_fWidth = 0.0f;	//幅
+	m_fHeight = 0.0f;	//高さ
 }
 
 //===========================
@@ -51,15 +53,15 @@ HRESULT CExplosion::Init(D3DXVECTOR3 pos)
 	//------------------
 	// 構造体の初期化
 	//------------------
-	m_Explosion.nLife = 100;
-	m_Explosion.pos = pos;
-	m_Explosion.col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
-	m_Explosion.fWidth = 80.0f;
-	m_Explosion.fHeight = 80.0f;
+	m_nLife = 100;
+	m_pos = pos;
+	m_col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+	m_fWidth = 80.0f;
+	m_fHeight = 80.0f;
 
-	CObject2D::Init(m_Explosion.pos);
+	CObject2D::Init(m_pos);
 
-	CObject2D::SetSize(m_Explosion.fWidth, m_Explosion.fHeight);	//サイズの設定
+	CObject2D::SetSize(m_fWidth, m_fHeight);	//サイズの設定
 
 	CObject2D::SetTexture(CTexture::TEXTURE_RING);	//テクスチャの設定
 
@@ -84,26 +86,26 @@ void CExplosion::Update()
 	//--------------------
 	// 拡大
 	//--------------------
-	m_Explosion.fWidth += 3;
-	m_Explosion.fHeight += 3;
+	m_fWidth += 3;
+	m_fHeight += 3;
 
-	CObject2D::SetPosition(m_Explosion.pos);	//位置の設定
-	CObject2D::SetSize(m_Explosion.fWidth, m_Explosion.fHeight);	//サイズの設定
+	CObject2D::SetPosition(m_pos);	//位置の設定
+	CObject2D::SetSize(m_fWidth, m_fHeight);	//サイズの設定
 
 	//--------------------
 	// 徐々に透過
 	//--------------------
-	m_Explosion.col.a -= 0.05f;
-	SetColor(m_Explosion.col);
+	m_col.a -= 0.05f;
+	SetColor(m_col);
 	
 	//--------------------
 	// 寿命
 	//--------------------
 	//寿命の減少
-	m_Explosion.nLife--;
+	m_nLife--;
 
 	//寿命が尽きた
-	if (m_Explosion.nLife <= 0)
+	if (m_nLife <= 0)
 	{
 		Uninit();
 		return;

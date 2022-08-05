@@ -18,16 +18,6 @@
 class CEffect : public CObject2D
 {
 public:
-	//--------------------------
-	// エフェクト構造体の定義
-	//--------------------------
-	struct Effect
-	{
-		D3DXVECTOR3 pos;	//位置
-		D3DXCOLOR col;		//色
-		float fRadius;		//半径(大きさ)
-	};
-
 	CEffect();				//コンストラクタ
 	~CEffect() override;	//デストラクタ
 
@@ -48,7 +38,9 @@ private:
 	//----------------
 	// メンバ変数
 	//----------------
-	Effect m_Effect;	//エフェクト構造体
+	D3DXVECTOR3 m_pos;	//位置
+	D3DXCOLOR m_col;	//色
+	float m_fRadius;	//半径(大きさ)
 };
 
 #endif // !_EFFECT_H_

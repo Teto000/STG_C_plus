@@ -8,8 +8,6 @@
 //------------------------
 // インクルード
 //------------------------
-#include <assert.h>
-#include <memory.h>
 #include "barrier.h"
 #include "main.h"
 #include "renderer.h"
@@ -22,7 +20,10 @@
 //===========================
 CBarrier::CBarrier() : CObject2D()
 {
-	memset(&m_Barrier, 0, sizeof(Barrier));	//構造体のクリア
+	m_pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	//位置
+	m_move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	//移動量
+	m_fWidth = 0.0f;	//幅
+	m_fHeight = 0.0f;	//高さ
 }
 
 //===========================
@@ -39,11 +40,11 @@ CBarrier::~CBarrier()
 HRESULT CBarrier::Init(D3DXVECTOR3 pos)
 {
 	//位置の設定
-	m_Barrier.pos = pos;	//位置
+	m_pos = pos;	//位置
 
-	CObject2D::Init(m_Barrier.pos);
+	CObject2D::Init(m_pos);
 
-	CObject2D::SetSize(m_Barrier.fWidth, m_Barrier.fHeight);	//サイズの設定
+	CObject2D::SetSize(m_fWidth, m_fHeight);	//サイズの設定
 
 	CObject2D::SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.3f));	//色の設定
 
@@ -97,9 +98,9 @@ CBarrier *CBarrier::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, float fWidth, floa
 	if (pBarrier != nullptr)
 	{//NULLチェック
 		//構造体に代入
-		pBarrier->m_Barrier.move = move;				//移動量
-		pBarrier->m_Barrier.fWidth = fWidth + 50.0f;	//幅
-		pBarrier->m_Barrier.fHeight = fHeight + 50.0f;	//高さ
+		pBarrier->m_move = move;				//移動量
+		pBarrier->m_fWidth = fWidth + 50.0f;	//幅
+		pBarrier->m_fHeight = fHeight + 50.0f;	//高さ
 
 		//初期化
 		pBarrier->Init(pos);

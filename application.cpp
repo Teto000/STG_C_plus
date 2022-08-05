@@ -212,14 +212,6 @@ CPlayer *CApplication::GetPlayer()
 	return m_pPlayer;
 }
 
-////===========================
-//// “G‚ÌŽæ“¾
-////===========================
-//CEnemy *CApplication::GetEnemy()
-//{
-//	return m_pEnemy;
-//}
-
 //===========================
 // ƒXƒRƒA‚ÌŽæ“¾
 //===========================

@@ -8,8 +8,6 @@
 //------------------------
 // インクルード
 //------------------------
-#include <assert.h>
-#include <memory.h>
 #include "effect.h"
 #include "main.h"
 #include "renderer.h"
@@ -21,7 +19,9 @@
 //===========================
 CEffect::CEffect() : CObject2D()
 {
-	memset(&m_Effect, 0, sizeof(Effect));	//構造体のクリア
+	m_pos = D3DXVECTOR3(0.0f,0.0f,0.0f);		//位置
+	m_col = D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f);	//色
+	m_fRadius = 0.0f;	//半径(大きさ)
 }
 
 //===========================
@@ -38,13 +38,13 @@ CEffect::~CEffect()
 HRESULT CEffect::Init(D3DXVECTOR3 pos)
 {
 	//構造体の初期化
-	m_Effect.pos = pos;			//位置
-	m_Effect.fRadius = 50.0f;	//半径
-	m_Effect.col = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);	//色
+	m_pos = pos;			//位置
+	m_fRadius = 50.0f;	//半径
+	m_col = D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f);	//色
 
-	CObject2D::Init(m_Effect.pos);
+	CObject2D::Init(m_pos);
 
-	CObject2D::SetSize(m_Effect.fRadius, m_Effect.fRadius);	//サイズの設定
+	CObject2D::SetSize(m_fRadius, m_fRadius);	//サイズの設定
 
 	CObject2D::SetTexture(CTexture::TEXTURE_EFFECT);		//テクスチャの設定
 
@@ -67,12 +67,12 @@ void CEffect::Update()
 	CObject2D::Update();
 
 	//徐々に小さくする
-	m_Effect.fRadius -= 1.0f;
+	m_fRadius -= 1.0f;
 
 	//徐々に透明にする
-	m_Effect.col.a -= 0.05f;
+	m_col.a -= 0.05f;
 
-	if (m_Effect.fRadius <= 0.0f || m_Effect.col.a <= 0.0f)
+	if (m_fRadius <= 0.0f || m_col.a <= 0.0f)
 	{//小さくなって消えた or 完全に透明なら
 		//エフェクトの消去
 		Uninit();
@@ -81,10 +81,10 @@ void CEffect::Update()
 	else
 	{
 		//サイズの設定
-		SetSize(m_Effect.fRadius, m_Effect.fRadius);
+		SetSize(m_fRadius, m_fRadius);
 
 		//色の設定
-		CObject2D::SetColor(m_Effect.col);
+		CObject2D::SetColor(m_col);
 	}
 }
 

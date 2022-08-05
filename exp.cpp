@@ -8,7 +8,6 @@
 //------------------------
 // インクルード
 //------------------------
-#include <assert.h>
 #include "exp.h"
 #include "main.h"
 #include "renderer.h"

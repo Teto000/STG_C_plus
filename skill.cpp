@@ -8,8 +8,6 @@
 //------------------------
 // インクルード
 //------------------------
-#include <assert.h>
-#include <memory.h>
 #include "skill.h"
 #include "main.h"
 #include "renderer.h"
@@ -27,9 +25,12 @@ const float CSkill::nSkillSpeed = 7.0f;	//速度
 //===========================
 CSkill::CSkill() : CObject2D()
 {
-	memset(&m_Skill, 0, sizeof(Skill));	//構造体のクリア
-
-	m_nCntTimer = 0;
+	m_pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	//位置
+	m_move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	//移動量
+	m_nCntTimer = 0;		//文字の表示時間
+	m_fWidth = 0.0f;		//幅
+	m_fHeight = 0.0f;		//高さ
+	m_type = SKILLTYPE_MAX;	//種類
 }
 
 //===========================
@@ -46,16 +47,16 @@ CSkill::~CSkill()
 HRESULT CSkill::Init(D3DXVECTOR3 pos)
 {
 	//構造体に代入
-	m_Skill.move = D3DXVECTOR3(nSkillSpeed, 0.0f, 0.0f);
-	m_Skill.fWidth = 300.0f;
-	m_Skill.fHeight = 80.0f;
-	m_Skill.pos = D3DXVECTOR3(pos.x - (m_Skill.fWidth / 2), pos.y - (m_Skill.fHeight / 2), pos.z);
+	m_move = D3DXVECTOR3(nSkillSpeed, 0.0f, 0.0f);
+	m_fWidth = 300.0f;
+	m_fHeight = 80.0f;
+	m_pos = D3DXVECTOR3(pos.x - (m_fWidth / 2), pos.y - (m_fHeight / 2), pos.z);
 
-	CObject2D::Init(m_Skill.pos);
+	CObject2D::Init(m_pos);
 
-	CObject2D::SetSize(m_Skill.fWidth, m_Skill.fHeight);
+	CObject2D::SetSize(m_fWidth, m_fHeight);
 
-	switch (m_Skill.type)
+	switch (m_type)
 	{
 	case SKILLTYPE_HEAL:
 		CObject2D::SetTexture(CTexture::TEXTURE_SKILL_HPHEAL);	//テクスチャの設定
@@ -91,10 +92,10 @@ void CSkill::Update()
 	// スキル表示
 	//--------------------------
 	//画面端から移動
-	if (m_Skill.pos.x >= (m_Skill.fWidth / 2))
+	if (m_pos.x >= (m_fWidth / 2))
 	{
 		//移動の停止
-		m_Skill.move.x = 0;
+		m_move.x = 0;
 
 		//タイマーを加算
 		m_nCntTimer++;
@@ -102,12 +103,12 @@ void CSkill::Update()
 		if (m_nCntTimer >= nMaxTimer)
 		{//一定時間経過
 			//画面端から見えなくなったら
-			m_Skill.move.x = -nSkillSpeed;
+			m_move.x = -nSkillSpeed;
 			m_nCntTimer = 0;
 		}
 	}
 	//画面外に消えたら
-	else if (m_Skill.move.x <= 0.0f && m_Skill.pos.x + (m_Skill.fWidth / 2) <= 0.0f)
+	else if (m_move.x <= 0.0f && m_pos.x + (m_fWidth / 2) <= 0.0f)
 	{
 		//スキル表示の消去
 		Uninit();
@@ -115,7 +116,7 @@ void CSkill::Update()
 	}
 
 	//位置に移動量を加算
-	m_Skill.pos = CObject2D::AddMove(m_Skill.move);
+	m_pos = CObject2D::AddMove(m_move);
 }
 
 //===========================
@@ -141,7 +142,7 @@ CSkill *CSkill::Create(SKILLTYPE type)
 	if (pSkill != nullptr)
 	{//NULLチェック
 		//構造体に代入
-		pSkill->m_Skill.type = type;
+		pSkill->m_type = type;
 
 		//初期化
 		pSkill->Init(D3DXVECTOR3(0.0f, 720.0f, 0.0f));

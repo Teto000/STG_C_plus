@@ -28,21 +28,6 @@ public:
 		HPTYPE_ENEMY,
 		HPTYPE_MAX,
 	}HPTYPE;
-
-	//---------------------------
-	// HP構造体の定義
-	//---------------------------
-	struct HP
-	{
-		D3DXVECTOR3 pos;	//位置
-		D3DXVECTOR3 move;	//移動量
-		int nLife;			//体力受け取り用
-		int nRemLife;		//残り体力受け取り用
-		float fWidth;		//幅
-		float fHeight;		//高さ
-		float fLength;		//HPバーの長さ
-		HPTYPE type;		//種類z
-	};
 	
 	CHp();				//コンストラクタ
 	~CHp() override;	//デストラクタ
@@ -67,7 +52,14 @@ private:
 	//------------------
 	// メンバ変数
 	//------------------
-	HP m_HP;	//HP構造体
+	D3DXVECTOR3 m_pos;	//位置
+	D3DXVECTOR3 m_move;	//移動量
+	int m_nLife;		//体力受け取り用
+	int m_nRemLife;		//残り体力受け取り用
+	float m_fWidth;		//幅
+	float m_fHeight;	//高さ
+	float m_fLength;	//HPバーの長さ
+	HPTYPE m_type;		//種類
 };
 
 #endif // !_HP_H_

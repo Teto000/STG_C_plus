@@ -25,18 +25,7 @@ public:
 	{
 		SKILLTYPE_HEAL = 0,			//回復
 		SKILLTYPE_SPEEDUP_FIRE,		//発射速度強化
-	};
-
-	//---------------------------
-	// スキル構造体の定義
-	//---------------------------
-	struct Skill
-	{
-		D3DXVECTOR3 pos;	//位置
-		D3DXVECTOR3 move;	//移動量
-		float fWidth;		//幅
-		float fHeight;		//高さ
-		SKILLTYPE type;		//種類
+		SKILLTYPE_MAX,
 	};
 
 	CSkill();			//コンストラクタ
@@ -65,8 +54,12 @@ private:
 	//----------------
 	// メンバ変数
 	//----------------
-	Skill m_Skill;
-	int m_nCntTimer;
+	D3DXVECTOR3 m_pos;	//位置
+	D3DXVECTOR3 m_move;	//移動量
+	int m_nCntTimer;	//文字の表示時間
+	float m_fWidth;		//幅
+	float m_fHeight;	//高さ
+	SKILLTYPE m_type;	//種類
 };
 
 #endif // !_PLAYER_H_

@@ -30,22 +30,7 @@ public:
 	{
 		ENEMYTYPE_NORMAL = 0,	//直進する敵
 		ENEMYTYPE_CURVE,		//上下にカーブする敵
-	};
-
-	//---------------------------
-	// 敵の構造体の定義
-	//---------------------------
-	struct Enemy
-	{
-		D3DXVECTOR3 pos;	//位置
-		D3DXVECTOR3 move;	//移動量
-		D3DXVECTOR3 rot;	//回転
-		int nLife;			//体力
-		int nMaxLife;		//最大体力
-		int nRemLife;		//残り体力
-		float fWidth;		//幅
-		float fHeight;		//高さ
-		ENEMYTYPE type;		//種類
+		ENEMYTYPE_MAX,
 	};
 
 	CEnemy();			//コンストラクタ
@@ -83,9 +68,18 @@ private:
 	//----------------
 	// メンバ変数
 	//----------------
-	Enemy m_Enemy;
+	D3DXVECTOR3 m_pos;	//位置
+	D3DXVECTOR3 m_move;	//移動量
+	D3DXVECTOR3 m_rot;	//回転
+	int m_nLife;		//体力
+	int m_nMaxLife;		//最大体力
+	int m_nRemLife;		//残り体力
+	float m_fWidth;		//幅
+	float m_fHeight;	//高さ
+	ENEMYTYPE m_type;	//種類
+
 	CHp* m_Hp;
-	int m_CntTime;	//テクスチャ切り替え時間のカウント
+	int m_CntTime;		//テクスチャ切り替え時間のカウント
 };
 
 #endif // !_PLAYER_H_

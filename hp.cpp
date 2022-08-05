@@ -8,8 +8,6 @@
 //------------------------
 // インクルード
 //------------------------
-#include <assert.h>
-#include <memory.h>
 #include "hp.h"
 #include "main.h"
 #include "object2D.h"
@@ -22,7 +20,14 @@
 //===========================
 CHp::CHp() : CObject2D()
 {
-	memset(&m_HP, 0, sizeof(HP));	//構造体のクリア
+	m_pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	//位置
+	m_move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	//移動量
+	m_nLife = 0;			//体力受け取り用
+	m_nRemLife = 0;			//残り体力受け取り用
+	m_fWidth = 0.0f;		//幅
+	m_fHeight = 0.0f;		//高さ
+	m_fLength = 0.0f;		//HPバーの長さ
+	m_type = HPTYPE_MAX;	//種類
 }
 
 //===========================
@@ -38,15 +43,15 @@ CHp::~CHp()
 HRESULT CHp::Init(D3DXVECTOR3 pos)
 {
 	//位置の設定
-	m_HP.pos = pos;
-	m_HP.fLength = (m_HP.fWidth / 100);
+	m_pos = pos;
+	m_fLength = (m_fWidth / 100);
 
-	CObject2D::Init(m_HP.pos);
+	CObject2D::Init(m_pos);
 	CObject2D::SetColor(D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f));
 
 	//頂点座標の設定
-	CObject2D::SetVtxCIE_Gauge(m_HP.pos, -m_HP.fWidth / 2,
-		-m_HP.fWidth / 2 + (m_HP.fLength * 100), -m_HP.fHeight / 2, m_HP.fHeight / 2);
+	CObject2D::SetVtxCIE_Gauge(m_pos, -m_fWidth / 2,
+		-m_fWidth / 2 + (m_fLength * 100), -m_fHeight / 2, m_fHeight / 2);
 
 	CObject2D::SetTexture(CTexture::TEXTURE_NONE);	//テクスチャの設定
 
@@ -76,12 +81,12 @@ void CHp::Update()
 	//-------------------
 	// 移動
 	//-------------------
-	CObject2D::AddMove(m_HP.move);
+	CObject2D::AddMove(m_move);
 
 	//-------------------
 	// HPの減少
 	//-------------------
-	switch (m_HP.type)
+	switch (m_type)
 	{
 	//=============================
 	// プレイヤーの処理
@@ -89,10 +94,10 @@ void CHp::Update()
 	case HPTYPE_PLAYER:
 
 		//プレイヤーの体力を取得
-		m_HP.nLife = pPlayer->GetLife();
+		m_nLife = pPlayer->GetLife();
 
 		//プレイヤーの残り体力を取得
-		m_HP.nRemLife = pPlayer->GetRemLife();
+		m_nRemLife = pPlayer->GetRemLife();
 		break;
 
 	default:
@@ -124,16 +129,16 @@ CHp *CHp::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, float fWidth, float fHeight,
 	pHP = new CHp;	//生成
 
 	//構造体に値を代入
-	pHP->m_HP.pos = pos;
-	pHP->m_HP.move = move;
-	pHP->m_HP.fWidth = fWidth;
-	pHP->m_HP.fHeight = fHeight;
-	pHP->m_HP.type = type;
+	pHP->m_pos = pos;
+	pHP->m_move = move;
+	pHP->m_fWidth = fWidth;
+	pHP->m_fHeight = fHeight;
+	pHP->m_type = type;
 
 	if (pHP != nullptr)
 	{//NULLチェック
 		//初期化
-		pHP->Init(pHP->m_HP.pos);
+		pHP->Init(pHP->m_pos);
 		pHP->SetObjType(OBJTYPE_HP);
 	}
 
@@ -145,8 +150,8 @@ CHp *CHp::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, float fWidth, float fHeight,
 //===========================
 void CHp::SetLife(int nLife, int nRemLife)
 {
-	m_HP.nLife = nLife;
-	m_HP.nRemLife = nRemLife;
+	m_nLife = nLife;
+	m_nRemLife = nRemLife;
 }
 
 //===========================
@@ -157,34 +162,34 @@ void CHp::SubHP()
 	//-------------------------
 	// 頂点座標の設定
 	//-------------------------
-	if (m_HP.nRemLife >= 1)
+	if (m_nRemLife >= 1)
 	{//残り体力(%)があるなら
 		//その体力分の座標を設定
-		CObject2D::SetVtxCIE_Gauge(m_HP.pos, -m_HP.fWidth / 2,
-			-m_HP.fWidth / 2 + (m_HP.fLength * m_HP.nRemLife), -m_HP.fHeight / 2, m_HP.fHeight / 2);
+		CObject2D::SetVtxCIE_Gauge(m_pos, -m_fWidth / 2,
+			-m_fWidth / 2 + (m_fLength * m_nRemLife), -m_fHeight / 2, m_fHeight / 2);
 	}
-	else if (m_HP.nRemLife == 0 && m_HP.nLife > 0)
+	else if (m_nRemLife == 0 && m_nLife > 0)
 	{//残り体力が0% かつ 体力が0じゃないなら
 		//1%分のゲージを維持
-		CObject2D::SetVtxCIE_Gauge(m_HP.pos, -m_HP.fWidth / 2,
-			-m_HP.fWidth / 2 + m_HP.fLength, -m_HP.fHeight / 2, m_HP.fHeight / 2);
+		CObject2D::SetVtxCIE_Gauge(m_pos, -m_fWidth / 2,
+			-m_fWidth / 2 + m_fLength, -m_fHeight / 2, m_fHeight / 2);
 	}
 
 	//-------------------------
 	// HPごとの処理
 	//-------------------------
-	if (m_HP.nRemLife <= 0 && m_HP.nLife <= 0)
+	if (m_nRemLife <= 0 && m_nLife <= 0)
 	{//HPが0になった かつ 体力がなかったら
 		//HPバーの消去
 		Uninit();
 		return;
 	}
-	else if (m_HP.nRemLife <= 20)
+	else if (m_nRemLife <= 20)
 	{//HPが20%以下になったら
 		//赤色にする
 		CObject2D::SetColor(D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));
 	}
-	else if (m_HP.nRemLife <= 50)
+	else if (m_nRemLife <= 50)
 	{//HPが50%以下になったら
 		//黄色にする
 		CObject2D::SetColor(D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f));

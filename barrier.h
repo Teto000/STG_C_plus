@@ -18,17 +18,6 @@
 class CBarrier : public CObject2D
 {
 public:
-	//---------------------------
-	// 弾の構造体の定義
-	//---------------------------
-	struct Barrier
-	{
-		D3DXVECTOR3 pos;	//位置
-		D3DXVECTOR3 move;	//移動量
-		float fWidth;		//幅
-		float fHeight;		//高さ
-	};
-
 	CBarrier();				//コンストラクタ
 	~CBarrier() override;	//デストラクタ
 
@@ -49,7 +38,10 @@ private:
 	//----------------
 	// メンバ変数
 	//----------------s
-	Barrier m_Barrier;
+	D3DXVECTOR3 m_pos;	//位置
+	D3DXVECTOR3 m_move;	//移動量
+	float m_fWidth;		//幅
+	float m_fHeight;	//高さ
 };
 
 #endif // !_BARRIER_H_

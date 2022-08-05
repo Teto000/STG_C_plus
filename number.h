@@ -18,18 +18,6 @@
 class CNumber : public CObject2D
 {
 public:
-	//--------------------------
-	// ナンバー構造体の定義
-	//--------------------------
-	struct Number
-	{
-		D3DXVECTOR3 pos;	//位置
-		int nDigit;			//桁数
-		float fWidth;		//幅
-		float fHeight;		//高さ
-		float fSpace;		//間隔
-	};
-
 	CNumber();				//コンストラクタ
 	~CNumber() override;		//デストラクタ
 
@@ -56,7 +44,11 @@ private:
 	//----------------
 	// メンバ変数
 	//----------------
-	Number m_Number;	//ナンバー構造体
+	D3DXVECTOR3 m_pos;	//位置
+	int m_nDigit;		//桁数
+	float m_fWidth;		//幅
+	float m_fHeight;	//高さ
+	float m_fSpace;		//間隔
 	int m_aPosTexU[nMaxDigit];
 
 	//----------------

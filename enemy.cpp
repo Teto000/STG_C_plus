@@ -8,8 +8,6 @@
 //------------------------
 // インクルード
 //------------------------
-#include <assert.h>
-#include <memory.h>
 #include "enemy.h"
 #include "main.h"
 #include "renderer.h"
@@ -27,7 +25,15 @@
 //===========================
 CEnemy::CEnemy() : CObject2D()
 {
-	memset(&m_Enemy, 0, sizeof(Enemy));	//構造体のクリア
+	m_pos = D3DXVECTOR3(0.0f,0.0f,0.0f);	//位置
+	m_move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	//移動量
+	m_rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	//回転
+	m_nLife = 0;			//体力
+	m_nMaxLife = 0;			//最大体力
+	m_nRemLife = 0;			//残り体力
+	m_fWidth = 0.0f;		//幅
+	m_fHeight = 0.0f;		//高さ
+	m_type = ENEMYTYPE_MAX;	//種類
 	m_Hp = nullptr;
 }
 
@@ -45,18 +51,18 @@ CEnemy::~CEnemy()
 HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 {
 	//位置の設定
-	m_Enemy.pos = pos;			//位置
-	m_Enemy.fWidth = 100.0f;	//幅
-	m_Enemy.fHeight = 100.0f;	//高さ
-	m_Enemy.nLife = 120;		//体力
-	m_Enemy.nMaxLife = 120;		//最大体力
-	m_Enemy.nRemLife = 100;		//残り体力
+	m_pos = pos;		//位置
+	m_fWidth = 100.0f;	//幅
+	m_fHeight = 100.0f;	//高さ
+	m_nLife = 120;		//体力
+	m_nMaxLife = 120;	//最大体力
+	m_nRemLife = 100;	//残り体力
 
-	m_Enemy.move = D3DXVECTOR3(-4.0f, 0.0f, 0.0f);
+	m_move = D3DXVECTOR3(-4.0f, 0.0f, 0.0f);
 
-	CObject2D::Init(m_Enemy.pos);
+	CObject2D::Init(m_pos);
 
-	CObject2D::SetSize(m_Enemy.fWidth, m_Enemy.fHeight);	//サイズの設定
+	CObject2D::SetSize(m_fWidth, m_fHeight);	//サイズの設定
 
 	CObject2D::SetTexCIE(0.0f, 0.5f);	//テクスチャ座標の設定
 
@@ -66,16 +72,16 @@ HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 	// HPの表示
 	//--------------------------
 	{
-		D3DXVECTOR3 hpPos(m_Enemy.pos.x, m_Enemy.pos.y - (m_Enemy.fHeight / 2 + 20.0f), m_Enemy.pos.z);
+		D3DXVECTOR3 hpPos(m_pos.x, m_pos.y - (m_fHeight / 2 + 20.0f), m_pos.z);
 
-		m_Hp = CHp::Create(hpPos, m_Enemy.move, m_Enemy.fWidth, 10.0f, CHp::HPTYPE_ENEMY);
-		m_Hp->SetLife(m_Enemy.nLife, m_Enemy.nRemLife);
+		m_Hp = CHp::Create(hpPos, m_move, m_fWidth, 10.0f, CHp::HPTYPE_ENEMY);
+		m_Hp->SetLife(m_nLife, m_nRemLife);
 	}
 
 	//--------------------------
 	// バリアの生成
 	//--------------------------
-	//CBarrier::Create(m_Enemy.pos, m_Enemy.move, m_Enemy.fWidth, m_Enemy.fHeight);
+	//CBarrier::Create(m_pos, m_move, m_fWidth, m_fHeight);
 
 	return S_OK;
 }
@@ -114,15 +120,15 @@ void CEnemy::Update()
 	//-------------------------------
 	// 敵の移動
 	//-------------------------------
-	switch (m_Enemy.type)
+	switch (m_type)
 	{
 	case ENEMYTYPE_NORMAL:
-		CObject2D::AddMove(m_Enemy.move);
+		CObject2D::AddMove(m_move);
 		break;
 
 	case ENEMYTYPE_CURVE:
-		m_Enemy.move.x = sinf(m_Enemy.move.x);
-		CObject2D::AddMove(m_Enemy.move);
+		m_move.x = sinf(m_move.x);
+		CObject2D::AddMove(m_move);
 		break;
 
 	default:
@@ -148,7 +154,7 @@ void CEnemy::Update()
 	else
 	{
 		//残り体力を計算
-		m_Enemy.nRemLife = m_Enemy.nLife * 100.0f / m_Enemy.nMaxLife;
+		m_nRemLife = m_nLife * 100.0f / m_nMaxLife;
 	}
 }
 
@@ -175,7 +181,7 @@ CEnemy *CEnemy::Create(D3DXVECTOR3 pos, CEnemy::ENEMYTYPE type)
 	if (pEnemy != nullptr)
 	{//NULLチェック
 		//構造体に代入
-		pEnemy->m_Enemy.type = type;
+		pEnemy->m_type = type;
 
 		//初期化
 		pEnemy->Init(pos);
@@ -190,7 +196,7 @@ CEnemy *CEnemy::Create(D3DXVECTOR3 pos, CEnemy::ENEMYTYPE type)
 //===========================
 bool CEnemy::IsUsed()
 {
-	if (m_Enemy.nLife <= 0)
+	if (m_nLife <= 0)
 	{
 		return false;
 	}
@@ -215,13 +221,13 @@ void CEnemy::Destroy()
 //===========================
 void CEnemy::SubLife(int nLife)
 {
-	m_Enemy.nLife -= nLife;
+	m_nLife -= nLife;
 
 	//残り体力を計算
-	m_Enemy.nRemLife = m_Enemy.nLife * 100.0f / m_Enemy.nMaxLife;
+	m_nRemLife = m_nLife * 100.0f / m_nMaxLife;
 
 	//HP減少時の処理
-	m_Hp->SetLife(m_Enemy.nLife, m_Enemy.nRemLife);
+	m_Hp->SetLife(m_nLife, m_nRemLife);
 }
 
 //===========================
@@ -229,7 +235,7 @@ void CEnemy::SubLife(int nLife)
 //===========================
 int CEnemy::GetLife()
 {
-	return m_Enemy.nLife;
+	return m_nLife;
 }
 
 //===========================
@@ -237,5 +243,5 @@ int CEnemy::GetLife()
 //===========================
 int CEnemy::GetRemLife()
 {
-	return m_Enemy.nRemLife;
+	return m_nRemLife;
 }

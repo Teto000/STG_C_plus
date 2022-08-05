@@ -11,7 +11,7 @@
 #include <assert.h>
 #include <d3dx9.h>
 #include "input_joypad.h"
-#include <memory.h>
+
 
 //---------------------------
 // Ã“Iƒƒ“ƒo•Ï”éŒ¾

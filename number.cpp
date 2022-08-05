@@ -9,7 +9,6 @@
 // インクルード
 //------------------------
 #include <assert.h>
-#include <memory.h>
 #include "number.h"
 #include "texture.h"
 
@@ -24,8 +23,12 @@ int CNumber::m_nNum = 0;
 //===========================
 CNumber::CNumber() : CObject2D()
 {
-	memset(&m_Number, 0, sizeof(Number));	//構造体のクリア
-	m_aPosTexU[m_Number.nDigit] = {};
+	m_pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	//位置
+	m_nDigit = 0;			//桁数
+	m_fWidth = 0.0f;		//幅
+	m_fHeight = 0.0f;		//高さ
+	m_fSpace = 0.0f;		//間隔
+	m_aPosTexU[m_nDigit] = {};
 }
 
 //===========================
@@ -42,11 +45,11 @@ CNumber::~CNumber()
 HRESULT CNumber::Init(D3DXVECTOR3 pos)
 {
 	//構造体の初期化
-	m_Number.pos = pos;
+	m_pos = pos;
 
-	CObject2D::Init(m_Number.pos);
+	CObject2D::Init(m_pos);
 
-	CObject2D::SetSize(m_Number.fWidth, m_Number.fHeight);
+	CObject2D::SetSize(m_fWidth, m_fHeight);
 
 	CObject2D::SetTexture(CTexture::TEXTURE_NUMBER);	//テクスチャの設定
 
@@ -69,8 +72,8 @@ void CNumber::Update()
 	CObject2D::Update();
 
 	//桁数の計算
-	int nFirst = (int)pow(10, m_Number.nDigit);
-	int nSecond = (int)pow(10, (m_Number.nDigit - 1));
+	int nFirst = (int)pow(10, m_nDigit);
+	int nSecond = (int)pow(10, (m_nDigit - 1));
 	int nDigit = (int)pow(10, m_nNum);
 
 	//桁ごとの値を求める
@@ -80,7 +83,7 @@ void CNumber::Update()
 	CObject2D::SetTexCIE(m_aPosTexU[m_nNum] * 0.1f, m_aPosTexU[m_nNum] * 0.1f + 0.1f);
 
 	//配列を進める
-	if (m_nNum >= m_Number.nDigit - 1)
+	if (m_nNum >= m_nDigit - 1)
 	{
 		m_nNum = 0;
 	}
@@ -90,11 +93,11 @@ void CNumber::Update()
 	}
 
 	//縦に縮小
-	m_Number.fHeight -= 1.5f;
+	m_fHeight -= 1.5f;
 
-	CObject2D::SetSize(m_Number.fWidth, m_Number.fHeight);
+	CObject2D::SetSize(m_fWidth, m_fHeight);
 
-	if (m_Number.fHeight <= 0)
+	if (m_fHeight <= 0)
 	{//高さが無くなったら
 		Uninit();
 		return;
@@ -127,10 +130,10 @@ CNumber *CNumber::Create(D3DXVECTOR3 pos, float fWidth, float fHeight, float fSp
 		if (pNumber != nullptr)
 		{//NULLチェック
 			//構造体に代入
-			pNumber->m_Number.fWidth = fWidth;		//幅
-			pNumber->m_Number.fHeight = fHeight;	//高さ
-			pNumber->m_Number.fSpace = fSpace;		//間隔
-			pNumber->m_Number.nDigit = nDigit;		//桁数
+			pNumber->m_fWidth = fWidth;		//幅
+			pNumber->m_fHeight = fHeight;	//高さ
+			pNumber->m_fSpace = fSpace;		//間隔
+			pNumber->m_nDigit = nDigit;		//桁数
 			pNumber->m_nValue = nNumber;			//値
 
 			//初期化

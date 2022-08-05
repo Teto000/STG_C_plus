@@ -8,7 +8,6 @@
 //------------------------
 // インクルード
 //------------------------
-#include <assert.h>
 #include "score.h"
 #include "texture.h"
 
