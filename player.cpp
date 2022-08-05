@@ -66,7 +66,7 @@ HRESULT CPlayer::Init(D3DXVECTOR3 pos)
 	m_nRemLife = nMaxLife;		//c‚è‘Ì—Í
 	m_fWidth = 80.0f;			//•
 	m_fHeight = 100.0f;			//‚‚³
-	m_nAttack = 10;				//UŒ‚—Í
+	m_nAttack = 40;				//UŒ‚—Í
 	m_nSpeed = fPlayerSpeed;	//‘¬“x
 
 	CObject2D::Init(m_pos);
