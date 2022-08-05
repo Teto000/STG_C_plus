@@ -12,10 +12,10 @@
 //--------------------------
 #include "object2D.h"
 
-//
-//
-//
-class CHp;
+//--------------------------
+// 前方宣言
+//--------------------------
+class CHp;	//HPクラス
 
 //--------------------------
 // エネミークラス
@@ -43,9 +43,6 @@ public:
 	void Uninit(void) override;
 	void Update(void) override;
 	void Draw(void) override;
-	bool IsUsed() override;
-
-	void Destroy();
 
 	void SubLife(int nLife);	//体力の減少
 

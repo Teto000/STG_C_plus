@@ -13,6 +13,11 @@
 #include "object2D.h"
 
 //--------------------------
+// 前方宣言
+//--------------------------
+class CHp;	//HPクラス
+
+//--------------------------
 // プレイヤークラス
 //--------------------------
 class CPlayer : public CObject2D
@@ -67,6 +72,7 @@ private:
 	float m_nSpeed;		//速度
 	float m_fWidth;		//幅
 	float m_fHeight;	//高さ
+	CHp* m_Hp;
 
 	//------------------
 	// 静的メンバ変数

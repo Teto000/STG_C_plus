@@ -43,6 +43,7 @@ CPlayer::CPlayer() : CObject2D()
 	m_nSpeed = 0.0f;	//速度
 	m_fWidth = 0.0f;	//幅
 	m_fHeight = 0.0f;	//高さ
+	m_Hp = nullptr;
 }
 
 //===========================
@@ -79,8 +80,8 @@ HRESULT CPlayer::Init(D3DXVECTOR3 pos)
 	//--------------------------
 	// HPの表示
 	//--------------------------
-	CHp::Create(D3DXVECTOR3(520.0f, 80.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f)
-				, 600.0f, 40.0f, CHp::HPTYPE_PLAYER);
+	m_Hp = CHp::Create(D3DXVECTOR3(520.0f, 80.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 600.0f, 40.0f);
+	m_Hp->SetLife(m_nLife, m_nRemLife);	//初期HPの設定
 
 	return S_OK;
 }
@@ -131,23 +132,6 @@ void CPlayer::Update()
 	CBullet::ShotBullet(m_pos, m_rot, m_nShotTime);
 
 	//--------------------------
-	// 体力の変動
-	//--------------------------
-	//増加
-	if (CInputKeyboard::Press(DIK_UP))
-	{//↑キーが押されたら
-		if (m_nRemLife < 100)
-		{//体力の上限じゃないなら
-			m_nLife++;	//プレイヤーの体力の増加
-		}
-	}
-	//減少
-	else if (CInputKeyboard::Trigger(DIK_DOWN))
-	{//↓キーが押されたら
-		m_nLife-= 299;	//プレイヤーの体力の減少
-	}
-
-	//--------------------------
 	// スキルの発動
 	//--------------------------
 	SetSkill();
@@ -158,6 +142,12 @@ void CPlayer::Update()
 	if (CObject2D::GetCollision(OBJTYPE_ENEMY))
 	{
 		m_nLife--;	//プレイヤーの体力の減少
+
+		//残り体力を計算
+		m_nRemLife = m_nLife * 100 / m_nMaxLife;
+
+		//HP減少時の処理
+		m_Hp->SetLife(m_nLife, m_nRemLife);
 	}
 
 	//--------------------------
@@ -168,11 +158,6 @@ void CPlayer::Update()
 		//敵の消滅
 		Uninit();
 		return;
-	}
-	else
-	{
-		//残り体力を計算
-		m_nRemLife = m_nLife * 100 / m_nMaxLife;
 	}
 }
 

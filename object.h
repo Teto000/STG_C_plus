@@ -54,7 +54,6 @@ public:
 	virtual void Uninit() = 0;
 	virtual void Update() = 0;
 	virtual void Draw() = 0;
-	virtual bool IsUsed() { return true; };
 
 	void Release();
 

@@ -74,7 +74,7 @@ HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 	{
 		D3DXVECTOR3 hpPos(m_pos.x, m_pos.y - (m_fHeight / 2 + 20.0f), m_pos.z);
 
-		m_Hp = CHp::Create(hpPos, m_move, m_fWidth, 10.0f, CHp::HPTYPE_ENEMY);
+		m_Hp = CHp::Create(hpPos, m_move, m_fWidth, 10.0f);
 		m_Hp->SetLife(m_nLife, m_nRemLife);
 	}
 
@@ -136,25 +136,15 @@ void CEnemy::Update()
 	}
 
 	//--------------------------
-	// 体力の減少
+	// 体力が尽きた
 	//--------------------------
-	if (CInputKeyboard::Press(DIK_LEFT))
+	if (m_nLife <= 0)
 	{
-		SubLife(1);
-	}
+		CLevel::AddExp(10);		//経験値の取得
 
-	//--------------------------
-	// 終了条件を満たしたら
-	//--------------------------
-	if (!IsUsed())
-	{
-		//消去処理
-		Destroy();
-	}
-	else
-	{
-		//残り体力を計算
-		m_nRemLife = m_nLife * 100.0f / m_nMaxLife;
+		//敵の消滅
+		Uninit();
+		return;
 	}
 }
 
@@ -192,31 +182,6 @@ CEnemy *CEnemy::Create(D3DXVECTOR3 pos, CEnemy::ENEMYTYPE type)
 }
 
 //===========================
-// 終了条件処理
-//===========================
-bool CEnemy::IsUsed()
-{
-	if (m_nLife <= 0)
-	{
-		return false;
-	}
-
-	return true;
-}
-
-//===========================
-// 消去処理
-//===========================
-void CEnemy::Destroy()
-{
-	CLevel::AddExp(10);		//経験値の取得
-
-	//敵の消滅
-	Uninit();
-	return;
-}
-
-//===========================
 // 体力の減少
 //===========================
 void CEnemy::SubLife(int nLife)
@@ -224,7 +189,7 @@ void CEnemy::SubLife(int nLife)
 	m_nLife -= nLife;
 
 	//残り体力を計算
-	m_nRemLife = m_nLife * 100.0f / m_nMaxLife;
+	m_nRemLife = m_nLife * 100 / m_nMaxLife;
 
 	//HP減少時の処理
 	m_Hp->SetLife(m_nLife, m_nRemLife);

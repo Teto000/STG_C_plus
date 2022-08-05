@@ -18,17 +18,6 @@
 class CHp : public CObject2D
 {
 public:
-	//---------------------------
-	// HP列挙型の定義
-	//---------------------------
-	typedef enum
-	{
-		HPTYPE_NOMAL = 0,
-		HPTYPE_PLAYER,
-		HPTYPE_ENEMY,
-		HPTYPE_MAX,
-	}HPTYPE;
-	
 	CHp();				//コンストラクタ
 	~CHp() override;	//デストラクタ
 
@@ -46,7 +35,7 @@ public:
 	//------------------
 	// 静的メンバ関数
 	//------------------
-	static CHp *Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, float fWidth, float fHeight, HPTYPE typez);
+	static CHp *Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, float fWidth, float fHeight);
 
 private:
 	//------------------
@@ -59,7 +48,6 @@ private:
 	float m_fWidth;		//幅
 	float m_fHeight;	//高さ
 	float m_fLength;	//HPバーの長さ
-	HPTYPE m_type;		//種類
 };
 
 #endif // !_HP_H_

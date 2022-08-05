@@ -167,30 +167,27 @@ void CBullet::Update()
 	// 当たり判定
 	//------------------------
 	CObject* pHitObject = CObject2D::GetCollision(OBJTYPE_ENEMY);
+	int PlayerAttack = CApplication::GetPlayer()->GetAttack();
 
 	if (pHitObject != nullptr)
 	{//敵と当たった
-		//if(m_type == BULLETSTATE_CHARGE)
-		//{//チャージショットなら
-		//	//ダメージ上昇
-		//	CApplication::GetEnemy()->SubLife(10 * 3);	//敵の体力の減少
-		//}
-		//else
-		//{//それ以外なら
-		//	CApplication::GetEnemy()->SubLife(40);	//敵の体力の減少
-		//}
 
 		//pObjectをCEnemy型にダウンキャスト
 		CEnemy* pEnemy = (CEnemy*)pHitObject;
 
-		//敵の体力の減少
-		pEnemy->SubLife(40);
+		if(m_type == BULLETSTATE_CHARGE)
+		{//チャージショットなら
+			//ダメージ上昇
+			pEnemy->SubLife(PlayerAttack * 3);	//敵の体力の減少
+		}
+		else
+		{//それ以外なら
+			pEnemy->SubLife(PlayerAttack);	//敵の体力の減少
+		}
 
 		CExplosion::Create(m_pos);	//爆発の生成
 
 		CScore::AddScore(1);	//スコアの加算
-
-		int PlayerAttack = CApplication::GetPlayer()->GetAttack();
 
 		CNumber::Create(m_pos, 20.0f, 30.0f, 20.0f, 2, PlayerAttack);	//ダメージの表示
 

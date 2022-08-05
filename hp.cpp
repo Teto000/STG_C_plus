@@ -11,8 +11,6 @@
 #include "hp.h"
 #include "main.h"
 #include "object2D.h"
-#include "player.h"
-#include "enemy.h"
 #include "application.h"
 
 //===========================
@@ -27,7 +25,6 @@ CHp::CHp() : CObject2D()
 	m_fWidth = 0.0f;		//幅
 	m_fHeight = 0.0f;		//高さ
 	m_fLength = 0.0f;		//HPバーの長さ
-	m_type = HPTYPE_MAX;	//種類
 }
 
 //===========================
@@ -74,35 +71,9 @@ void CHp::Update()
 	CObject2D::Update();
 
 	//-------------------
-	// クラスの取得
-	//-------------------
-	CPlayer *pPlayer = CApplication::GetPlayer();	//プレイヤー
-
-	//-------------------
 	// 移動
 	//-------------------
 	CObject2D::AddMove(m_move);
-
-	//-------------------
-	// HPの減少
-	//-------------------
-	switch (m_type)
-	{
-	//=============================
-	// プレイヤーの処理
-	//=============================
-	case HPTYPE_PLAYER:
-
-		//プレイヤーの体力を取得
-		m_nLife = pPlayer->GetLife();
-
-		//プレイヤーの残り体力を取得
-		m_nRemLife = pPlayer->GetRemLife();
-		break;
-
-	default:
-		break;
-	}
 
 	//HP減少時の処理
 	SubHP();
@@ -119,7 +90,7 @@ void CHp::Draw()
 //===========================
 // 生成
 //===========================
-CHp *CHp::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, float fWidth, float fHeight, HPTYPE type)
+CHp *CHp::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, float fWidth, float fHeight)
 {
 	CHp *pHP = nullptr;
 
@@ -133,7 +104,6 @@ CHp *CHp::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, float fWidth, float fHeight,
 	pHP->m_move = move;
 	pHP->m_fWidth = fWidth;
 	pHP->m_fHeight = fHeight;
-	pHP->m_type = type;
 
 	if (pHP != nullptr)
 	{//NULLチェック
