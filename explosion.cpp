@@ -105,8 +105,9 @@ void CExplosion::Update()
 	//õ–½‚ªs‚«‚½
 	if (m_Explosion.nLife <= 0)
 	{
-		CObject2D::Uninit();
-		CObject2D::Release();	//‰ğ•ú
+		Uninit();
+		return;
+//		CObject2D::Release();	//‰ğ•ú
 	}
 }
 

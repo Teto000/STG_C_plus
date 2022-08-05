@@ -148,19 +148,23 @@ void CBullet::Update()
 	{
 		CExplosion::Create(m_Bullet.pos);//爆発の生成
 		Uninit();
-		CObject2D::Release();	//弾の開放
+		return;
+//		CObject2D::Release();	//弾の開放
 	}
 	//画面端の処理
 	else if (m_Bullet.pos.x >= SCREEN_WIDTH)
 	{
 		Uninit();
-		CObject2D::Release();
+		return;
+//		CObject2D::Release();
 	}
 
 	//------------------------
 	// 当たり判定
 	//------------------------
-	if (CObject2D::GetCollision(OBJTYPE_ENEMY))
+	CObject* pHitObject = CObject2D::GetCollision(OBJTYPE_ENEMY);
+
+	if (pHitObject != nullptr)
 	{//敵と当たった
 		//if(m_Bullet.type == BULLETSTATE_CHARGE)
 		//{//チャージショットなら
@@ -172,6 +176,12 @@ void CBullet::Update()
 		//	CApplication::GetEnemy()->SubLife(40);	//敵の体力の減少
 		//}
 
+		//pObjectをCEnemy型にダウンキャスト
+		CEnemy* pEnemy = (CEnemy*)pHitObject;
+
+		//敵の体力の減少
+		pEnemy->SubLife(40);
+
 		CExplosion::Create(m_Bullet.pos);	//爆発の生成
 
 		CScore::AddScore(1);	//スコアの加算
@@ -182,13 +192,15 @@ void CBullet::Update()
 
 		//弾の消滅
 		Uninit();
-		CObject2D::Release();
+		return;
+//		CObject2D::Release();
 	}
 	else if (CObject2D::GetCollision(OBJTYPE_BARRIER))
 	{//バリアと当たった
 		//弾の消滅
 		Uninit();
-		CObject2D::Release();
+		return;
+//		CObject2D::Release();
 	}
 }
 

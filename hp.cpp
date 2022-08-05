@@ -30,7 +30,6 @@ CHp::CHp() : CObject2D()
 //===========================
 CHp::~CHp()
 {
-
 }
 
 //===========================
@@ -73,8 +72,11 @@ void CHp::Update()
 	// クラスの取得
 	//-------------------
 	CPlayer *pPlayer = CApplication::GetPlayer();	//プレイヤー
-	CEnemy *pEnemy = CApplication::GetEnemy();		//敵
-	//CEnemy enemy;
+
+	//-------------------
+	// 移動
+	//-------------------
+	CObject2D::AddMove(m_HP.move);
 
 	//-------------------
 	// HPの減少
@@ -93,23 +95,12 @@ void CHp::Update()
 		m_HP.nRemLife = pPlayer->GetRemLife();
 		break;
 
-	//=============================
-	// 敵の処理
-	//=============================
-	case HPTYPE_ENEMY:
-		//敵の体力を取得
-		m_HP.nLife = pEnemy->GetLife();//pEnemy->GetLife();
-
-		//敵の残り体力を取得
-		m_HP.nRemLife = pEnemy->GetRemLife();
-		break;
-
 	default:
 		break;
 	}
 
 	//HP減少時の処理
-	SubHP(m_HP.nLife, m_HP.nRemLife);
+	SubHP();
 }
 
 //===========================
@@ -150,20 +141,29 @@ CHp *CHp::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, float fWidth, float fHeight,
 }
 
 //===========================
+// HPの設定
+//===========================
+void CHp::SetLife(int nLife, int nRemLife)
+{
+	m_HP.nLife = nLife;
+	m_HP.nRemLife = nRemLife;
+}
+
+//===========================
 // HP減少時の処理
 //===========================
-void CHp::SubHP(int nLife, int nRemLife)
+void CHp::SubHP()
 {
 	//-------------------------
 	// 頂点座標の設定
 	//-------------------------
-	if (nRemLife >= 1)
+	if (m_HP.nRemLife >= 1)
 	{//残り体力(%)があるなら
 		//その体力分の座標を設定
 		CObject2D::SetVtxCIE_Gauge(m_HP.pos, -m_HP.fWidth / 2,
-			-m_HP.fWidth / 2 + (m_HP.fLength * nRemLife), -m_HP.fHeight / 2, m_HP.fHeight / 2);
+			-m_HP.fWidth / 2 + (m_HP.fLength * m_HP.nRemLife), -m_HP.fHeight / 2, m_HP.fHeight / 2);
 	}
-	else if (nRemLife == 0 && nLife > 0)
+	else if (m_HP.nRemLife == 0 && m_HP.nLife > 0)
 	{//残り体力が0% かつ 体力が0じゃないなら
 		//1%分のゲージを維持
 		CObject2D::SetVtxCIE_Gauge(m_HP.pos, -m_HP.fWidth / 2,
@@ -173,18 +173,18 @@ void CHp::SubHP(int nLife, int nRemLife)
 	//-------------------------
 	// HPごとの処理
 	//-------------------------
-	if (nRemLife <= 0 && nLife <= 0)
+	if (m_HP.nRemLife <= 0 && m_HP.nLife <= 0)
 	{//HPが0になった かつ 体力がなかったら
 		//HPバーの消去
 		Uninit();
-		CObject2D::Release();
+		return;
 	}
-	else if (nRemLife <= 20)
+	else if (m_HP.nRemLife <= 20)
 	{//HPが20%以下になったら
 		//赤色にする
 		CObject2D::SetColor(D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));
 	}
-	else if (nRemLife <= 50)
+	else if (m_HP.nRemLife <= 50)
 	{//HPが50%以下になったら
 		//黄色にする
 		CObject2D::SetColor(D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f));

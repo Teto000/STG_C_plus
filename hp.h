@@ -55,7 +55,8 @@ public:
 	void Update() override;
 	void Draw() override;
 
-	void SubHP(int nLife, int nRemLife);	//HPŒ¸­‚Ìˆ—
+	void SetLife(int nLife, int nRemLife);
+	void SubHP();	//HPŒ¸­‚Ìˆ—
 
 	//------------------
 	// Ã“Iƒƒ“ƒoŠÖ”

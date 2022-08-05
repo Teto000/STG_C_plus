@@ -52,7 +52,7 @@ void CObject::ReleaseAll()
 		if (m_pObject[i] != nullptr)
 		{
 			//解放
-			m_pObject[i]->Release();
+			m_pObject[i]->Uninit();
 		}
 	}
 }
@@ -103,7 +103,7 @@ void CObject::Release()
 	if (m_pObject[m_nID] != nullptr)
 	{
 		int nID = m_nID;			//番号を保存
-		m_pObject[nID]->Uninit();
+//		m_pObject[nID]->Uninit();
 		delete m_pObject[nID];		//オブジェクトの解放
 		m_pObject[nID] = nullptr;	//NULLにする
 		//m_nNumAll--;				//総数を減らす

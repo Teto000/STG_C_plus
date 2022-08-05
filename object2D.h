@@ -67,7 +67,7 @@ public:
 	D3DXVECTOR3 GetTargetPos();							//‘Šè‚ÌˆÊ’u‚Ìæ“¾
 	float GetWidth() override;							//•‚Ìæ“¾
 	float GetHeight() override;							//‚‚³‚Ìæ“¾
-	bool GetCollision(CObject::EObjType TirgetType);	//“–‚½‚è”»’è‚Ìæ“¾
+	CObject* GetCollision(CObject::EObjType TirgetType);	//“–‚½‚è”»’è‚Ìæ“¾
 
 private:
 	//----------------

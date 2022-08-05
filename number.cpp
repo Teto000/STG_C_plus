@@ -97,9 +97,11 @@ void CNumber::Update()
 	if (m_Number.fHeight <= 0)
 	{//‚‚³‚ª–³‚­‚È‚Á‚½‚ç
 		Uninit();
-		CObject2D::Release();
+		return;
+//		CObject2D::Release();
 	}
 }
+
 //===========================
 // •`‰æ
 //===========================

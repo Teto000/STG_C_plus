@@ -159,7 +159,7 @@ void CApplication::Update()
 
 		//“G‚Ì¶¬
 		m_pEnemy = CEnemy::Create(D3DXVECTOR3(1300, (float)nRand, 0.0f),
-									CEnemy::ENEMYTYPE_CURVE);
+									CEnemy::ENEMYTYPE_NORMAL);
 	}
 }
 
@@ -212,13 +212,13 @@ CPlayer *CApplication::GetPlayer()
 	return m_pPlayer;
 }
 
-//===========================
-// “G‚Ìæ“¾
-//===========================
-CEnemy *CApplication::GetEnemy()
-{
-	return m_pEnemy;
-}
+////===========================
+//// “G‚Ìæ“¾
+////===========================
+//CEnemy *CApplication::GetEnemy()
+//{
+//	return m_pEnemy;
+//}
 
 //===========================
 // ƒXƒRƒA‚Ìæ“¾

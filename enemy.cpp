@@ -28,6 +28,7 @@
 CEnemy::CEnemy() : CObject2D()
 {
 	memset(&m_Enemy, 0, sizeof(Enemy));	//構造体のクリア
+	m_Hp = nullptr;
 }
 
 //===========================
@@ -64,8 +65,12 @@ HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 	//--------------------------
 	// HPの表示
 	//--------------------------
-	//CHp::Create(D3DXVECTOR3(m_Enemy.pos.x, m_Enemy.pos.y - (m_Enemy.fHeight / 2 + 20.0f), m_Enemy.pos.z)
-	//			, D3DXVECTOR3(0.0f, 0.0f, 0.0f), m_Enemy.fWidth, 10.0f, CHp::HPTYPE_ENEMY);
+	{
+		D3DXVECTOR3 hpPos(m_Enemy.pos.x, m_Enemy.pos.y - (m_Enemy.fHeight / 2 + 20.0f), m_Enemy.pos.z);
+
+		m_Hp = CHp::Create(hpPos, m_Enemy.move, m_Enemy.fWidth, 10.0f, CHp::HPTYPE_ENEMY);
+		m_Hp->SetLife(m_Enemy.nLife, m_Enemy.nRemLife);
+	}
 
 	//--------------------------
 	// バリアの生成
@@ -143,7 +148,7 @@ void CEnemy::Update()
 	else
 	{
 		//残り体力を計算
-		m_Enemy.nRemLife = m_Enemy.nLife * 100 / m_Enemy.nMaxLife;
+		m_Enemy.nRemLife = m_Enemy.nLife * 100.0f / m_Enemy.nMaxLife;
 	}
 }
 
@@ -202,7 +207,7 @@ void CEnemy::Destroy()
 
 	//敵の消滅
 	Uninit();
-	CObject2D::Release();
+//	CObject2D::Release();
 }
 
 //===========================
@@ -211,6 +216,12 @@ void CEnemy::Destroy()
 void CEnemy::SubLife(int nLife)
 {
 	m_Enemy.nLife -= nLife;
+
+	//残り体力を計算
+	m_Enemy.nRemLife = m_Enemy.nLife * 100.0f / m_Enemy.nMaxLife;
+
+	//HP減少時の処理
+	m_Hp->SetLife(m_Enemy.nLife, m_Enemy.nRemLife);
 }
 
 //===========================

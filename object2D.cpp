@@ -117,6 +117,8 @@ void CObject2D::Uninit()
 		m_pVtxBuff->Release();
 		m_pVtxBuff = nullptr;
 	}
+
+	Release();
 }
 
 //===========================
@@ -451,8 +453,15 @@ float CObject2D::GetHeight()
 //===========================
 // 当たり判定の取得
 //===========================
-bool CObject2D::GetCollision(CObject::EObjType TirgetType)
+CObject* CObject2D::GetCollision(CObject::EObjType TirgetType)
 {
+	//------------------
+	// 自分の情報を取得
+	//------------------
+	D3DXVECTOR3 SourcePos = CObject2D::GetPosition();	//位置
+	float SourceWidth = CObject2D::GetWidth();			//幅
+	float SourceHeight = CObject2D::GetHeight();		//高さ
+
 	for (int i = 0; i < MAX_OBJECT; i++)
 	{
 		CObject *pObject;
@@ -465,47 +474,32 @@ bool CObject2D::GetCollision(CObject::EObjType TirgetType)
 
 		//オブジェクトの種類の取得
 		CObject::EObjType type = pObject->GetObjType();
+		if (type != TirgetType)
+		{//オブジェクトの種類が目的の相手じゃないなら
+			continue;
+		}
 
 		//------------------
-		// 自分の情報を取得
+		// 相手の情報を取得
 		//------------------
-		D3DXVECTOR3 SourcePos = CObject2D::GetPosition();	//位置
-		float SourceWidth = CObject2D::GetWidth();			//幅
-		float SourceHeight = CObject2D::GetHeight();		//高さ
+		m_TargetPos = pObject->GetPosition();			//位置
+		float TirgetWidth = pObject->GetWidth();		//幅
+		float TirgetHeight = pObject->GetHeight();		//高さ
 
-		if (type == TirgetType)
-		{//オブジェクトの種類が目的の相手なら
-			//------------------
-			// 相手の情報を取得
-			//------------------
-			m_TargetPos = pObject->GetPosition();			//位置
-			float TirgetWidth = pObject->GetWidth();		//幅
-			float TirgetHeight = pObject->GetHeight();		//高さ
+		float fLeft = m_TargetPos.x - (TirgetWidth / 2);		//敵の左側
+		float fRight = m_TargetPos.x + (TirgetWidth / 2);		//敵の右側
+		float fTop = m_TargetPos.y - (TirgetHeight / 2);		//敵の上側
+		float fBottom = m_TargetPos.y + (TirgetHeight / 2);		//敵の下側
 
-			float fLeft = m_TargetPos.x - (TirgetWidth / 2);		//敵の左側
-			float fRight = m_TargetPos.x + (TirgetWidth / 2);		//敵の右側
-			float fTop = m_TargetPos.y - (TirgetHeight / 2);		//敵の上側
-			float fBottom = m_TargetPos.y + (TirgetHeight / 2);		//敵の下側
-
-			//------------------
-			// 当たり判定
-			//------------------
-			if (SourcePos.x + SourceWidth / 2 >= fLeft && SourcePos.x - SourceWidth / 2 <= fRight
-				&& SourcePos.y - SourceHeight / 2 <= fBottom && SourcePos.y + SourceHeight / 2 >= fTop)
-			{
-				//オブジェクトの種類が敵なら
-				if (type == OBJTYPE_ENEMY)
-				{
-					//pObjectをCEnemy型にダウンキャスト
-					CEnemy* pEnemy = (CEnemy*)pObject;
-
-					//敵の体力の減少
-					pEnemy->SubLife(40);
-				}
-
-				return true;
-			}
+		//------------------
+		// 当たり判定
+		//------------------
+		if (SourcePos.x + SourceWidth / 2 >= fLeft && SourcePos.x - SourceWidth / 2 <= fRight
+			&& SourcePos.y - SourceHeight / 2 <= fBottom && SourcePos.y + SourceHeight / 2 >= fTop)
+		{
+			return pObject;
 		}
 	}
-	return false;
+
+	return nullptr;
 }
