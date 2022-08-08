@@ -17,6 +17,7 @@
 //--------------------------
 class CHp;		//HPクラス
 class CLevel;	//レベルクラス
+class CBullet;	//弾クラス
 
 //--------------------------
 // プレイヤークラス
@@ -76,6 +77,7 @@ private:
 	float m_fHeight;	//高さ
 	CHp* m_Hp;			//HPクラス
 	CLevel* m_Level;	//レベルクラス
+	CBullet* m_Bullet;	//弾クラス
 
 	//------------------
 	// 静的メンバ変数

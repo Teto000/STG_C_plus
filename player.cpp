@@ -46,6 +46,7 @@ CPlayer::CPlayer() : CObject2D()
 	m_fHeight = 0.0f;	//高さ
 	m_Hp = nullptr;		//HPクラス
 	m_Level = nullptr;	//レベルクラス
+	m_Bullet = nullptr;	//弾クラス
 }
 
 //===========================
@@ -139,7 +140,7 @@ void CPlayer::Update()
 
 	{
 		int nLevel = m_Level->GetLevel();	//レベルの取得
-		CBullet::ShotBullet(m_pos, nLevel, m_nCntShotTime);
+		m_Bullet->ShotBullet(m_pos, nLevel, m_nCntShotTime);	//弾の発射
 	}
 
 	//--------------------------

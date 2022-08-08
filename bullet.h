@@ -40,21 +40,21 @@ public:
 	void Update() override;
 	void Draw()	  override;
 
-	//ホーミング弾
-	D3DXVECTOR3 Homing(float& posX, float& posY, float& moveX, float& moveY);
+	void CollisionBullet();
+	D3DXVECTOR3 Homing(float& posX, float& posY, float& moveX, float& moveY);	//ホーミング弾
 
 	//----------------
 	// 静的メンバ関数
 	//----------------
 	static CBullet *Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, BULLETSTATE type);
-	static void ShotBullet(D3DXVECTOR3 pos, int nLevel, int nShotTime);
+	void ShotBullet(D3DXVECTOR3 pos, int nLevel, int nShotTime);
 
 private:
 	//----------------
 	// 定数定義
 	//----------------
-	static const float fBulletSpeed;	//弾の速度
-	static const int nMaxHoming = 3;	//ホーミング弾発射の最大数
+	static const float fBulletSpeed;		//弾の速度
+	static const int nMaxHoming = 3;		//ホーミング弾発射の最大数
 	static const float fBulletSpeed_Homing;	//弾の速度
 
 	//----------------

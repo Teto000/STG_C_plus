@@ -19,6 +19,7 @@
 #include "barrier.h"
 #include "explosion.h"
 #include "level.h"
+#include "score.h"
 
 //===========================
 // コンストラクタ
@@ -141,6 +142,7 @@ void CEnemy::Update()
 	if (m_nLife <= 0)
 	{
 		CLevel::AddExp(10);		//経験値の取得
+		CScore::AddScore(10);	//スコアの加算
 
 		//敵の消滅
 		Uninit();

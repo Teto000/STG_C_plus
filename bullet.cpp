@@ -142,7 +142,7 @@ void CBullet::Update()
 	}
 
 	//エフェクトの生成
-	//CEffect::Create(m_pos);
+	CEffect::Create(m_pos);
 
 	//寿命の減少
 	m_nLife--;
@@ -153,54 +153,18 @@ void CBullet::Update()
 		CExplosion::Create(m_pos);//爆発の生成
 		Uninit();
 		return;
-//		CObject2D::Release();	//弾の開放
 	}
 	//画面端の処理
 	else if (m_pos.x >= SCREEN_WIDTH)
 	{
 		Uninit();
 		return;
-//		CObject2D::Release();
 	}
 
 	//------------------------
-	// 当たり判定
+	// 当たった処理
 	//------------------------
-	CObject* pHitObject = CObject2D::GetCollision(OBJTYPE_ENEMY);
-	int PlayerAttack = CApplication::GetPlayer()->GetAttack();
-
-	if (pHitObject != nullptr)
-	{//敵と当たった
-
-		//pObjectをCEnemy型にダウンキャスト
-		CEnemy* pEnemy = (CEnemy*)pHitObject;
-
-		if(m_type == BULLETSTATE_CHARGE)
-		{//チャージショットなら
-			//ダメージ上昇
-			pEnemy->SubLife(PlayerAttack * 3);	//敵の体力の減少
-		}
-		else
-		{//それ以外なら
-			pEnemy->SubLife(PlayerAttack);	//敵の体力の減少
-		}
-
-		CExplosion::Create(m_pos);	//爆発の生成
-
-		CScore::AddScore(1);	//スコアの加算
-
-		CDamage::Create(m_pos, 20.0f, 30.0f, 20.0f, 2, PlayerAttack);	//ダメージの表示
-
-		//弾の消滅
-		Uninit();
-		return;
-	}
-	else if (CObject2D::GetCollision(OBJTYPE_BARRIER))
-	{//バリアと当たった
-		//弾の消滅
-		Uninit();
-		return;
-	}
+	CollisionBullet();
 }
 
 //===========================
@@ -241,13 +205,32 @@ CBullet *CBullet::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, BULLETSTATE type)
 //=======================
 void CBullet::ShotBullet(D3DXVECTOR3 pos, int nLevel, int nShotTime)
 {
+	pos.x += 30.0f;	//発射位置の調整
+
 	//---------------------------
 	// 通常弾
 	//---------------------------
 	if (!CInputKeyboard::Press(DIK_SPACE) && nShotTime == 0)
 	{//チャージしていない時 かつ 弾の発射時間が0なら
-		//右側に弾を発射する
-		Create(pos, D3DXVECTOR3(fBulletSpeed, 0.0f, 0.0f), BULLETSTATE_NORMAL);
+		if (nLevel == 1)
+		{
+			//右側に弾を発射する
+			Create(pos, D3DXVECTOR3(fBulletSpeed, 0.0f, 0.0f), BULLETSTATE_NORMAL);
+		}
+		else if (nLevel >= 2)
+		{
+			D3DXVECTOR3 firstPos(pos.x, pos.y - 40.0f, pos.z);
+			D3DXVECTOR3 secondPos(pos.x, pos.y + 40.0f, pos.z);
+
+			//弾を2発に増やす
+			Create(firstPos, D3DXVECTOR3(fBulletSpeed, 0.0f, 0.0f), BULLETSTATE_NORMAL);
+			Create(secondPos, D3DXVECTOR3(fBulletSpeed, 0.0f, 0.0f), BULLETSTATE_NORMAL);
+		}
+		else if (nLevel >= 3)
+		{
+			m_pos = CObject2D::MoveCircle(pos, m_rot.x, 50.0f);
+			Create(m_pos, D3DXVECTOR3(0.0f , 0.0f, 0.0f), BULLETSTATE_NORMAL);
+		}
 	}
 
 	//---------------------------
@@ -269,7 +252,7 @@ void CBullet::ShotBullet(D3DXVECTOR3 pos, int nLevel, int nShotTime)
 		
 		for (int i = 0; i < nMaxHoming; i++)
 		{
-			Create(pos, D3DXVECTOR3(-5.0f, (float)(nMaxHoming - (i * nMaxHoming)), 0.0f), BULLETSTATE_HORMING);
+			Create(pos, D3DXVECTOR3(-5.0f, (float)(nMaxHoming - (i * nMaxHoming)), 0.0f), BULLETSTATE_CHARGE);
 		}
 
 		m_nChageTime = 0;	//チャージ時間をリセット
@@ -278,6 +261,46 @@ void CBullet::ShotBullet(D3DXVECTOR3 pos, int nLevel, int nShotTime)
 	else if (CInputKeyboard::Release(DIK_SPACE) && m_nChageTime < 40)
 	{
 		m_nChageTime = 0;	//チャージ時間をリセット
+	}
+}
+
+//=======================
+// 当たった時の処理
+//=======================
+void CBullet::CollisionBullet()
+{
+	CObject* pHitObject = CObject2D::GetCollision(OBJTYPE_ENEMY);
+	int PlayerAttack = CApplication::GetPlayer()->GetAttack();
+
+	if (pHitObject != nullptr)
+	{//敵と当たった
+
+		//pObjectをCEnemy型にダウンキャスト
+		CEnemy* pEnemy = (CEnemy*)pHitObject;
+
+		if (m_type == BULLETSTATE_CHARGE)
+		{//チャージショットなら
+		 //ダメージ上昇
+			pEnemy->SubLife(PlayerAttack * 3);	//敵の体力の減少
+		}
+		else
+		{//それ以外なら
+			pEnemy->SubLife(PlayerAttack);	//敵の体力の減少
+		}
+
+		CExplosion::Create(m_pos);	//爆発の生成
+
+		CDamage::Create(m_pos, 20.0f, 30.0f, 20.0f, 2, PlayerAttack);	//ダメージの表示
+
+		//弾の消滅
+		Uninit();
+		return;
+	}
+	else if (CObject2D::GetCollision(OBJTYPE_BARRIER))
+	{//バリアと当たった
+	 //弾の消滅
+		Uninit();
+		return;
 	}
 }
 
