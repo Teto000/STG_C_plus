@@ -1,6 +1,6 @@
 //===================================
 //
-// 消える数値を表示する処理
+// ダメージ処理
 // Author : Sato Teruto
 //
 //===================================
@@ -9,19 +9,19 @@
 // インクルード
 //------------------------
 #include <assert.h>
-#include "number.h"
+#include "damage.h"
 #include "texture.h"
 
 //------------------------
 // 静的メンバ変数宣言
 //------------------------
-int CNumber::m_nValue = 0;
-int CNumber::m_nNum = 0;
+int CDamage::m_nValue = 0;
+int CDamage::m_nNum = 0;
 
 //===========================
 // コンストラクタ
 //===========================
-CNumber::CNumber() : CObject2D()
+CDamage::CDamage() : CObject2D()
 {
 	m_pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	//位置
 	m_nDigit = 0;			//桁数
@@ -34,7 +34,7 @@ CNumber::CNumber() : CObject2D()
 //===========================
 // デストラクタ
 //===========================
-CNumber::~CNumber()
+CDamage::~CDamage()
 {
 
 }
@@ -42,7 +42,7 @@ CNumber::~CNumber()
 //===========================
 // 初期化
 //===========================
-HRESULT CNumber::Init(D3DXVECTOR3 pos)
+HRESULT CDamage::Init(D3DXVECTOR3 pos)
 {
 	//構造体の初期化
 	m_pos = pos;
@@ -59,7 +59,7 @@ HRESULT CNumber::Init(D3DXVECTOR3 pos)
 //===========================
 // 終了
 //===========================
-void CNumber::Uninit()
+void CDamage::Uninit()
 {
 	CObject2D::Uninit();
 }
@@ -67,7 +67,7 @@ void CNumber::Uninit()
 //===========================
 // 更新
 //===========================
-void CNumber::Update()
+void CDamage::Update()
 {
 	CObject2D::Update();
 
@@ -107,7 +107,7 @@ void CNumber::Update()
 //===========================
 // 描画
 //===========================
-void CNumber::Draw()
+void CDamage::Draw()
 {
 	CObject2D::Draw();
 }
@@ -115,17 +115,17 @@ void CNumber::Draw()
 //====================================
 // 生成(位置,幅,高さ,間隔,桁数,数値)
 //====================================
-CNumber *CNumber::Create(D3DXVECTOR3 pos, float fWidth, float fHeight, float fSpace,
+CDamage *CDamage::Create(D3DXVECTOR3 pos, float fWidth, float fHeight, float fSpace,
 						int nDigit, int nNumber)
 {
-	CNumber *pNumber = nullptr;
+	CDamage *pNumber = nullptr;
 
 	//----------------------------------
 	// プレイヤーの生成と初期化
 	//----------------------------------
 	for (int i = 0; i < nDigit; i++)
 	{
-		pNumber = new CNumber;	//生成
+		pNumber = new CDamage;	//生成
 
 		if (pNumber != nullptr)
 		{//NULLチェック

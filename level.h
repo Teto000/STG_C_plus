@@ -37,6 +37,11 @@ public:
 
 private:
 	//------------------
+	// 定数
+	//------------------
+	static const int nMaxLevel = 5;	//最大レベル
+
+	//------------------
 	// メンバ変数
 	//------------------
 	D3DXVECTOR3 m_pos;	//位置
@@ -46,7 +51,8 @@ private:
 	//------------------
 	// 静的メンバ変数
 	//------------------
-	static int m_nValue;	//値
+	static int m_nLevel;	//レベルの値
+	static int m_nExp;		//経験値の値
 };
 
 #endif // !_LEVEL_H_

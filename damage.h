@@ -4,8 +4,8 @@
 // Author:Teruto Sato
 //
 //============================
-#ifndef _NUMBER_H_
-#define _NUMBER_H_	//二重インクルード防止
+#ifndef _DAMAGE_H_
+#define _DAMAGE_H_	//二重インクルード防止
 
 //--------------------------
 // インクルード
@@ -15,11 +15,11 @@
 //--------------------------
 // ナンバークラスの定義
 //--------------------------
-class CNumber : public CObject2D
+class CDamage : public CObject2D
 {
 public:
-	CNumber();				//コンストラクタ
-	~CNumber() override;		//デストラクタ
+	CDamage();				//コンストラクタ
+	~CDamage() override;		//デストラクタ
 
 	//----------------
 	// メンバ関数
@@ -32,7 +32,7 @@ public:
 	//----------------
 	// 静的メンバ関数
 	//----------------
-	static CNumber *Create(D3DXVECTOR3 pos, float fWidth, float fHeight, float fSpace,
+	static CDamage *Create(D3DXVECTOR3 pos, float fWidth, float fHeight, float fSpace,
 							int nDigit, int nNumber);
 
 private:

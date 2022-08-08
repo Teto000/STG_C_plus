@@ -93,12 +93,12 @@ void CExp::Update()
 			{
 				//ŒoŒ±’lƒQ[ƒW‚ÌÁ‹
 				pObject->Uninit();
-				return;
-
-				//Šp“x‚Ì³‹K‰»
-				m_rot.x += D3DXToRadian(360);
+				//return;
 			}
 		}
+
+		//Šp“x‚Ì³‹K‰»
+		m_rot.x += D3DXToRadian(360);
 	}
 }
 

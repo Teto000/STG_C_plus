@@ -16,7 +16,7 @@
 #include "application.h"
 #include "player.h"
 #include "explosion.h"
-#include "number.h"
+#include "damage.h"
 #include "effect.h"
 #include "enemy.h"
 #include "score.h"
@@ -189,7 +189,7 @@ void CBullet::Update()
 
 		CScore::AddScore(1);	//スコアの加算
 
-		CNumber::Create(m_pos, 20.0f, 30.0f, 20.0f, 2, PlayerAttack);	//ダメージの表示
+		CDamage::Create(m_pos, 20.0f, 30.0f, 20.0f, 2, PlayerAttack);	//ダメージの表示
 
 		//弾の消滅
 		Uninit();

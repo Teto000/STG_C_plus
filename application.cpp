@@ -34,7 +34,7 @@ CTexture  *CApplication::m_pTexture = nullptr;	//テクスチャ
 CSound	  *CApplication::m_pSound = nullptr;	//サウンド
 CPlayer	  *CApplication::m_pPlayer = nullptr;	//プレイヤー
 CEnemy	  *CApplication::m_pEnemy = nullptr;	//敵
-CScore	  *CApplication::m_pScore = nullptr;	//数値
+CScore	  *CApplication::m_pScore = nullptr;	//スコア
 CBg		  *CApplication::m_pBG = nullptr;		//背景
 CLevel	  *CApplication::m_pLevel = nullptr;	//レベル
 

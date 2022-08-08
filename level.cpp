@@ -20,7 +20,8 @@
 //-----------------------------
 // 静的メンバ変数宣言
 //-----------------------------
-int CLevel::m_nValue;
+int CLevel::m_nLevel = 1;
+int CLevel::m_nExp;
 
 //===========================
 // コンストラクタ
@@ -78,20 +79,30 @@ void CLevel::Update()
 	//位置の設定
 	CObject2D::SetPosition(m_pos);
 
-	if (m_nValue >= 10)
-	{
-		CExp::Create(CirclePos,m_rot,m_fLength * 0.6f);	//経験値ゲージの生成
+	//-----------------------
+	// レベルアップの処理
+	//-----------------------
+	if (m_nLevel < nMaxLevel)
+	{//レベルが最大じゃないなら
+		if (m_nExp >= (10 * m_nLevel))
+		{//一定経験値量を獲得したら
+			//経験値ゲージの生成
+			CExp::Create(CirclePos, m_rot, m_fLength * 0.6f);
 
-		if (m_rot.x >= 360.0f)
-		{
-			m_rot.x -= 360.0f;
-		}
-		else
-		{
-			m_rot.x += 30.0f;
-		}
+			if (m_rot.x >= 360.0f)
+			{//ゲージが一周したら
+				m_rot.x -= 360.0f;	//正規化
 
-		m_nValue = 0;
+				m_nLevel++;		//レベルの加算
+			}
+			else
+			{
+				//経験値ゲージを配置する角度を加算
+				m_rot.x += 30.0f;
+			}
+
+			m_nExp = 0;
+		}
 	}
 }
 
@@ -130,5 +141,5 @@ CLevel *CLevel::Create()
 //===========================
 void CLevel::AddExp(int nValue)
 {
-	m_nValue += nValue;
+	m_nExp += nValue;
 }
