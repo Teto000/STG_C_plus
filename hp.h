@@ -31,11 +31,12 @@ public:
 
 	void SetLife(int nLife, int nRemLife);
 	void SubHP();	//HPŒ¸­‚Ìˆ—
+	void SetMove(D3DXVECTOR3 move);		//ˆÚ“®—Ê‚Ìİ’è
 
 	//------------------
 	// Ã“Iƒƒ“ƒoŠÖ”
 	//------------------
-	static CHp *Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, float fWidth, float fHeight);
+	static CHp *Create(D3DXVECTOR3 pos, float fWidth, float fHeight);
 
 private:
 	//------------------

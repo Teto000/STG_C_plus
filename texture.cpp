@@ -29,6 +29,7 @@ const char* CTexture::s_FileName[] =
 	"data/TEXTURE/BG.png",					//背景
 	"data/TEXTURE/Barrier.png",				//バリア
 	"data/TEXTURE/Exp.png",					//経験値
+	"data/TEXTURE/Level.png",				//レベル
 
 	/* ↓ スキル ↓*/
 	"data/TEXTURE/Skill/HPheal.png",		//スキル(体力回復)

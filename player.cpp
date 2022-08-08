@@ -84,7 +84,7 @@ HRESULT CPlayer::Init(D3DXVECTOR3 pos)
 	//--------------------------
 	// HP‚Ì•\¦
 	//--------------------------
-	m_Hp = CHp::Create(D3DXVECTOR3(520.0f, 80.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 600.0f, 40.0f);
+	m_Hp = CHp::Create(D3DXVECTOR3(520.0f, 80.0f, 0.0f), 600.0f, 40.0f);
 	m_Hp->SetLife(m_nLife, m_nRemLife);	//‰ŠúHP‚Ìİ’è
 
 	//--------------------------
@@ -284,7 +284,7 @@ void CPlayer::SetSkill()
 	{//2ƒL[‚ª‰Ÿ‚³‚ê‚½‚ç
 		CSkill::Create(CSkill::SKILLTYPE_SPEEDUP_FIRE);
 
-		m_nShotTime = 10;
+		m_nShotTime = 15;
 	}
 }
 

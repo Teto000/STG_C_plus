@@ -105,7 +105,7 @@ void CBullet::Update()
 {
 	CObject2D::Update();
 
-	m_rot.x -= 0.1f;
+	m_rot.x = 10.0f;
 
 	SetVtxCIE_Rot(m_pos, m_rot, m_fWidth, m_fHeight);
 
@@ -226,11 +226,12 @@ void CBullet::ShotBullet(D3DXVECTOR3 pos, int nLevel, int nShotTime)
 			Create(firstPos, D3DXVECTOR3(fBulletSpeed, 0.0f, 0.0f), BULLETSTATE_NORMAL);
 			Create(secondPos, D3DXVECTOR3(fBulletSpeed, 0.0f, 0.0f), BULLETSTATE_NORMAL);
 		}
-		else if (nLevel >= 3)
+
+		/*if (nLevel >= 3)
 		{
-			m_pos = CObject2D::MoveCircle(pos, m_rot.x, 50.0f);
-			Create(m_pos, D3DXVECTOR3(0.0f , 0.0f, 0.0f), BULLETSTATE_NORMAL);
-		}
+			D3DXVECTOR3 circlePos = CObject2D::MoveCircle(pos, 10.0f, 50.0f);
+			Create(circlePos, D3DXVECTOR3(0.0f , 0.0f, 0.0f), BULLETSTATE_NORMAL);
+		}*/
 	}
 
 	//---------------------------

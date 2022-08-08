@@ -73,7 +73,7 @@ void CHp::Update()
 	//-------------------
 	// 移動
 	//-------------------
-	CObject2D::AddMove(m_move);
+	m_pos = CObject2D::AddMove(m_move);
 
 	//HP減少時の処理
 	SubHP();
@@ -90,7 +90,7 @@ void CHp::Draw()
 //===========================
 // 生成
 //===========================
-CHp *CHp::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, float fWidth, float fHeight)
+CHp *CHp::Create(D3DXVECTOR3 pos, float fWidth, float fHeight)
 {
 	CHp *pHP = nullptr;
 
@@ -99,16 +99,14 @@ CHp *CHp::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, float fWidth, float fHeight)
 	//----------------------------------
 	pHP = new CHp;	//生成
 
-	//構造体に値を代入
-	pHP->m_pos = pos;
-	pHP->m_move = move;
-	pHP->m_fWidth = fWidth;
-	pHP->m_fHeight = fHeight;
-
 	if (pHP != nullptr)
 	{//NULLチェック
+		//構造体に値を代入
+		pHP->m_fWidth = fWidth;
+		pHP->m_fHeight = fHeight;
+
 		//初期化
-		pHP->Init(pHP->m_pos);
+		pHP->Init(pos);
 		pHP->SetObjType(OBJTYPE_HP);
 	}
 
@@ -122,6 +120,14 @@ void CHp::SetLife(int nLife, int nRemLife)
 {
 	m_nLife = nLife;
 	m_nRemLife = nRemLife;
+}
+
+//===========================
+// 移動量の設定
+//===========================
+void CHp::SetMove(D3DXVECTOR3 move)
+{
+	m_move = move;
 }
 
 //===========================

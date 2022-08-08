@@ -75,8 +75,9 @@ HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 	{
 		D3DXVECTOR3 hpPos(m_pos.x, m_pos.y - (m_fHeight / 2 + 20.0f), m_pos.z);
 
-		m_Hp = CHp::Create(hpPos, m_move, m_fWidth, 10.0f);
+		m_Hp = CHp::Create(hpPos, m_fWidth, 10.0f);
 		m_Hp->SetLife(m_nLife, m_nRemLife);
+		m_Hp->SetMove(m_move);
 	}
 
 	//--------------------------

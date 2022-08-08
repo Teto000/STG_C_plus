@@ -54,7 +54,9 @@ HRESULT CLevel::Init(D3DXVECTOR3 pos)
 
 	CObject2D::SetSize(m_fLength, m_fLength);
 
-	CObject2D::SetTexture(CTexture::TEXTURE_RING);	//テクスチャの設定
+	CObject2D::SetTexCIE(0.0f, 0.2f);
+
+	CObject2D::SetTexture(CTexture::TEXTURE_LEVEL);	//テクスチャの設定
 
 	return S_OK;
 }
@@ -94,6 +96,8 @@ void CLevel::Update()
 			{//ゲージが一周したら
 				m_rot.x -= 360.0f;	//正規化
 
+				//テクスチャ座標の変更
+				CObject2D::SetTexCIE(0.0f + (0.2f * m_nLevel), 0.2f + (0.2f * m_nLevel));
 				m_nLevel++;		//レベルの加算
 			}
 			else
@@ -103,6 +107,14 @@ void CLevel::Update()
 			}
 
 			m_nExp = 0;
+		}
+	}
+
+	if (CInputKeyboard::Trigger(DIK_UP))
+	{
+		if (m_nLevel < nMaxLevel)
+		{//レベルが最大じゃないなら
+			m_nLevel++;		//レベルの加算
 		}
 	}
 }
