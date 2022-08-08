@@ -19,12 +19,12 @@
 #include "bullet.h"
 #include "hp.h"
 #include "skill.h"
+#include "level.h"
 
 //------------------------
 // 静的メンバ変数宣言
 //------------------------
 const float CPlayer::fPlayerSpeed = (30.0f / 5.0f);
-int CPlayer::nShotTime = 20;
 D3DXCOLOR CPlayer::m_col = D3DXCOLOR(1.0f, 1.0f, 1.0f,1.0f);
 
 //===========================
@@ -39,11 +39,13 @@ CPlayer::CPlayer() : CObject2D()
 	m_nMaxLife = 0;		//最大体力
 	m_nRemLife = 0;		//残り体力
 	m_nAttack = 0;		//攻撃力
-	m_nShotTime = 0;	//弾の発射時間を数える
+	m_nShotTime = 0;	//弾の発射時間
+	m_nCntShotTime = 0;	//弾の発射時間を数える
 	m_nSpeed = 0.0f;	//速度
 	m_fWidth = 0.0f;	//幅
 	m_fHeight = 0.0f;	//高さ
-	m_Hp = nullptr;
+	m_Hp = nullptr;		//HPクラス
+	m_Level = nullptr;	//レベルクラス
 }
 
 //===========================
@@ -67,6 +69,7 @@ HRESULT CPlayer::Init(D3DXVECTOR3 pos)
 	m_fWidth = 80.0f;			//幅
 	m_fHeight = 100.0f;			//高さ
 	m_nAttack = 40;				//攻撃力
+	m_nShotTime = 20;			//弾の発射時間
 	m_nSpeed = fPlayerSpeed;	//速度
 
 	CObject2D::Init(m_pos);
@@ -82,6 +85,11 @@ HRESULT CPlayer::Init(D3DXVECTOR3 pos)
 	//--------------------------
 	m_Hp = CHp::Create(D3DXVECTOR3(520.0f, 80.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), 600.0f, 40.0f);
 	m_Hp->SetLife(m_nLife, m_nRemLife);	//初期HPの設定
+
+	//--------------------------
+	// レベルの生成
+	//--------------------------
+	m_Level = CLevel::Create();
 
 	return S_OK;
 }
@@ -126,10 +134,13 @@ void CPlayer::Update()
 	//--------------------------
 	// 弾の発射
 	//--------------------------
-	m_nShotTime++;
-	m_nShotTime %= nShotTime;	//発射時間をリセット
+	m_nCntShotTime++;
+	m_nCntShotTime %= m_nShotTime;	//発射時間をリセット
 
-	CBullet::ShotBullet(m_pos, m_rot, m_nShotTime);
+	{
+		int nLevel = m_Level->GetLevel();	//レベルの取得
+		CBullet::ShotBullet(m_pos, nLevel, m_nCntShotTime);
+	}
 
 	//--------------------------
 	// スキルの発動
@@ -272,7 +283,7 @@ void CPlayer::SetSkill()
 	{//2キーが押されたら
 		CSkill::Create(CSkill::SKILLTYPE_SPEEDUP_FIRE);
 
-		nShotTime = 10;
+		m_nShotTime = 10;
 	}
 }
 

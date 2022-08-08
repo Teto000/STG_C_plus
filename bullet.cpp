@@ -239,17 +239,15 @@ CBullet *CBullet::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, BULLETSTATE type)
 //=======================
 // 弾の発射
 //=======================
-void CBullet::ShotBullet(D3DXVECTOR3 pos, D3DXVECTOR3 rot, int m_nShotTime)
+void CBullet::ShotBullet(D3DXVECTOR3 pos, int nLevel, int nShotTime)
 {
-	rot.x = rot.x - D3DX_PI / 2;	//右を前に変更
-
 	//---------------------------
 	// 通常弾
 	//---------------------------
-	if (!CInputKeyboard::Press(DIK_SPACE) && m_nShotTime == 0)
+	if (!CInputKeyboard::Press(DIK_SPACE) && nShotTime == 0)
 	{//チャージしていない時 かつ 弾の発射時間が0なら
-		//プレイヤーの向きに弾を発射する
-		Create(pos, D3DXVECTOR3(-sinf(rot.x) * fBulletSpeed, -cosf(rot.x) * fBulletSpeed, 0.0f), BULLETSTATE_NORMAL);
+		//右側に弾を発射する
+		Create(pos, D3DXVECTOR3(fBulletSpeed, 0.0f, 0.0f), BULLETSTATE_NORMAL);
 	}
 
 	//---------------------------
@@ -275,7 +273,6 @@ void CBullet::ShotBullet(D3DXVECTOR3 pos, D3DXVECTOR3 rot, int m_nShotTime)
 		}
 
 		m_nChageTime = 0;	//チャージ時間をリセット
-		m_nShotTime = 0;	//通常弾のの発射時間リセット
 		CPlayer::SetCol(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));	//プレイヤーの色を変更
 	}
 	else if (CInputKeyboard::Release(DIK_SPACE) && m_nChageTime < 40)

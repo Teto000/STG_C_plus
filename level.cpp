@@ -20,7 +20,6 @@
 //-----------------------------
 // 静的メンバ変数宣言
 //-----------------------------
-int CLevel::m_nLevel = 1;
 int CLevel::m_nExp;
 
 //===========================
@@ -30,6 +29,7 @@ CLevel::CLevel() : CObject2D()
 {
 	m_pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	//位置
 	m_rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	//回転
+	m_nLevel = 0;
 	m_fLength = 0.0f;	//幅
 }
 
@@ -48,6 +48,7 @@ HRESULT CLevel::Init(D3DXVECTOR3 pos)
 {
 	m_pos = pos;
 	m_fLength = 100;	//幅
+	m_nLevel = 1;		//レベル
 
 	CObject2D::Init(m_pos);
 
@@ -134,6 +135,14 @@ CLevel *CLevel::Create()
 	}
 
 	return pLevel;
+}
+
+//===========================
+// レベルの取得
+//===========================
+int CLevel::GetLevel()
+{
+	return m_nLevel;
 }
 
 //===========================

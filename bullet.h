@@ -47,7 +47,7 @@ public:
 	// ê√ìIÉÅÉìÉoä÷êî
 	//----------------
 	static CBullet *Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, BULLETSTATE type);
-	static void ShotBullet(D3DXVECTOR3 pos, D3DXVECTOR3 rot, int m_nShotTime);
+	static void ShotBullet(D3DXVECTOR3 pos, int nLevel, int nShotTime);
 
 private:
 	//----------------

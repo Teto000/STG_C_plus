@@ -15,7 +15,8 @@
 //--------------------------
 // 前方宣言
 //--------------------------
-class CHp;	//HPクラス
+class CHp;		//HPクラス
+class CLevel;	//レベルクラス
 
 //--------------------------
 // プレイヤークラス
@@ -68,16 +69,17 @@ private:
 	int m_nMaxLife;		//最大体力
 	int m_nRemLife;		//残り体力
 	int m_nAttack;		//攻撃力
-	int m_nShotTime;	//弾の発射時間を数える
+	int m_nShotTime;	//弾の発射時間
+	int m_nCntShotTime;	//弾の発射時間を数える
 	float m_nSpeed;		//速度
 	float m_fWidth;		//幅
 	float m_fHeight;	//高さ
-	CHp* m_Hp;
+	CHp* m_Hp;			//HPクラス
+	CLevel* m_Level;	//レベルクラス
 
 	//------------------
 	// 静的メンバ変数
 	//------------------
-	static int nShotTime;	//弾の発射時間
 	static D3DXCOLOR m_col;
 };
 

@@ -34,6 +34,8 @@ public:
 	//------------------
 	static CLevel *Create();
 	static void AddExp(int nValue);
+	
+	int GetLevel();
 
 private:
 	//------------------
@@ -46,12 +48,12 @@ private:
 	//------------------
 	D3DXVECTOR3 m_pos;	//位置
 	D3DXVECTOR3 m_rot;	//回転
+	int m_nLevel;		//レベルの値
 	float m_fLength;	//幅
 
 	//------------------
 	// 静的メンバ変数
 	//------------------
-	static int m_nLevel;	//レベルの値
 	static int m_nExp;		//経験値の値
 };
 

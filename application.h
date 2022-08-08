@@ -23,7 +23,6 @@ class CPlayer;		//プレイヤー
 class CEnemy;		//敵
 class CScore;		//スコア
 class CBg;			//背景
-class CLevel;		//レベル
 
 //-------------------------------------
 // アプリケーションクラスの定義
@@ -50,7 +49,7 @@ public:
 	static CTexture  *GetTexture();		//テクスチャの取得
 	static CSound	 *GetSound();		//サウンドの取得
 	static CPlayer	 *GetPlayer();		//プレイヤーの取得
-	static CScore	 *GetScore();		//数値の取得
+	static CScore	 *GetScore();		//スコアの取得
 
 private:
 	//------------------
@@ -69,7 +68,6 @@ private:
 	static CEnemy		*m_pEnemy;		//敵クラス
 	static CScore		*m_pScore;		//スコアクラス
 	static CBg			*m_pBG;			//背景クラス
-	static CLevel		*m_pLevel;		//レベルクラス
 };
 
 #endif // !_APPLICATION_H_

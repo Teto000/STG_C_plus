@@ -23,7 +23,6 @@
 #include "enemy.h"
 #include "score.h"
 #include "bg.h"
-#include "level.h"
 
 //------------------------
 // 静的メンバ変数宣言
@@ -36,7 +35,6 @@ CPlayer	  *CApplication::m_pPlayer = nullptr;	//プレイヤー
 CEnemy	  *CApplication::m_pEnemy = nullptr;	//敵
 CScore	  *CApplication::m_pScore = nullptr;	//スコア
 CBg		  *CApplication::m_pBG = nullptr;		//背景
-CLevel	  *CApplication::m_pLevel = nullptr;	//レベル
 
 //===========================
 // コンストラクタ
@@ -87,9 +85,6 @@ HRESULT CApplication::Init(HINSTANCE hInstance, HWND hWnd)
 
 	//プレイヤーの生成
 	m_pPlayer = CPlayer::Create();
-
-	//レベルの生成
-	m_pLevel = CLevel::Create();
 
 	//スコアの生成
 	m_pScore = CScore::Create();
