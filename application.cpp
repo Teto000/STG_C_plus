@@ -8,40 +8,33 @@
 //------------------------
 // インクルード
 //------------------------
-#include <assert.h>
-#include <time.h>
 #include "application.h"
 #include "renderer.h"
 #include "object2D.h"
+#include "texture.h"
+#include "sound.h"
 #include "input.h"
 #include "input_keybord.h"
 #include "input_joypad.h"
-#include "texture.h"
-#include "sound.h"
-#include "player.h"
-#include "bullet.h"
-#include "enemy.h"
-#include "score.h"
-#include "bg.h"
+#include "game.h"
 
 //------------------------
 // 静的メンバ変数宣言
 //------------------------
-CRenderer *CApplication::m_pRenderer = nullptr;	//レンダラー
-CInput	  *CApplication::m_pInput = nullptr;	//インプット
-CTexture  *CApplication::m_pTexture = nullptr;	//テクスチャ
-CSound	  *CApplication::m_pSound = nullptr;	//サウンド
-CPlayer	  *CApplication::m_pPlayer = nullptr;	//プレイヤー
-CEnemy	  *CApplication::m_pEnemy = nullptr;	//敵
-CScore	  *CApplication::m_pScore = nullptr;	//スコア
-CBg		  *CApplication::m_pBG = nullptr;		//背景
+CGame*				CApplication::m_pGame = nullptr;		//ゲームクラス
+CApplication::MODE	CApplication::m_mode = MODE_MAX;		//ゲームモード
+
+CRenderer*	CApplication::m_pRenderer = nullptr;	//レンダラー
+CInput*		CApplication::m_pInput = nullptr;	//インプット
+CTexture*	CApplication::m_pTexture = nullptr;	//テクスチャ
+CSound*		CApplication::m_pSound = nullptr;	//サウンド
 
 //===========================
 // コンストラクタ
 //===========================
 CApplication::CApplication()
 {
-	m_EnemyCnt = 0;
+
 }
 
 //===========================
@@ -65,9 +58,6 @@ HRESULT CApplication::Init(HINSTANCE hInstance, HWND hWnd)
 	m_pTexture = new CTexture;		//テクスチャ
 	m_pSound = new CSound;			//サウンド
 
-	//時刻をもとにしたランダムな値を生成
-	srand((unsigned int)time(NULL));
-
 	//レンダリングの初期化
 	if (FAILED(m_pRenderer->Init(hWnd, TRUE)))
 	{//初期化処理が失敗した場合
@@ -80,16 +70,8 @@ HRESULT CApplication::Init(HINSTANCE hInstance, HWND hWnd)
 	//サウンドの初期化
 	//m_pSound->Init(hWnd);
 
-	//背景の生成
-	m_pBG = CBg::Create();
-
-	//プレイヤーの生成
-	m_pPlayer = CPlayer::Create();
-
-	//スコアの生成
-	m_pScore = CScore::Create();
-
-	m_pEnemy = CEnemy::Create(D3DXVECTOR3(1000.0f, 360.0f, 0.0f), CEnemy::ENEMYTYPE_NORMAL);
+	//モードの設定
+	SetMode(MODE_GAME);
 
 	return S_OK;
 }
@@ -146,18 +128,6 @@ void CApplication::Update()
 
 	//レンダリングの更新
 	m_pRenderer->Update();
-
-	//m_EnemyCnt++;
-	//m_EnemyCnt %= 80;
-
-	//if (m_EnemyCnt == 0)
-	//{
-	//	int nRand = rand() % 520 + 200;
-
-	//	//敵の生成
-	//	m_pEnemy = CEnemy::Create(D3DXVECTOR3(1300, (float)nRand, 0.0f),
-	//								CEnemy::ENEMYTYPE_NORMAL);
-	//}
 }
 
 //===========================
@@ -167,6 +137,40 @@ void CApplication::Draw()
 {
 	//レンダリングの描画
 	m_pRenderer->Draw();
+}
+
+//===========================
+// モードの設定
+//===========================
+void CApplication::SetMode(MODE mode)
+{
+	m_mode = mode;
+
+	switch (m_mode)
+	{
+	case MODE_TITLE:
+		break;
+	
+	case MODE_GAME:
+		m_pGame = nullptr;
+		m_pGame = new CGame;
+		m_pGame->Init();
+		break;
+
+	case MODE_RESULT:
+		break;
+
+	default:
+		break;
+	}
+}
+
+//===========================
+// モードの取得
+//===========================
+CApplication::MODE CApplication::GetMode()
+{
+	return m_mode;
 }
 
 //===========================
@@ -199,20 +203,4 @@ CTexture *CApplication::GetTexture()
 CSound *CApplication::GetSound()
 {
 	return m_pSound;
-}
-
-//===========================
-// プレイヤーの取得
-//===========================
-CPlayer *CApplication::GetPlayer()
-{
-	return m_pPlayer;
-}
-
-//===========================
-// スコアの取得
-//===========================
-CScore *CApplication::GetScore()
-{
-	return m_pScore;
 }

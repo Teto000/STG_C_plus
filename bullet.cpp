@@ -13,7 +13,7 @@
 #include "renderer.h"
 #include "object2D.h"
 #include "input_keybord.h"
-#include "application.h"
+#include "game.h"
 #include "player.h"
 #include "explosion.h"
 #include "damage.h"
@@ -288,7 +288,7 @@ void CBullet::ShotBullet(D3DXVECTOR3 pos, int nLevel, int nShotTime)
 void CBullet::CollisionBullet()
 {
 	CObject* pHitObject = CObject2D::GetCollision(OBJTYPE_ENEMY);
-	int PlayerAttack = CApplication::GetPlayer()->GetAttack();
+	int PlayerAttack = CGame::GetPlayer()->GetAttack();
 
 	if (pHitObject != nullptr)
 	{//“G‚Æ“–‚½‚Á‚½

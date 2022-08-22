@@ -15,14 +15,12 @@
 //-----------------------
 // 前方宣言
 //-----------------------
+class CGame;		//ゲーム
+
 class CRenderer;	//レンダラー
 class CInput;		//インプット
 class CTexture;		//テクスチャ
 class CSound;		//サウンド
-class CPlayer;		//プレイヤー
-class CEnemy;		//敵
-class CScore;		//スコア
-class CBg;			//背景
 
 //-------------------------------------
 // アプリケーションクラスの定義
@@ -30,6 +28,17 @@ class CBg;			//背景
 class CApplication
 {
 public:
+	//--------------------------------
+	// ゲームモードの列挙型の定義
+	//--------------------------------
+	enum MODE
+	{
+		MODE_TITLE = 0,	//タイトル
+		MODE_GAME,		//ゲーム
+		MODE_RESULT,	//リザルト
+		MODE_MAX
+	};
+
 	CApplication();		//コンストラクタ
 	~CApplication();	//デストラクタ
 
@@ -44,30 +53,25 @@ public:
 	//------------------
 	// 静的メンバ関数
 	//------------------
+	static void SetMode(MODE mode);		//モードの設定
+	static MODE GetMode();				//モードの取得
+
 	static CRenderer *GetRenderer();	//レンダラーの取得
 	static CInput	 *GetInput();		//インプットの取得
 	static CTexture  *GetTexture();		//テクスチャの取得
 	static CSound	 *GetSound();		//サウンドの取得
-	static CPlayer	 *GetPlayer();		//プレイヤーの取得
-	static CScore	 *GetScore();		//スコアの取得
 
 private:
 	//------------------
-	// メンバ変数
-	//------------------
-	int m_EnemyCnt;
-
-	//------------------
 	// 静的メンバ変数
 	//------------------
-	static CRenderer	*m_pRenderer;	//レンダラークラス
-	static CInput		*m_pInput;		//インプットクラス
-	static CTexture		*m_pTexture;	//テクスチャクラス
-	static CSound		*m_pSound;		//サウンドクラス
-	static CPlayer		*m_pPlayer;		//プレイヤークラス
-	static CEnemy		*m_pEnemy;		//敵クラス
-	static CScore		*m_pScore;		//スコアクラス
-	static CBg			*m_pBG;			//背景クラス
+	static CGame*		m_pGame;		//ゲームクラス
+	static MODE			m_mode;			//ゲームモード
+
+	static CRenderer*	m_pRenderer;	//レンダラークラス
+	static CInput*		m_pInput;		//インプットクラス
+	static CTexture*	m_pTexture;		//テクスチャクラス
+	static CSound*		m_pSound;		//サウンドクラス
 };
 
 #endif // !_APPLICATION_H_
