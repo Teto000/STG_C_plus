@@ -108,6 +108,9 @@
     <ClCompile Include="damage.cpp">
       <Filter>ソース ファイル\Application\Object\2D</Filter>
     </ClCompile>
+    <ClCompile Include="enemybullet.cpp">
+      <Filter>ソース ファイル\Application\Object\2D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -177,6 +180,9 @@
       <Filter>ヘッダー ファイル\Application\Object\2D</Filter>
     </ClInclude>
     <ClInclude Include="damage.h">
+      <Filter>ヘッダー ファイル\Application\Object\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="enemybullet.h">
       <Filter>ヘッダー ファイル\Application\Object\2D</Filter>
     </ClInclude>
   </ItemGroup>
