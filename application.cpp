@@ -128,6 +128,12 @@ void CApplication::Update()
 
 	//レンダリングの更新
 	m_pRenderer->Update();
+
+	//ゲーム画面の更新処理
+	if(m_mode == MODE_GAME)
+	{
+		m_pGame->Update();
+	}
 }
 
 //===========================

@@ -9,7 +9,6 @@
 // インクルード
 //------------------------
 #include <time.h>
-#include "application.h"
 #include "game.h"
 #include "input.h"
 #include "input_keybord.h"
@@ -80,8 +79,6 @@ void CGame::Uninit()
 //===========================
 void CGame::Update()
 {
-	CObject::UpdateAll();
-
 	//m_EnemyCnt++;
 	//m_EnemyCnt %= 80;
 
@@ -100,7 +97,7 @@ void CGame::Update()
 //===========================
 void CGame::Draw()
 {
-	CObject::DrawAll();
+
 }
 
 //===========================
