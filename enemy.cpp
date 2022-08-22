@@ -125,17 +125,18 @@ void CEnemy::Update()
 	switch (m_type)
 	{
 	case ENEMYTYPE_NORMAL:
-		CObject2D::AddMove(m_move);
+		m_move.x = -3.0f;
 		break;
 
 	case ENEMYTYPE_CURVE:
-		m_move.x = sinf(m_move.x);
-		CObject2D::AddMove(m_move);
-		break;
+		m_move.x = sinf(D3DX_PI * m_move.x);
 
 	default:
 		break;
 	}
+
+	CObject2D::AddMove(m_move);
+	m_Hp->SetMove(m_move);
 
 	//--------------------------
 	// ‘Ì—Í‚ªs‚«‚½

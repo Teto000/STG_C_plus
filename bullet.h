@@ -26,6 +26,7 @@ public:
 		BULLETSTATE_NORMAL = 0,
 		BULLETSTATE_HORMING,
 		BULLETSTATE_CHARGE,
+		BULLETSTATE_OPTION,
 		BULLETSTATE_MAX
 	}BULLETSTATE;
 
@@ -53,9 +54,11 @@ private:
 	//----------------
 	// 定数定義
 	//----------------
-	static const float fBulletSpeed;		//弾の速度
 	static const int nMaxHoming = 3;		//ホーミング弾発射の最大数
+	static const int nDefaultLife = 50;		//弾の寿命の基準値
+	static const float fBulletSpeed;		//弾の速度
 	static const float fBulletSpeed_Homing;	//弾の速度
+	static const float nDefaultSize;		//弾の大きさの基準値
 
 	//----------------
 	// メンバ変数
@@ -72,7 +75,9 @@ private:
 	//----------------
 	// 静的メンバ変数
 	//----------------
-	static int	 m_nChageTime;			//弾のチャージ時間
+	static int m_nChageTime;	//弾のチャージ時間
+	static int m_nCntHorming;	//ホーミング弾の発射カウント
+
 };
 
 #endif // !_BULLET_H_

@@ -27,7 +27,10 @@
 //------------------------
 const float CBullet::fBulletSpeed = 10.0f;			//弾の速度
 const float CBullet::fBulletSpeed_Homing = 1.05f;	//弾の速度(ホーミング)
+const float CBullet::nDefaultSize = 50.0f;			//弾の基本の大きさ
+
 int CBullet::m_nChageTime;	//弾のチャージ時間
+int CBullet::m_nCntHorming;	
 
 //===========================
 // コンストラクタ
@@ -61,30 +64,31 @@ HRESULT CBullet::Init(D3DXVECTOR3 pos)
 	// メンバ変数の初期化
 	//----------------------------
 	m_pos = pos;
-	m_fWidth = 50.0f;
-	m_fHeight = 50.0f;
+	m_nLife = nDefaultLife;
+	m_fWidth = nDefaultSize;
+	m_fHeight = nDefaultSize;
 
 	CObject2D::Init(m_pos);
 
 	//----------------------------
 	// 種類別の情報の設定
 	//----------------------------
-	if (m_type == BULLETSTATE_NORMAL)
-	{
-		m_nLife = 100;
-		CObject2D::SetSize(m_fWidth, m_fHeight);	//サイズの設定
-	}
-	else if (m_type == BULLETSTATE_CHARGE)
-	{
-		m_nLife = 100;
-		CObject2D::SetSize(m_fWidth * 1.5f, m_fHeight * 1.5f);
+	if (m_type == BULLETSTATE_CHARGE)
+	{//チャージショットなら
+		m_fWidth *= 1.5f;
+		m_fHeight *= 1.5f;
 	}
 	else if (m_type == BULLETSTATE_HORMING)
+	{//ホーミング弾なら
+		m_nLife *= 2;
+	}
+	else if (m_type == BULLETSTATE_OPTION)
 	{
-		m_nLife = 200;
-		CObject2D::SetSize(m_fWidth, m_fHeight);	//サイズの設定
+		m_fWidth *= 0.7f;
+		m_fHeight *= 0.7f;
 	}
 
+	CObject2D::SetSize(m_fWidth, m_fHeight);			//サイズの設定
 	CObject2D::SetTexture(CTexture::TEXTURE_BULLET);	//テクスチャの設定
 
 	return S_OK;
@@ -123,7 +127,7 @@ void CBullet::Update()
 			m_Tirget = D3DXVECTOR3(1280.0f, m_pos.y, 0.0f);
 		}
 		
-		if (m_nLife <= 170)
+		if (m_nLife <= 150)
 		{//ホーミング弾の寿命が150以下なら
 			//敵に向かってホーミング
 			D3DXVECTOR3 move = Homing(m_pos.x, m_pos.y, m_move.x, m_move.y);
@@ -208,17 +212,27 @@ void CBullet::ShotBullet(D3DXVECTOR3 pos, int nLevel, int nShotTime)
 	pos.x += 30.0f;	//発射位置の調整
 
 	//---------------------------
-	// 通常弾
+	// レベルごとの弾
 	//---------------------------
 	if (!CInputKeyboard::Press(DIK_SPACE) && nShotTime == 0)
 	{//チャージしていない時 かつ 弾の発射時間が0なら
-		if (nLevel == 1)
-		{
+		if (nLevel <= 2)
+		{//レベル2以下なら
 			//右側に弾を発射する
 			Create(pos, D3DXVECTOR3(fBulletSpeed, 0.0f, 0.0f), BULLETSTATE_NORMAL);
 		}
-		else if (nLevel >= 2)
-		{
+
+		if (nLevel == 2)
+		{//レベル2なら
+			D3DXVECTOR3 firstPos(pos.x, pos.y - 20.0f, pos.z);
+			D3DXVECTOR3 secondPos(pos.x, pos.y + 20.0f, pos.z);
+
+			//小さい弾を左右に発射する
+			Create(firstPos, D3DXVECTOR3(fBulletSpeed, -1.5f, 0.0f), BULLETSTATE_OPTION);
+			Create(secondPos, D3DXVECTOR3(fBulletSpeed, 1.5f, 0.0f), BULLETSTATE_OPTION);
+		}
+		else if (nLevel >= 3)
+		{//レベル3なら
 			D3DXVECTOR3 firstPos(pos.x, pos.y - 40.0f, pos.z);
 			D3DXVECTOR3 secondPos(pos.x, pos.y + 40.0f, pos.z);
 
@@ -227,11 +241,14 @@ void CBullet::ShotBullet(D3DXVECTOR3 pos, int nLevel, int nShotTime)
 			Create(secondPos, D3DXVECTOR3(fBulletSpeed, 0.0f, 0.0f), BULLETSTATE_NORMAL);
 		}
 
-		/*if (nLevel >= 3)
-		{
-			D3DXVECTOR3 circlePos = CObject2D::MoveCircle(pos, 10.0f, 50.0f);
-			Create(circlePos, D3DXVECTOR3(0.0f , 0.0f, 0.0f), BULLETSTATE_NORMAL);
-		}*/
+		if (nLevel >= 4 && m_nCntHorming >= 3)
+		{//レベル4なら
+			D3DXVECTOR3 Pos(pos.x - 40.0f, pos.y - 40.0f, pos.z);
+			Create(Pos, D3DXVECTOR3(-2.0f , -2.0f, 0.0f), BULLETSTATE_HORMING);
+			m_nCntHorming = 0;
+		}
+
+		m_nCntHorming++;
 	}
 
 	//---------------------------
