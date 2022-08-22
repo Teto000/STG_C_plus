@@ -21,6 +21,8 @@
 #include "level.h"
 #include "score.h"
 #include "enemybullet.h"
+#include "game.h"
+#include "player.h"
 
 //===========================
 // コンストラクタ
@@ -120,6 +122,15 @@ void CEnemy::Update()
 	{
 		CObject2D::SetTexCIE(0.5f, 1.0f);
 	}
+
+	//-------------------------------
+	// プレイヤーに向かって回転
+	//-------------------------------
+	D3DXVECTOR3 playerPos(CGame::GetPlayer()->GetPosition());
+	D3DXVECTOR2 vec = m_pos - playerPos;
+	m_rot.x = -atan2f(vec.y, vec.x);
+
+	CObject2D::SetVtxCIE_Rot(m_pos, m_rot, m_fWidth, m_fHeight);
 
 	//-------------------------------
 	// 敵の移動

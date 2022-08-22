@@ -11,7 +11,6 @@
 // インクルード
 //--------------------
 #include <d3dx9.h>
-#include "application.h"
 
 //-----------------------
 // 前方宣言
@@ -24,7 +23,7 @@ class CBg;			//背景
 //-------------------------
 // ゲームクラスの定義
 //-------------------------
-class CGame : public CApplication
+class CGame
 {
 public:
 	CGame();	//コンストラクタ
@@ -36,7 +35,6 @@ public:
 	HRESULT Init();
 	void Uninit();
 	void Update();
-	void Draw();
 
 	//------------------
 	// 静的メンバ関数
