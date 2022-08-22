@@ -89,6 +89,8 @@ HRESULT CApplication::Init(HINSTANCE hInstance, HWND hWnd)
 	//スコアの生成
 	m_pScore = CScore::Create();
 
+	m_pEnemy = CEnemy::Create(D3DXVECTOR3(1000.0f, 360.0f, 0.0f), CEnemy::ENEMYTYPE_NORMAL);
+
 	return S_OK;
 }
 
@@ -145,17 +147,17 @@ void CApplication::Update()
 	//レンダリングの更新
 	m_pRenderer->Update();
 
-	m_EnemyCnt++;
-	m_EnemyCnt %= 80;
+	//m_EnemyCnt++;
+	//m_EnemyCnt %= 80;
 
-	if (m_EnemyCnt == 0)
-	{
-		int nRand = rand() % 520 + 200;
+	//if (m_EnemyCnt == 0)
+	//{
+	//	int nRand = rand() % 520 + 200;
 
-		//敵の生成
-		m_pEnemy = CEnemy::Create(D3DXVECTOR3(1300, (float)nRand, 0.0f),
-									CEnemy::ENEMYTYPE_NORMAL);
-	}
+	//	//敵の生成
+	//	m_pEnemy = CEnemy::Create(D3DXVECTOR3(1300, (float)nRand, 0.0f),
+	//								CEnemy::ENEMYTYPE_NORMAL);
+	//}
 }
 
 //===========================

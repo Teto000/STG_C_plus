@@ -15,7 +15,8 @@
 //--------------------------
 // 前方宣言
 //--------------------------
-class CHp;	//HPクラス
+class CHp;				//HPクラス
+class CEnemyBullet;		//敵の弾クラス
 
 //--------------------------
 // エネミークラス
@@ -61,6 +62,7 @@ private:
 	//----------------
 	static const int nMaxTexTime = 80;
 	static const int nHalfTexTime = (nMaxTexTime / 2);
+	static const int nShotTime = 50;	//弾の発射時間
 
 	//----------------
 	// メンバ変数
@@ -71,12 +73,14 @@ private:
 	int m_nLife;		//体力
 	int m_nMaxLife;		//最大体力
 	int m_nRemLife;		//残り体力
+	int m_nCntShotTime;	//弾の発射時間を数える
+	int m_CntTime;		//テクスチャ切り替え時間のカウント
 	float m_fWidth;		//幅
 	float m_fHeight;	//高さ
 	ENEMYTYPE m_type;	//種類
 
 	CHp* m_Hp;
-	int m_CntTime;		//テクスチャ切り替え時間のカウント
+	CEnemyBullet* m_EnemyBullet;
 };
 
 #endif // !_PLAYER_H_

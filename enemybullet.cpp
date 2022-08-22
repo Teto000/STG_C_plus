@@ -46,9 +46,9 @@ HRESULT CEnemyBullet::Init(D3DXVECTOR3 pos)
 	// ƒƒ“ƒo•Ï”‚Ì‰Šú‰»
 	//----------------------------
 	m_pos = pos;
-	m_nLife = 10;
-	m_fWidth = 10;
-	m_fHeight = 10;
+	m_nLife = 50;
+	m_fWidth = 50.0f;
+	m_fHeight = 50.0f;
 
 	CObject2D::Init(m_pos);
 
@@ -73,28 +73,18 @@ void CEnemyBullet::Update()
 {
 	CObject2D::Update();
 
-	m_rot.x = 10.0f;
-
-	SetVtxCIE_Rot(m_pos, m_rot, m_fWidth, m_fHeight);
-
 	//ˆÚ“®—Ê‚Ì‰ÁZ
 	m_pos = CObject2D::AddMove(m_move);
 
 	//õ–½‚ÌŒ¸­
-	m_nLife--;
+	//m_nLife--;
 
-	//õ–½‚ªs‚«‚½
-	if (m_nLife <= 0.0f)
-	{
-		Uninit();
-		return;
-	}
-	//‰æ–Ê’[‚Ìˆ—
-	else if (m_pos.x >= SCREEN_WIDTH)
-	{
-		Uninit();
-		return;
-	}
+	////õ–½‚ªs‚«‚½
+	//if (m_nLife <= 0.0f)
+	//{
+	//	Uninit();
+	//	return;
+	//}
 }
 
 //===========================

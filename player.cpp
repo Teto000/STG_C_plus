@@ -140,9 +140,9 @@ void CPlayer::Update()
 
 	{
 		int nLevel = m_Level->GetLevel();	//ƒŒƒxƒ‹‚ÌŽæ“¾
-		m_Bullet->ShotBullet(m_pos, nLevel, m_nCntShotTime);	//’e‚Ì”­ŽË
+		//m_Bullet->ShotBullet(m_pos, nLevel, m_nCntShotTime);	//’e‚Ì”­ŽË
 	}
-
+	/**/
 	//--------------------------
 	// ƒXƒLƒ‹‚Ì”­“®
 	//--------------------------

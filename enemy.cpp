@@ -20,6 +20,7 @@
 #include "explosion.h"
 #include "level.h"
 #include "score.h"
+#include "enemybullet.h"
 
 //===========================
 // コンストラクタ
@@ -29,13 +30,14 @@ CEnemy::CEnemy() : CObject2D()
 	m_pos = D3DXVECTOR3(0.0f,0.0f,0.0f);	//位置
 	m_move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	//移動量
 	m_rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	//回転
-	m_nLife = 0;			//体力
-	m_nMaxLife = 0;			//最大体力
-	m_nRemLife = 0;			//残り体力
-	m_fWidth = 0.0f;		//幅
-	m_fHeight = 0.0f;		//高さ
-	m_type = ENEMYTYPE_MAX;	//種類
-	m_Hp = nullptr;
+	m_nLife = 0;				//体力
+	m_nMaxLife = 0;				//最大体力
+	m_nRemLife = 0;				//残り体力
+	m_fWidth = 0.0f;			//幅
+	m_fHeight = 0.0f;			//高さ
+	m_type = ENEMYTYPE_MAX;		//種類
+	m_Hp = nullptr;				//HPバー
+	m_EnemyBullet = nullptr;	//敵の弾
 }
 
 //===========================
@@ -59,7 +61,7 @@ HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 	m_nMaxLife = 120;	//最大体力
 	m_nRemLife = 100;	//残り体力
 
-	m_move = D3DXVECTOR3(-4.0f, 0.0f, 0.0f);
+	//m_move = D3DXVECTOR3(-4.0f, 0.0f, 0.0f);
 
 	CObject2D::Init(m_pos);
 
@@ -125,7 +127,7 @@ void CEnemy::Update()
 	switch (m_type)
 	{
 	case ENEMYTYPE_NORMAL:
-		m_move.x = -3.0f;
+		//m_move.x = -3.0f;
 		break;
 
 	case ENEMYTYPE_CURVE:
@@ -137,6 +139,17 @@ void CEnemy::Update()
 
 	CObject2D::AddMove(m_move);
 	m_Hp->SetMove(m_move);
+
+	//--------------------------
+	// 弾の発射
+	//--------------------------
+	m_nCntShotTime++;
+	m_nCntShotTime %= nShotTime;	//発射時間をリセット
+
+	if (m_nCntShotTime == 0)
+	{
+		m_EnemyBullet->Create(m_pos, D3DXVECTOR3(-8.0f, 0.0f, 0.0f));
+	}
 
 	//--------------------------
 	// 体力が尽きた
