@@ -29,12 +29,14 @@
 //===========================
 CEnemy::CEnemy() : CObject2D()
 {
-	m_pos = D3DXVECTOR3(0.0f,0.0f,0.0f);	//位置
-	m_move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	//移動量
-	m_rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	//回転
+	m_pos = D3DXVECTOR3(0.0f,0.0f,0.0f);			//位置
+	m_targetPos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	//目的の位置
+	m_move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);			//移動量
+	m_rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);			//回転
 	m_nLife = 0;				//体力
 	m_nMaxLife = 0;				//最大体力
 	m_nRemLife = 0;				//残り体力
+	m_nCntAttack = 0;			//攻撃タイミング
 	m_fWidth = 0.0f;			//幅
 	m_fHeight = 0.0f;			//高さ
 	m_type = ENEMYTYPE_MAX;		//種類
@@ -107,30 +109,64 @@ void CEnemy::Update()
 {
 	CObject2D::Update();
 
-	//テクスチャカウント
-	m_CntTime++;
-	m_CntTime %= nMaxTexTime;	//リセット
+	//-------------------------------
+	// カウント
+	//-------------------------------
+	//テクスチャ
+	m_nCntTime++;
+	m_nCntTime %= nMaxTexTime;	//リセット
+
+	//攻撃タイミング
+	m_nCntAttack++;
+	m_nCntAttack %= 30;
+
+	//-------------------------------
+	// プレイヤーの位置を保存
+	//-------------------------------
+	//if (m_nCntAttack == 0 /*&& m_targetPos == D3DXVECTOR3(0.0f, 0.0f, 0.0f)*/)
+	if (CInputKeyboard::Trigger(DIK_L))
+	{
+		m_targetPos = CGame::GetPlayer()->GetPosition();
+	}
 
 	//-------------------------------
 	// テクスチャ座標の変更
 	//-------------------------------
-	if (m_CntTime >= nHalfTexTime)
-	{
-		CObject2D::SetTexCIE(0.0f, 0.5f);	//テクスチャ座標の設定
-	}
-	else
-	{
-		CObject2D::SetTexCIE(0.5f, 1.0f);
-	}
+	//if (m_CntTime >= nHalfTexTime)
+	//{
+	//	CObject2D::SetTexCIE(0.0f, 0.5f);	//テクスチャ座標の設定
+	//}
+	//else
+	//{
+	//	CObject2D::SetTexCIE(0.5f, 1.0f);
+	//}
 
 	//-------------------------------
 	// プレイヤーに向かって回転
 	//-------------------------------
-	D3DXVECTOR3 playerPos(CGame::GetPlayer()->GetPosition());
-	D3DXVECTOR2 vec = m_pos - playerPos;
-	m_rot.x = -atan2f(vec.y, vec.x);
+	if (m_targetPos != D3DXVECTOR3(0.0f, 0.0f, 0.0f))
+	{
+		D3DXVECTOR2 vec = m_pos - m_targetPos;
 
-	CObject2D::SetVtxCIE_Rot(m_pos, m_rot, m_fWidth, m_fHeight);
+		float fTargetRot = -atan2f(vec.y, vec.x);
+
+		if (m_rot.x != fTargetRot)
+		{
+			m_rot.x += 0.1f;
+		}
+
+		//角度の正規化
+		if (m_rot.x >= D3DX_PI)
+		{
+			m_rot.x -= D3DX_PI;
+		}
+		else if (m_rot.x <= -D3DX_PI)
+		{
+			m_rot.x += D3DX_PI;
+		}
+
+		CObject2D::SetVtxCIE_Rot(m_pos, m_rot, m_fWidth, m_fHeight);
+	}
 
 	//-------------------------------
 	// 敵の移動
@@ -154,13 +190,13 @@ void CEnemy::Update()
 	//--------------------------
 	// 弾の発射
 	//--------------------------
-	m_nCntShotTime++;
-	m_nCntShotTime %= nShotTime;	//発射時間をリセット
+	//m_nCntShotTime++;
+	//m_nCntShotTime %= nShotTime;	//発射時間をリセット
 
-	if (m_nCntShotTime == 0)
-	{
-		m_EnemyBullet->Create(m_pos, D3DXVECTOR3(-8.0f, 0.0f, 0.0f));
-	}
+	//if (m_nCntShotTime == 0)
+	//{
+	//	m_EnemyBullet->Create(m_pos, D3DXVECTOR3(-8.0f, 0.0f, 0.0f));
+	//}
 
 	//--------------------------
 	// 体力が尽きた

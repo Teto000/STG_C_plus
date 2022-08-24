@@ -27,7 +27,7 @@
 //------------------------
 const float CBullet::fBulletSpeed = 10.0f;			//弾の速度
 const float CBullet::fBulletSpeed_Homing = 1.05f;	//弾の速度(ホーミング)
-const float CBullet::nDefaultSize = 50.0f;			//弾の基本の大きさ
+const float CBullet::nDefaultSize = 30.0f;			//弾の基本の大きさ
 
 int CBullet::m_nChageTime;	//弾のチャージ時間
 int CBullet::m_nCntHorming;	
