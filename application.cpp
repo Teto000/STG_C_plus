@@ -17,12 +17,14 @@
 #include "input_keybord.h"
 #include "input_joypad.h"
 #include "game.h"
+#include "title.h"
 
 //------------------------
 // 静的メンバ変数宣言
 //------------------------
-CGame*				CApplication::m_pGame = nullptr;		//ゲームクラス
-CApplication::MODE	CApplication::m_mode = MODE_MAX;		//ゲームモード
+CTitle*		CApplication::m_pTitle = nullptr;			//タイトルクラス
+CGame*		CApplication::m_pGame = nullptr;			//ゲームクラス
+CApplication::MODE	CApplication::m_mode = MODE_MAX;	//ゲームモード
 
 CRenderer*	CApplication::m_pRenderer = nullptr;	//レンダラー
 CInput*		CApplication::m_pInput = nullptr;	//インプット
@@ -81,6 +83,9 @@ HRESULT CApplication::Init(HINSTANCE hInstance, HWND hWnd)
 //===========================
 void CApplication::Uninit()
 {
+	//オブジェクトの全解放
+	CObject::ReleaseAll();
+
 	//テクスチャの終了
 	if (m_pTexture != nullptr)
 	{
@@ -105,9 +110,6 @@ void CApplication::Uninit()
 		m_pInput = nullptr;
 	}
 
-	//オブジェクトの全解放
-	CObject::ReleaseAll();
-
 	//サウンドの終了
 	/*if (m_pSound != nullptr)
 	{
@@ -129,10 +131,22 @@ void CApplication::Update()
 	//レンダリングの更新
 	m_pRenderer->Update();
 
-	//ゲーム画面の更新処理
-	if(m_mode == MODE_GAME)
+	//モードごとの更新
+	switch (m_mode)
 	{
+	case MODE_TITLE:
+		m_pTitle->Update();
+		break;
+
+	case MODE_GAME:
 		m_pGame->Update();
+		break;
+
+	case MODE_RESULT:
+		break;
+
+	default:
+		break;
 	}
 }
 
@@ -150,11 +164,34 @@ void CApplication::Draw()
 //===========================
 void CApplication::SetMode(MODE mode)
 {
+	//現在のモードを終了
+	/*switch (m_mode)
+	{
+	case MODE_TITLE:
+		m_pTitle->Uninit();
+		break;
+
+	case MODE_GAME:
+		m_pGame->Uninit();
+		break;
+
+	case MODE_RESULT:
+		break;
+
+	default:
+		break;
+	}*/
+
+	//モードの切り替え
 	m_mode = mode;
 
+	//新しいモードの生成
 	switch (m_mode)
 	{
 	case MODE_TITLE:
+		/*m_pTitle = nullptr;
+		m_pTitle = new CTitle;
+		m_pTitle->Init();*/
 		break;
 	
 	case MODE_GAME:

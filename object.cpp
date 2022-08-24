@@ -90,7 +90,7 @@ void CObject::DrawAll()
 //=============================
 int CObject::GetNumAll()
 {
-//	return m_nNumAll;
+	//return m_nNumAll;
 	return 0;
 }
 

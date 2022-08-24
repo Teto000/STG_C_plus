@@ -45,6 +45,7 @@ CBullet::CBullet() : CObject2D()
 	m_fWidth = 0.0f;			//•
 	m_fHeight = 0.0f;			//‚‚³
 	m_type = BULLETSTATE_MAX;	//í—Ş
+	pExplosion = nullptr;		//”š”­
 }
 
 //===========================
@@ -154,7 +155,7 @@ void CBullet::Update()
 	//õ–½‚ªs‚«‚½
 	if (m_nLife <= 0.0f)
 	{
-		CExplosion::Create(m_pos);//”š”­‚Ì¶¬
+		//pExplosion->Create(m_pos);//”š”­‚Ì¶¬
 		Uninit();
 		return;
 	}

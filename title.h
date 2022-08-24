@@ -1,11 +1,11 @@
 //=====================================
 //
-// ゲームヘッダー
+// タイトルヘッダー
 // Author : Sato Teruto
 //
 //=====================================
-#ifndef _GAME_H_
-#define _GAME_H_	
+#ifndef _TITLE_H_
+#define _TITLE_H_	
 
 //--------------------
 // インクルード
@@ -15,19 +15,19 @@
 //-----------------------
 // 前方宣言
 //-----------------------
-class CPlayer;	//プレイヤー
-class CEnemy;	//敵
-class CScore;	//スコア
-class CBg;		//背景
+class CPlayer;		//プレイヤー
+class CEnemy;		//敵
+class CScore;		//スコア
+class CBg;			//背景
 
 //-------------------------
-// ゲームクラスの定義
+// タイトルクラスの定義
 //-------------------------
-class CGame
+class CTitle
 {
 public:
-	CGame();	//コンストラクタ
-	~CGame();	//デストラクタ
+	CTitle();	//コンストラクタ
+	~CTitle();	//デストラクタ
 
 	//------------------
 	// メンバ関数
@@ -39,23 +39,13 @@ public:
 	//------------------
 	// 静的メンバ関数
 	//------------------
-	static CPlayer	*GetPlayer();	//プレイヤーの取得
-	static CScore	*GetScore();	//スコアの取得
 	static CBg		*GetBG();		//背景の取得
 
 private:
 	//------------------
-	// メンバ変数
-	//------------------
-	int m_EnemyCnt;
-
-	//------------------
 	// 静的メンバ変数
 	//------------------
-	static CPlayer	*m_pPlayer;		//プレイヤークラス
-	static CEnemy	*m_pEnemy;		//敵クラス
-	static CScore	*m_pScore;		//スコアクラス
-	static CBg		*m_pBG;			//背景クラス
+	static CBg			*m_pBG;			//背景クラス
 };
 
-#endif // !_APPLICATION_H_
+#endif

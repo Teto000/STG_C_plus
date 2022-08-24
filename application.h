@@ -16,6 +16,7 @@
 // 前方宣言
 //-----------------------
 class CGame;		//ゲーム
+class CTitle;		//タイトル
 
 class CRenderer;	//レンダラー
 class CInput;		//インプット
@@ -66,6 +67,7 @@ private:
 	// 静的メンバ変数
 	//------------------
 	static CGame*		m_pGame;		//ゲームクラス
+	static CTitle*		m_pTitle;		//タイトルクラス
 	static MODE			m_mode;			//ゲームモード
 
 	static CRenderer*	m_pRenderer;	//レンダラークラス

@@ -13,6 +13,11 @@
 #include "object2D.h"
 
 //--------------------------
+// 前方宣言
+//--------------------------
+class CExplosion;	//爆発
+
+//--------------------------
 // バレットクラス
 //--------------------------
 class CBullet : public CObject2D
@@ -71,6 +76,7 @@ private:
 	float m_fHeight;		//高さ
 	BULLETSTATE m_type;		//種類
 	D3DXVECTOR3 m_Tirget;	//ホーミング目標の位置
+	CExplosion* pExplosion;	//爆発
 
 	//----------------
 	// 静的メンバ変数

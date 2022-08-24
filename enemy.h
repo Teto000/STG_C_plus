@@ -17,6 +17,7 @@
 //--------------------------
 class CHp;				//HPクラス
 class CEnemyBullet;		//敵の弾クラス
+class CExplosion;		//爆発
 
 //--------------------------
 // エネミークラス
@@ -81,8 +82,9 @@ private:
 	float m_fHeight;			//高さ
 	ENEMYTYPE m_type;			//種類
 
-	CHp* m_Hp;
-	CEnemyBullet* m_EnemyBullet;
+	CHp* m_Hp;					//寿命
+	CEnemyBullet* m_EnemyBullet;//敵の弾
+	CExplosion*	m_pExplosion;	//爆発
 };
 
 #endif // !_PLAYER_H_

@@ -42,6 +42,7 @@ CEnemy::CEnemy() : CObject2D()
 	m_type = ENEMYTYPE_MAX;		//種類
 	m_Hp = nullptr;				//HPバー
 	m_EnemyBullet = nullptr;	//敵の弾
+	m_pExplosion = nullptr;		//爆発
 }
 
 //===========================
@@ -203,8 +204,9 @@ void CEnemy::Update()
 	//--------------------------
 	if (m_nLife <= 0)
 	{
-		CLevel::AddExp(10);		//経験値の取得
-		CScore::AddScore(10);	//スコアの加算
+		CLevel::AddExp(10);				//経験値の取得
+		CScore::AddScore(10);			//スコアの加算
+		m_pExplosion->Create(m_pos);	//爆発の生成
 
 		//敵の消滅
 		Uninit();
