@@ -43,6 +43,7 @@ CEnemy::CEnemy() : CObject2D()
 	m_Hp = nullptr;				//HPƒo[
 	m_EnemyBullet = nullptr;	//“G‚Ì’e
 	m_pExplosion = nullptr;		//”š”­
+	m_pBarrier = nullptr;		//ƒoƒŠƒA
 }
 
 //===========================
@@ -72,6 +73,7 @@ HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 		break;
 
 	default:
+		m_move.x = -3.0f;	//ˆÚ“®—Ê
 		m_fWidth = 100.0f;	//•
 		m_fHeight = 100.0f;	//‚‚³
 		m_nLife = 120;		//‘Ì—Í
@@ -101,7 +103,7 @@ HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 	//--------------------------
 	// ƒoƒŠƒA‚Ì¶¬
 	//--------------------------
-	//CBarrier::Create(m_pos, m_move, m_fWidth, m_fHeight);
+	m_pBarrier->Create(m_pos, m_move, m_fWidth, m_fHeight);
 
 	return S_OK;
 }
@@ -183,19 +185,6 @@ void CEnemy::Update()
 	//-------------------------------
 	// “G‚ÌˆÚ“®
 	//-------------------------------
-	switch (m_type)
-	{
-	case ENEMYTYPE_NORMAL:
-		m_move.x = -3.0f;
-		break;
-
-	case ENEMYTYPE_CURVE:
-		break;
-
-	default:
-		break;
-	}
-
 	CObject2D::AddMove(m_move);
 	m_Hp->SetMove(m_move);
 

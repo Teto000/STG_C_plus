@@ -18,6 +18,7 @@
 class CHp;				//HPクラス
 class CEnemyBullet;		//敵の弾クラス
 class CExplosion;		//爆発
+class CBarrier;			//バリア
 
 //--------------------------
 // エネミークラス
@@ -87,6 +88,7 @@ private:
 	CHp* m_Hp;					//寿命
 	CEnemyBullet* m_EnemyBullet;//敵の弾
 	CExplosion*	m_pExplosion;	//爆発
+	CBarrier*	m_pBarrier;		//バリア
 };
 
 #endif // !_PLAYER_H_

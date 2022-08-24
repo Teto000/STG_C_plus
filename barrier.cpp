@@ -68,11 +68,7 @@ void CBarrier::Update()
 {
 	CObject2D::Update();
 
-	if (CObject2D::GetCollision(OBJTYPE_BULLET))
-	{
-		Uninit();
-		return;
-	}
+	m_pos = CObject2D::AddMove(m_move);
 }
 
 //===========================
