@@ -60,7 +60,7 @@ HRESULT CGame::Init()
 	//ÉXÉRÉAÇÃê∂ê¨
 	m_pScore = CScore::Create();
 
-	m_pEnemy = CEnemy::Create(D3DXVECTOR3(1000.0f, 360.0f, 0.0f), CEnemy::ENEMYTYPE_NORMAL);
+	m_pEnemy = CEnemy::Create(D3DXVECTOR3(1000.0f, 360.0f, 0.0f), CEnemy::ENEMYTYPE_BOSS);
 
 	return S_OK;
 }

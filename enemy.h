@@ -32,7 +32,8 @@ public:
 	{
 		ENEMYTYPE_NORMAL = 0,	//直進する敵
 		ENEMYTYPE_CURVE,		//上下にカーブする敵
-		ENEMYTYPE_MAX,
+		ENEMYTYPE_BOSS,			//ボス敵
+		ENEMYTYPE_MAX
 	};
 
 	CEnemy();			//コンストラクタ

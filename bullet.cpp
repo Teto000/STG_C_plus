@@ -46,6 +46,7 @@ CBullet::CBullet() : CObject2D()
 	m_fHeight = 0.0f;			//高さ
 	m_type = BULLETSTATE_MAX;	//種類
 	pExplosion = nullptr;		//爆発
+	pDamage = nullptr;			//ダメージ
 }
 
 //===========================
@@ -307,9 +308,7 @@ void CBullet::CollisionBullet()
 			pEnemy->SubLife(PlayerAttack);	//敵の体力の減少
 		}
 
-		CExplosion::Create(m_pos);	//爆発の生成
-
-		CDamage::Create(m_pos, 20.0f, 30.0f, 20.0f, 2, PlayerAttack);	//ダメージの表示
+		pDamage->Create(m_pos, 20.0f, 30.0f, 20.0f, 2, PlayerAttack);	//ダメージの表示
 
 		//弾の消滅
 		Uninit();

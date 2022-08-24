@@ -60,13 +60,24 @@ HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 {
 	//ˆÊ’u‚Ìİ’è
 	m_pos = pos;		//ˆÊ’u
-	m_fWidth = 100.0f;	//•
-	m_fHeight = 100.0f;	//‚‚³
-	m_nLife = 120;		//‘Ì—Í
-	m_nMaxLife = 120;	//Å‘å‘Ì—Í
 	m_nRemLife = 100;	//c‚è‘Ì—Í
 
-	//m_move = D3DXVECTOR3(-4.0f, 0.0f, 0.0f);
+	switch (m_type)
+	{
+	case ENEMYTYPE_BOSS:
+		m_fWidth = 250.0f;	//•
+		m_fHeight = 350.0f;	//‚‚³
+		m_nLife = 1000;		//‘Ì—Í
+		m_nMaxLife = 1000;	//Å‘å‘Ì—Í
+		break;
+
+	default:
+		m_fWidth = 100.0f;	//•
+		m_fHeight = 100.0f;	//‚‚³
+		m_nLife = 120;		//‘Ì—Í
+		m_nMaxLife = 120;	//Å‘å‘Ì—Í
+		break;
+	}
 
 	CObject2D::Init(m_pos);
 

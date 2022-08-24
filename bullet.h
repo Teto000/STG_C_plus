@@ -16,6 +16,7 @@
 // 前方宣言
 //--------------------------
 class CExplosion;	//爆発
+class CDamage;		//ダメージ
 
 //--------------------------
 // バレットクラス
@@ -77,6 +78,7 @@ private:
 	BULLETSTATE m_type;		//種類
 	D3DXVECTOR3 m_Tirget;	//ホーミング目標の位置
 	CExplosion* pExplosion;	//爆発
+	CDamage*	pDamage;	//ダメージ
 
 	//----------------
 	// 静的メンバ変数

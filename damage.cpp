@@ -23,7 +23,10 @@ int CDamage::m_nNum = 0;
 //===========================
 CDamage::CDamage() : CObject2D()
 {
-	m_pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	//位置
+	m_pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		//位置
+	m_move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		//移動量
+	m_col = D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f);	//色
+	m_nLife = 0;
 	m_nDigit = 0;			//桁数
 	m_fWidth = 0.0f;		//幅
 	m_fHeight = 0.0f;		//高さ
@@ -46,6 +49,8 @@ HRESULT CDamage::Init(D3DXVECTOR3 pos)
 {
 	//構造体の初期化
 	m_pos = pos;
+	m_col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+	m_nLife = 70;
 
 	CObject2D::Init(m_pos);
 
@@ -92,16 +97,40 @@ void CDamage::Update()
 		m_nNum++;
 	}
 
-	//縦に縮小
-	m_fHeight -= 1.5f;
+	//---------------------
+	// 寿命の減少
+	//---------------------
+	m_nLife--;
 
-	CObject2D::SetSize(m_fWidth, m_fHeight);
-
-	if (m_fHeight <= 0)
-	{//高さが無くなったら
+	if (m_nLife <= 0)
+	{
 		Uninit();
 		return;
 	}
+
+	if (m_nLife <= 55)
+	{
+		//---------------------
+		// ダメージ表記の移動
+		//---------------------
+		m_move = D3DXVECTOR3(0.0f, -2.0f, 0.0f);
+		m_pos = CObject2D::AddMove(m_move);
+
+		CObject2D::SetSize(m_fWidth, m_fHeight);
+
+		//---------------------
+		// 透明にする
+		//---------------------
+		m_col.a -= 0.05f;
+		CObject2D::SetColor(m_col);
+
+		if (m_col.a <= 0.0f)
+		{
+			Uninit();
+			return;
+		}
+	}
+	
 }
 
 //===========================

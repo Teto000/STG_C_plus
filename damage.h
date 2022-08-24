@@ -45,7 +45,10 @@ private:
 	// ƒƒ“ƒo•Ï”
 	//----------------
 	D3DXVECTOR3 m_pos;	//ˆÊ’u
+	D3DXVECTOR3 m_move;	//ˆÚ“®—Ê
+	D3DXCOLOR	m_col;	//F
 	int m_nDigit;		//Œ…”
+	int m_nLife;		//õ–½
 	float m_fWidth;		//•
 	float m_fHeight;	//‚‚³
 	float m_fSpace;		//ŠÔŠu
