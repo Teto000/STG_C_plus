@@ -113,8 +113,8 @@ void CDamage::Update()
 		//---------------------
 		// ダメージ表記の移動
 		//---------------------
-		m_move = D3DXVECTOR3(0.0f, -2.0f, 0.0f);
-		m_pos = CObject2D::AddMove(m_move);
+		/*m_move = D3DXVECTOR3(0.0f, -2.0f, 0.0f);
+		m_pos = CObject2D::AddMove(m_move);*/
 
 		CObject2D::SetSize(m_fWidth, m_fHeight);
 

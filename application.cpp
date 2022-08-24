@@ -73,7 +73,7 @@ HRESULT CApplication::Init(HINSTANCE hInstance, HWND hWnd)
 	//m_pSound->Init(hWnd);
 
 	//モードの設定
-	SetMode(MODE_GAME);
+	SetMode(MODE_TITLE);
 
 	return S_OK;
 }
@@ -165,7 +165,7 @@ void CApplication::Draw()
 void CApplication::SetMode(MODE mode)
 {
 	//現在のモードを終了
-	/*switch (m_mode)
+	switch (m_mode)
 	{
 	case MODE_TITLE:
 		m_pTitle->Uninit();
@@ -180,7 +180,7 @@ void CApplication::SetMode(MODE mode)
 
 	default:
 		break;
-	}*/
+	}
 
 	//モードの切り替え
 	m_mode = mode;
@@ -189,9 +189,9 @@ void CApplication::SetMode(MODE mode)
 	switch (m_mode)
 	{
 	case MODE_TITLE:
-		/*m_pTitle = nullptr;
+		m_pTitle = nullptr;
 		m_pTitle = new CTitle;
-		m_pTitle->Init();*/
+		m_pTitle->Init();
 		break;
 	
 	case MODE_GAME:

@@ -54,7 +54,7 @@ HRESULT CTitle::Init()
 void CTitle::Uninit()
 {
 	//オブジェクトの全解放
-	CObject::ReleaseAll();
+	//CObject::ReleaseAll();
 }
 
 //===========================

@@ -67,8 +67,8 @@ HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 	case ENEMYTYPE_BOSS:
 		m_fWidth = 250.0f;	//ïù
 		m_fHeight = 350.0f;	//çÇÇ≥
-		m_nLife = 1000;		//ëÃóÕ
-		m_nMaxLife = 1000;	//ç≈ëÂëÃóÕ
+		m_nLife = 3000;		//ëÃóÕ
+		m_nMaxLife = 3000;	//ç≈ëÂëÃóÕ
 		break;
 
 	default:
@@ -186,11 +186,11 @@ void CEnemy::Update()
 	switch (m_type)
 	{
 	case ENEMYTYPE_NORMAL:
-		//m_move.x = -3.0f;
+		m_move.x = -3.0f;
 		break;
 
 	case ENEMYTYPE_CURVE:
-		m_move.x = sinf(D3DX_PI * m_move.x);
+		break;
 
 	default:
 		break;
@@ -198,6 +198,19 @@ void CEnemy::Update()
 
 	CObject2D::AddMove(m_move);
 	m_Hp->SetMove(m_move);
+
+	//--------------------------
+	// ìGÇÃçUåÇ
+	//--------------------------
+	switch (m_type)
+	{
+	case ENEMYTYPE_BOSS:
+		BossAttack();
+		break;
+
+	default:
+		break;
+	}
 
 	//--------------------------
 	// íeÇÃî≠éÀ
@@ -270,6 +283,22 @@ void CEnemy::SubLife(int nLife)
 
 	//HPå∏è≠éûÇÃèàóù
 	m_Hp->SetLife(m_nLife, m_nRemLife);
+}
+
+//===========================
+// É{ÉXÇÃçUåÇ
+//===========================
+void CEnemy::BossAttack()
+{
+	if (CInputKeyboard::Trigger(DIK_M))
+	{
+		for (int i = 0; i < 5; i++)
+		{
+			D3DXVECTOR3 pos(300.0f + (i * 200.0f), 0.0f - (i * 50.0f), 0.0f);
+			D3DXVECTOR3 move(-5.0f, 9.0f, 0.0f);
+			m_EnemyBullet->Create(pos, move);
+		}
+	}
 }
 
 //===========================

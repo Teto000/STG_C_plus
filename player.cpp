@@ -142,7 +142,7 @@ void CPlayer::Update()
 		int nLevel = m_Level->GetLevel();	//レベルの取得
 		m_Bullet->ShotBullet(m_pos, nLevel, m_nCntShotTime);	//弾の発射
 	}
-	/**/
+
 	//--------------------------
 	// スキルの発動
 	//--------------------------
@@ -275,6 +275,12 @@ void CPlayer::SetSkill()
 		{//それ以外なら
 			m_nLife += 30;	//体力を回復
 		}
+
+		//残り体力を計算
+		m_nRemLife = m_nLife * 100 / m_nMaxLife;
+
+		//HP減少時の処理
+		m_Hp->SetLife(m_nLife, m_nRemLife);
 	}
 
 	//-----------------------

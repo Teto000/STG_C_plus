@@ -48,6 +48,7 @@ public:
 	void Draw(void) override;
 
 	void SubLife(int nLife);	//体力の減少
+	void BossAttack();			//ボスの攻撃
 
 	//ゲッター
 	int GetLife();
