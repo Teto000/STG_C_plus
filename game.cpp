@@ -70,8 +70,7 @@ HRESULT CGame::Init()
 //===========================
 void CGame::Uninit()
 {
-	//オブジェクトの全解放
-	CObject::ReleaseAll();
+
 }
 
 //===========================

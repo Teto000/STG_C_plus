@@ -63,6 +63,7 @@ void CBg::Uninit()
 	if (m_pObject2D != nullptr)
 	{
 		m_pObject2D->Uninit();
+		m_pObject2D = nullptr;
 	}
 }
 

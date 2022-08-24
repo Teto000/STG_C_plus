@@ -182,6 +182,9 @@ void CApplication::SetMode(MODE mode)
 		break;
 	}
 
+	//オブジェクトの全解放
+	CObject::ReleaseAll();
+
 	//モードの切り替え
 	m_mode = mode;
 
