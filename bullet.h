@@ -61,7 +61,7 @@ private:
 	// 定数定義
 	//----------------
 	static const int nMaxHoming = 3;		//ホーミング弾発射の最大数
-	static const int nDefaultLife = 50;		//弾の寿命の基準値
+	static const int nDefaultLife = 80;		//弾の寿命の基準値
 	static const float fBulletSpeed;		//弾の速度
 	static const float fBulletSpeed_Homing;	//弾の速度
 	static const float nDefaultSize;		//弾の大きさの基準値

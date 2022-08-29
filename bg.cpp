@@ -40,19 +40,21 @@ CBg::~CBg()
 HRESULT CBg::Init(D3DXVECTOR3 pos)
 {
 	m_pos = pos;
-	m_fWidth = SCREEN_WIDTH;
-	m_fHeight = SCREEN_HEIGHT;
 
 	if (m_pObject2D != nullptr)
 	{
 		m_pObject2D->Init(m_pos);
-
-		m_pObject2D->SetSize(m_fWidth, m_fHeight);
+		m_fWidth = SCREEN_WIDTH / 2;
+		m_fHeight = SCREEN_HEIGHT - 150.0f;
+		m_pObject2D->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.2f));
 
 		switch (m_type)
 		{
 		case BGTYPE_NORMAL:
 			m_pObject2D->SetTexture(CTexture::TEXTURE_BG);	//テクスチャの設定
+			m_fWidth = SCREEN_WIDTH;
+			m_fHeight = SCREEN_HEIGHT;
+			m_pObject2D->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
 			break;
 
 		case BGTYPE_FIELD_PLAYER:
@@ -66,6 +68,8 @@ HRESULT CBg::Init(D3DXVECTOR3 pos)
 		default:
 			break;
 		}
+
+		m_pObject2D->SetSize(m_fWidth, m_fHeight);
 	}
 
 	return S_OK;
@@ -91,6 +95,21 @@ void CBg::Update()
 	if (m_pObject2D != nullptr)
 	{
 		m_pObject2D->Update();
+
+		if (m_type == BGTYPE_FIELD_PLAYER && m_pObject2D->GetCollision(OBJTYPE_ENEMY))
+		{
+			m_fWidth--;
+			m_pos.x -= 0.5f;
+
+			if (m_type == BGTYPE_FIELD_ENEMY)
+			{
+				m_fWidth++;
+				m_pos.x -= 0.5f;
+			}
+		}
+
+		m_pObject2D->SetSize(m_fWidth, m_fHeight);
+		m_pObject2D->SetPosition(m_pos);
 	}
 }
 

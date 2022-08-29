@@ -73,7 +73,10 @@ void CHp::Update()
 	//-------------------
 	// ˆÚ“®
 	//-------------------
-	m_pos = CObject2D::AddMove(m_move);
+	if (m_pos.x >= 900.0f)
+	{
+		m_pos = CObject2D::AddMove(m_move);
+	}
 
 	//HPŒ¸­‚Ìˆ—
 	SubHP();

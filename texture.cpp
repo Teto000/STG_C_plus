@@ -30,8 +30,8 @@ const char* CTexture::s_FileName[] =
 	"data/TEXTURE/Barrier.png",				//バリア
 	"data/TEXTURE/Exp.png",					//経験値
 	"data/TEXTURE/Level.png",				//レベル
-	"data/TEXTURE/Field_Player",			//自陣
-	"data/TEXTURE/Field_Enemy",				//敵陣
+	"data/TEXTURE/Field_Player.png",		//自陣
+	"data/TEXTURE/Field_Enemy.png",			//敵陣
 
 	/* ↓ スキル ↓*/
 	"data/TEXTURE/Skill/HPheal.png",		//スキル(体力回復)

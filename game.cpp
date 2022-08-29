@@ -34,6 +34,7 @@ CBg		  *CGame::m_pBG = nullptr;		//îwåi
 CGame::CGame()
 {
 	m_EnemyCnt = 0;
+	m_nTime = 0;
 }
 
 //===========================
@@ -53,8 +54,9 @@ HRESULT CGame::Init()
 	srand((unsigned int)time(NULL));
 
 	//îwåiÇÃê∂ê¨
-	m_pBG = CBg::Create(D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0.0f)
-						, CBg::BGTYPE_NORMAL);
+	//m_pBG = CBg::Create(D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0.0f), CBg::BGTYPE_NORMAL);
+	//m_pBG = CBg::Create(D3DXVECTOR3(320.0f, SCREEN_HEIGHT / 2 + 70.0f, 0.0f), CBg::BGTYPE_FIELD_PLAYER);
+	//m_pBG = CBg::Create(D3DXVECTOR3(960.0f, SCREEN_HEIGHT / 2 + 70.0f, 0.0f), CBg::BGTYPE_FIELD_ENEMY);
 
 	//ÉvÉåÉCÉÑÅ[ÇÃê∂ê¨
 	m_pPlayer = CPlayer::Create();
@@ -80,16 +82,34 @@ void CGame::Uninit()
 //===========================
 void CGame::Update()
 {
-	m_EnemyCnt++;
+	/*m_EnemyCnt++;
 	m_EnemyCnt %= 80;
 
 	if (m_EnemyCnt == 0)
 	{
-		int nRand = rand() % 520 + 200;
+		int nRand = rand() % 420 + 300;
 
 		//ìGÇÃê∂ê¨
 		m_pEnemy = CEnemy::Create(D3DXVECTOR3(1300, (float)nRand, 0.0f),
 									CEnemy::ENEMYTYPE_NORMAL);
+	}*/
+
+	m_nTime++;
+
+	//wave1
+	if (m_nTime == nOneSecond * 3)
+	{
+		m_pEnemy = CEnemy::Create(D3DXVECTOR3(1300, 360.0f, 0.0f), CEnemy::ENEMYTYPE_NORMAL);
+	}
+	else if (m_nTime == nOneSecond * 7)
+	{
+		m_pEnemy = CEnemy::Create(D3DXVECTOR3(1300, 230.0f, 0.0f), CEnemy::ENEMYTYPE_NORMAL);
+		m_pEnemy = CEnemy::Create(D3DXVECTOR3(1300, 410.0f, 0.0f), CEnemy::ENEMYTYPE_NORMAL);
+		m_pEnemy = CEnemy::Create(D3DXVECTOR3(1300, 590.0f, 0.0f), CEnemy::ENEMYTYPE_NORMAL);
+	}
+	else if (m_nTime == nOneSecond * 12)
+	{
+		m_pEnemy = CEnemy::Create(D3DXVECTOR3(1300, 430.0f, 0.0f), CEnemy::ENEMYTYPE_BIG);
 	}
 }
 

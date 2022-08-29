@@ -44,7 +44,7 @@ HRESULT CFade::Init(CApplication::MODE modeNext)
 
 	CObject2D::Init(D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0.0f));
 
-	CObject2D::SetSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+	CObject2D::SetSize((float)SCREEN_WIDTH, (float)SCREEN_HEIGHT);
 
 	CObject2D::SetColor(m_col);
 
@@ -72,7 +72,7 @@ void CFade::Update()
 	{
 		if (m_fade == FADE_IN)
 		{//フェードイン状態
-			m_col.a -= 0.05f;	//ポリゴンを透明にしていく
+			m_col.a -= 0.02f;	//ポリゴンを透明にしていく
 
 			if (m_col.a <= 0.0f)
 			{
@@ -82,7 +82,7 @@ void CFade::Update()
 		}
 		else if (m_fade == FADE_OUT)
 		{//フェードアウト状態
-			m_col.a += 0.05f;	//ポリゴンを不透明にしていく
+			m_col.a += 0.02f;	//ポリゴンを不透明にしていく
 
 			if (m_col.a >= 1.0f)
 			{

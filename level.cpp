@@ -142,7 +142,7 @@ CLevel *CLevel::Create()
 	if (pLevel != nullptr)
 	{//NULLチェック
 		//初期化
-		pLevel->Init(D3DXVECTOR3(120.0f, 100.0f, 0.0f));
+		pLevel->Init(D3DXVECTOR3(120.0f, 80.0f, 0.0f));
 		pLevel->SetObjType(OBJTYPE_LEVEL);
 	}
 

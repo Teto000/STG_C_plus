@@ -32,7 +32,7 @@ public:
 	enum ENEMYTYPE
 	{
 		ENEMYTYPE_NORMAL = 0,	//直進する敵
-		ENEMYTYPE_CURVE,		//上下にカーブする敵
+		ENEMYTYPE_BIG,			//大きい敵
 		ENEMYTYPE_BOSS,			//ボス敵
 		ENEMYTYPE_MAX
 	};
@@ -48,6 +48,7 @@ public:
 	void Update(void) override;
 	void Draw(void) override;
 
+	void SetLife(int nLife);	//体力の設定
 	void SubLife(int nLife);	//体力の減少
 	void BossAttack();			//ボスの攻撃
 
@@ -83,6 +84,7 @@ private:
 	int m_nCntAttack;			//攻撃タイミングを数える
 	float m_fWidth;				//幅
 	float m_fHeight;			//高さ
+	float m_fTargetRot;			//プレイヤーまでの角度
 	ENEMYTYPE m_type;			//種類
 
 	CHp* m_Hp;					//寿命
