@@ -76,8 +76,8 @@ HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 		m_move.x = -3.0f;	//ˆÚ“®—Ê
 		m_fWidth = 100.0f;	//•
 		m_fHeight = 100.0f;	//‚‚³
-		m_nLife = 120;		//‘Ì—Í
-		m_nMaxLife = 120;	//Å‘å‘Ì—Í
+		m_nLife = 400;		//‘Ì—Í
+		m_nMaxLife = 400;	//Å‘å‘Ì—Í
 		break;
 	}
 
@@ -103,7 +103,7 @@ HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 	//--------------------------
 	// ƒoƒŠƒA‚Ì¶¬
 	//--------------------------
-	m_pBarrier->Create(m_pos, m_move, m_fWidth, m_fHeight);
+	//m_pBarrier->Create(m_pos, m_move, m_fWidth, m_fHeight);
 
 	return S_OK;
 }

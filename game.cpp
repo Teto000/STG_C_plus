@@ -10,6 +10,7 @@
 //------------------------
 #include <time.h>
 #include "game.h"
+#include "renderer.h"
 #include "input.h"
 #include "input_keybord.h"
 #include "input_joypad.h"
@@ -52,7 +53,8 @@ HRESULT CGame::Init()
 	srand((unsigned int)time(NULL));
 
 	//îwåiÇÃê∂ê¨
-	m_pBG = CBg::Create();
+	m_pBG = CBg::Create(D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0.0f)
+						, CBg::BGTYPE_NORMAL);
 
 	//ÉvÉåÉCÉÑÅ[ÇÃê∂ê¨
 	m_pPlayer = CPlayer::Create();

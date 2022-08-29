@@ -31,6 +31,8 @@ public: /* 定義 */
 		TEXTURE_BARRIER,			//バリア
 		TEXTURE_EXP,				//経験値
 		TEXTURE_LEVEL,				//レベル
+		TEXTURE_FIELD_PLAYER,		//自陣
+		TEXTURE_FIELD_ENEMY,		//敵陣
 
 		/* ↓ スキル ↓*/
 		TEXTURE_SKILL_HPHEAL,		//スキル(体力回復)

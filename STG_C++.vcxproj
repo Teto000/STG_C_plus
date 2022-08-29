@@ -163,6 +163,7 @@
     <ClCompile Include="enemybullet.cpp" />
     <ClCompile Include="exp.cpp" />
     <ClCompile Include="explosion.cpp" />
+    <ClCompile Include="fade.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="hp.cpp" />
     <ClCompile Include="input.cpp" />
@@ -191,6 +192,7 @@
     <ClInclude Include="enemybullet.h" />
     <ClInclude Include="exp.h" />
     <ClInclude Include="explosion.h" />
+    <ClInclude Include="fade.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="hp.h" />
     <ClInclude Include="input.h" />

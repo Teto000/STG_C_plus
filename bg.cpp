@@ -49,7 +49,23 @@ HRESULT CBg::Init(D3DXVECTOR3 pos)
 
 		m_pObject2D->SetSize(m_fWidth, m_fHeight);
 
-		m_pObject2D->SetTexture(CTexture::TEXTURE_BG);	//テクスチャの設定
+		switch (m_type)
+		{
+		case BGTYPE_NORMAL:
+			m_pObject2D->SetTexture(CTexture::TEXTURE_BG);	//テクスチャの設定
+			break;
+
+		case BGTYPE_FIELD_PLAYER:
+			m_pObject2D->SetTexture(CTexture::TEXTURE_FIELD_PLAYER);
+			break;
+
+		case BGTYPE_FIELD_ENEMY:
+			m_pObject2D->SetTexture(CTexture::TEXTURE_FIELD_ENEMY);
+			break;
+
+		default:
+			break;
+		}
 	}
 
 	return S_OK;
@@ -92,20 +108,22 @@ void CBg::Draw()
 //===========================
 // 生成
 //===========================
-CBg *CBg::Create()
+CBg *CBg::Create(D3DXVECTOR3 pos, BGTYPE type)
 {
 	CBg *pBG = nullptr;
 
 	//----------------------------------
-	// バレットの生成と初期化
+	// 背景の生成と初期化
 	//----------------------------------
 	pBG = new CBg;	//生成
 	pBG->m_pObject2D = new CObject2D;
 
 	if (pBG != nullptr)
 	{//NULLチェック
+		pBG->m_type = type;
+
 		//初期化
-		pBG->Init(D3DXVECTOR3(SCREEN_WIDTH / 2,SCREEN_HEIGHT / 2,0.0f));
+		pBG->Init(pos);
 		pBG->SetObjType(OBJTYPE_BG);
 	}
 

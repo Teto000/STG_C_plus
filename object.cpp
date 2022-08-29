@@ -29,7 +29,7 @@ CObject::CObject()
 			m_pObject[i] = this;
 			m_nID = i;
 			//m_nNumAll++;
-			m_ObjType = OBJTYPE_INVALID;
+			m_ObjType = OBJTYPE_MAX;
 			break;
 		}
 	}

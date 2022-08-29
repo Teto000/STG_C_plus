@@ -40,8 +40,8 @@ public:
 		OBJTYPE_LEVEL,		//レベル
 		OBJTYPE_EXP,		//経験値
 		OBJTYPE_SKILL,		//スキル
+		OBJTYPE_FADE,		//フェード
 		OBJTYPE_MAX,
-		OBJTYPE_INVALID
 	};
 
 	CObject();			//コンストラクタ

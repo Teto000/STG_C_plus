@@ -8,8 +8,8 @@
 //------------------------
 // インクルード
 //------------------------
-#include <time.h>
 #include "title.h"
+#include "renderer.h"
 #include "input.h"
 #include "input_keybord.h"
 #include "input_joypad.h"
@@ -43,7 +43,8 @@ CTitle::~CTitle()
 HRESULT CTitle::Init()
 {
 	//背景の生成
-	m_pBG->Create();
+	m_pBG->Create(D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0.0f)
+					, CBg::BGTYPE_NORMAL);
 
 	return S_OK;
 }

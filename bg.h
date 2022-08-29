@@ -18,6 +18,14 @@
 class CBg : public CObject
 {
 public:
+	enum BGTYPE
+	{
+		BGTYPE_NORMAL = 0,		//背景
+		BGTYPE_FIELD_PLAYER,	//自陣
+		BGTYPE_FIELD_ENEMY,		//敵陣
+		BGTYPE_FIELD_MAX
+	};
+
 	CBg();				//コンストラクタ
 	~CBg() override;	//デストラクタ
 
@@ -37,7 +45,7 @@ public:
 	//----------------
 	// 静的メンバ関数
 	//----------------
-	static CBg *Create();
+	static CBg *Create(D3DXVECTOR3 pos, BGTYPE type);
 
 private:
 	//----------------
@@ -47,6 +55,7 @@ private:
 	D3DXVECTOR3 m_pos;			//位置
 	float m_fWidth;				//幅
 	float m_fHeight;			//高さ
+	BGTYPE m_type;				//種類
 };
 
 #endif // !_BG_H_

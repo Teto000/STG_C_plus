@@ -18,15 +18,17 @@
 #include "input_joypad.h"
 #include "game.h"
 #include "title.h"
+#include "fade.h"
 
 //------------------------
 // 静的メンバ変数宣言
 //------------------------
-CTitle*		CApplication::m_pTitle = nullptr;			//タイトルクラス
-CGame*		CApplication::m_pGame = nullptr;			//ゲームクラス
+CTitle*		CApplication::m_pTitle = nullptr;	//タイトルクラス
+CGame*		CApplication::m_pGame = nullptr;	//ゲームクラス
+CFade*		CApplication::m_pFade = nullptr;	//フェードクラス
 CApplication::MODE	CApplication::m_mode = MODE_MAX;	//ゲームモード
 
-CRenderer*	CApplication::m_pRenderer = nullptr;	//レンダラー
+CRenderer*	CApplication::m_pRenderer = nullptr;//レンダラー
 CInput*		CApplication::m_pInput = nullptr;	//インプット
 CTexture*	CApplication::m_pTexture = nullptr;	//テクスチャ
 CSound*		CApplication::m_pSound = nullptr;	//サウンド
@@ -148,6 +150,9 @@ void CApplication::Update()
 	default:
 		break;
 	}
+
+	//フェードの更新
+	m_pFade->Update();
 }
 
 //===========================
@@ -157,6 +162,9 @@ void CApplication::Draw()
 {
 	//レンダリングの描画
 	m_pRenderer->Draw();
+
+	//フェードの描画
+	m_pFade->Draw();
 }
 
 //===========================
@@ -209,6 +217,11 @@ void CApplication::SetMode(MODE mode)
 	default:
 		break;
 	}
+
+	//フェードの生成
+	m_pFade = nullptr;
+	m_pFade = new CFade;
+	m_pFade->Init(m_mode);
 }
 
 //===========================
