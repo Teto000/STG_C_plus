@@ -35,18 +35,20 @@ CPlayer::CPlayer() : CObject2D()
 	m_pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		//位置
 	m_move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		//移動量
 	m_rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		//移動量
-	m_nLife = 0;		//体力
-	m_nMaxLife = 0;		//最大体力
-	m_nRemLife = 0;		//残り体力
-	m_nAttack = 0;		//攻撃力
-	m_nShotTime = 0;	//弾の発射時間
-	m_nCntShotTime = 0;	//弾の発射時間を数える
-	m_nSpeed = 0.0f;	//速度
-	m_fWidth = 0.0f;	//幅
-	m_fHeight = 0.0f;	//高さ
-	m_Hp = nullptr;		//HPクラス
-	m_Level = nullptr;	//レベルクラス
-	m_Bullet = nullptr;	//弾クラス
+	m_nLife = 0;				//体力
+	m_nMaxLife = 0;				//最大体力
+	m_nRemLife = 0;				//残り体力
+	m_nAttack = 0;				//攻撃力
+	m_nShotTime = 0;			//弾の発射時間
+	m_nCntShotTime = 0;			//弾の発射時間を数える
+	m_nCntInvincible = 0;		//無敵時間を数える
+	m_nSpeed = 0.0f;			//速度
+	m_fWidth = 0.0f;			//幅
+	m_fHeight = 0.0f;			//高さ
+	m_type = PLAYERSTATE_NORMAL;//状態
+	m_Hp = nullptr;				//HPクラス
+	m_Level = nullptr;			//レベルクラス
+	m_Bullet = nullptr;			//弾クラス
 }
 
 //===========================
@@ -151,15 +153,25 @@ void CPlayer::Update()
 	//------------------------
 	// 敵との当たり判定
 	//------------------------
-	if (CObject2D::GetCollision(OBJTYPE_ENEMY))
-	{
-		m_nLife--;	//プレイヤーの体力の減少
+	if (m_type != PLAYERSTATE_INVINCIBLE && CObject2D::GetCollision(OBJTYPE_ENEMY))
+	{//無敵でない状態 かつ 敵と当たったら
+		m_nLife -= 20;	//プレイヤーの体力の減少
 
 		//残り体力を計算
 		m_nRemLife = m_nLife * 100 / m_nMaxLife;
 
 		//HP減少時の処理
 		m_Hp->SetLife(m_nLife, m_nRemLife);
+
+		m_type = PLAYERSTATE_INVINCIBLE;
+	}
+
+	//----------------------------
+	// 無敵時間
+	//----------------------------
+	if (m_type == PLAYERSTATE_INVINCIBLE)
+	{
+		InvincibleTime();
 	}
 
 	//--------------------------
@@ -291,6 +303,24 @@ void CPlayer::SetSkill()
 		CSkill::Create(CSkill::SKILLTYPE_SPEEDUP_FIRE);
 
 		m_nShotTime = 15;
+	}
+}
+
+//===========================
+// 無敵時間
+//===========================
+void CPlayer::InvincibleTime()
+{
+	m_nCntInvincible++;
+
+	//色の変更
+	m_col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f);
+
+	if (m_nCntInvincible >= 120)
+	{//無敵時間が終わったら
+		m_type = PLAYERSTATE_NORMAL;	//通常の状態に戻す
+		m_col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+		m_nCntInvincible = 0;
 	}
 }
 

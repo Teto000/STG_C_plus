@@ -51,7 +51,6 @@ public:
 
 	void SetLife(int nLife);	//体力の設定
 	void SubLife(int nLife);	//体力の減少
-	void BossAttack();			//ボスの攻撃
 
 	//ゲッター
 	int GetLife();
@@ -62,6 +61,9 @@ public:
 	// 静的メンバ関数
 	//----------------
 	static CEnemy *Create(D3DXVECTOR3 pos, CEnemy::ENEMYTYPE type);
+
+private:
+	void BossAttack();			//ボスの攻撃
 
 private:
 	//----------------

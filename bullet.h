@@ -47,7 +47,6 @@ public:
 	void Update() override;
 	void Draw()	  override;
 
-	void CollisionBullet();
 	D3DXVECTOR3 Homing(float& posX, float& posY, float& moveX, float& moveY);	//ホーミング弾
 
 	//----------------
@@ -55,6 +54,9 @@ public:
 	//----------------
 	static CBullet *Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, BULLETSTATE type);
 	void ShotBullet(D3DXVECTOR3 pos, int nLevel, int nShotTime);
+
+private:
+	void CollisionBullet();	//当たった処理
 
 private:
 	//----------------

@@ -196,10 +196,7 @@ void CEnemy::Update()
 	//-------------------------------
 	// ìGÇÃà⁄ìÆ
 	//-------------------------------
-	if (m_pos.x >= 900.0f)
-	{
-		m_pos = CObject2D::AddMove(m_move);
-	}
+	m_pos = CObject2D::AddMove(m_move);
 
 	//--------------------------
 	// ìGÇÃçUåÇ
@@ -211,6 +208,9 @@ void CEnemy::Update()
 	{
 		switch (m_type)
 		{
+		//----------------------
+		// É{ÉXÇÃçUåÇ
+		//----------------------
 		case ENEMYTYPE_BOSS:
 			BossAttack();
 			break;

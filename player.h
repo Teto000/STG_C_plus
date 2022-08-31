@@ -25,6 +25,13 @@ class CBullet;	//弾クラス
 class CPlayer : public CObject2D
 {
 public:
+	enum PLAYERSTATE
+	{
+		PLAYERSTATE_NORMAL = 0,	//通常
+		PLAYERSTATE_INVINCIBLE,	//無敵
+		PLAYERSTATE_MAX
+	};
+
 	CPlayer();				//コンストラクタ
 	~CPlayer() override;	//デストラクタ
 
@@ -52,6 +59,7 @@ public:
 
 private:
 	D3DXVECTOR3 OperationPlayer();	//操作
+	void InvincibleTime();			//無敵時間
 
 private:
 	//------------------
@@ -64,21 +72,23 @@ private:
 	//------------------
 	// メンバ変数
 	//------------------
-	D3DXVECTOR3 m_pos;	//位置
-	D3DXVECTOR3 m_move;	//移動量
-	D3DXVECTOR3 m_rot;	//移動量
-	int m_nLife;		//体力
-	int m_nMaxLife;		//最大体力
-	int m_nRemLife;		//残り体力
-	int m_nAttack;		//攻撃力
-	int m_nShotTime;	//弾の発射時間
-	int m_nCntShotTime;	//弾の発射時間を数える
-	float m_nSpeed;		//速度
-	float m_fWidth;		//幅
-	float m_fHeight;	//高さ
-	CHp* m_Hp;			//HPクラス
-	CLevel* m_Level;	//レベルクラス
-	CBullet* m_Bullet;	//弾クラス
+	D3DXVECTOR3 m_pos;		//位置
+	D3DXVECTOR3 m_move;		//移動量
+	D3DXVECTOR3 m_rot;		//移動量
+	int m_nLife;			//体力
+	int m_nMaxLife;			//最大体力
+	int m_nRemLife;			//残り体力
+	int m_nAttack;			//攻撃力
+	int m_nShotTime;		//弾の発射時間
+	int m_nCntShotTime;		//弾の発射時間を数える
+	int m_nCntInvincible;	//無敵時間を数える
+	float m_nSpeed;			//速度
+	float m_fWidth;			//幅
+	float m_fHeight;		//高さ
+	PLAYERSTATE m_type;		//状態
+	CHp* m_Hp;				//HPクラス
+	CLevel* m_Level;		//レベルクラス
+	CBullet* m_Bullet;		//弾クラス
 
 	//------------------
 	// 静的メンバ変数
