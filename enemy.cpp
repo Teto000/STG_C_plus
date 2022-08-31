@@ -117,7 +117,7 @@ HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 	//--------------------------
 	// ƒoƒŠƒA‚Ì¶¬
 	//--------------------------
-	//m_pBarrier->Create(m_pos, m_move, m_fWidth, m_fHeight);
+	m_pBarrier->Create(m_pos, m_move, m_fWidth, m_fHeight);
 
 	return S_OK;
 }

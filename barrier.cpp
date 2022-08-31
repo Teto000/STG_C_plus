@@ -42,6 +42,7 @@ HRESULT CBarrier::Init(D3DXVECTOR3 pos)
 {
 	//à íuÇÃê›íË
 	m_pos = pos;	//à íu
+	m_nLife = 100;
 
 	CObject2D::Init(m_pos);
 
@@ -70,6 +71,12 @@ void CBarrier::Update()
 	CObject2D::Update();
 
 	m_pos = CObject2D::AddMove(m_move);
+
+	if (m_nLife <= 0)
+	{
+		Uninit();
+		return;
+	}
 }
 
 //===========================
@@ -110,7 +117,7 @@ CBarrier *CBarrier::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, float fWidth, floa
 //===========================
 // ëÃóÕÇÃå∏è≠
 //===========================
-void CBarrier::SubLife(int nAttack)
+void CBarrier::SubLife()
 {
-	m_nLife -= nAttack;
+	m_nLife -= 10;
 }

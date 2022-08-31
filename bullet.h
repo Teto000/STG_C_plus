@@ -59,7 +59,7 @@ public:
 	void ShotBullet(D3DXVECTOR3 pos, int nLevel, int nShotTime);
 
 private:
-	void CollisionBullet();	//“–‚½‚Á‚½ˆ—
+	void CollisionBullet(CObject::EObjType ObjType);	//“–‚½‚Á‚½ˆ—
 
 private:
 	//----------------

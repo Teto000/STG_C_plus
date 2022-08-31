@@ -170,7 +170,8 @@ void CBullet::Update()
 	//------------------------
 	// 当たった処理
 	//------------------------
-	CollisionBullet();
+	CollisionBullet(OBJTYPE_ENEMY);
+	CollisionBullet(OBJTYPE_BARRIER);
 }
 
 //===========================
@@ -287,38 +288,47 @@ void CBullet::ShotBullet(D3DXVECTOR3 pos, int nLevel, int nShotTime)
 //=======================
 // 当たった時の処理
 //=======================
-void CBullet::CollisionBullet()
+void CBullet::CollisionBullet(CObject::EObjType ObjType)
 {
-	CObject* pHitObject = CObject2D::GetCollision(OBJTYPE_ENEMY);
+	CObject* pHitObject = CObject2D::GetCollision(ObjType);
 	int PlayerAttack = CGame::GetPlayer()->GetAttack();
 
 	if (pHitObject != nullptr)
 	{//敵と当たった
+		if (ObjType == OBJTYPE_ENEMY)
+		{
+			//pObjectをCEnemy型にダウンキャスト
+			CEnemy* pEnemy = (CEnemy*)pHitObject;
 
-		//pObjectをCEnemy型にダウンキャスト
-		CEnemy* pEnemy = (CEnemy*)pHitObject;
+			if (m_type == BULLETTYPE_CHARGE)
+			{//チャージショットなら
+				//ダメージ上昇
+				pEnemy->SubLife(PlayerAttack * 3);	//敵の体力の減少
+			}
+			else
+			{//それ以外なら
+				pEnemy->SubLife(PlayerAttack);	//敵の体力の減少
+			}
 
-		if (m_type == BULLETTYPE_CHARGE)
-		{//チャージショットなら
-		 //ダメージ上昇
-			pEnemy->SubLife(PlayerAttack * 3);	//敵の体力の減少
+			pDamage->Create(m_pos, 20.0f, 30.0f, 20.0f, 2, PlayerAttack);	//ダメージの表示
+
+			//弾の消滅
+			Uninit();
+			return;
 		}
-		else
-		{//それ以外なら
-			pEnemy->SubLife(PlayerAttack);	//敵の体力の減少
+
+		else if (ObjType == OBJTYPE_BARRIER)
+		{
+			//pObjectをCBarrier型にダウンキャスト
+			CBarrier* pBarrier = (CBarrier*)pHitObject;
+
+			//バリアの耐久を削る
+			pBarrier->SubLife();
+
+			//弾の消滅
+			Uninit();
+			return;
 		}
-
-		pDamage->Create(m_pos, 20.0f, 30.0f, 20.0f, 2, PlayerAttack);	//ダメージの表示
-
-		//弾の消滅
-		Uninit();
-		return;
-	}
-	else if (CObject2D::GetCollision(OBJTYPE_BARRIER))
-	{//バリアと当たった
-		//弾の消滅
-		Uninit();
-		return;
 	}
 }
 

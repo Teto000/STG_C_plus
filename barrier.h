@@ -29,7 +29,7 @@ public:
 	void Update() override;
 	void Draw()	  override;
 
-	void SubLife(int nAttack);
+	void SubLife();
 
 	//----------------
 	// Ã“Iƒƒ“ƒoŠÖ”
