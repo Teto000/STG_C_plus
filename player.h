@@ -50,6 +50,7 @@ public:
 	int GetLife();
 	int GetRemLife();
 	int GetAttack();
+	PLAYERSTATE GetState();
 
 	//------------------
 	// Ã“Iƒƒ“ƒoŠÖ”

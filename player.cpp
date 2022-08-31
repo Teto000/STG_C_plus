@@ -369,3 +369,11 @@ int CPlayer::GetAttack()
 {
 	return m_nAttack;
 }
+
+//===========================
+// ƒvƒŒƒCƒ„[‚Ìó‘Ô‚Ìæ“¾
+//===========================
+CPlayer::PLAYERSTATE CPlayer::GetState()
+{
+	return m_type;
+}

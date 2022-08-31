@@ -16,6 +16,7 @@
 #include "damage.h"
 #include "enemy.h"
 #include "player.h"
+#include "game.h"
 
 //===========================
 // コンストラクタ
@@ -77,8 +78,11 @@ void CEnemyBullet::Update()
 	//移動量の加算
 	m_pos = CObject2D::AddMove(m_move);
 
-	//当たった処理
-	CollisionEnemyBullet();
+	if (CGame::GetPlayer()->GetState() != CPlayer::PLAYERSTATE_INVINCIBLE)
+	{//プレイヤーが無敵状態じゃないなら
+		//当たった処理
+		CollisionEnemyBullet();
+	}
 
 
 	//寿命の減少
