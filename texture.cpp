@@ -27,11 +27,11 @@ const char* CTexture::s_FileName[] =
 	"data/TEXTURE/Number.png",				//数字
 	"data/TEXTURE/Effect.jpg",				//エフェクト
 	"data/TEXTURE/BG.png",					//背景
+	"data/TEXTURE/BG_Title.png",			//タイトル画面の背景
+	"data/TEXTURE/BG_Result.png",			//リザルト画面の背景
 	"data/TEXTURE/Barrier.png",				//バリア
 	"data/TEXTURE/Exp.png",					//経験値
 	"data/TEXTURE/Level.png",				//レベル
-	"data/TEXTURE/Field_Player.png",		//自陣
-	"data/TEXTURE/Field_Enemy.png",			//敵陣
 
 	/* ↓ スキル ↓*/
 	"data/TEXTURE/Skill/HPheal.png",		//スキル(体力回復)

@@ -55,9 +55,7 @@ HRESULT CGame::Init()
 	srand((unsigned int)time(NULL));
 
 	//îwåiÇÃê∂ê¨
-	//m_pBG = CBg::Create(D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0.0f), CBg::BGTYPE_NORMAL);
-	//m_pBG = CBg::Create(D3DXVECTOR3(320.0f, SCREEN_HEIGHT / 2 + 70.0f, 0.0f), CBg::BGTYPE_FIELD_PLAYER);
-	//m_pBG = CBg::Create(D3DXVECTOR3(960.0f, SCREEN_HEIGHT / 2 + 70.0f, 0.0f), CBg::BGTYPE_FIELD_ENEMY);
+	m_pBG = CBg::Create(D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0.0f), CBg::BGTYPE_GAME);
 
 	//ÉvÉåÉCÉÑÅ[ÇÃê∂ê¨
 	m_pPlayer = CPlayer::Create();

@@ -28,11 +28,11 @@ public: /* 定義 */
 		TEXTURE_NUMBER,				//数字
 		TEXTURE_EFFECT,				//エフェクト
 		TEXTURE_BG,					//背景
+		TEXTURE_BG_TITLE,			//タイトル画面の背景
+		TEXTURE_BG_RESULT,			//リザルト画面の背景
 		TEXTURE_BARRIER,			//バリア
 		TEXTURE_EXP,				//経験値
 		TEXTURE_LEVEL,				//レベル
-		TEXTURE_FIELD_PLAYER,		//自陣
-		TEXTURE_FIELD_ENEMY,		//敵陣
 
 		/* ↓ スキル ↓*/
 		TEXTURE_SKILL_HPHEAL,		//スキル(体力回復)

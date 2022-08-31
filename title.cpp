@@ -44,7 +44,7 @@ HRESULT CTitle::Init()
 {
 	//”wŒi‚Ì¶¬
 	m_pBG->Create(D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0.0f)
-					, CBg::BGTYPE_NORMAL);
+					, CBg::BGTYPE_TITLE);
 
 	return S_OK;
 }

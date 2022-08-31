@@ -20,10 +20,10 @@ class CBg : public CObject
 public:
 	enum BGTYPE
 	{
-		BGTYPE_NORMAL = 0,		//背景
-		BGTYPE_FIELD_PLAYER,	//自陣
-		BGTYPE_FIELD_ENEMY,		//敵陣
-		BGTYPE_FIELD_MAX
+		BGTYPE_GAME = 0,	//ゲーム画面
+		BGTYPE_TITLE,		//タイトル画面
+		BGTYPE_RESULT,		//リザルト画面
+		BGTYPE_MAX
 	};
 
 	CBg();				//コンストラクタ
