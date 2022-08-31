@@ -11,6 +11,7 @@
 #include <time.h>
 #include "game.h"
 #include "renderer.h"
+#include "application.h"
 #include "input.h"
 #include "input_keybord.h"
 #include "input_joypad.h"
@@ -110,6 +111,12 @@ void CGame::Update()
 	else if (m_nTime == nOneSecond * 12)
 	{
 		m_pEnemy = CEnemy::Create(D3DXVECTOR3(1300, 430.0f, 0.0f), CEnemy::ENEMYTYPE_BIG);
+	}
+
+	//‰æ–Ê‘JˆÚ
+	if (CInputKeyboard::Trigger(DIK_RETURN))
+	{
+		CApplication::SetMode(CApplication::MODE_RESULT);
 	}
 }
 

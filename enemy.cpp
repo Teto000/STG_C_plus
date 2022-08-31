@@ -165,29 +165,29 @@ void CEnemy::Update()
 	//-------------------------------
 	// ƒvƒŒƒCƒ„[‚ÉŒü‚©‚Á‚Ä‰ñ“]
 	//-------------------------------
-	//if (m_targetPos != D3DXVECTOR3(0.0f, 0.0f, 0.0f))
-	//{
-	//	D3DXVECTOR2 vec = m_pos - m_targetPos;
+	/*if (m_targetPos != D3DXVECTOR3(0.0f, 0.0f, 0.0f))
+	{
+		D3DXVECTOR2 vec = m_pos - m_targetPos;
 
-	//	m_fTargetRot = -atan2f(vec.y, vec.x);
+		m_fTargetRot = -atan2f(vec.y, vec.x);
 
-	//	if (m_rot.x != m_fTargetRot)
-	//	{
-	//		m_rot.x += 0.1f;
-	//	}
+		if (m_rot.x != m_fTargetRot)
+		{
+			m_rot.x += 0.1f;
+		}
 
-	//	//Šp“x‚Ì³‹K‰»
-	//	if (m_rot.x >= D3DX_PI)
-	//	{
-	//		m_rot.x -= D3DX_PI;
-	//	}
-	//	else if (m_rot.x <= -D3DX_PI)
-	//	{
-	//		m_rot.x += D3DX_PI;
-	//	}
+		//Šp“x‚Ì³‹K‰»
+		if (m_rot.x >= D3DX_PI)
+		{
+			m_rot.x -= D3DX_PI;
+		}
+		else if (m_rot.x <= -D3DX_PI)
+		{
+			m_rot.x += D3DX_PI;
+		}
 
-	//	CObject2D::SetVtxCIE_Rot(m_pos, m_rot, m_fWidth, m_fHeight);
-	//}
+		CObject2D::SetVtxCIE_Rot(m_pos, m_rot, m_fWidth, m_fHeight);
+	}*/
 
 	//-------------------------------
 	// “G‚ÌˆÚ“®
@@ -212,11 +212,14 @@ void CEnemy::Update()
 			break;
 
 		case ENEMYTYPE_BIG:
-
 			for (int i = 0; i < 5; i++)
 			{
-				m_EnemyBullet->Create(m_pos, D3DXVECTOR3(-vec.x * 4.0f, -vec.y * (i - 1), 0.0f));
+				m_EnemyBullet->Create(m_pos, D3DXVECTOR3(-vec.x * 4.0f, -vec.y * (i + 1), 0.0f));
 			}
+			break;
+
+		case ENEMYTYPE_HORMING:
+
 			break;
 
 		default:

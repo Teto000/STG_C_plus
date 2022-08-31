@@ -17,6 +17,7 @@
 //-----------------------
 class CGame;		//ゲーム
 class CTitle;		//タイトル
+class CResult;		//リザルト
 class CFade;		//フェード
 
 class CRenderer;	//レンダラー
@@ -70,6 +71,7 @@ private:
 	//------------------
 	static CGame*		m_pGame;		//ゲームクラス
 	static CTitle*		m_pTitle;		//タイトルクラス
+	static CResult*		m_pResult;		//リザルトクラス
 	static CFade*		m_pFade;		//フェードクラス
 	static MODE			m_mode;			//ゲームモード
 

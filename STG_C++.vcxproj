@@ -176,6 +176,7 @@
     <ClCompile Include="object2D.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="renderer.cpp" />
+    <ClCompile Include="result.cpp" />
     <ClCompile Include="score.cpp" />
     <ClCompile Include="skill.cpp" />
     <ClCompile Include="sound.cpp" />
@@ -205,6 +206,7 @@
     <ClInclude Include="object2D.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="renderer.h" />
+    <ClInclude Include="result.h" />
     <ClInclude Include="score.h" />
     <ClInclude Include="skill.h" />
     <ClInclude Include="sound.h" />

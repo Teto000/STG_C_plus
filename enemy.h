@@ -33,6 +33,7 @@ public:
 	{
 		ENEMYTYPE_NORMAL = 0,	//直進する敵
 		ENEMYTYPE_BIG,			//大きい敵
+		ENEMYTYPE_HORMING,		//ホーミングしてくる敵
 		ENEMYTYPE_BOSS,			//ボス敵
 		ENEMYTYPE_MAX
 	};

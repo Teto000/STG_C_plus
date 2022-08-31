@@ -47,7 +47,7 @@ CLevel::~CLevel()
 HRESULT CLevel::Init(D3DXVECTOR3 pos)
 {
 	m_pos = pos;
-	m_fLength = 100;	//幅
+	m_fLength = 80;		//幅
 	m_nLevel = 1;		//レベル
 
 	CObject2D::Init(m_pos);
@@ -142,7 +142,7 @@ CLevel *CLevel::Create()
 	if (pLevel != nullptr)
 	{//NULLチェック
 		//初期化
-		pLevel->Init(D3DXVECTOR3(120.0f, 80.0f, 0.0f));
+		pLevel->Init(D3DXVECTOR3(120.0f, 75.0f, 0.0f));
 		pLevel->SetObjType(OBJTYPE_LEVEL);
 	}
 

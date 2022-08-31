@@ -120,6 +120,9 @@
     <ClCompile Include="fade.cpp">
       <Filter>ソース ファイル\Application\Object</Filter>
     </ClCompile>
+    <ClCompile Include="result.cpp">
+      <Filter>ソース ファイル\Application</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -202,6 +205,9 @@
     </ClInclude>
     <ClInclude Include="fade.h">
       <Filter>ヘッダー ファイル\Application\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="result.h">
+      <Filter>ヘッダー ファイル\Application</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
