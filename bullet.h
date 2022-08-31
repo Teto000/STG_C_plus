@@ -27,14 +27,14 @@ public:
 	//---------------------------
 	// 弾の列挙型の定義
 	//---------------------------
-	typedef enum
+	enum BULLETTYPE
 	{
-		BULLETSTATE_NORMAL = 0,
-		BULLETSTATE_HORMING,
-		BULLETSTATE_CHARGE,
-		BULLETSTATE_OPTION,
-		BULLETSTATE_MAX
-	}BULLETSTATE;
+		BULLETTYPE_NORMAL = 0,
+		BULLETTYPE_HORMING,
+		BULLETTYPE_CHARGE,
+		BULLETTYPE_OPTION,
+		BULLETTYPE_MAX
+	};
 
 	CBullet();				//コンストラクタ
 	~CBullet() override;	//デストラクタ
@@ -48,11 +48,14 @@ public:
 	void Draw()	  override;
 
 	D3DXVECTOR3 Homing(float& posX, float& posY, float& moveX, float& moveY);	//ホーミング弾
+	
+	//ゲッター
+	BULLETTYPE GetType();
 
 	//----------------
 	// 静的メンバ関数
 	//----------------
-	static CBullet *Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, BULLETSTATE type);
+	static CBullet *Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, BULLETTYPE type);
 	void ShotBullet(D3DXVECTOR3 pos, int nLevel, int nShotTime);
 
 private:
@@ -77,7 +80,7 @@ private:
 	int m_nLife;			//寿命
 	float m_fWidth;			//幅
 	float m_fHeight;		//高さ
-	BULLETSTATE m_type;		//種類
+	BULLETTYPE m_type;		//種類
 	D3DXVECTOR3 m_Tirget;	//ホーミング目標の位置
 	CExplosion* pExplosion;	//爆発
 	CDamage*	pDamage;	//ダメージ

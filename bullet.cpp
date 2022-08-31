@@ -44,7 +44,7 @@ CBullet::CBullet() : CObject2D()
 	m_nLife = 0;				//寿命
 	m_fWidth = 0.0f;			//幅
 	m_fHeight = 0.0f;			//高さ
-	m_type = BULLETSTATE_MAX;	//種類
+	m_type = BULLETTYPE_MAX;	//種類
 	pExplosion = nullptr;		//爆発
 	pDamage = nullptr;			//ダメージ
 }
@@ -75,16 +75,16 @@ HRESULT CBullet::Init(D3DXVECTOR3 pos)
 	//----------------------------
 	// 種類別の情報の設定
 	//----------------------------
-	if (m_type == BULLETSTATE_CHARGE)
+	if (m_type == BULLETTYPE_CHARGE)
 	{//チャージショットなら
 		m_fWidth *= 1.5f;
 		m_fHeight *= 1.5f;
 	}
-	else if (m_type == BULLETSTATE_HORMING)
+	else if (m_type == BULLETTYPE_HORMING)
 	{//ホーミング弾なら
 		m_nLife *= 2;
 	}
-	else if (m_type == BULLETSTATE_OPTION)
+	else if (m_type == BULLETTYPE_OPTION)
 	{
 		m_fWidth *= 0.7f;
 		m_fHeight *= 0.7f;
@@ -120,7 +120,7 @@ void CBullet::Update()
 	//----------------------
 	// ホーミング弾なら
 	//----------------------
-	case BULLETSTATE_HORMING:
+	case BULLETTYPE_HORMING:
 		m_Tirget = CObject2D::GetTargetPos();	//敵の位置の取得
 
 		if (m_Tirget.x == 0.0f, m_Tirget.y == 0.0f)
@@ -184,7 +184,7 @@ void CBullet::Draw()
 //===========================
 // 生成
 //===========================
-CBullet *CBullet::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, BULLETSTATE type)
+CBullet *CBullet::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, BULLETTYPE type)
 {
 	CBullet *pBullet = nullptr;
 
@@ -221,7 +221,7 @@ void CBullet::ShotBullet(D3DXVECTOR3 pos, int nLevel, int nShotTime)
 		if (nLevel <= 2)
 		{//レベル2以下なら
 			//右側に弾を発射する
-			Create(pos, D3DXVECTOR3(fBulletSpeed, 0.0f, 0.0f), BULLETSTATE_NORMAL);
+			Create(pos, D3DXVECTOR3(fBulletSpeed, 0.0f, 0.0f), BULLETTYPE_NORMAL);
 		}
 
 		if (nLevel == 2)
@@ -230,8 +230,8 @@ void CBullet::ShotBullet(D3DXVECTOR3 pos, int nLevel, int nShotTime)
 			D3DXVECTOR3 secondPos(pos.x, pos.y + 20.0f, pos.z);
 
 			//小さい弾を左右に発射する
-			Create(firstPos, D3DXVECTOR3(fBulletSpeed, -1.5f, 0.0f), BULLETSTATE_OPTION);
-			Create(secondPos, D3DXVECTOR3(fBulletSpeed, 1.5f, 0.0f), BULLETSTATE_OPTION);
+			Create(firstPos, D3DXVECTOR3(fBulletSpeed, -1.5f, 0.0f), BULLETTYPE_OPTION);
+			Create(secondPos, D3DXVECTOR3(fBulletSpeed, 1.5f, 0.0f), BULLETTYPE_OPTION);
 		}
 		else if (nLevel >= 3)
 		{//レベル3なら
@@ -239,14 +239,14 @@ void CBullet::ShotBullet(D3DXVECTOR3 pos, int nLevel, int nShotTime)
 			D3DXVECTOR3 secondPos(pos.x, pos.y + 40.0f, pos.z);
 
 			//弾を2発に増やす
-			Create(firstPos, D3DXVECTOR3(fBulletSpeed, 0.0f, 0.0f), BULLETSTATE_NORMAL);
-			Create(secondPos, D3DXVECTOR3(fBulletSpeed, 0.0f, 0.0f), BULLETSTATE_NORMAL);
+			Create(firstPos, D3DXVECTOR3(fBulletSpeed, 0.0f, 0.0f), BULLETTYPE_NORMAL);
+			Create(secondPos, D3DXVECTOR3(fBulletSpeed, 0.0f, 0.0f), BULLETTYPE_NORMAL);
 		}
 
 		if (nLevel >= 4 && m_nCntHorming >= 3)
 		{//レベル4なら
 			D3DXVECTOR3 Pos(pos.x - 40.0f, pos.y - 40.0f, pos.z);
-			Create(Pos, D3DXVECTOR3(-2.0f , -2.0f, 0.0f), BULLETSTATE_HORMING);
+			Create(Pos, D3DXVECTOR3(-2.0f , -2.0f, 0.0f), BULLETTYPE_HORMING);
 			m_nCntHorming = 0;
 		}
 
@@ -268,11 +268,11 @@ void CBullet::ShotBullet(D3DXVECTOR3 pos, int nLevel, int nShotTime)
 
 	if (CInputKeyboard::Release(DIK_SPACE) && m_nChageTime >= 40)
 	{//SPACEキーを離したとき かつ チャージ状態なら
-		//Create(pos, D3DXVECTOR3(-sinf(rot.x) * fBulletSpeed, -cosf(rot.x) * fBulletSpeed, 0.0f), BULLETSTATE_CHARGE);
+		//Create(pos, D3DXVECTOR3(-sinf(rot.x) * fBulletSpeed, -cosf(rot.x) * fBulletSpeed, 0.0f), BULLETTYPE_CHARGE);
 		
 		for (int i = 0; i < nMaxHoming; i++)
 		{
-			Create(pos, D3DXVECTOR3(-5.0f, (float)(nMaxHoming - (i * nMaxHoming)), 0.0f), BULLETSTATE_CHARGE);
+			Create(pos, D3DXVECTOR3(-5.0f, (float)(nMaxHoming - (i * nMaxHoming)), 0.0f), BULLETTYPE_CHARGE);
 		}
 
 		m_nChageTime = 0;	//チャージ時間をリセット
@@ -298,7 +298,7 @@ void CBullet::CollisionBullet()
 		//pObjectをCEnemy型にダウンキャスト
 		CEnemy* pEnemy = (CEnemy*)pHitObject;
 
-		if (m_type == BULLETSTATE_CHARGE)
+		if (m_type == BULLETTYPE_CHARGE)
 		{//チャージショットなら
 		 //ダメージ上昇
 			pEnemy->SubLife(PlayerAttack * 3);	//敵の体力の減少
@@ -316,7 +316,7 @@ void CBullet::CollisionBullet()
 	}
 	else if (CObject2D::GetCollision(OBJTYPE_BARRIER))
 	{//バリアと当たった
-	 //弾の消滅
+		//弾の消滅
 		Uninit();
 		return;
 	}
@@ -387,4 +387,12 @@ D3DXVECTOR3 CBullet::Homing(float& posX, float& posY, float& moveX, float& moveY
 	moveY *= fBulletSpeed_Homing;
 
 	return D3DXVECTOR3(moveX, moveY, 0.0f);
+}
+
+//=======================
+// 弾の種類を取得
+//=======================
+CBullet::BULLETTYPE CBullet::GetType()
+{
+	return m_type;
 }

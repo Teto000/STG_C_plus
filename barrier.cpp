@@ -22,6 +22,7 @@ CBarrier::CBarrier() : CObject2D()
 {
 	m_pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	//位置
 	m_move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	//移動量
+	m_nLife = 0;		//体力
 	m_fWidth = 0.0f;	//幅
 	m_fHeight = 0.0f;	//高さ
 }
@@ -88,7 +89,7 @@ CBarrier *CBarrier::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, float fWidth, floa
 
 	//----------------------------------
 	// プレイヤーの生成と初期化
-	//----------------------------------zz
+	//----------------------------------
 	pBarrier = new CBarrier;	//生成
 
 	if (pBarrier != nullptr)
@@ -104,4 +105,12 @@ CBarrier *CBarrier::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, float fWidth, floa
 	}
 
 	return pBarrier;
+}
+
+//===========================
+// 体力の減少
+//===========================
+void CBarrier::SubLife(int nAttack)
+{
+	m_nLife -= nAttack;
 }

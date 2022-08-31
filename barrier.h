@@ -29,6 +29,8 @@ public:
 	void Update() override;
 	void Draw()	  override;
 
+	void SubLife(int nAttack);
+
 	//----------------
 	// Ã“Iƒƒ“ƒoŠÖ”
 	//----------------
@@ -40,6 +42,7 @@ private:
 	//----------------s
 	D3DXVECTOR3 m_pos;	//ˆÊ’u
 	D3DXVECTOR3 m_move;	//ˆÚ“®—Ê
+	int m_nLife;		//‘Ì—Í
 	float m_fWidth;		//•
 	float m_fHeight;	//‚‚³
 };
