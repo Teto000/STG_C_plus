@@ -23,6 +23,7 @@
 #include "enemybullet.h"
 #include "game.h"
 #include "player.h"
+#include "hpfream.h"
 
 //===========================
 // コンストラクタ
@@ -46,6 +47,7 @@ CEnemy::CEnemy() : CObject2D()
 	m_EnemyBullet = nullptr;	//敵の弾
 	m_pExplosion = nullptr;		//爆発
 	m_pBarrier = nullptr;		//バリア
+	m_pHpFream = nullptr;		//HPフレーム
 }
 
 //===========================
@@ -106,6 +108,10 @@ HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 		m_Hp = CHp::Create(hpPos, m_fWidth, 10.0f);
 		m_Hp->SetLife(m_nLife, m_nRemLife);
 		m_Hp->SetMove(m_move);
+
+		//フレームの生成
+		//m_pHpFream = CHpFream::Create(hpPos, m_fWidth, 15.0f);
+		//m_pHpFream->SetMove(m_move);
 	}
 
 	//--------------------------
@@ -248,7 +254,7 @@ void CEnemy::Update()
 	//--------------------------
 	// 画面外に出た
 	//--------------------------
-	else if (CObject2D::OutScreen(m_pos))
+	else if (m_pos.x <= 0.0f || m_pos.y <= 0.0f || m_pos.y >= SCREEN_HEIGHT)
 	{
 		Uninit();
 		return;

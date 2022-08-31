@@ -76,17 +76,17 @@ void CEnemyBullet::Update()
 	//移動量の加算
 	m_pos = CObject2D::AddMove(m_move);
 
-	if (CGame::GetPlayer()->GetState() != CPlayer::PLAYERSTATE_INVINCIBLE)
-	{//プレイヤーが無敵状態じゃないなら
-		//当たった処理
-		CollisionEnemyBullet();
-	}
-
 	//画面外に出たら
 	if (CObject2D::OutScreen(m_pos))
 	{
 		Uninit();
 		return;
+	}
+
+	if (CGame::GetPlayer()->GetState() != CPlayer::PLAYERSTATE_INVINCIBLE)
+	{//プレイヤーが無敵状態じゃないなら
+		//当たった処理
+		CollisionEnemyBullet();
 	}
 }
 

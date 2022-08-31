@@ -18,6 +18,7 @@
 class CHp;		//HPクラス
 class CLevel;	//レベルクラス
 class CBullet;	//弾クラス
+class CHpFream;	//HPフレームクラス
 
 //--------------------------
 // プレイヤークラス
@@ -90,6 +91,7 @@ private:
 	CHp* m_Hp;				//HPクラス
 	CLevel* m_Level;		//レベルクラス
 	CBullet* m_Bullet;		//弾クラス
+	CHpFream*m_pHpFream;	//HPフレームクラス
 
 	//------------------
 	// 静的メンバ変数

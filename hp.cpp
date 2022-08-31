@@ -12,6 +12,7 @@
 #include "main.h"
 #include "object2D.h"
 #include "application.h"
+#include "hpfream.h"
 
 //===========================
 // コンストラクタ
@@ -73,10 +74,7 @@ void CHp::Update()
 	//-------------------
 	// 移動
 	//-------------------
-	if (m_pos.x >= 900.0f)
-	{
-		m_pos = CObject2D::AddMove(m_move);
-	}
+	m_pos = CObject2D::AddMove(m_move);
 
 	//HP減少時の処理
 	SubHP();

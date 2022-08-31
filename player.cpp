@@ -20,6 +20,7 @@
 #include "hp.h"
 #include "skill.h"
 #include "level.h"
+#include "hpfream.h"
 
 //------------------------
 // 静的メンバ変数宣言
@@ -49,6 +50,7 @@ CPlayer::CPlayer() : CObject2D()
 	m_Hp = nullptr;				//HPクラス
 	m_Level = nullptr;			//レベルクラス
 	m_Bullet = nullptr;			//弾クラス
+	m_pHpFream = nullptr;		//HPフレームクラス
 }
 
 //===========================
@@ -93,6 +95,11 @@ HRESULT CPlayer::Init(D3DXVECTOR3 pos)
 	// レベルの生成
 	//--------------------------
 	m_Level = CLevel::Create();
+
+	//--------------------------
+	// フレームの生成
+	//--------------------------
+	m_pHpFream = CHpFream::Create(D3DXVECTOR3(520.0f, 80.0f, 0.0f), 600.0f, 80.0f);
 
 	return S_OK;
 }

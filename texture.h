@@ -33,6 +33,7 @@ public: /* 定義 */
 		TEXTURE_BARRIER,			//バリア
 		TEXTURE_EXP,				//経験値
 		TEXTURE_LEVEL,				//レベル
+		TEXTURE_HPFREAM,			//HPバーのフレーム
 
 		/* ↓ スキル ↓*/
 		TEXTURE_SKILL_HPHEAL,		//スキル(体力回復)
