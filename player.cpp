@@ -295,6 +295,20 @@ void CPlayer::SetSkill()
 }
 
 //===========================
+// 体力の減少
+//===========================
+void CPlayer::SubLife(int nAttack)
+{
+	m_nLife -= nAttack;	//プレイヤーの体力の減少
+
+	//残り体力を計算
+	m_nRemLife = m_nLife * 100 / m_nMaxLife;
+
+	//HP減少時の処理
+	m_Hp->SetLife(m_nLife, m_nRemLife);
+}
+
+//===========================
 // 色の設定
 //===========================
 void CPlayer::SetCol(D3DXCOLOR col)

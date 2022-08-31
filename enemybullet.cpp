@@ -15,6 +15,7 @@
 #include "application.h"
 #include "damage.h"
 #include "enemy.h"
+#include "player.h"
 
 //===========================
 // コンストラクタ
@@ -76,6 +77,10 @@ void CEnemyBullet::Update()
 	//移動量の加算
 	m_pos = CObject2D::AddMove(m_move);
 
+	//当たった処理
+	CollisionEnemyBullet();
+
+
 	//寿命の減少
 	//m_nLife--;
 
@@ -98,7 +103,7 @@ void CEnemyBullet::Draw()
 //===========================
 // 生成
 //===========================
-CEnemyBullet *CEnemyBullet::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move)
+CEnemyBullet *CEnemyBullet::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, int nAttack)
 {
 	CEnemyBullet *pBullet = nullptr;
 
@@ -109,12 +114,35 @@ CEnemyBullet *CEnemyBullet::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move)
 
 	if (pBullet != nullptr)
 	{//NULLチェック
-	 //初期化
-		pBullet->m_move = move;		//移動量の代入
+		pBullet->m_move = move;				//移動量の代入
+		pBullet->m_nEnemyAttack = nAttack;	//攻撃力の代入
+
+		//初期化
 		pBullet->Init(pos);
 
 		pBullet->SetObjType(OBJTYPE_BULLET);
 	}
 
 	return pBullet;
+}
+
+//===========================
+// 当たった処理
+//===========================
+void CEnemyBullet::CollisionEnemyBullet()
+{
+	CObject* pHitObject = CObject2D::GetCollision(OBJTYPE_PLAYER);
+
+	if (pHitObject != nullptr)
+	{//プレイヤーと当たった
+
+		//pObjectをCPlayer型にダウンキャスト
+		CPlayer* pPlayer = (CPlayer*)pHitObject;
+
+		pPlayer->SubLife(m_nEnemyAttack);	//敵の体力の減少
+
+		//弾の消滅
+		Uninit();
+		return;
+	}
 }

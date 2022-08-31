@@ -29,10 +29,12 @@ public:
 	void Update() override;
 	void Draw()	  override;
 
+	void CollisionEnemyBullet();		//“–‚½‚Á‚½ˆ—
+
 	//----------------
 	// Ã“Iƒƒ“ƒoŠÖ”
 	//----------------
-	static CEnemyBullet *Create(D3DXVECTOR3 pos, D3DXVECTOR3 move);
+	static CEnemyBullet *Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, int nAttack);
 
 private:
 	//----------------
@@ -42,6 +44,7 @@ private:
 	D3DXVECTOR3 m_move;		//ˆÚ“®—Ê
 	D3DXVECTOR3 m_rot;		//‰ñ“]
 	int m_nLife;			//õ–½
+	int m_nEnemyAttack;		//“G‚ÌUŒ‚—Í
 	float m_fWidth;			//•
 	float m_fHeight;		//‚‚³
 };

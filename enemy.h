@@ -56,6 +56,7 @@ public:
 	//ゲッター
 	int GetLife();
 	int GetRemLife();
+	int GetAttack();
 
 	//----------------
 	// 静的メンバ関数
@@ -82,6 +83,7 @@ private:
 	int m_nRemLife;				//残り体力
 	int m_nCntShotTime;			//弾の発射時間を数える
 	int m_nCntTime;				//テクスチャ切り替え時間のカウント
+	int m_nAttack;				//攻撃力
 	int m_nCntAttack;			//攻撃タイミングを数える
 	float m_fWidth;				//幅
 	float m_fHeight;			//高さ

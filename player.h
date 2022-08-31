@@ -37,6 +37,7 @@ public:
 	void Draw() override;
 
 	void SetSkill();
+	void SubLife(int nAttack);	//‘Ì—Í‚ÌŒ¸­
 
 	//ƒQƒbƒ^[
 	int GetLife();
