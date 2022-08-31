@@ -245,6 +245,14 @@ void CEnemy::Update()
 		Uninit();
 		return;
 	}
+	//--------------------------
+	// ‰æ–ÊŠO‚Éo‚½
+	//--------------------------
+	else if (CObject2D::OutScreen(m_pos))
+	{
+		Uninit();
+		return;
+	}
 }
 
 //===========================

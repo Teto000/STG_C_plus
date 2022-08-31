@@ -251,6 +251,23 @@ void CObject2D::SetScreenY(float posY, float fUp, float fDown)
 }
 
 //===========================
+// 画面外に出た処理
+//===========================
+bool CObject2D::OutScreen(D3DXVECTOR3 pos)
+{
+	if (pos.x <= 0.0f || pos.x >= SCREEN_WIDTH)
+	{
+		return true;
+	}
+	else if (pos.y <= 0.0f || pos.y >= SCREEN_HEIGHT)
+	{
+		return true;
+	}
+
+	return false;
+}
+
+//===========================
 // テクスチャ座標の設定
 //===========================
 void CObject2D::SetTexCIE(float left ,float fRight)

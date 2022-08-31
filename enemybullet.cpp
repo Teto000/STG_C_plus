@@ -26,7 +26,6 @@ CEnemyBullet::CEnemyBullet() : CObject2D()
 	m_pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		//位置
 	m_move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		//移動量
 	m_rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		//回転
-	m_nLife = 0;				//寿命
 	m_fWidth = 0.0f;			//幅
 	m_fHeight = 0.0f;			//高さ
 }
@@ -48,7 +47,6 @@ HRESULT CEnemyBullet::Init(D3DXVECTOR3 pos)
 	// メンバ変数の初期化
 	//----------------------------
 	m_pos = pos;
-	m_nLife = 50;
 	m_fWidth = 50.0f;
 	m_fHeight = 50.0f;
 
@@ -84,16 +82,12 @@ void CEnemyBullet::Update()
 		CollisionEnemyBullet();
 	}
 
-
-	//寿命の減少
-	//m_nLife--;
-
-	////寿命が尽きた
-	//if (m_nLife <= 0.0f)
-	//{
-	//	Uninit();
-	//	return;
-	//}
+	//画面外に出たら
+	if (CObject2D::OutScreen(m_pos))
+	{
+		Uninit();
+		return;
+	}
 }
 
 //===========================

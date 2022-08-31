@@ -44,7 +44,6 @@ private:
 	D3DXVECTOR3 m_pos;		//ˆÊ’u
 	D3DXVECTOR3 m_move;		//ˆÚ“®—Ê
 	D3DXVECTOR3 m_rot;		//‰ñ“]
-	int m_nLife;			//õ–½
 	int m_nEnemyAttack;		//“G‚ÌUŒ‚—Í
 	float m_fWidth;			//•
 	float m_fHeight;		//‚‚³

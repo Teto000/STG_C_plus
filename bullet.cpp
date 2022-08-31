@@ -160,8 +160,8 @@ void CBullet::Update()
 		Uninit();
 		return;
 	}
-	//‰æ–Ê’[‚Ìˆ—
-	else if (m_pos.x >= SCREEN_WIDTH)
+	//‰æ–ÊŠO‚Éo‚½‚ç
+	else if (CObject2D::OutScreen(m_pos))
 	{
 		Uninit();
 		return;
