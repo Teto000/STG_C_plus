@@ -11,6 +11,7 @@
 // インクルード
 //--------------------------
 #include "object2D.h"
+#include "bullet.h"
 
 //--------------------------
 // バレットクラス
@@ -29,7 +30,7 @@ public:
 	void Update() override;
 	void Draw()	  override;
 
-	void SubLife();
+	void SubLife(CBullet::BULLETTYPE type);
 
 	//----------------
 	// 静的メンバ関数
@@ -39,7 +40,7 @@ public:
 private:
 	//----------------
 	// メンバ変数
-	//----------------s
+	//----------------
 	D3DXVECTOR3 m_pos;	//位置
 	D3DXVECTOR3 m_move;	//移動量
 	int m_nLife;		//体力

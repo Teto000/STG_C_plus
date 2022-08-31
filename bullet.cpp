@@ -273,7 +273,7 @@ void CBullet::ShotBullet(D3DXVECTOR3 pos, int nLevel, int nShotTime)
 		
 		for (int i = 0; i < nMaxHoming; i++)
 		{
-			Create(pos, D3DXVECTOR3(-5.0f, (float)(nMaxHoming - (i * nMaxHoming)), 0.0f), BULLETTYPE_CHARGE);
+			Create(pos, D3DXVECTOR3(-5.0f, (float)(nMaxHoming - (i * nMaxHoming)), 0.0f), BULLETTYPE_HORMING);
 		}
 
 		m_nChageTime = 0;	//チャージ時間をリセット
@@ -323,7 +323,7 @@ void CBullet::CollisionBullet(CObject::EObjType ObjType)
 			CBarrier* pBarrier = (CBarrier*)pHitObject;
 
 			//バリアの耐久を削る
-			pBarrier->SubLife();
+			pBarrier->SubLife(m_type);
 
 			//弾の消滅
 			Uninit();

@@ -139,7 +139,7 @@ void CPlayer::Update()
 	// âÊñ í[ÇÃê›íË
 	//--------------------
 	CObject2D::SetScreenX(m_pos.x, 0.0f + m_fWidth / 2, SCREEN_WIDTH - m_fWidth / 2);
-	CObject2D::SetScreenY(m_pos.y, 0.0f + 180.0f, SCREEN_HEIGHT - m_fHeight / 2);
+	CObject2D::SetScreenY(m_pos.y, 0.0f + 200.0f, SCREEN_HEIGHT - m_fHeight / 2);
 
 	//--------------------------
 	// íeÇÃî≠éÀ
@@ -190,6 +190,8 @@ void CPlayer::Update()
 		Uninit();
 		return;
 	}
+
+	CObject2D::SetColor(m_col);
 }
 
 //===========================
@@ -198,7 +200,6 @@ void CPlayer::Update()
 void CPlayer::Draw()
 {
 	CObject2D::Draw();
-	CObject2D::SetColor(m_col);
 }
 
 //===========================

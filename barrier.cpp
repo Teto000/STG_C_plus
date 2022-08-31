@@ -14,6 +14,7 @@
 #include "object2D.h"
 #include "input_keybord.h"
 #include "texture.h"
+#include "bullet.h"
 
 //===========================
 // コンストラクタ
@@ -117,7 +118,17 @@ CBarrier *CBarrier::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, float fWidth, floa
 //===========================
 // 体力の減少
 //===========================
-void CBarrier::SubLife()
+void CBarrier::SubLife(CBullet::BULLETTYPE type)
 {
-	m_nLife -= 10;
+	switch (type)
+	{
+	//チャージショット
+	case CBullet::BULLETTYPE_HORMING:
+		m_nLife = 0;
+		break;
+
+	default:
+		m_nLife -= 10;
+		break;
+	}
 }
