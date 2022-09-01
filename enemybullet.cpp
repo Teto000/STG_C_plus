@@ -18,16 +18,25 @@
 #include "player.h"
 #include "game.h"
 
+//------------------------
+// 静的メンバ変数宣言
+//------------------------
+const float CEnemyBullet::fBulletSpeed_Homing = 1.01f;	//弾の速度(ホーミング)
+
 //===========================
 // コンストラクタ
 //===========================
 CEnemyBullet::CEnemyBullet() : CObject2D()
 {
 	m_pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		//位置
+	m_Tirget = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	//目標
 	m_move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		//移動量
 	m_rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		//回転
+	m_nEnemyAttack = 0;			//敵の攻撃力
+	m_nLife = 0;				//寿命
 	m_fWidth = 0.0f;			//幅
 	m_fHeight = 0.0f;			//高さ
+	m_type = ENEMYBULLETTYPE_NORMAL;
 }
 
 //===========================
@@ -49,6 +58,7 @@ HRESULT CEnemyBullet::Init(D3DXVECTOR3 pos)
 	m_pos = pos;
 	m_fWidth = 50.0f;
 	m_fHeight = 50.0f;
+	m_nLife = 300;
 
 	CObject2D::Init(m_pos);
 
@@ -73,8 +83,39 @@ void CEnemyBullet::Update()
 {
 	CObject2D::Update();
 
-	//移動量の加算
-	m_pos = CObject2D::AddMove(m_move);
+	m_nLife--;
+
+	//----------------------
+	// ホーミング弾なら
+	//----------------------
+	switch (m_type)
+	{
+	case ENEMYBULLETTYPE_HORMING:
+		m_Tirget = CObject2D::GetTargetPos();	//敵の位置の取得
+
+		if (m_Tirget.x == 0.0f, m_Tirget.y == 0.0f)
+		{//ターゲットが消えたら
+		 //横に向かって飛ぶ
+			m_Tirget = D3DXVECTOR3(1280.0f, m_pos.y, 0.0f);
+		}
+
+		if (m_nLife >= 280)
+		{
+			//敵に向かってホーミング
+			m_move = Homing(m_pos.x, m_pos.y, m_move.x, m_move.y);
+			m_pos = CObject2D::AddMove(m_move);
+		}
+		else
+		{
+			m_pos = CObject2D::AddMove(m_move);
+		}
+		break;
+
+	default:
+		//移動量の加算
+		m_pos = CObject2D::AddMove(m_move);
+		break;
+	}
 
 	//画面外に出たら
 	if (CObject2D::OutScreen(m_pos))
@@ -101,7 +142,8 @@ void CEnemyBullet::Draw()
 //===========================
 // 生成
 //===========================
-CEnemyBullet *CEnemyBullet::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, int nAttack)
+CEnemyBullet *CEnemyBullet::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move
+									, int nAttack, CEnemyBullet::ENEMYBULLETTYPE type)
 {
 	CEnemyBullet *pBullet = nullptr;
 
@@ -114,6 +156,7 @@ CEnemyBullet *CEnemyBullet::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, int nAttac
 	{//NULLチェック
 		pBullet->m_move = move;				//移動量の代入
 		pBullet->m_nEnemyAttack = nAttack;	//攻撃力の代入
+		pBullet->m_type = type;				//種類
 
 		//初期化
 		pBullet->Init(pos);
@@ -143,4 +186,71 @@ void CEnemyBullet::CollisionEnemyBullet()
 		Uninit();
 		return;
 	}
+}
+
+//=======================
+// ホーミング弾
+//=======================
+D3DXVECTOR3 CEnemyBullet::Homing(float& posX, float& posY, float& moveX, float& moveY)
+{
+	//弾の元の速度
+	float vx0 = moveX, vy0 = moveY;
+
+	//自機方向の速度ベクトル(vx1,vy1)を求める
+	float vx1, vy1;
+
+	//目標までの距離dを求める
+	float d = sqrtf((m_Tirget.x - posX) * (m_Tirget.x - posX)
+		+ (m_Tirget.y - posY) * (m_Tirget.y - posY));
+
+	if (d)
+	{
+		vx1 = (m_Tirget.x - posX) / d * fBulletSpeed_Homing;
+		vy1 = (m_Tirget.y - posY) / d * fBulletSpeed_Homing;
+	}
+	else
+	{
+		vx1 = 0;
+		vy1 = fBulletSpeed_Homing;
+	}
+
+	//右回り旋回角度上限の速度ベクトル(vx2,vy2)を求める
+	float rad = (D3DX_PI / 180) * 5.0f; //旋回角度上限
+	float vx2 = cosf(rad) * vx0 - sinf(rad) * vy0;
+	float vy2 = sinf(rad) * vx0 + cosf(rad) * vy0;
+
+	//自機方向と旋回角度上限のどちらに曲がるかを決める
+	if (vx0 * vx1 + vy0 * vy1 >= vx0 * vx2 + vy0 * vy2)
+	{//自機方向が旋回可能範囲内の場合
+	 //自機方向に曲がる
+		moveX = vx1;
+		moveY = vy1;
+	}
+	else
+	{
+		//自機方向が旋回可能範囲外の場合
+		//左回り旋回角度上限の速度ベクトル(vx3,vy3)を求める
+		float vx3 = cosf(rad) * vx0 + sinf(rad) * vy0;
+		float vy3 = -sinf(rad) * vx0 + cosf(rad) * vy0;
+
+		//弾から自機への相対位置ベクトル(px,py)を求める
+		float px = m_Tirget.x - posX, py = m_Tirget.y - posY;
+
+		//右回りか左回りかを決める
+		if (px * vx2 + py * vy2 >= px * vx3 + py * vy3)
+		{//右回りの場合
+			moveX = vx2;
+			moveY = vy2;
+		}
+		else
+		{//左回りの場合
+			moveX = vx3;
+			moveY = vy3;
+		}
+	}
+
+	moveX *= fBulletSpeed_Homing;
+	moveY *= fBulletSpeed_Homing;
+
+	return D3DXVECTOR3(moveX, moveY, 0.0f);
 }

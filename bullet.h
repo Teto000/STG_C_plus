@@ -68,20 +68,20 @@ private:
 	static const int nMaxHoming = 3;		//ホーミング弾発射の最大数
 	static const int nDefaultLife = 80;		//弾の寿命の基準値
 	static const float fBulletSpeed;		//弾の速度
-	static const float fBulletSpeed_Homing;	//弾の速度
+	static const float fBulletSpeed_Homing;	//ホーミング弾の速度
 	static const float nDefaultSize;		//弾の大きさの基準値
 
 	//----------------
 	// メンバ変数
 	//----------------s
 	D3DXVECTOR3 m_pos;		//位置
+	D3DXVECTOR3 m_Tirget;	//ホーミング目標の位置
 	D3DXVECTOR3 m_move;		//移動量
 	D3DXVECTOR3 m_rot;		//回転
 	int m_nLife;			//寿命
 	float m_fWidth;			//幅
 	float m_fHeight;		//高さ
 	BULLETTYPE m_type;		//種類
-	D3DXVECTOR3 m_Tirget;	//ホーミング目標の位置
 	CExplosion* pExplosion;	//爆発
 	CDamage*	pDamage;	//ダメージ
 

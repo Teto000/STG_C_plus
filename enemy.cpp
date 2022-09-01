@@ -77,14 +77,14 @@ HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 		break;
 
 	case ENEMYTYPE_BIG:
-		m_move.x = -2.0f;	//ˆÚ“®—Ê
+		m_move.x = -1.0f;	//ˆÚ“®—Ê
 		m_fWidth = 170.0f;	//•
 		m_fHeight = 170.0f;	//‚‚³
 		SetLife(500);
 		break;
 
 	default:
-		m_move.x = -3.0f;	//ˆÚ“®—Ê
+		m_move.x = -2.0f;	//ˆÚ“®—Ê
 		m_fWidth = 100.0f;	//•
 		m_fHeight = 100.0f;	//‚‚³
 		SetLife(100);
@@ -224,7 +224,8 @@ void CEnemy::Update()
 		case ENEMYTYPE_BIG:
 			for (int i = 0; i < 5; i++)
 			{
-				m_EnemyBullet->Create(m_pos, D3DXVECTOR3(-vec.x * 4.0f, -vec.y * (i + 1), 0.0f), m_nAttack);
+				m_EnemyBullet->Create(m_pos, D3DXVECTOR3(-vec.x * 4.0f, -vec.y * (i + 1), 0.0f)
+										, m_nAttack,CEnemyBullet::ENEMYBULLETTYPE_NORMAL);
 			}
 			break;
 
@@ -233,7 +234,8 @@ void CEnemy::Update()
 			break;
 
 		default:
-			m_EnemyBullet->Create(m_pos, D3DXVECTOR3(-8.0f, 0.0f, 0.0f), m_nAttack);
+			m_EnemyBullet->Create(m_pos, D3DXVECTOR3(-4.0f, 0.0f, 0.0f)
+									, m_nAttack, CEnemyBullet::ENEMYBULLETTYPE_NORMAL);
 			break;
 		}
 	}
@@ -328,7 +330,7 @@ void CEnemy::BossAttack()
 		{
 			D3DXVECTOR3 pos(300.0f + (i * 200.0f), 0.0f - (i * 50.0f), 0.0f);
 			D3DXVECTOR3 move(-5.0f, 9.0f, 0.0f);
-			m_EnemyBullet->Create(pos, move, m_nAttack);
+			m_EnemyBullet->Create(pos, move, m_nAttack, CEnemyBullet::ENEMYBULLETTYPE_NORMAL);
 		}
 	}
 }
