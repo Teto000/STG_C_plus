@@ -43,9 +43,11 @@ CPlayer::CPlayer() : CObject2D()
 	m_nShotTime = 0;			//弾の発射時間
 	m_nCntShotTime = 0;			//弾の発射時間を数える
 	m_nCntInvincible = 0;		//無敵時間を数える
+	m_nCntSkill = 0;			//スキルの使用可能時間を数える
 	m_nSpeed = 0.0f;			//速度
 	m_fWidth = 0.0f;			//幅
 	m_fHeight = 0.0f;			//高さ
+	m_bSlill = false;			//スキル使用可能かどうか
 	m_type = PLAYERSTATE_NORMAL;//状態
 	m_Hp = nullptr;				//HPクラス
 	m_Level = nullptr;			//レベルクラス
@@ -159,6 +161,20 @@ void CPlayer::Update()
 	// スキルの発動
 	//--------------------------
 	SetSkill();
+
+	//--------------------------
+	// スキルの効果が切れる
+	//--------------------------
+	if (m_bSlill)
+	{//スキル使用状態なら
+		m_nCntSkill++;
+		m_nCntSkill %= 600;
+
+		if (m_nCntSkill == 0)
+		{//5秒経過したら
+			m_nShotTime = 20;	//速度を元に戻す
+		}
+	}
 
 	//------------------------
 	// 敵との当たり判定
@@ -304,6 +320,7 @@ void CPlayer::SetSkill()
 
 		//HP減少時の処理
 		m_Hp->SetLife(m_nLife, m_nRemLife);
+		m_bSlill = true;
 	}
 
 	//-----------------------
@@ -314,6 +331,7 @@ void CPlayer::SetSkill()
 		CSkill::Create(CSkill::SKILLTYPE_SPEEDUP_FIRE);
 
 		m_nShotTime = 10;
+		m_bSlill = true;
 	}
 }
 

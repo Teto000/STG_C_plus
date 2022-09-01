@@ -64,7 +64,9 @@ public:
 	static CEnemy *Create(D3DXVECTOR3 pos, CEnemy::ENEMYTYPE type);
 
 private:
-	void BossAttack();			//ボスの攻撃
+	void EnemyAttackCount(D3DXVECTOR2 vec);	//敵の攻撃タイミングを数える
+	void EnemyAttack(D3DXVECTOR2 vec);		//敵の攻撃処理
+	void BossAttack();						//ボスの攻撃
 
 private:
 	//----------------

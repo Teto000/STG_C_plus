@@ -214,39 +214,7 @@ void CEnemy::Update()
 	//--------------------------
 	// 敵の攻撃
 	//--------------------------
-	m_nCntShotTime++;
-	m_nCntShotTime %= nShotTime;	//発射時間をリセット
-
-	if (m_nCntShotTime == 0)
-	{
-		switch (m_type)
-		{
-		//----------------------
-		// ボスの攻撃
-		//----------------------
-		case ENEMYTYPE_BOSS:
-			BossAttack();
-			break;
-
-		case ENEMYTYPE_BIG:
-			for (int i = 0; i < 5; i++)
-			{
-				m_EnemyBullet->Create(m_pos, D3DXVECTOR3(-vec.x * 4.0f, -vec.y * (i + 1), 0.0f)
-										, m_nAttack,CEnemyBullet::ENEMYBULLETTYPE_NORMAL);
-			}
-			break;
-
-		case ENEMYTYPE_HORMING:
-			m_EnemyBullet->Create(m_pos, D3DXVECTOR3(-4.0f, 0.0f, 0.0f)
-				, m_nAttack, CEnemyBullet::ENEMYBULLETTYPE_HORMING);
-			break;
-
-		default:
-			m_EnemyBullet->Create(m_pos, D3DXVECTOR3(-4.0f, 0.0f, 0.0f)
-									, m_nAttack, CEnemyBullet::ENEMYBULLETTYPE_NORMAL);
-			break;
-		}
-	}
+	EnemyAttackCount(vec);
 
 	//--------------------------
 	// 体力が尽きた
@@ -325,6 +293,75 @@ void CEnemy::SubLife(int nLife)
 
 	//HP減少時の処理
 	m_Hp->SetLife(m_nLife, m_nRemLife);
+}
+
+//===============================
+// 敵の攻撃タイミングを数える
+//===============================
+void CEnemy::EnemyAttackCount(D3DXVECTOR2 vec)
+{
+	m_nCntShotTime++;
+
+	switch (m_type)
+	{
+	case ENEMYTYPE_BOSS:
+		m_nCntShotTime %= nShotTime * 2;
+		break;
+
+	case ENEMYTYPE_BIG:
+		m_nCntShotTime %= nShotTime * 2;
+		break;
+
+	case ENEMYTYPE_HORMING:
+		m_nCntShotTime %= nShotTime * 2;
+		break;
+
+	default:
+		m_nCntShotTime %= nShotTime;
+		break;
+	}
+
+	//----------------------------
+	// カウントが0になったら
+	//----------------------------
+	if (m_nCntShotTime == 0)
+	{
+		EnemyAttack(vec);
+	}
+}
+
+//===========================
+// 敵の攻撃処理
+//===========================
+void CEnemy::EnemyAttack(D3DXVECTOR2 vec)
+{
+	switch (m_type)
+	{
+		//----------------------
+		// ボスの攻撃
+		//----------------------
+	case ENEMYTYPE_BOSS:
+		BossAttack();
+		break;
+
+	case ENEMYTYPE_BIG:
+		for (int i = 0; i < 5; i++)
+		{
+			m_EnemyBullet->Create(m_pos, D3DXVECTOR3(-vec.x * 4.0f, -vec.y * (i + 1), 0.0f)
+				, m_nAttack, CEnemyBullet::ENEMYBULLETTYPE_NORMAL);
+		}
+		break;
+
+	case ENEMYTYPE_HORMING:
+		m_EnemyBullet->Create(m_pos, D3DXVECTOR3(-4.0f, 0.0f, 0.0f)
+			, m_nAttack, CEnemyBullet::ENEMYBULLETTYPE_HORMING);
+		break;
+
+	default:
+		m_EnemyBullet->Create(m_pos, D3DXVECTOR3(-4.0f, 0.0f, 0.0f)
+			, m_nAttack, CEnemyBullet::ENEMYBULLETTYPE_NORMAL);
+		break;
+	}
 }
 
 //===========================

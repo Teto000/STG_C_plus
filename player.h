@@ -84,9 +84,11 @@ private:
 	int m_nShotTime;		//弾の発射時間
 	int m_nCntShotTime;		//弾の発射時間を数える
 	int m_nCntInvincible;	//無敵時間を数える
+	int m_nCntSkill;		//スキルの使用可能時間を数える
 	float m_nSpeed;			//速度
 	float m_fWidth;			//幅
 	float m_fHeight;		//高さ
+	bool m_bSlill;			//スキル使用可能かどうか
 	PLAYERSTATE m_type;		//状態
 	CHp* m_Hp;				//HPクラス
 	CLevel* m_Level;		//レベルクラス
