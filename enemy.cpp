@@ -83,6 +83,13 @@ HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 		SetLife(500);
 		break;
 
+	case ENEMYTYPE_HORMING:
+		m_move.x = -1.0f;	//ˆÚ“®—Ê
+		m_fWidth = 170.0f;	//•
+		m_fHeight = 170.0f;	//‚‚³
+		SetLife(500);
+		break;
+
 	default:
 		m_move.x = -2.0f;	//ˆÚ“®—Ê
 		m_fWidth = 100.0f;	//•
@@ -117,7 +124,7 @@ HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 	//--------------------------
 	// ƒoƒŠƒA‚Ì¶¬
 	//--------------------------
-	m_pBarrier->Create(m_pos, m_move, m_fWidth, m_fHeight);
+	m_pBarrier->Create(m_pos, m_move, m_fWidth * 1.1f, m_fHeight * 1.1f);
 
 	return S_OK;
 }
@@ -230,7 +237,8 @@ void CEnemy::Update()
 			break;
 
 		case ENEMYTYPE_HORMING:
-
+			m_EnemyBullet->Create(m_pos, D3DXVECTOR3(-4.0f, 0.0f, 0.0f)
+				, m_nAttack, CEnemyBullet::ENEMYBULLETTYPE_HORMING);
 			break;
 
 		default:

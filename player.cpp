@@ -144,12 +144,15 @@ void CPlayer::Update()
 	//--------------------------
 	// 弾の発射
 	//--------------------------
-	m_nCntShotTime++;
-	m_nCntShotTime %= m_nShotTime;	//発射時間をリセット
+	if (!CObject2D::GetCollision(OBJTYPE_BARRIER))
+	{//バリアの範囲外なら
+		m_nCntShotTime++;
+		m_nCntShotTime %= m_nShotTime;	//発射時間をリセット
 
-	{
-		int nLevel = m_Level->GetLevel();	//レベルの取得
-		m_Bullet->ShotBullet(m_pos, nLevel, m_nCntShotTime);	//弾の発射
+		{
+			int nLevel = m_Level->GetLevel();	//レベルの取得
+			m_Bullet->ShotBullet(m_pos, nLevel, m_nCntShotTime);	//弾の発射
+		}
 	}
 
 	//--------------------------
@@ -260,7 +263,7 @@ D3DXVECTOR3 CPlayer::OperationPlayer()
 		}
 		else
 		{
-			m_move.x += sinf(D3DX_PI * 0.5f) * fPlayerSpeed;			//右移動
+			m_move.x += sinf(D3DX_PI * 0.5f) * fPlayerSpeed;		//右移動
 		}
 	}
 	else if (CInputKeyboard::Press(DIK_W) == true)
@@ -269,7 +272,7 @@ D3DXVECTOR3 CPlayer::OperationPlayer()
 	}
 	else if (CInputKeyboard::Press(DIK_S) == true)
 	{//Sキーが押された
-		m_move.y += cosf(D3DX_PI * 0.0f) * fPlayerSpeed;				//下移動
+		m_move.y += cosf(D3DX_PI * 0.0f) * fPlayerSpeed;			//下移動
 	}
 
 	return m_move;
@@ -310,7 +313,7 @@ void CPlayer::SetSkill()
 	{//2キーが押されたら
 		CSkill::Create(CSkill::SKILLTYPE_SPEEDUP_FIRE);
 
-		m_nShotTime = 15;
+		m_nShotTime = 10;
 	}
 }
 

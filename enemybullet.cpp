@@ -95,11 +95,11 @@ void CEnemyBullet::Update()
 
 		if (m_Tirget.x == 0.0f, m_Tirget.y == 0.0f)
 		{//ターゲットが消えたら
-		 //横に向かって飛ぶ
+			//横に向かって飛ぶ
 			m_Tirget = D3DXVECTOR3(1280.0f, m_pos.y, 0.0f);
 		}
 
-		if (m_nLife >= 280)
+		if (m_nLife >= 260)
 		{
 			//敵に向かってホーミング
 			m_move = Homing(m_pos.x, m_pos.y, m_move.x, m_move.y);

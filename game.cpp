@@ -106,9 +106,13 @@ void CGame::Update()
 		m_pEnemy = CEnemy::Create(D3DXVECTOR3(1300, 410.0f, 0.0f), CEnemy::ENEMYTYPE_NORMAL);
 		m_pEnemy = CEnemy::Create(D3DXVECTOR3(1300, 590.0f, 0.0f), CEnemy::ENEMYTYPE_NORMAL);
 	}
-	else if (m_nTime == nOneSecond * 12)
+	else if (m_nTime == nOneSecond * 15)
 	{
 		m_pEnemy = CEnemy::Create(D3DXVECTOR3(1300, 430.0f, 0.0f), CEnemy::ENEMYTYPE_BIG);
+	}
+	else if (m_nTime == nOneSecond * 30)
+	{
+		m_pEnemy = CEnemy::Create(D3DXVECTOR3(1300, 430.0f, 0.0f), CEnemy::ENEMYTYPE_HORMING);
 	}
 
 	//‰æ–Ê‘JˆÚ
