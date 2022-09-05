@@ -145,7 +145,19 @@ CSkill *CSkill::Create(SKILLTYPE type)
 		pSkill->m_type = type;
 
 		//‰Šú‰»
-		pSkill->Init(D3DXVECTOR3(0.0f, 720.0f, 0.0f));
+		switch (pSkill->m_type)
+		{
+		case SKILLTYPE_HEAL:
+			pSkill->Init(D3DXVECTOR3(0.0f, 720.0f, 0.0f));
+			break;
+
+		case SKILLTYPE_SPEEDUP_FIRE:
+			pSkill->Init(D3DXVECTOR3(0.0f, 640.0f, 0.0f));
+			break;
+
+		default:
+			break;
+		}
 		pSkill->SetObjType(OBJTYPE_SKILL);
 	}
 

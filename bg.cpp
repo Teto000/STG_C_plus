@@ -96,16 +96,15 @@ void CBg::Uninit()
 //===========================
 void CBg::Update()
 {
-	//アニメーションカウントの加算
-	m_nCntAnim++;
-	m_nCntAnim %= 10;
-
-	switch (m_type)
+	if (m_pObject2D != nullptr)
 	{
-	//ゲーム画面
-	case BGTYPE_GAME:
-		if (m_nCntAnim == 0)
-		{//カウントが0になったら
+		//アニメーションカウントの加算
+		m_nCntAnim++;
+		m_nCntAnim %= 10;
+
+		//ゲーム画面
+		if (m_type == BGTYPE_GAME && m_nCntAnim == 0)
+		{
 			//テクスチャ座標の加算
 			m_fTexLeft += 0.0003f;
 			m_fTexRight += 0.0003f;
@@ -113,10 +112,6 @@ void CBg::Update()
 			//テクスチャ座標の設定
 			m_pObject2D->SetTexCIE(m_fTexLeft, m_fTexRight);
 		}
-		break;
-
-	default:
-		break;
 	}
 }
 

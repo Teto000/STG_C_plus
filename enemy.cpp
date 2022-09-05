@@ -12,6 +12,7 @@
 #include "enemy.h"
 #include "main.h"
 #include "renderer.h"
+#include "application.h"
 #include "object2D.h"
 #include "input_keybord.h"
 #include "bullet.h"
@@ -234,6 +235,12 @@ void CEnemy::Update()
 
 		//“G‚ÌÁ–Å
 		Uninit();
+
+		if (m_type == ENEMYTYPE_BOSS)
+		{
+			//ƒŠƒUƒ‹ƒg‰æ–Ê‚ÉˆÚs
+			CApplication::SetMode(CApplication::MODE_RESULT);
+		}
 		return;
 	}
 	//--------------------------

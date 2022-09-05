@@ -81,48 +81,39 @@ void CGame::Uninit()
 //===========================
 void CGame::Update()
 {
-	/*m_EnemyCnt++;
-	m_EnemyCnt %= 80;
-
-	if (m_EnemyCnt == 0)
-	{
-		int nRand = rand() % 420 + 300;
-
-		//“G‚Ì¶¬
-		m_pEnemy = CEnemy::Create(D3DXVECTOR3(1300, (float)nRand, 0.0f),
-									CEnemy::ENEMYTYPE_NORMAL);
-	}*/
-
 	m_nTime++;
 
-	if (m_nTime == nOneSecond * 3)
+	if (m_nTime == (nOneSecond * 3))
 	{
 		m_pEnemy = CEnemy::Create(D3DXVECTOR3(1300, 360.0f, 0.0f), CEnemy::ENEMYTYPE_NORMAL);
 	}
-	else if (m_nTime == nOneSecond * 7)
+	else if (m_nTime % (nOneSecond * 7) == 0)
 	{
 		m_pEnemy = CEnemy::Create(D3DXVECTOR3(1300, 230.0f, 0.0f), CEnemy::ENEMYTYPE_NORMAL);
-		m_pEnemy = CEnemy::Create(D3DXVECTOR3(1300, 410.0f, 0.0f), CEnemy::ENEMYTYPE_NORMAL);
 		m_pEnemy = CEnemy::Create(D3DXVECTOR3(1300, 590.0f, 0.0f), CEnemy::ENEMYTYPE_NORMAL);
 	}
-	else if (m_nTime == nOneSecond * 15)
-	{
-		m_pEnemy = CEnemy::Create(D3DXVECTOR3(1300, 430.0f, 0.0f), CEnemy::ENEMYTYPE_BIG);
-	}
-	else if (m_nTime == nOneSecond * 30)
+	else if (m_nTime % (nOneSecond * 13) == 0)
 	{
 		m_pEnemy = CEnemy::Create(D3DXVECTOR3(1300, 430.0f, 0.0f), CEnemy::ENEMYTYPE_HORMING);
+	}
+	else if (m_nTime % (nOneSecond * 19) == 0)
+	{
+		m_pEnemy = CEnemy::Create(D3DXVECTOR3(1300, 430.0f, 0.0f), CEnemy::ENEMYTYPE_BIG);
 	}
 	else if (m_nTime == nOneSecond * 60)
 	{
 		m_pEnemy = CEnemy::Create(D3DXVECTOR3(1300, 430.0f, 0.0f), CEnemy::ENEMYTYPE_BOSS);
 	}
+	else if(m_nTime >= (nOneSecond * 70))
+	{
+		m_nTime = 0;
+	}
 
 	//‰æ–Ê‘JˆÚ
-	if (CInputKeyboard::Trigger(DIK_RETURN))
+	/*if (CInputKeyboard::Trigger(DIK_RETURN))
 	{
 		CApplication::SetMode(CApplication::MODE_RESULT);
-	}
+	}*/
 }
 
 //===========================

@@ -214,6 +214,7 @@ void CPlayer::Update()
 		//“G‚ÌÁ–Å
 		Uninit();
 
+		//ƒŠƒUƒ‹ƒg‰æ–Ê‚ÉˆÚs
 		CApplication::SetMode(CApplication::MODE_RESULT);
 		return;
 	}
