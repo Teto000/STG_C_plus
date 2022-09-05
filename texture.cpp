@@ -26,7 +26,7 @@ const char* CTexture::s_FileName[] =
 	"data/TEXTURE/Ring.png",				//輪
 	"data/TEXTURE/Number.png",				//数字
 	"data/TEXTURE/Effect.jpg",				//エフェクト
-	"data/TEXTURE/BG.png",					//背景
+	"data/TEXTURE/BG.jpg",					//背景
 	"data/TEXTURE/BG_Title.png",			//タイトル画面の背景
 	"data/TEXTURE/BG_Result.png",			//リザルト画面の背景
 	"data/TEXTURE/Barrier.png",				//バリア

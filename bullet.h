@@ -79,6 +79,7 @@ private:
 	D3DXVECTOR3 m_move;		//ˆÚ“®—Ê
 	D3DXVECTOR3 m_rot;		//‰ñ“]
 	int m_nLife;			//õ–½
+	int m_nPlayerAttack;	//ƒvƒŒƒCƒ„[‚ÌUŒ‚—Í
 	float m_fWidth;			//•
 	float m_fHeight;		//‚‚³
 	BULLETTYPE m_type;		//í—Ş

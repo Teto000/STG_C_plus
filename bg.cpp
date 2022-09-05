@@ -22,6 +22,9 @@ CBg::CBg() : CObject()
 {
 	m_pObject2D = nullptr;
 	m_pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	m_nCntAnim = 0;
+	m_fTexLeft = 0.0f;
+	m_fTexRight = 0.0f;
 	m_fWidth = 0.0f;
 	m_fHeight = 0.0f;
 }
@@ -50,7 +53,9 @@ HRESULT CBg::Init(D3DXVECTOR3 pos)
 		switch (m_type)
 		{
 		case BGTYPE_GAME:
+			m_fTexRight = 0.2f;
 			m_pObject2D->SetTexture(CTexture::TEXTURE_BG);	//テクスチャの設定
+			m_pObject2D->SetTexCIE(m_fTexLeft, m_fTexRight);
 			break;
 
 		case BGTYPE_TITLE:
@@ -88,7 +93,22 @@ void CBg::Uninit()
 //===========================
 void CBg::Update()
 {
+	m_nCntAnim++;
 
+	switch (m_type)
+	{
+	case BGTYPE_GAME:
+		if ((m_nCntAnim % 10) == 0)
+		{
+			m_nCntAnim = (m_nCntAnim + 1) % 4;
+
+			m_fTexLeft += 0.0003f;
+			m_fTexRight += 0.0003f;
+
+			m_pObject2D->SetTexCIE(m_fTexLeft, m_fTexRight);
+		}
+		break;
+	}
 }
 
 //===========================

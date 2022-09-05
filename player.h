@@ -81,6 +81,7 @@ private:
 	int m_nMaxLife;			//Å‘å‘Ì—Í
 	int m_nRemLife;			//c‚è‘Ì—Í
 	int m_nAttack;			//UŒ‚—Í
+	int m_nLevel;			//ƒŒƒxƒ‹
 	int m_nShotTime;		//’e‚Ì”­ËŠÔ
 	int m_nCntShotTime;		//’e‚Ì”­ËŠÔ‚ğ”‚¦‚é
 	int m_nCntInvincible;	//–³“GŠÔ‚ğ”‚¦‚é

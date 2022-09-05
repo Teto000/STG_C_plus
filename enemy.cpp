@@ -313,7 +313,7 @@ void CEnemy::EnemyAttackCount(D3DXVECTOR2 vec)
 		break;
 
 	case ENEMYTYPE_HORMING:
-		m_nCntShotTime %= nShotTime * 2;
+		m_nCntShotTime %= nShotTime;
 		break;
 
 	default:
@@ -369,15 +369,7 @@ void CEnemy::EnemyAttack(D3DXVECTOR2 vec)
 //===========================
 void CEnemy::BossAttack()
 {
-	if (CInputKeyboard::Trigger(DIK_M))
-	{
-		for (int i = 0; i < 5; i++)
-		{
-			D3DXVECTOR3 pos(300.0f + (i * 200.0f), 0.0f - (i * 50.0f), 0.0f);
-			D3DXVECTOR3 move(-5.0f, 9.0f, 0.0f);
-			m_EnemyBullet->Create(pos, move, m_nAttack, CEnemyBullet::ENEMYBULLETTYPE_NORMAL);
-		}
-	}
+	
 }
 
 //===========================

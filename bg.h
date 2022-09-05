@@ -53,8 +53,11 @@ private:
 	//----------------
 	CObject2D *m_pObject2D;		//オブジェクト2D
 	D3DXVECTOR3 m_pos;			//位置
+	int m_nCntAnim;				//アニメーションカウント
 	float m_fWidth;				//幅
 	float m_fHeight;			//高さ
+	float m_fTexLeft;			//テクスチャ座標左側
+	float m_fTexRight;			//テクスチャ座標右側
 	BGTYPE m_type;				//種類
 };
 

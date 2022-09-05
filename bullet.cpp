@@ -42,6 +42,7 @@ CBullet::CBullet() : CObject2D()
 	m_move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		//移動量
 	m_rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		//回転
 	m_nLife = 0;				//寿命
+	m_nPlayerAttack = 0;		//プレイヤーの攻撃力
 	m_fWidth = 0.0f;			//幅
 	m_fHeight = 0.0f;			//高さ
 	m_type = BULLETTYPE_MAX;	//種類
@@ -291,7 +292,7 @@ void CBullet::ShotBullet(D3DXVECTOR3 pos, int nLevel, int nShotTime)
 void CBullet::CollisionBullet(CObject::EObjType ObjType)
 {
 	CObject* pHitObject = CObject2D::GetCollision(ObjType);
-	int PlayerAttack = CGame::GetPlayer()->GetAttack();
+	m_nPlayerAttack = CGame::GetPlayer()->GetAttack();
 
 	if (pHitObject != nullptr)
 	{//敵と当たった
@@ -303,14 +304,14 @@ void CBullet::CollisionBullet(CObject::EObjType ObjType)
 			if (m_type == BULLETTYPE_CHARGE)
 			{//チャージショットなら
 				//ダメージ上昇
-				pEnemy->SubLife(PlayerAttack * 3);	//敵の体力の減少
+				pEnemy->SubLife(m_nPlayerAttack * 3);	//敵の体力の減少
 			}
 			else
 			{//それ以外なら
-				pEnemy->SubLife(PlayerAttack);	//敵の体力の減少
+				pEnemy->SubLife(m_nPlayerAttack);	//敵の体力の減少
 			}
 
-			pDamage->Create(m_pos, 20.0f, 30.0f, 20.0f, 2, PlayerAttack);	//ダメージの表示
+			pDamage->Create(m_pos, 20.0f, 30.0f, 20.0f, 2, m_nPlayerAttack);	//ダメージの表示
 
 			//弾の消滅
 			Uninit();

@@ -40,6 +40,7 @@ CPlayer::CPlayer() : CObject2D()
 	m_nMaxLife = 0;				//Å‘å‘Ì—Í
 	m_nRemLife = 0;				//Žc‚è‘Ì—Í
 	m_nAttack = 0;				//UŒ‚—Í
+	m_nLevel = 0;				//ƒŒƒxƒ‹
 	m_nShotTime = 0;			//’e‚Ì”­ŽËŽžŠÔ
 	m_nCntShotTime = 0;			//’e‚Ì”­ŽËŽžŠÔ‚ð”‚¦‚é
 	m_nCntInvincible = 0;		//–³“GŽžŠÔ‚ð”‚¦‚é
@@ -142,6 +143,13 @@ void CPlayer::Update()
 	//--------------------
 	CObject2D::SetScreenX(m_pos.x, 0.0f + m_fWidth / 2, SCREEN_WIDTH - m_fWidth / 2);
 	CObject2D::SetScreenY(m_pos.y, 0.0f + 200.0f, SCREEN_HEIGHT - m_fHeight / 2);
+	
+	//--------------------
+	// ƒŒƒxƒ‹‚É‚æ‚é•Ï‰»
+	//--------------------
+	m_nLevel = m_Level->GetLevel();	//ƒŒƒxƒ‹‚ÌŽæ“¾
+
+	//m_nAttack *= 1.0f + (0.1f * m_nLevel);
 
 	//--------------------------
 	// ’e‚Ì”­ŽË
@@ -151,10 +159,7 @@ void CPlayer::Update()
 		m_nCntShotTime++;
 		m_nCntShotTime %= m_nShotTime;	//”­ŽËŽžŠÔ‚ðƒŠƒZƒbƒg
 
-		{
-			int nLevel = m_Level->GetLevel();	//ƒŒƒxƒ‹‚ÌŽæ“¾
-			m_Bullet->ShotBullet(m_pos, nLevel, m_nCntShotTime);	//’e‚Ì”­ŽË
-		}
+		m_Bullet->ShotBullet(m_pos, m_nLevel, m_nCntShotTime);	//’e‚Ì”­ŽË
 	}
 
 	//--------------------------
