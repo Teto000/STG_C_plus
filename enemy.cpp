@@ -78,6 +78,7 @@ HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 	switch (m_type)
 	{
 	case ENEMYTYPE_BOSS:
+		m_move.x = -0.2f;	//à⁄ìÆó 
 		m_fWidth = 250.0f;	//ïù
 		m_fHeight = 350.0f;	//çÇÇ≥
 		SetLife(3000);
