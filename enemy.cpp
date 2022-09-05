@@ -8,6 +8,7 @@
 //------------------------
 // インクルード
 //------------------------
+#include <time.h>
 #include "enemy.h"
 #include "main.h"
 #include "renderer.h"
@@ -38,7 +39,6 @@ CEnemy::CEnemy() : CObject2D()
 	m_nMaxLife = 0;				//最大体力
 	m_nRemLife = 0;				//残り体力
 	m_nAttack = 0;				//攻撃力
-	m_nCntAttack = 0;			//攻撃タイミング
 	m_fWidth = 0.0f;			//幅
 	m_fHeight = 0.0f;			//高さ
 	m_fTargetRot = 0.0f;		//プレイヤーまでの角度
@@ -63,10 +63,16 @@ CEnemy::~CEnemy()
 //===========================
 HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 {
+	//時刻をもとにしたランダムな値を生成
+	srand((unsigned int)time(NULL));
+
 	//位置の設定
 	m_pos = pos;		//位置
 	m_nRemLife = 100;	//残り体力
 	m_nAttack = 5;
+
+	CObject2D::Init(m_pos);
+	CObject2D::SetTexture(CTexture::TEXTURE_ENEMYBIRD);	//テクスチャの設定
 
 	switch (m_type)
 	{
@@ -81,6 +87,8 @@ HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 		m_fWidth = 170.0f;	//幅
 		m_fHeight = 170.0f;	//高さ
 		SetLife(500);
+		CObject2D::SetTexCIE(0.0f, 0.5f);	//テクスチャ座標の設定
+		CObject2D::SetTexture(CTexture::TEXTURE_ENEMYDEVIL);
 		break;
 
 	case ENEMYTYPE_HORMING:
@@ -95,16 +103,11 @@ HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 		m_fWidth = 100.0f;	//幅
 		m_fHeight = 100.0f;	//高さ
 		SetLife(100);
+		CObject2D::SetTexCIE(0.0f, 0.5f);	//テクスチャ座標の設定
 		break;
 	}
 
-	CObject2D::Init(m_pos);
-
 	CObject2D::SetSize(m_fWidth, m_fHeight);	//サイズの設定
-
-	CObject2D::SetTexCIE(0.0f, 0.5f);	//テクスチャ座標の設定
-
-	CObject2D::SetTexture(CTexture::TEXTURE_ENEMYBIRD);	//テクスチャの設定
 
 	//--------------------------
 	// HPの表示
@@ -124,7 +127,15 @@ HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 	//--------------------------
 	// バリアの生成
 	//--------------------------
-	m_pBarrier->Create(m_pos, m_move, m_fWidth * 1.1f, m_fHeight * 1.1f);
+	{
+		int nData = rand() % 5;
+
+		if (m_type != ENEMYTYPE_BOSS && nData == 1)
+		{//ボス以外の敵 かつ ランダムな値が1の時
+			//バリアの生成
+			m_pBarrier->Create(m_pos, m_move, m_fWidth * 1.1f, m_fHeight * 1.1f);
+		}
+	}
 
 	return S_OK;
 }
@@ -145,17 +156,6 @@ void CEnemy::Update()
 	CObject2D::Update();
 
 	//-------------------------------
-	// カウント
-	//-------------------------------
-	//テクスチャ
-	m_nCntTime++;
-	m_nCntTime %= nMaxTexTime;	//リセット
-
-	//攻撃タイミング
-	m_nCntAttack++;
-	m_nCntAttack %= 30;
-
-	//-------------------------------
 	// プレイヤーの位置を保存
 	//-------------------------------
 	if (CGame::GetPlayer()->GetLife() > 0)
@@ -170,13 +170,20 @@ void CEnemy::Update()
 	//-------------------------------
 	// テクスチャ座標の変更
 	//-------------------------------
-	if (m_nCntTime >= nHalfTexTime)
+	if (m_type == ENEMYTYPE_NORMAL || m_type == ENEMYTYPE_BIG)
 	{
-		CObject2D::SetTexCIE(0.0f, 0.5f);	//テクスチャ座標の設定
-	}
-	else
-	{
-		CObject2D::SetTexCIE(0.5f, 1.0f);
+		//テクスチャ
+		m_nCntTime++;
+		m_nCntTime %= nMaxTexTime;	//リセット
+
+		if (m_nCntTime >= nHalfTexTime)
+		{
+			CObject2D::SetTexCIE(0.0f, 0.5f);	//テクスチャ座標の設定
+		}
+		else
+		{
+			CObject2D::SetTexCIE(0.5f, 1.0f);
+		}
 	}
 
 	//-------------------------------

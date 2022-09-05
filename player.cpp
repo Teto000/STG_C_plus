@@ -12,6 +12,7 @@
 #include "player.h"
 #include "main.h"
 #include "renderer.h"
+#include "application.h"
 #include "object2D.h"
 #include "input_keybord.h"
 #include "texture.h"
@@ -212,6 +213,8 @@ void CPlayer::Update()
 	{
 		//ìGÇÃè¡ñ≈
 		Uninit();
+
+		CApplication::SetMode(CApplication::MODE_RESULT);
 		return;
 	}
 

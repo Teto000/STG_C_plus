@@ -50,6 +50,9 @@ HRESULT CBg::Init(D3DXVECTOR3 pos)
 		m_fWidth = SCREEN_WIDTH;
 		m_fHeight = SCREEN_HEIGHT;
 
+		//テクスチャ座標の設定
+		m_pObject2D->SetTexCIE(0.0f, 1.0f);
+
 		switch (m_type)
 		{
 		case BGTYPE_GAME:
@@ -110,6 +113,9 @@ void CBg::Update()
 			//テクスチャ座標の設定
 			m_pObject2D->SetTexCIE(m_fTexLeft, m_fTexRight);
 		}
+		break;
+
+	default:
 		break;
 	}
 }
