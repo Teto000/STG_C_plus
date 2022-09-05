@@ -20,17 +20,24 @@ class CTexture
 public: /* 定義 */
 	enum TEXTURE
 	{
+		/* ↓ キャラクター ↓*/
 		TEXTURE_PLAYER = 0,			//プレイヤー
+		TEXTURE_ENEMYBIRD,			//敵(鳥)
+		TEXTURE_ENEMYDEVIL,			//敵(悪魔)
+
+		/* ↓ ゲーム ↓*/
 		TEXTURE_BULLET,				//弾
 		TEXTURE_EXPLOSION,			//爆発
-		TEXTURE_ENEMYBIRD,			//鳥型の敵
 		TEXTURE_RING,				//輪
-		TEXTURE_NUMBER,				//数字
 		TEXTURE_EFFECT,				//エフェクト
+		TEXTURE_BARRIER,			//バリア
+
+		/* ↓ BG ↓*/
 		TEXTURE_BG,					//背景
 		TEXTURE_BG_TITLE,			//タイトル画面の背景
 		TEXTURE_BG_RESULT,			//リザルト画面の背景
-		TEXTURE_BARRIER,			//バリア
+
+		/* ↓ UI ↓*/
 		TEXTURE_EXP,				//経験値
 		TEXTURE_LEVEL,				//レベル
 		TEXTURE_HPFREAM,			//HPバーのフレーム
@@ -38,6 +45,9 @@ public: /* 定義 */
 		/* ↓ スキル ↓*/
 		TEXTURE_SKILL_HPHEAL,		//スキル(体力回復)
 		TEXTURE_SKILL_SPEEDUP_FIRE,	//スキル(弾速強化)
+
+		/* ↓ 共通 ↓*/
+		TEXTURE_NUMBER,				//数字
 
 		TEXTURE_MAX,
 		TEXTURE_NONE,			//使用しない

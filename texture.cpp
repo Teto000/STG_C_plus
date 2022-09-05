@@ -19,24 +19,34 @@
 //==================================================
 const char* CTexture::s_FileName[] =
 {// テクスチャのパス
-	"data/TEXTURE/Player.png",				//プレイヤー
-	"data/TEXTURE/Bullet.png",				//弾
-	"data/TEXTURE/Explosion.png",			//爆発
-	"data/TEXTURE/EnemyBird.png",			//鳥型の敵
-	"data/TEXTURE/Ring.png",				//輪
-	"data/TEXTURE/Number.png",				//数字
-	"data/TEXTURE/Effect.jpg",				//エフェクト
-	"data/TEXTURE/BG.jpg",					//背景
-	"data/TEXTURE/BG_Title.png",			//タイトル画面の背景
-	"data/TEXTURE/BG_Result.png",			//リザルト画面の背景
-	"data/TEXTURE/Barrier.png",				//バリア
-	"data/TEXTURE/Exp.png",					//経験値
-	"data/TEXTURE/Level.png",				//レベル
-	"data/TEXTURE/HPFream.png",				//HPバーのフレーム
+	/* ↓ キャラクター ↓*/
+	"data/TEXTURE/Character/Player.png",		//プレイヤー
+	"data/TEXTURE/Character/EnemyBird.png",		//敵(鳥)
+	"data/TEXTURE/Character/EnemyDevil.png",	//敵(悪魔)
+
+	/* ↓ ゲーム ↓*/
+	"data/TEXTURE/Game/Bullet.png",			//弾
+	"data/TEXTURE/Game/Explosion.png",		//爆発
+	"data/TEXTURE/Game/Ring.png",			//輪
+	"data/TEXTURE/Game/Effect.jpg",			//エフェクト
+	"data/TEXTURE/Game/Barrier.png",		//バリア
+
+	/* ↓ BG ↓*/
+	"data/TEXTURE/BG/Game.jpg",				//背景
+	"data/TEXTURE/BG/Title.png",			//タイトル画面の背景
+	"data/TEXTURE/BG/Result.png",			//リザルト画面の背景
+
+	/* ↓ UI ↓*/
+	"data/TEXTURE/UI/Exp.png",				//経験値
+	"data/TEXTURE/UI/Level.png",			//レベル
+	"data/TEXTURE/UI/HPFream.png",			//HPバーのフレーム
 
 	/* ↓ スキル ↓*/
 	"data/TEXTURE/Skill/HPheal.png",		//スキル(体力回復)
 	"data/TEXTURE/Skill/SpeedUp_Fire.png",	//スキル(弾速強化)
+
+	/* ↓ 共通 ↓*/
+	"data/TEXTURE/Number.png",		//数字
 };
 
 static_assert(sizeof(CTexture::s_FileName) / sizeof(CTexture::s_FileName[0]) == CTexture::TEXTURE_MAX, "aho");

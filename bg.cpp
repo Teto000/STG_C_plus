@@ -93,18 +93,21 @@ void CBg::Uninit()
 //===========================
 void CBg::Update()
 {
+	//アニメーションカウントの加算
 	m_nCntAnim++;
+	m_nCntAnim %= 10;
 
 	switch (m_type)
 	{
+	//ゲーム画面
 	case BGTYPE_GAME:
-		if ((m_nCntAnim % 10) == 0)
-		{
-			m_nCntAnim = (m_nCntAnim + 1) % 4;
-
+		if (m_nCntAnim == 0)
+		{//カウントが0になったら
+			//テクスチャ座標の加算
 			m_fTexLeft += 0.0003f;
 			m_fTexRight += 0.0003f;
 
+			//テクスチャ座標の設定
 			m_pObject2D->SetTexCIE(m_fTexLeft, m_fTexRight);
 		}
 		break;
