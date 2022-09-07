@@ -25,7 +25,11 @@
 //===========================
 // コンストラクタ
 //===========================
-CObject2D::CObject2D() : CObject()
+CObject2D::CObject2D() : CObject2D(0)
+{
+}
+
+CObject2D::CObject2D(int nPriority) : CObject(nPriority)
 {
 	m_pVtxBuff = nullptr;	//頂点バッファへのポインタ
 
@@ -479,42 +483,45 @@ CObject* CObject2D::GetCollision(CObject::EObjType TirgetType)
 	float SourceWidth = CObject2D::GetWidth();			//幅
 	float SourceHeight = CObject2D::GetHeight();		//高さ
 
-	for (int i = 0; i < MAX_OBJECT; i++)
+	for (int i = 0; i < MY_MAX_PRIORITY; i++)
 	{
-		CObject *pObject;
-		pObject = CObject::GETObject(i);
-
-		if (pObject == nullptr)
+		for (int j = 0; j < MAX_OBJECT; j++)
 		{
-			continue;
-		}
+			CObject *pObject;
+			pObject = CObject::GETObject(i, j);
 
-		//オブジェクトの種類の取得
-		CObject::EObjType type = pObject->GetObjType();
-		if (type != TirgetType)
-		{//オブジェクトの種類が目的の相手じゃないなら
-			continue;
-		}
+			if (pObject == nullptr)
+			{
+				continue;
+			}
 
-		//------------------
-		// 相手の情報を取得
-		//------------------
-		m_TargetPos = pObject->GetPosition();			//位置
-		float TirgetWidth = pObject->GetWidth();		//幅
-		float TirgetHeight = pObject->GetHeight();		//高さ
+			//オブジェクトの種類の取得
+			CObject::EObjType type = pObject->GetObjType();
+			if (type != TirgetType)
+			{//オブジェクトの種類が目的の相手じゃないなら
+				continue;
+			}
 
-		float fLeft = m_TargetPos.x - (TirgetWidth / 2);		//敵の左側
-		float fRight = m_TargetPos.x + (TirgetWidth / 2);		//敵の右側
-		float fTop = m_TargetPos.y - (TirgetHeight / 2);		//敵の上側
-		float fBottom = m_TargetPos.y + (TirgetHeight / 2);		//敵の下側
+			//------------------
+			// 相手の情報を取得
+			//------------------
+			m_TargetPos = pObject->GetPosition();			//位置
+			float TirgetWidth = pObject->GetWidth();		//幅
+			float TirgetHeight = pObject->GetHeight();		//高さ
 
-		//------------------
-		// 当たり判定
-		//------------------
-		if (SourcePos.x + SourceWidth / 2 >= fLeft && SourcePos.x - SourceWidth / 2 <= fRight
-			&& SourcePos.y - SourceHeight / 2 <= fBottom && SourcePos.y + SourceHeight / 2 >= fTop)
-		{
-			return pObject;
+			float fLeft = m_TargetPos.x - (TirgetWidth / 2);		//敵の左側
+			float fRight = m_TargetPos.x + (TirgetWidth / 2);		//敵の右側
+			float fTop = m_TargetPos.y - (TirgetHeight / 2);		//敵の上側
+			float fBottom = m_TargetPos.y + (TirgetHeight / 2);		//敵の下側
+
+			//------------------
+			// 当たり判定
+			//------------------
+			if (SourcePos.x + SourceWidth / 2 >= fLeft && SourcePos.x - SourceWidth / 2 <= fRight
+				&& SourcePos.y - SourceHeight / 2 <= fBottom && SourcePos.y + SourceHeight / 2 >= fTop)
+			{
+				return pObject;
+			}
 		}
 	}
 

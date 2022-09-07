@@ -18,7 +18,7 @@
 //===========================
 // コンストラクタ
 //===========================
-CBg::CBg() : CObject()
+CBg::CBg() : CObject(0)
 {
 	m_pObject2D = nullptr;
 	m_pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
@@ -141,7 +141,7 @@ CBg *CBg::Create(D3DXVECTOR3 pos, BGTYPE type)
 	// 背景の生成と初期化
 	//----------------------------------
 	pBG = new CBg;	//生成
-	pBG->m_pObject2D = new CObject2D;
+	pBG->m_pObject2D = new CObject2D(0);
 
 	if (pBG != nullptr)
 	{//NULLチェック

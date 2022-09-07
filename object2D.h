@@ -20,8 +20,9 @@
 class CObject2D : public CObject
 {
 public:
-	CObject2D();					//コンストラク
-	virtual ~CObject2D() override;	//デストラクタ
+	CObject2D();
+	explicit CObject2D(int nPriority);	//コンストラクタ
+	virtual ~CObject2D() override;		//デストラクタ
 
 	//----------------
 	// メンバ関数

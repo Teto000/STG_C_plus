@@ -15,7 +15,8 @@
 //------------------------
 // マクロ定義
 //------------------------
-#define MAX_OBJECT	(512)	//オブジェクトの最大数
+#define MAX_OBJECT		(512)	//オブジェクトの最大数
+#define MY_MAX_PRIORITY	(3)		//プライオリティの最大数
 
 //--------------------------
 // オブジェクトクラス
@@ -45,7 +46,8 @@ public:
 		OBJTYPE_MAX,
 	};
 
-	CObject();			//コンストラクタ
+	//CObject();			//コンストラクタ
+	explicit CObject(int nPriority);
 	virtual ~CObject();	//デストラクタ
 
 	//----------------
@@ -67,7 +69,7 @@ public:
 	static void DrawAll();
 	static int GetNumAll();
 
-	CObject *GETObject(int nCnt);
+	CObject *GETObject(int nPriority, int nCnt);
 	void SetObjType(EObjType ObjType);	//種類の設定
 	EObjType GetObjType();				//種類の取得
 
@@ -78,15 +80,10 @@ public:
 
 private:
 	//----------------
-	// メンバ変数
-	//----------------
-
-	//----------------
 	// 静的メンバ変数
 	//----------------
-	static CObject *m_pObject[MAX_OBJECT];	//オブジェクト
-	//	static int m_nNumAll;	//オブジェクトの数
-	int m_nID;					//格納先の番号
+	static CObject *m_pObject[MY_MAX_PRIORITY][MAX_OBJECT];	//オブジェクト
+	int m_nID;			//格納先の番号
 	EObjType m_ObjType;	//オブジェクトの種類
 };
 

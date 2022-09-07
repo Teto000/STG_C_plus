@@ -77,23 +77,26 @@ void CExp::Update()
 	{//ゲージが一周したら
 		CObject *pObject;
 
-		for (int i = 0; i < MAX_OBJECT; i++)
+		for (int i = 0; i < MY_MAX_PRIORITY; i++)
 		{
-			pObject = CObject::GETObject(i);
-
-			if (pObject == nullptr)
+			for (int j = 0; j < MAX_OBJECT; j++)
 			{
-				continue;
-			}
+				pObject = CObject::GETObject(i, j);
 
-			//オブジェクトの種類の取得
-			CObject::EObjType type = pObject->GetObjType();
+				if (pObject == nullptr)
+				{
+					continue;
+				}
 
-			if (type == CObject::OBJTYPE_EXP)
-			{
-				//経験値ゲージの消去
-				pObject->Uninit();
-				//return;
+				//オブジェクトの種類の取得
+				CObject::EObjType type = pObject->GetObjType();
+
+				if (type == CObject::OBJTYPE_EXP)
+				{
+					//経験値ゲージの消去
+					pObject->Uninit();
+					//return;
+				}
 			}
 		}
 

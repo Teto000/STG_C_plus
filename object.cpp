@@ -14,21 +14,19 @@
 //------------------------
 // 静的メンバ変数宣言
 //------------------------
-CObject *CObject::m_pObject[MAX_OBJECT] = {};
-//int CObject::m_nNumAll = 0;
+CObject *CObject::m_pObject[3][MAX_OBJECT] = {};
 
-//=============================
-// コンストラクタ
-//=============================
-CObject::CObject()
+//================================
+// コンストラクタ(イニシャライザ)
+//================================
+CObject::CObject(int nPriority)
 {
 	for (int i = 0; i < MAX_OBJECT; i++)
 	{
-		if (m_pObject[i] == nullptr)
+		if (m_pObject[nPriority][i] == nullptr)
 		{
-			m_pObject[i] = this;
+			m_pObject[nPriority][i] = this;
 			m_nID = i;
-			//m_nNumAll++;
 			m_ObjType = OBJTYPE_MAX;
 			break;
 		}
@@ -47,12 +45,15 @@ CObject::~CObject()
 //=============================
 void CObject::ReleaseAll()
 {
-	for (int i = 0; i < MAX_OBJECT; i++)
+	for (int i = 0; i < MY_MAX_PRIORITY; i++)
 	{
-		if (m_pObject[i] != nullptr)
+		for (int j = 0; j < MAX_OBJECT; j++)
 		{
-			//解放
-			m_pObject[i]->Uninit();
+			if (m_pObject[i][j] != nullptr)
+			{
+				//解放
+				m_pObject[i][j]->Uninit();
+			}
 		}
 	}
 }
@@ -62,11 +63,14 @@ void CObject::ReleaseAll()
 //=============================
 void CObject::UpdateAll()
 {
-	for (int i = 0; i < MAX_OBJECT; i++)
+	for (int i = 0; i < MY_MAX_PRIORITY; i++)
 	{
-		if (m_pObject[i] != nullptr)
+		for (int j = 0; j < MAX_OBJECT; j++)
 		{
-			m_pObject[i]->Update();	//オブジェクトの更新
+			if (m_pObject[i][j] != nullptr)
+			{
+				m_pObject[i][j]->Update();	//オブジェクトの更新
+			}
 		}
 	}
 }
@@ -76,11 +80,14 @@ void CObject::UpdateAll()
 //=============================
 void CObject::DrawAll()
 {
-	for (int i = 0; i < MAX_OBJECT; i++)
+	for (int i = 0; i < MY_MAX_PRIORITY; i++)
 	{
-		if (m_pObject[i] != nullptr)
+		for (int j = 0; j < MAX_OBJECT; j++)
 		{
-			m_pObject[i]->Draw();	//オブジェクトの描画
+			if (m_pObject[i][j] != nullptr)
+			{
+				m_pObject[i][j]->Draw();	//オブジェクトの描画
+			}
 		}
 	}
 }
@@ -90,7 +97,6 @@ void CObject::DrawAll()
 //=============================
 int CObject::GetNumAll()
 {
-	//return m_nNumAll;
 	return 0;
 }
 
@@ -100,22 +106,24 @@ int CObject::GetNumAll()
 void CObject::Release()
 {
 	//NULLチェック
-	if (m_pObject[m_nID] != nullptr)
+	for (int i = 0; i < MY_MAX_PRIORITY; i++)
 	{
-		int nID = m_nID;			//番号を保存
-//		m_pObject[nID]->Uninit();
-		delete m_pObject[nID];		//オブジェクトの解放
-		m_pObject[nID] = nullptr;	//NULLにする
-		//m_nNumAll--;				//総数を減らす
+		if (m_pObject[i][m_nID] != nullptr)
+		{
+			int nID = m_nID;				//番号を保存
+			delete m_pObject[i][nID];		//オブジェクトの解放
+			m_pObject[i][nID] = nullptr;	//NULLにする]
+			return;
+		}
 	}
 }
 
 //=============================
 // オブジェクトの取得
 //=============================
-CObject *CObject::GETObject(int nCnt)
+CObject *CObject::GETObject(int nPriority, int nCnt)
 {
-	return m_pObject[nCnt];
+	return m_pObject[nPriority][nCnt];
 }
 
 //=============================
