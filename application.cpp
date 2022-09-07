@@ -19,16 +19,18 @@
 #include "game.h"
 #include "title.h"
 #include "result.h"
+#include "skillselect.h"
 #include "fade.h"
 
 //------------------------
 // 静的メンバ変数宣言
 //------------------------
-CTitle*		CApplication::m_pTitle = nullptr;		//タイトルクラス
-CGame*		CApplication::m_pGame = nullptr;		//ゲームクラス
-CResult*	CApplication::m_pResult = nullptr;		//リザルトクラス
-CFade*		CApplication::m_pFade = nullptr;		//フェードクラス
-CApplication::MODE	CApplication::m_mode = MODE_MAX;//ゲームモード
+CTitle*				CApplication::m_pTitle = nullptr;		//タイトルクラス
+CGame*				CApplication::m_pGame = nullptr;		//ゲームクラス
+CResult*			CApplication::m_pResult = nullptr;		//リザルトクラス
+CSkillSelect*		CApplication::m_pSkillSelect = nullptr;	//スキルセレクトクラス
+CFade*				CApplication::m_pFade = nullptr;		//フェードクラス
+CApplication::MODE	CApplication::m_mode = MODE_MAX;		//ゲームモード
 
 CRenderer*	CApplication::m_pRenderer = nullptr;//レンダラー
 CInput*		CApplication::m_pInput = nullptr;	//インプット
@@ -150,6 +152,10 @@ void CApplication::Update()
 		m_pResult->Update();
 		break;
 
+	case MODE_SKILLSELECT:
+		m_pSkillSelect->Update();
+		break;
+
 	default:
 		break;
 	}
@@ -190,6 +196,10 @@ void CApplication::SetMode(MODE mode)
 		m_pResult->Uninit();
 		break;
 
+	case MODE_SKILLSELECT:
+		m_pSkillSelect->Uninit();
+		break;
+
 	default:
 		break;
 	}
@@ -219,6 +229,12 @@ void CApplication::SetMode(MODE mode)
 		m_pResult = nullptr;
 		m_pResult = new CResult;
 		m_pResult->Init();
+		break;
+
+	case MODE_SKILLSELECT:
+		m_pSkillSelect = nullptr;
+		m_pSkillSelect = new CSkillSelect;
+		m_pSkillSelect->Init();
 		break;
 
 	default:

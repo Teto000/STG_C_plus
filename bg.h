@@ -23,6 +23,7 @@ public:
 		BGTYPE_GAME = 0,	//ゲーム画面
 		BGTYPE_TITLE,		//タイトル画面
 		BGTYPE_RESULT,		//リザルト画面
+		BGTYPE_SKILLSELECT,	//スキルセレクト画面
 		BGTYPE_MAX
 	};
 

@@ -18,6 +18,7 @@
 class CGame;		//ゲーム
 class CTitle;		//タイトル
 class CResult;		//リザルト
+class CSkillSelect;	//スキルセレクト
 class CFade;		//フェード
 
 class CRenderer;	//レンダラー
@@ -36,10 +37,11 @@ public:
 	//--------------------------------
 	enum MODE
 	{
-		MODE_TITLE = 0,	//タイトル
-		MODE_GAME,		//ゲーム
-		MODE_RESULT,	//リザルト
-		MODE_FADE,		//フェード
+		MODE_TITLE = 0,		//タイトル
+		MODE_GAME,			//ゲーム
+		MODE_RESULT,		//リザルト
+		MODE_SKILLSELECT,	//スキルセレクト
+		MODE_FADE,			//フェード
 		MODE_MAX
 	};
 
@@ -69,16 +71,17 @@ private:
 	//------------------
 	// 静的メンバ変数
 	//------------------
-	static CGame*		m_pGame;		//ゲームクラス
-	static CTitle*		m_pTitle;		//タイトルクラス
-	static CResult*		m_pResult;		//リザルトクラス
-	static CFade*		m_pFade;		//フェードクラス
-	static MODE			m_mode;			//ゲームモード
+	static CGame*			m_pGame;		//ゲームクラス
+	static CTitle*			m_pTitle;		//タイトルクラス
+	static CResult*			m_pResult;		//リザルトクラス
+	static CSkillSelect*	m_pSkillSelect;	//スキルセレクトクラス
+	static CFade*			m_pFade;		//フェードクラス
+	static MODE				m_mode;			//ゲームモード
 
-	static CRenderer*	m_pRenderer;	//レンダラークラス
-	static CInput*		m_pInput;		//インプットクラス
-	static CTexture*	m_pTexture;		//テクスチャクラス
-	static CSound*		m_pSound;		//サウンドクラス
+	static CRenderer*		m_pRenderer;	//レンダラークラス
+	static CInput*			m_pInput;		//インプットクラス
+	static CTexture*		m_pTexture;		//テクスチャクラス
+	static CSound*			m_pSound;		//サウンドクラス
 };
 
 #endif // !_APPLICATION_H_

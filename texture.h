@@ -33,9 +33,10 @@ public: /* 定義 */
 		TEXTURE_BARRIER,			//バリア
 
 		/* ↓ BG ↓*/
-		TEXTURE_BG,					//背景
+		TEXTURE_BG_GAME,			//ゲーム画面の背景
 		TEXTURE_BG_TITLE,			//タイトル画面の背景
 		TEXTURE_BG_RESULT,			//リザルト画面の背景
+		TEXTURE_BG_SKILLSELECT,		//スキルセレクト画面の背景
 
 		/* ↓ UI ↓*/
 		TEXTURE_EXP,				//経験値

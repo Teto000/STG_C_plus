@@ -57,7 +57,7 @@ HRESULT CBg::Init(D3DXVECTOR3 pos)
 		{
 		case BGTYPE_GAME:
 			m_fTexRight = 0.2f;
-			m_pObject2D->SetTexture(CTexture::TEXTURE_BG);	//テクスチャの設定
+			m_pObject2D->SetTexture(CTexture::TEXTURE_BG_GAME);	//テクスチャの設定
 			m_pObject2D->SetTexCIE(m_fTexLeft, m_fTexRight);
 			break;
 
@@ -67,6 +67,10 @@ HRESULT CBg::Init(D3DXVECTOR3 pos)
 
 		case BGTYPE_RESULT:
 			m_pObject2D->SetTexture(CTexture::TEXTURE_BG_RESULT);
+			break;
+
+		case BGTYPE_SKILLSELECT:
+			m_pObject2D->SetTexture(CTexture::TEXTURE_BG_SKILLSELECT);
 			break;
 
 		default:

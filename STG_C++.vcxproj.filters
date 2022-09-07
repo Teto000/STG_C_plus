@@ -126,6 +126,9 @@
     <ClCompile Include="hpfream.cpp">
       <Filter>ソース ファイル\Application\Object\2D</Filter>
     </ClCompile>
+    <ClCompile Include="skillselect.cpp">
+      <Filter>ソース ファイル\Application</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -214,6 +217,9 @@
     </ClInclude>
     <ClInclude Include="hpfream.h">
       <Filter>ヘッダー ファイル\Application\Object\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="skillselect.h">
+      <Filter>ヘッダー ファイル\Application</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
