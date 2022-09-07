@@ -92,7 +92,7 @@ HRESULT CPlayer::Init(D3DXVECTOR3 pos)
 	//--------------------------
 	// HP‚Ì•\¦
 	//--------------------------
-	m_Hp = CHp::Create(D3DXVECTOR3(520.0f, 80.0f, 0.0f), 600.0f, 80.0f);
+	m_Hp = CHp::Create(D3DXVECTOR3(520.0f, 60.0f, 0.0f), 600.0f, 60.0f);
 	m_Hp->SetLife(m_nLife, m_nRemLife);	//‰ŠúHP‚Ìİ’è
 
 	//--------------------------
@@ -103,7 +103,7 @@ HRESULT CPlayer::Init(D3DXVECTOR3 pos)
 	//--------------------------
 	// ƒtƒŒ[ƒ€‚Ì¶¬
 	//--------------------------
-	m_pHpFream = CHpFream::Create(D3DXVECTOR3(520.0f, 80.0f, 0.0f), 600.0f, 80.0f);
+	m_pHpFream = CHpFream::Create(D3DXVECTOR3(520.0f, 60.0f, 0.0f), 600.0f, 60.0f);
 
 	return S_OK;
 }

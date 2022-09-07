@@ -33,6 +33,7 @@ public:
 		OBJTYPE_BULLET,		//弾
 		OBJTYPE_EXPLOSION,	//爆発
 		OBJTYPE_HP,			//HP
+		OBJTYPE_MP,			//MP
 		OBJTYPE_SCORE,		//スコア
 		OBJTYPE_EFFECT,		//エフェクト
 		OBJTYPE_BG,			//背景

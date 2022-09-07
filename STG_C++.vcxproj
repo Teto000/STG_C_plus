@@ -173,6 +173,7 @@
     <ClCompile Include="level.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="damage.cpp" />
+    <ClCompile Include="mp.cpp" />
     <ClCompile Include="object.cpp" />
     <ClCompile Include="object2D.cpp" />
     <ClCompile Include="player.cpp" />
@@ -205,6 +206,7 @@
     <ClInclude Include="level.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="damage.h" />
+    <ClInclude Include="mp.h" />
     <ClInclude Include="object.h" />
     <ClInclude Include="object2D.h" />
     <ClInclude Include="player.h" />
