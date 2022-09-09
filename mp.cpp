@@ -112,6 +112,8 @@ void CMp::SetMP(int nMp, int nRemMp)
 {
 	m_nMp = nMp;
 	m_nRemMp = nRemMp;
+
+	SubMP();
 }
 
 //===========================

@@ -46,7 +46,8 @@ public:
 	void Draw() override;
 
 	void SetSkill();
-	void SubLife(int nAttack);	//体力の減少
+	void SubLife(int nAttack);	//HPの減少
+	void SubMagic(int nValue);	//MPの減少
 
 	//ゲッター
 	int GetLife();
@@ -81,9 +82,9 @@ private:
 	int m_nLife;			//体力
 	int m_nMaxLife;			//最大体力
 	int m_nRemLife;			//残り体力
-	int m_nMp;				//MP
-	int m_nMaxMp;			//最大MP
-	int m_nRemMp;			//残りMP
+	int m_nMagic;			//MP
+	int m_nMaxMagic;		//最大MP
+	int m_nRemMagic;		//残りMP
 	int m_nAttack;			//攻撃力
 	int m_nLevel;			//レベル
 	int m_nShotTime;		//弾の発射時間

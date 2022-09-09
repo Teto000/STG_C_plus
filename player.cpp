@@ -41,9 +41,9 @@ CPlayer::CPlayer() : CObject2D()
 	m_nLife = 0;				//体力
 	m_nMaxLife = 0;				//最大体力
 	m_nRemLife = 0;				//残り体力
-	m_nMp = 0;					//MP
-	m_nMaxMp = 0;				//最大MP
-	m_nRemMp = 0;				//残りMP
+	m_nMagic = 0;					//MP
+	m_nMaxMagic = 0;				//最大MP
+	m_nRemMagic = 0;				//残りMP
 	m_nAttack = 0;				//攻撃力
 	m_nLevel = 0;				//レベル
 	m_nShotTime = 0;			//弾の発射時間
@@ -80,9 +80,9 @@ HRESULT CPlayer::Init(D3DXVECTOR3 pos)
 	m_nLife = nPlayerLife;		//体力
 	m_nMaxLife = nPlayerLife;	//最大体力
 	m_nRemLife = nMaxLife;		//残り体力
-	m_nMp = 100;				//MP
-	m_nMaxMp = 100;				//最大MP
-	m_nRemMp = 100;				//残りMP
+	m_nMagic = 100;				//MP
+	m_nMaxMagic = 100;				//最大MP
+	m_nRemMagic = 100;				//残りMP
 	m_fWidth = 80.0f;			//幅
 	m_fHeight = 100.0f;			//高さ
 	m_nAttack = 40;				//攻撃力
@@ -107,7 +107,7 @@ HRESULT CPlayer::Init(D3DXVECTOR3 pos)
 	// MPの表示
 	//--------------------------
 	m_Mp = CMp::Create(D3DXVECTOR3(520.0f, 110.0f, 0.0f), 600.0f, 20.0f);
-	m_Mp->SetMP(m_nMp, m_nRemMp);	//初期HPの設定
+	m_Mp->SetMP(m_nMagic, m_nRemMagic);	//初期HPの設定
 
 	//--------------------------
 	// レベルの生成
@@ -343,6 +343,10 @@ void CPlayer::SetSkill()
 
 		//HP減少時の処理
 		m_Hp->SetLife(m_nLife, m_nRemLife);
+
+		//MPの減少
+		SubMagic(10);
+
 		m_bSlill = true;
 	}
 
@@ -353,7 +357,12 @@ void CPlayer::SetSkill()
 	{//2キーが押されたら
 		CSkill::Create(CSkill::SKILLTYPE_SPEEDUP_FIRE);
 
+		//発射間隔の減少
 		m_nShotTime = 10;
+
+		//MPの減少
+		SubMagic(10);
+
 		m_bSlill = true;
 	}
 }
@@ -377,7 +386,7 @@ void CPlayer::InvincibleTime()
 }
 
 //===========================
-// 体力の減少
+// HPの減少
 //===========================
 void CPlayer::SubLife(int nAttack)
 {
@@ -388,6 +397,20 @@ void CPlayer::SubLife(int nAttack)
 
 	//HP減少時の処理
 	m_Hp->SetLife(m_nLife, m_nRemLife);
+}
+
+//===========================
+// MPの減少
+//===========================
+void CPlayer::SubMagic(int nAttack)
+{
+	m_nMagic -= nAttack;	//プレイヤーの体力の減少
+
+	//残り体力を計算
+	m_nRemMagic = m_nMagic * 100 / m_nMaxMagic;
+
+	//HP減少時の処理
+	m_Mp->SetMP(m_nMagic, m_nRemMagic);
 }
 
 //===========================
