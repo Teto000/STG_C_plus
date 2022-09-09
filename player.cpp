@@ -345,7 +345,7 @@ void CPlayer::SetSkill()
 		m_Hp->SetLife(m_nLife, m_nRemLife);
 
 		//MPの減少
-		SubMagic(10);
+		AddMagic(-10);
 
 		m_bSlill = true;
 	}
@@ -361,7 +361,7 @@ void CPlayer::SetSkill()
 		m_nShotTime = 10;
 
 		//MPの減少
-		SubMagic(10);
+		AddMagic(-10);
 
 		m_bSlill = true;
 	}
@@ -402,14 +402,14 @@ void CPlayer::SubLife(int nAttack)
 //===========================
 // MPの減少
 //===========================
-void CPlayer::SubMagic(int nAttack)
+void CPlayer::AddMagic(int nAttack)
 {
-	m_nMagic -= nAttack;	//プレイヤーの体力の減少
+	m_nMagic += nAttack;	//プレイヤーの体力の減少
 
 	//残り体力を計算
 	m_nRemMagic = m_nMagic * 100 / m_nMaxMagic;
 
-	//HP減少時の処理
+	//MP減少時の処理
 	m_Mp->SetMP(m_nMagic, m_nRemMagic);
 }
 

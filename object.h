@@ -43,6 +43,7 @@ public:
 		OBJTYPE_EXP,		//経験値
 		OBJTYPE_SKILL,		//スキル
 		OBJTYPE_FADE,		//フェード
+		OBJTYPE_ITEM,		//アイテム
 		OBJTYPE_MAX,
 	};
 

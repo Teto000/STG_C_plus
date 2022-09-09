@@ -47,7 +47,7 @@ public:
 
 	void SetSkill();
 	void SubLife(int nAttack);	//HP‚ÌŒ¸­
-	void SubMagic(int nValue);	//MP‚ÌŒ¸­
+	void AddMagic(int nValue);	//MP‚ÌŒ¸­
 
 	//ƒQƒbƒ^[
 	int GetLife();

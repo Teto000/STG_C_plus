@@ -170,6 +170,7 @@
     <ClCompile Include="input.cpp" />
     <ClCompile Include="input_joypad.cpp" />
     <ClCompile Include="input_keybord.cpp" />
+    <ClCompile Include="item.cpp" />
     <ClCompile Include="level.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="damage.cpp" />
@@ -203,6 +204,7 @@
     <ClInclude Include="input.h" />
     <ClInclude Include="input_joypad.h" />
     <ClInclude Include="input_keybord.h" />
+    <ClInclude Include="item.h" />
     <ClInclude Include="level.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="damage.h" />
