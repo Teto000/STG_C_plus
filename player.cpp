@@ -19,6 +19,7 @@
 #include "sound.h"
 #include "bullet.h"
 #include "hp.h"
+#include "mp.h"
 #include "skill.h"
 #include "level.h"
 #include "hpfream.h"
@@ -40,6 +41,9 @@ CPlayer::CPlayer() : CObject2D()
 	m_nLife = 0;				//体力
 	m_nMaxLife = 0;				//最大体力
 	m_nRemLife = 0;				//残り体力
+	m_nMp = 0;					//MP
+	m_nMaxMp = 0;				//最大MP
+	m_nRemMp = 0;				//残りMP
 	m_nAttack = 0;				//攻撃力
 	m_nLevel = 0;				//レベル
 	m_nShotTime = 0;			//弾の発射時間
@@ -52,6 +56,7 @@ CPlayer::CPlayer() : CObject2D()
 	m_bSlill = false;			//スキル使用可能かどうか
 	m_type = PLAYERSTATE_NORMAL;//状態
 	m_Hp = nullptr;				//HPクラス
+	m_Mp = nullptr;				//MPクラス
 	m_Level = nullptr;			//レベルクラス
 	m_Bullet = nullptr;			//弾クラス
 	m_pHpFream = nullptr;		//HPフレームクラス
@@ -75,6 +80,9 @@ HRESULT CPlayer::Init(D3DXVECTOR3 pos)
 	m_nLife = nPlayerLife;		//体力
 	m_nMaxLife = nPlayerLife;	//最大体力
 	m_nRemLife = nMaxLife;		//残り体力
+	m_nMp = 100;				//MP
+	m_nMaxMp = 100;				//最大MP
+	m_nRemMp = 100;				//残りMP
 	m_fWidth = 80.0f;			//幅
 	m_fHeight = 100.0f;			//高さ
 	m_nAttack = 40;				//攻撃力
@@ -94,6 +102,12 @@ HRESULT CPlayer::Init(D3DXVECTOR3 pos)
 	//--------------------------
 	m_Hp = CHp::Create(D3DXVECTOR3(520.0f, 60.0f, 0.0f), 600.0f, 60.0f);
 	m_Hp->SetLife(m_nLife, m_nRemLife);	//初期HPの設定
+
+	//--------------------------
+	// MPの表示
+	//--------------------------
+	m_Mp = CMp::Create(D3DXVECTOR3(520.0f, 110.0f, 0.0f), 600.0f, 20.0f);
+	m_Mp->SetMP(m_nMp, m_nRemMp);	//初期HPの設定
 
 	//--------------------------
 	// レベルの生成

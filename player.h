@@ -16,6 +16,7 @@
 // 前方宣言
 //--------------------------
 class CHp;		//HPクラス
+class CMp;		//MPクラス
 class CLevel;	//レベルクラス
 class CBullet;	//弾クラス
 class CHpFream;	//HPフレームクラス
@@ -80,6 +81,9 @@ private:
 	int m_nLife;			//体力
 	int m_nMaxLife;			//最大体力
 	int m_nRemLife;			//残り体力
+	int m_nMp;				//MP
+	int m_nMaxMp;			//最大MP
+	int m_nRemMp;			//残りMP
 	int m_nAttack;			//攻撃力
 	int m_nLevel;			//レベル
 	int m_nShotTime;		//弾の発射時間
@@ -92,6 +96,7 @@ private:
 	bool m_bSlill;			//スキル使用可能かどうか
 	PLAYERSTATE m_type;		//状態
 	CHp* m_Hp;				//HPクラス
+	CMp* m_Mp;				//MPクラス
 	CLevel* m_Level;		//レベルクラス
 	CBullet* m_Bullet;		//弾クラス
 	CHpFream*m_pHpFream;	//HPフレームクラス

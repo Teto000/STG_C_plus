@@ -29,6 +29,9 @@ public:
 	void Update() override;
 	void Draw() override;
 
+	void SetMP(int nMp, int nRemMp);
+	void SubMP();	//MP減少時の処理
+
 	//------------------
 	// 静的メンバ関数
 	//------------------
@@ -39,6 +42,8 @@ private:
 	// メンバ変数
 	//------------------
 	D3DXVECTOR3 m_pos;	//位置
+	int m_nMp;			//MP受け取り用
+	int m_nRemMp;		//残りMP受け取り用
 	float m_fWidth;		//幅
 	float m_fHeight;	//高さ
 	float m_fLength;	//HPバーの長さ
