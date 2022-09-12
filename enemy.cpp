@@ -26,6 +26,7 @@
 #include "game.h"
 #include "player.h"
 #include "hpfream.h"
+#include "item.h"
 
 //===========================
 // コンストラクタ
@@ -49,6 +50,7 @@ CEnemy::CEnemy() : CObject2D()
 	m_pExplosion = nullptr;		//爆発
 	m_pBarrier = nullptr;		//バリア
 	m_pHpFream = nullptr;		//HPフレーム
+	m_pItem = nullptr;			//アイテム
 }
 
 //===========================
@@ -234,9 +236,17 @@ void CEnemy::Update()
 		CScore::AddScore(10);			//スコアの加算
 		m_pExplosion->Create(m_pos);	//爆発の生成
 
+		//-----------------------
+		// アイテムの生成
+		//-----------------------
+		m_pItem = CItem::Create(m_pos);
+
 		//敵の消滅
 		Uninit();
 
+		//-----------------------
+		// 倒れたのがボスなら
+		//-----------------------
 		if (m_type == ENEMYTYPE_BOSS)
 		{
 			//リザルト画面に移行

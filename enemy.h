@@ -20,6 +20,7 @@ class CEnemyBullet;		//敵の弾クラス
 class CExplosion;		//爆発
 class CBarrier;			//バリア
 class CHpFream;			//HPフレームクラス
+class CItem;			//アイテムクラス
 
 //--------------------------
 // エネミークラス
@@ -94,11 +95,12 @@ private:
 	float m_fTargetRot;			//プレイヤーまでの角度
 	ENEMYTYPE m_type;			//種類
 
-	CHp* m_Hp;					//寿命
-	CEnemyBullet* m_EnemyBullet;//敵の弾
-	CExplosion*		m_pExplosion;//爆発
-	CBarrier*		m_pBarrier;	//バリア
-	CHpFream*	m_pHpFream;		//HPフレームクラス
+	CHp* m_Hp;						//寿命
+	CEnemyBullet*	m_EnemyBullet;	//敵の弾
+	CExplosion*		m_pExplosion;	//爆発
+	CBarrier*		m_pBarrier;		//バリア
+	CHpFream*		m_pHpFream;		//HPフレームクラス
+	CItem*			m_pItem;		//アイテムクラス
 };
 
 #endif // !_PLAYER_H_

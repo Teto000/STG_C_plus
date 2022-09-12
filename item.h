@@ -4,8 +4,8 @@
 // Author : Sato Teruto
 //
 //=====================================
-#ifndef _BULLET_H_
-#define _BULLET_H_	
+#ifndef _ITEM_H_
+#define _ITEM_H_	
 
 //--------------------------
 // インクルード

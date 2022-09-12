@@ -45,8 +45,8 @@ HRESULT CItem::Init(D3DXVECTOR3 pos)
 	//初期値の設定
 	m_pos = pos;		//位置
 	m_nLife = 50;		//寿命
-	m_fWidth = 50.0f;	//幅
-	m_fHeight = 50.0f;	//高さ
+	m_fWidth = 30.0f;	//幅
+	m_fHeight = 30.0f;	//高さ
 
 	CObject2D::Init(m_pos);
 
@@ -54,7 +54,7 @@ HRESULT CItem::Init(D3DXVECTOR3 pos)
 	// 設定
 	//------------------
 	CObject2D::SetSize(m_fWidth, m_fHeight);			//大きさ
-	CObject2D::SetTexture(CTexture::TEXTURE_BARRIER);	//テクスチャ
+	CObject2D::SetTexture(CTexture::TEXTURE_BULLET);	//テクスチャ
 
 	return S_OK;
 }
@@ -81,6 +81,8 @@ void CItem::Update()
 	{
 		//プレイヤーのMPを回復
 		CGame::GetPlayer()->AddMagic(30);
+		Uninit();
+		return;
 	}
 }
 

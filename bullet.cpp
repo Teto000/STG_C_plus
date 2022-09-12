@@ -401,6 +401,15 @@ D3DXVECTOR3 CBullet::Homing(float& posX, float& posY, float& moveX, float& moveY
 }
 
 //=======================
+// ’e‚Ì‘å‚«‚³‚Ìİ’è
+//=======================
+void CBullet::SetBulletSize(float fLength)
+{
+	m_fWidth = fLength;
+	m_fHeight = fLength;
+}
+
+//=======================
 // ’e‚Ìí—Ş‚ğæ“¾
 //=======================
 CBullet::BULLETTYPE CBullet::GetType()

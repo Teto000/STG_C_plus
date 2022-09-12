@@ -365,6 +365,14 @@ void CPlayer::SetSkill()
 
 		m_bSlill = true;
 	}
+
+	//-----------------------
+	// 弾の拡大
+	//-----------------------
+	if (CInputKeyboard::Trigger(DIK_3) && m_Bullet != nullptr)
+	{
+		m_Bullet->SetBulletSize(50.0f);
+	}
 }
 
 //===========================
@@ -400,11 +408,19 @@ void CPlayer::SubLife(int nAttack)
 }
 
 //===========================
-// MPの減少
+// MPの加算
 //===========================
-void CPlayer::AddMagic(int nAttack)
+void CPlayer::AddMagic(int nValue)
 {
-	m_nMagic += nAttack;	//プレイヤーの体力の減少
+	if (m_nMagic + nValue < m_nMaxMagic)
+	{//最大MPを超えないなら
+		m_nMagic += nValue;	//プレイヤーの体力の減少
+	}
+	else 
+	{
+		//MPを最大にする
+		m_nMagic = m_nMaxMagic;
+	}
 
 	//残り体力を計算
 	m_nRemMagic = m_nMagic * 100 / m_nMaxMagic;

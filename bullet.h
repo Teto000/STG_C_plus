@@ -49,6 +49,9 @@ public:
 
 	D3DXVECTOR3 Homing(float& posX, float& posY, float& moveX, float& moveY);	//ホーミング弾
 	
+	//セッター
+	void SetBulletSize(float fLength);
+
 	//ゲッター
 	BULLETTYPE GetType();
 
