@@ -154,13 +154,13 @@ CEnemyBullet *CEnemyBullet::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move
 
 	if (pBullet != nullptr)
 	{//NULLチェック
+		//メンバ変数に代入
 		pBullet->m_move = move;				//移動量の代入
 		pBullet->m_nEnemyAttack = nAttack;	//攻撃力の代入
 		pBullet->m_type = type;				//種類
 
 		//初期化
 		pBullet->Init(pos);
-
 		pBullet->SetObjType(OBJTYPE_BULLET);
 	}
 

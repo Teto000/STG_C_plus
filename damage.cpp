@@ -158,7 +158,7 @@ CDamage *CDamage::Create(D3DXVECTOR3 pos, float fWidth, float fHeight, float fSp
 
 		if (pNumber != nullptr)
 		{//NULLチェック
-			//構造体に代入
+			//メンバ変数に代入
 			pNumber->m_fWidth = fWidth;		//幅
 			pNumber->m_fHeight = fHeight;	//高さ
 			pNumber->m_fSpace = fSpace;		//間隔

@@ -286,7 +286,7 @@ CEnemy *CEnemy::Create(D3DXVECTOR3 pos, CEnemy::ENEMYTYPE type)
 
 	if (pEnemy != nullptr)
 	{//NULLチェック
-		//構造体に代入
+		//メンバ変数に代入
 		pEnemy->m_type = type;
 
 		//初期化

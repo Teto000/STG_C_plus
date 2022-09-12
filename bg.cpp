@@ -145,6 +145,7 @@ CBg *CBg::Create(D3DXVECTOR3 pos, BGTYPE type)
 
 	if (pBG != nullptr)
 	{//NULLチェック
+		//メンバ変数に代入
 		pBG->m_type = type;
 
 		//初期化

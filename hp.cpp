@@ -102,7 +102,7 @@ CHp *CHp::Create(D3DXVECTOR3 pos, float fWidth, float fHeight)
 
 	if (pHP != nullptr)
 	{//NULLチェック
-		//構造体に値を代入
+		//メンバ変数に代入
 		pHP->m_fWidth = fWidth;
 		pHP->m_fHeight = fHeight;
 

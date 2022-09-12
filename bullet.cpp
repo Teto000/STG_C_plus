@@ -197,11 +197,12 @@ CBullet *CBullet::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, BULLETTYPE type)
 
 	if (pBullet != nullptr)
 	{//NULLチェック
-		//初期化
+		//メンバ変数に代入
 		pBullet->m_move = move;		//移動量の代入
 		pBullet->m_type = type;		//種類の代入
-		pBullet->Init(pos);
 
+		//初期化
+		pBullet->Init(pos);
 		pBullet->SetObjType(OBJTYPE_BULLET);
 	}
 

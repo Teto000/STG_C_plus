@@ -141,7 +141,7 @@ CSkill *CSkill::Create(SKILLTYPE type)
 
 	if (pSkill != nullptr)
 	{//NULLチェック
-		//構造体に代入
+		//メンバ変数に代入
 		pSkill->m_type = type;
 
 		//初期化

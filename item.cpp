@@ -24,9 +24,10 @@ CItem::CItem() : CObject2D()
 {
 	m_pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	//位置
 	m_rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	//回転
-	m_nLife = 0;		//体力
-	m_fWidth = 0.0f;	//幅
-	m_fHeight = 0.0f;	//高さ
+	m_nLife = 0;			//体力
+	m_fWidth = 0.0f;		//幅
+	m_fHeight = 0.0f;		//高さ
+	m_type = ITEMTYPE_MAX;	//種類
 }
 
 //===========================
@@ -97,7 +98,7 @@ void CItem::Draw()
 //===========================
 // 生成
 //===========================
-CItem *CItem::Create(D3DXVECTOR3 pos)
+CItem *CItem::Create(D3DXVECTOR3 pos, ITEMTYPE type)
 {
 	CItem *pItem = nullptr;
 
@@ -108,6 +109,9 @@ CItem *CItem::Create(D3DXVECTOR3 pos)
 
 	if (pItem != nullptr)
 	{//NULLチェック
+		//メンバ変数に代入
+		pItem->m_type = type;
+
 		//初期化
 		pItem->Init(pos);
 		pItem->SetObjType(OBJTYPE_ITEM);

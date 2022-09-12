@@ -116,7 +116,7 @@ CEffect *CEffect::Create(D3DXVECTOR3 pos)
 
 	if (pEffect != nullptr)
 	{//NULLチェック
-	 //初期化
+		//初期化
 		pEffect->Init(pos);
 		pEffect->SetObjType(OBJTYPE_EFFECT);
 	}

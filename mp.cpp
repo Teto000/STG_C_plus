@@ -93,7 +93,7 @@ CMp *CMp::Create(D3DXVECTOR3 pos, float fWidth, float fHeight)
 
 	if (pMP != nullptr)
 	{//NULLチェック
-	 //構造体に値を代入
+		//メンバ変数に代入
 		pMP->m_fWidth = fWidth;
 		pMP->m_fHeight = fHeight;
 

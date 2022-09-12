@@ -102,7 +102,7 @@ CBarrier *CBarrier::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, float fWidth, floa
 
 	if (pBarrier != nullptr)
 	{//NULLチェック
-		//構造体に代入
+		//メンバ変数に代入
 		pBarrier->m_move = move;				//移動量
 		pBarrier->m_fWidth = fWidth + 50.0f;	//幅
 		pBarrier->m_fHeight = fHeight + 50.0f;	//高さ

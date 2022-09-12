@@ -127,7 +127,7 @@ CExp *CExp::Create(D3DXVECTOR3 pos, D3DXVECTOR3 rot, float fLength)
 
 	if (pExp != nullptr)
 	{//NULLチェック
-		//メンバ変数に代入
+		 //メンバ変数に代入
 		pExp->m_rot = D3DXVECTOR3(D3DXToRadian(-rot.x),0.0f,0.0f);	//回転
 		pExp->m_fWidth = fLength * 0.7f;
 		pExp->m_fHeight = fLength / 2;	//高さ

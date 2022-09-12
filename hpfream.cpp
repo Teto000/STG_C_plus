@@ -90,7 +90,7 @@ CHpFream *CHpFream::Create(D3DXVECTOR3 pos, float fWidth, float fHeight)
 
 	if (pHpFream != nullptr)
 	{//NULLチェック
-		//構造体に値を代入
+		//メンバ変数に代入
 		pHpFream->m_fWidth = fWidth;
 		pHpFream->m_fHeight = fHeight;
 
