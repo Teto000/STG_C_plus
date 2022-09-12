@@ -396,9 +396,16 @@ void CPlayer::InvincibleTime()
 //===========================
 // HPの減少
 //===========================
-void CPlayer::SubLife(int nAttack)
+void CPlayer::AddLife(int nValue)
 {
-	m_nLife -= nAttack;	//プレイヤーの体力の減少
+	if (m_nLife + nValue < m_nMaxLife)
+	{
+		m_nLife += nValue;	//プレイヤーの体力の減少
+	}
+	else
+	{
+		m_nLife = m_nMaxLife;
+	}
 
 	//残り体力を計算
 	m_nRemLife = m_nLife * 100 / m_nMaxLife;

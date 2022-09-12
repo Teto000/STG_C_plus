@@ -46,7 +46,7 @@ public:
 	void Draw() override;
 
 	void SetSkill();
-	void SubLife(int nAttack);	//HP‚ÌŒ¸­
+	void AddLife(int nAttack);	//HP‚ÌŒ¸­
 	void AddMagic(int nValue);	//MP‚ÌŒ¸­
 
 	//ƒQƒbƒ^[

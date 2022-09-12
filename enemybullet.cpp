@@ -180,7 +180,7 @@ void CEnemyBullet::CollisionEnemyBullet()
 		//pObjectをCPlayer型にダウンキャスト
 		CPlayer* pPlayer = (CPlayer*)pHitObject;
 
-		pPlayer->SubLife(m_nEnemyAttack);	//敵の体力の減少
+		pPlayer->AddLife(-m_nEnemyAttack);	//敵の体力の減少
 
 		//弾の消滅
 		Uninit();

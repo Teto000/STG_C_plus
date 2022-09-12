@@ -80,10 +80,25 @@ void CItem::Update()
 	//-------------------------------
 	if (CObject2D::GetCollision(OBJTYPE_PLAYER))
 	{
-		//プレイヤーのMPを回復
-		CGame::GetPlayer()->AddMagic(30);
-		Uninit();
-		return;
+		switch (m_type)
+		{
+		case ITEMTYPE_HPHEAL:
+			//プレイヤーのMPを回復
+			CGame::GetPlayer()->AddLife(30);
+			Uninit();
+			return;
+			break;
+
+		case ITEMTYPE_MPHEAL:
+			//プレイヤーのMPを回復
+			CGame::GetPlayer()->AddMagic(30);
+			Uninit();
+			return;
+			break;
+
+		default:
+			break;
+		}
 	}
 }
 

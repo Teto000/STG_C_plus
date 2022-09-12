@@ -239,7 +239,7 @@ void CEnemy::Update()
 		//-----------------------
 		// ÉAÉCÉeÉÄÇÃê∂ê¨
 		//-----------------------
-		m_pItem = CItem::Create(m_pos);
+		m_pItem = CItem::Create(m_pos,CItem::ITEMTYPE_HPHEAL);
 
 		//ìGÇÃè¡ñ≈
 		Uninit();
