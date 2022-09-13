@@ -5,7 +5,7 @@
 //
 //=====================================
 #ifndef _ENEMY_H_
-#define _ENEMY_H_	
+#define _ENEMY_H_
 
 //--------------------------
 // インクルード
@@ -65,11 +65,6 @@ public:
 	static CEnemy *Create(D3DXVECTOR3 pos, CEnemy::ENEMYTYPE type);
 
 private:
-	void EnemyAttackCount(D3DXVECTOR2 vec);	//敵の攻撃タイミングを数える
-	void EnemyAttack(D3DXVECTOR2 vec);		//敵の攻撃処理
-	void BossAttack();						//ボスの攻撃
-
-private:
 	//----------------
 	// 定数定義
 	//----------------
@@ -80,27 +75,28 @@ private:
 	//----------------
 	// メンバ変数
 	//----------------
-	D3DXVECTOR3 m_pos;			//位置
-	D3DXVECTOR3 m_targetPos;	//目的の位置
-	D3DXVECTOR3 m_move;			//移動量
-	D3DXVECTOR3 m_rot;			//回転
-	int m_nLife;				//体力
-	int m_nMaxLife;				//最大体力
-	int m_nRemLife;				//残り体力
-	int m_nCntShotTime;			//弾の発射時間を数える
-	int m_nCntTime;				//テクスチャ切り替え時間のカウント
-	int m_nAttack;				//攻撃力
-	float m_fWidth;				//幅
-	float m_fHeight;			//高さ
-	float m_fTargetRot;			//プレイヤーまでの角度
-	ENEMYTYPE m_type;			//種類
+	D3DXVECTOR3 m_pos;				//位置
+	D3DXVECTOR3 m_targetPos;		//目的の位置
+	D3DXVECTOR3 m_move;				//移動量
+	D3DXVECTOR3 m_rot;				//回転
+	int m_nLife;					//体力
+	int m_nMaxLife;					//最大体力
+	int m_nRemLife;					//残り体力
+	int m_nCntShotTime;				//弾の発射時間を数える
+	int m_nCntTime;					//テクスチャ切り替え時間のカウント
+	int m_nAttack;					//攻撃力
+	float m_fWidth;					//幅
+	float m_fHeight;				//高さ
+	float m_fTargetRot;				//プレイヤーまでの角度
+	float m_fChangeMove;			//変動する移動量
+	ENEMYTYPE m_type;				//種類
 
-	CHp* m_Hp;						//寿命
-	CEnemyBullet*	m_EnemyBullet;	//敵の弾
+	CHp* m_pHp;						//寿命
+	CEnemyBullet*	m_pEnemyBullet;	//敵の弾
 	CExplosion*		m_pExplosion;	//爆発
 	CBarrier*		m_pBarrier;		//バリア
 	CHpFream*		m_pHpFream;		//HPフレームクラス
 	CItem*			m_pItem;		//アイテムクラス
 };
 
-#endif // !_PLAYER_H_
+#endif // !_ENEMY_H_
