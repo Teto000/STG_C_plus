@@ -193,7 +193,7 @@ void CPlayer::Update()
 	if (m_bSlill)
 	{//スキル使用状態なら
 		m_nCntSkill++;
-		m_nCntSkill %= 600;
+		m_nCntSkill %= 300;
 
 		if (m_nCntSkill == 0)
 		{//5秒経過したら

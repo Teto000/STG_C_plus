@@ -77,6 +77,7 @@ void CBarrier::Update()
 	switch (m_type)
 	{
 	case BARRIERTYPE_PLAYER:
+		//プレイヤーの速度を取得
 		m_playermove = CGame::GetPlayer()->GetMove();
 		m_pos = CObject2D::AddMove(m_playermove);
 		break;
@@ -86,6 +87,7 @@ void CBarrier::Update()
 		break;
 	}
 
+	//体力が尽きた
 	if (m_nLife <= 0)
 	{
 		Uninit();

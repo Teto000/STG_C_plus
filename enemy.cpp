@@ -75,35 +75,34 @@ HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 	m_nAttack = 5;
 
 	CObject2D::Init(m_pos);
-	CObject2D::SetTexture(CTexture::TEXTURE_ENEMYBIRD);	//テクスチャの設定
+	CObject2D::SetTexture(CTexture::TEXTURE_ENEMY_BIRD);	//テクスチャの設定
 
 	switch (m_type)
 	{
 	case ENEMYTYPE_BOSS:
-		m_move.x = -0.2f;	//移動量
 		m_fWidth = 250.0f;	//幅
 		m_fHeight = 350.0f;	//高さ
 		SetLife(3000);
 		break;
 
 	case ENEMYTYPE_BIG:
-		m_move.x = -1.0f;	//移動量
-		m_fWidth = 120.0f;	//幅
-		m_fHeight = 120.0f;	//高さ
+		m_move.x = -2.0f;	//移動量
+		m_fWidth = 100.0f;	//幅
+		m_fHeight = 100.0f;	//高さ
 		SetLife(500);
 		CObject2D::SetTexCIE(0.0f, 0.5f);	//テクスチャ座標の設定
-		CObject2D::SetTexture(CTexture::TEXTURE_ENEMYDEVIL);
+		CObject2D::SetTexture(CTexture::TEXTURE_ENEMY_DEVIL);
 		break;
 
 	case ENEMYTYPE_HORMING:
-		m_move.x = -1.0f;	//移動量
-		m_fWidth = 120.0f;	//幅
-		m_fHeight = 120.0f;	//高さ
+		m_move.x = -2.0f;	//移動量
+		m_fWidth = 100.0f;	//幅
+		m_fHeight = 100.0f;	//高さ
 		SetLife(500);
 		break;
 
 	default:
-		m_move.x = -2.0f;	//移動量
+		m_move.x = -4.0f;	//移動量
 		m_fWidth = 80.0f;	//幅
 		m_fHeight = 80.0f;	//高さ
 		SetLife(100);
@@ -378,12 +377,12 @@ void CEnemy::EnemyAttack(D3DXVECTOR2 vec)
 		break;
 
 	case ENEMYTYPE_HORMING:
-		m_EnemyBullet->Create(m_pos, D3DXVECTOR3(-4.0f, 0.0f, 0.0f)
+		m_EnemyBullet->Create(m_pos, D3DXVECTOR3(-6.0f, 0.0f, 0.0f)
 			, m_nAttack, CEnemyBullet::ENEMYBULLETTYPE_HORMING);
 		break;
 
 	default:
-		m_EnemyBullet->Create(m_pos, D3DXVECTOR3(-4.0f, 0.0f, 0.0f)
+		m_EnemyBullet->Create(m_pos, D3DXVECTOR3(-6.0f, 0.0f, 0.0f)
 			, m_nAttack, CEnemyBullet::ENEMYBULLETTYPE_NORMAL);
 		break;
 	}

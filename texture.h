@@ -20,10 +20,14 @@ class CTexture
 public: /* 定義 */
 	enum TEXTURE
 	{
-		/* ↓ キャラクター ↓*/
 		TEXTURE_PLAYER = 0,			//プレイヤー
-		TEXTURE_ENEMYBIRD,			//敵(鳥)
-		TEXTURE_ENEMYDEVIL,			//敵(悪魔)
+
+		/* ↓　エネミー　↓　*/
+		TEXTURE_ENEMY_BIRD,			//敵(鳥)
+		TEXTURE_ENEMY_DEVIL,		//敵(悪魔)
+		TEXTURE_ENEMY_RED,			//敵(赤)
+		TEXTURE_ENEMY_BLUE,			//敵(青)
+		TEXTURE_ENEMY_YELLOW,		//敵(黄)
 
 		/* ↓ ゲーム ↓*/
 		TEXTURE_BULLET,				//弾

@@ -19,34 +19,38 @@
 //==================================================
 const char* CTexture::s_FileName[] =
 {// テクスチャのパス
-	/* ↓ キャラクター ↓*/
-	"data/TEXTURE/Character/Player.png",		//プレイヤー
-	"data/TEXTURE/Character/EnemyBird.png",		//敵(鳥)
-	"data/TEXTURE/Character/EnemyDevil.png",	//敵(悪魔)
+	"data/TEXTURE/Player.png",		//プレイヤー
 
-	/* ↓ ゲーム ↓*/
+	/* ↓　エネミー　↓　*/
+	"data/TEXTURE/Enemy/Bird.png",		//敵(鳥)
+	"data/TEXTURE/Enemy/Devil.png",		//敵(悪魔)
+	"data/TEXTURE/Enemy/Red.png",		//敵(赤)
+	"data/TEXTURE/Enemy/Blue.png",		//敵(青)
+	"data/TEXTURE/Enemy/Yellow.png",	//敵(黄)
+
+	/* ↓ ゲーム ↓　*/
 	"data/TEXTURE/Game/Bullet.png",			//弾
 	"data/TEXTURE/Game/Explosion.png",		//爆発
 	"data/TEXTURE/Game/Ring.png",			//輪
 	"data/TEXTURE/Game/Effect.jpg",			//エフェクト
 	"data/TEXTURE/Game/Barrier.png",		//バリア
 
-	/* ↓ BG ↓*/
+	/* ↓ BG ↓　*/
 	"data/TEXTURE/BG/Game.jpg",				//背景
 	"data/TEXTURE/BG/Title.png",			//タイトル画面の背景
 	"data/TEXTURE/BG/Result.png",			//リザルト画面の背景
 	"data/TEXTURE/BG/SkillSelect.png",		//スキルセレクト画面の背景
 
-	/* ↓ UI ↓*/
+	/* ↓ UI ↓　*/
 	"data/TEXTURE/UI/Exp.png",				//経験値
 	"data/TEXTURE/UI/Level.png",			//レベル
 	"data/TEXTURE/UI/HPFream.png",			//HPバーのフレーム
 
-	/* ↓ スキル ↓*/
+	/* ↓ スキル ↓　*/
 	"data/TEXTURE/Skill/HPheal.png",		//スキル(体力回復)
 	"data/TEXTURE/Skill/SpeedUp_Fire.png",	//スキル(弾速強化)
 
-	/* ↓ 共通 ↓*/
+	/* ↓ 共通 ↓　*/
 	"data/TEXTURE/Number.png",		//数字
 };
 
