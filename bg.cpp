@@ -110,8 +110,8 @@ void CBg::Update()
 		if (m_type == BGTYPE_GAME && m_nCntAnim == 0)
 		{
 			//テクスチャ座標の加算
-			m_fTexLeft += 0.0003f;
-			m_fTexRight += 0.0003f;
+			m_fTexLeft += 0.0005f;
+			m_fTexRight += 0.0005f;
 
 			//テクスチャ座標の設定
 			m_pObject2D->SetTexCIE(m_fTexLeft, m_fTexRight);

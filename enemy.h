@@ -34,7 +34,6 @@ public:
 	enum ENEMYTYPE
 	{
 		ENEMYTYPE_NORMAL = 0,	//直進する敵
-		ENEMYTYPE_BIG,			//大きい敵
 		ENEMYTYPE_HORMING,		//ホーミングしてくる敵
 		ENEMYTYPE_BOSS,			//ボス敵
 		ENEMYTYPE_MAX
@@ -65,17 +64,23 @@ public:
 	static CEnemy *Create(D3DXVECTOR3 pos, CEnemy::ENEMYTYPE type);
 
 private:
+	D3DXVECTOR3 Homing(float& posX, float& posY,
+					float& moveX, float& moveY);	//ホーミング弾
+
+private:
 	//----------------
 	// 定数定義
 	//----------------
 	static const int nMaxTexTime = 80;
 	static const int nHalfTexTime = (nMaxTexTime / 2);
 	static const int nShotTime = 50;	//弾の発射時間
+	static const float fBulletSpeed_Homing;	//ホーミング弾の速度
 
 	//----------------
 	// メンバ変数
 	//----------------
 	D3DXVECTOR3 m_pos;				//位置
+	D3DXVECTOR3 m_Tirget;			//ホーミング目標の位置
 	D3DXVECTOR3 m_targetPos;		//目的の位置
 	D3DXVECTOR3 m_move;				//移動量
 	D3DXVECTOR3 m_rot;				//回転
@@ -85,6 +90,7 @@ private:
 	int m_nCntShotTime;				//弾の発射時間を数える
 	int m_nCntTime;					//テクスチャ切り替え時間のカウント
 	int m_nAttack;					//攻撃力
+	int m_nCntHorming;				//ホーミング時間のカウント
 	float m_fWidth;					//幅
 	float m_fHeight;				//高さ
 	float m_fTargetRot;				//プレイヤーまでの角度

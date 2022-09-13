@@ -28,12 +28,18 @@
 #include "hpfream.h"
 #include "item.h"
 
+//------------------------
+// 静的メンバ変数宣言
+//------------------------
+const float CEnemy::fBulletSpeed_Homing = 1.01f;	//弾の速度(ホーミング)
+
 //===========================
 // コンストラクタ
 //===========================
 CEnemy::CEnemy() : CObject2D()
 {
 	m_pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);			//位置
+	m_Tirget = D3DXVECTOR3(0.0f, 0.0f, 0.0f);		//目標位置
 	m_targetPos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	//目的の位置
 	m_move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);			//移動量
 	m_rot = D3DXVECTOR3(30.0f, 0.0f, 0.0f);			//回転
@@ -41,12 +47,13 @@ CEnemy::CEnemy() : CObject2D()
 	m_nMaxLife = 0;				//最大体力
 	m_nRemLife = 0;				//残り体力
 	m_nAttack = 0;				//攻撃力
+	m_nCntHorming = 0;			//ホーミング時間のカウント
 	m_fWidth = 0.0f;			//幅
 	m_fHeight = 0.0f;			//高さ
 	m_fTargetRot = 0.0f;		//プレイヤーまでの角度
 	m_fChangeMove = 0.0f;		//変動する移動量
 	m_type = ENEMYTYPE_MAX;		//種類
-	m_pHp = nullptr;				//HPバー
+	m_pHp = nullptr;			//HPバー
 	m_pEnemyBullet = nullptr;	//敵の弾
 	m_pExplosion = nullptr;		//爆発
 	m_pBarrier = nullptr;		//バリア
@@ -71,26 +78,30 @@ HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 	m_pos = pos;		//位置
 	m_nRemLife = 100;	//残り体力
 	m_nAttack = 5;		//攻撃力
+	SetLife(100);		//体力
+	m_fWidth = 80.0f;	//幅
+	m_fHeight = 80.0f;	//高さ
 
 	CObject2D::Init(m_pos);
-
-	CObject2D::SetTexture(CTexture::TEXTURE_ENEMY_BLUE);	//テクスチャの設定
 
 	//-------------------------------
 	// 敵の種類ごとの情報を設定
 	//-------------------------------
-	/*switch (m_type)
+	switch (m_type)
 	{
-	case 0:
+	case ENEMYTYPE_NORMAL:
+		m_move.x = -3.0f;	//移動量
+		CObject2D::SetTexture(CTexture::TEXTURE_ENEMY_BLUE);	//テクスチャの設定
 		break;
 
-	default:*/
-		m_move.x = -3.0f;	//移動量
-		m_fWidth = 80.0f;	//幅
-		m_fHeight = 80.0f;	//高さ
-		SetLife(100);		//体力
-	//	break;
-	//}
+	case ENEMYTYPE_HORMING:
+		SetLife(300);		//体力
+		CObject2D::SetTexture(CTexture::TEXTURE_ENEMY_RED);	//テクスチャの設定
+		break;
+
+	default:
+		break;
+	}
 
 	CObject2D::SetSize(m_fWidth, m_fHeight);	//サイズの設定
 
@@ -139,13 +150,39 @@ void CEnemy::Update()
 	//-------------------------------
 	// 敵の移動
 	//-------------------------------
-	//上下移動
-	m_fChangeMove += 0.01f;
-	m_move.y = sinf(D3DX_PI * m_fChangeMove);
+	switch (m_type)
+	{
+	//--------------------------
+	// 通常敵
+	//--------------------------
+	case ENEMYTYPE_NORMAL:
+		//上下移動
+		m_fChangeMove += 0.01f;
+		m_move.y = sinf(D3DX_PI * m_fChangeMove);
+		break;
 
-	m_pos = CObject2D::AddMove(m_move);
+	//--------------------------
+	// ホーミングする敵
+	//--------------------------
+	case ENEMYTYPE_HORMING:
+		m_nCntHorming++;	//ホーミング時間のカウント
 
-	m_pHp->SetMove(m_move);
+		if (m_nCntHorming <= 200)
+		{//カウントが200以下なら
+			//プレイヤーの位置を取得
+			m_Tirget = CGame::GetPlayer()->GetPosition();
+
+			//ホーミングの移動量を取得
+			m_move = Homing(m_pos.x, m_pos.y, m_move.x, m_move.y);
+		}
+		break;
+
+	default:
+		break;
+	}
+
+	m_pos = CObject2D::AddMove(m_move);	//敵の移動
+	m_pHp->SetMove(m_move);				//HPバーの移動量の設定
 
 	//--------------------------
 	// 体力が尽きた
@@ -202,6 +239,73 @@ CEnemy *CEnemy::Create(D3DXVECTOR3 pos, CEnemy::ENEMYTYPE type)
 	}
 
 	return pEnemy;
+}
+
+//=======================
+// ホーミング
+//=======================
+D3DXVECTOR3 CEnemy::Homing(float& posX, float& posY, float& moveX, float& moveY)
+{
+	//弾の元の速度
+	float vx0 = moveX, vy0 = moveY;
+
+	//自機方向の速度ベクトル(vx1,vy1)を求める
+	float vx1, vy1;
+
+	//目標までの距離dを求める
+	float d = sqrtf((m_Tirget.x - posX) * (m_Tirget.x - posX)
+		+ (m_Tirget.y - posY) * (m_Tirget.y - posY));
+
+	if (d)
+	{
+		vx1 = (m_Tirget.x - posX) / d * fBulletSpeed_Homing;
+		vy1 = (m_Tirget.y - posY) / d * fBulletSpeed_Homing;
+	}
+	else
+	{
+		vx1 = 0;
+		vy1 = fBulletSpeed_Homing;
+	}
+
+	//右回り旋回角度上限の速度ベクトル(vx2,vy2)を求める
+	float rad = (D3DX_PI / 180) * 5.0f; //旋回角度上限
+	float vx2 = cosf(rad) * vx0 - sinf(rad) * vy0;
+	float vy2 = sinf(rad) * vx0 + cosf(rad) * vy0;
+
+	//自機方向と旋回角度上限のどちらに曲がるかを決める
+	if (vx0 * vx1 + vy0 * vy1 >= vx0 * vx2 + vy0 * vy2)
+	{//自機方向が旋回可能範囲内の場合
+	 //自機方向に曲がる
+		moveX = vx1;
+		moveY = vy1;
+	}
+	else
+	{
+		//自機方向が旋回可能範囲外の場合
+		//左回り旋回角度上限の速度ベクトル(vx3,vy3)を求める
+		float vx3 = cosf(rad) * vx0 + sinf(rad) * vy0;
+		float vy3 = -sinf(rad) * vx0 + cosf(rad) * vy0;
+
+		//弾から自機への相対位置ベクトル(px,py)を求める
+		float px = m_Tirget.x - posX, py = m_Tirget.y - posY;
+
+		//右回りか左回りかを決める
+		if (px * vx2 + py * vy2 >= px * vx3 + py * vy3)
+		{//右回りの場合
+			moveX = vx2;
+			moveY = vy2;
+		}
+		else
+		{//左回りの場合
+			moveX = vx3;
+			moveY = vy3;
+		}
+	}
+
+	moveX *= fBulletSpeed_Homing;
+	moveY *= fBulletSpeed_Homing;
+
+	return D3DXVECTOR3(moveX, moveY, 0.0f);
 }
 
 //===========================

@@ -79,7 +79,7 @@ HRESULT CApplication::Init(HINSTANCE hInstance, HWND hWnd)
 	//m_pSound->Init(hWnd);
 
 	//ƒ‚[ƒh‚Ìİ’è
-	SetMode(MODE_TITLE);
+	SetMode(MODE_GAME);
 
 	return S_OK;
 }

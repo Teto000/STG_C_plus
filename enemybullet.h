@@ -52,15 +52,9 @@ private:
 
 private:
 	//----------------
-	// 定数定義
-	//----------------
-	static const float fBulletSpeed_Homing;	//ホーミング弾の速度
-
-	//----------------
 	// メンバ変数
 	//----------------s
 	D3DXVECTOR3 m_pos;		//位置
-	D3DXVECTOR3 m_Tirget;	//ホーミング目標の位置
 	D3DXVECTOR3 m_move;		//移動量
 	D3DXVECTOR3 m_rot;		//回転
 	int m_nEnemyAttack;		//敵の攻撃力
