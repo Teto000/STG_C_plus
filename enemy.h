@@ -64,6 +64,8 @@ public:
 	static CEnemy *Create(D3DXVECTOR3 pos, CEnemy::ENEMYTYPE type);
 
 private:
+	void EnemyMove();	//敵の移動
+	bool Destroy();		//体力が尽きた
 	D3DXVECTOR3 Homing(float& posX, float& posY,
 					float& moveX, float& moveY);	//ホーミング弾
 
@@ -94,7 +96,7 @@ private:
 	float m_fWidth;					//幅
 	float m_fHeight;				//高さ
 	float m_fTargetRot;				//プレイヤーまでの角度
-	float m_fChangeMove;			//変動する移動量
+	float m_fChangeAngle;			//変動する移動量
 	ENEMYTYPE m_type;				//種類
 
 	CHp* m_pHp;						//寿命

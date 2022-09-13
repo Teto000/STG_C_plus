@@ -31,7 +31,7 @@
 //------------------------
 // 静的メンバ変数宣言
 //------------------------
-const float CEnemy::fBulletSpeed_Homing = 1.01f;	//弾の速度(ホーミング)
+const float CEnemy::fBulletSpeed_Homing = 1.001f;	//弾の速度(ホーミング)
 
 //===========================
 // コンストラクタ
@@ -51,7 +51,7 @@ CEnemy::CEnemy() : CObject2D()
 	m_fWidth = 0.0f;			//幅
 	m_fHeight = 0.0f;			//高さ
 	m_fTargetRot = 0.0f;		//プレイヤーまでの角度
-	m_fChangeMove = 0.0f;		//変動する移動量
+	m_fChangeAngle = 0.0f;		//変動する移動量
 	m_type = ENEMYTYPE_MAX;		//種類
 	m_pHp = nullptr;			//HPバー
 	m_pEnemyBullet = nullptr;	//敵の弾
@@ -147,62 +147,17 @@ void CEnemy::Update()
 {
 	CObject2D::Update();
 
-	//-------------------------------
-	// 敵の移動
-	//-------------------------------
-	switch (m_type)
+	//--------------------------
+	// 移動処理
+	//--------------------------
+	EnemyMove();
+
+	//--------------------------
+	// 消える処理
+	//--------------------------
+	if (Destroy())
 	{
-	//--------------------------
-	// 通常敵
-	//--------------------------
-	case ENEMYTYPE_NORMAL:
-		//上下移動
-		m_fChangeMove += 0.01f;
-		m_move.y = sinf(D3DX_PI * m_fChangeMove);
-		break;
-
-	//--------------------------
-	// ホーミングする敵
-	//--------------------------
-	case ENEMYTYPE_HORMING:
-		m_nCntHorming++;	//ホーミング時間のカウント
-
-		if (m_nCntHorming <= 200)
-		{//カウントが200以下なら
-			//プレイヤーの位置を取得
-			m_Tirget = CGame::GetPlayer()->GetPosition();
-
-			//ホーミングの移動量を取得
-			m_move = Homing(m_pos.x, m_pos.y, m_move.x, m_move.y);
-		}
-		break;
-
-	default:
-		break;
-	}
-
-	m_pos = CObject2D::AddMove(m_move);	//敵の移動
-	m_pHp->SetMove(m_move);				//HPバーの移動量の設定
-
-	//--------------------------
-	// 体力が尽きた
-	//--------------------------
-	if (m_nLife <= 0)
-	{
-		CLevel::AddExp(10);				//経験値の取得
-		CScore::AddScore(10);			//スコアの加算
-		m_pExplosion->Create(m_pos);	//爆発の生成
-
 		//敵の消滅
-		Uninit();
-		return;
-	}
-
-	//--------------------------
-	// 画面外に出た
-	//--------------------------
-	if (m_pos.x <= 0.0f || m_pos.y <= 0.0f || m_pos.y >= SCREEN_HEIGHT)
-	{
 		Uninit();
 		return;
 	}
@@ -239,6 +194,70 @@ CEnemy *CEnemy::Create(D3DXVECTOR3 pos, CEnemy::ENEMYTYPE type)
 	}
 
 	return pEnemy;
+}
+
+//=======================
+// 移動処理
+//=======================
+void CEnemy::EnemyMove()
+{
+	switch (m_type)
+	{
+		/* ↓ 通常の敵 ↓ */
+	case ENEMYTYPE_NORMAL:
+		//上下移動
+		m_fChangeAngle += 0.01f;	//角度の加算
+		m_move.y = sinf(D3DX_PI * m_fChangeAngle);	//上下の移動量を計算
+		break;
+
+		/* ↓ ホーミングする敵 ↓ */
+	case ENEMYTYPE_HORMING:
+		m_nCntHorming++;	//ホーミング時間のカウント
+
+		if (m_nCntHorming <= 200)
+		{//カウントが200以下なら
+		 //プレイヤーの位置を取得
+			m_Tirget = CGame::GetPlayer()->GetPosition();
+
+			//ホーミングの移動量を取得
+			m_move = Homing(m_pos.x, m_pos.y, m_move.x, m_move.y);
+		}
+		break;
+
+	default:
+		break;
+	}
+
+	m_pos = CObject2D::AddMove(m_move);	//敵の移動
+	m_pHp->SetMove(m_move);				//HPバーの移動量の設定
+}
+
+//=======================
+// 消える処理
+//=======================
+bool CEnemy::Destroy()
+{
+	//--------------------------
+	// 体力が尽きた
+	//--------------------------
+	if (m_nLife <= 0)
+	{
+		CLevel::AddExp(10);				//経験値の取得
+		CScore::AddScore(10);			//スコアの加算
+		m_pExplosion->Create(m_pos);	//爆発の生成
+
+		return true;
+	}
+
+	//--------------------------
+	// 画面外に出た
+	//--------------------------
+	if (m_pos.x <= 0.0f || m_pos.y <= 0.0f || m_pos.y >= SCREEN_HEIGHT)
+	{
+		return true;
+	}
+
+	return false;
 }
 
 //=======================
