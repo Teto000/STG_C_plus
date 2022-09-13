@@ -45,9 +45,9 @@ HRESULT CItem::Init(D3DXVECTOR3 pos)
 {
 	//初期値の設定
 	m_pos = pos;		//位置
-	m_nLife = 50;		//寿命
-	m_fWidth = 30.0f;	//幅
-	m_fHeight = 30.0f;	//高さ
+	m_nLife = 150;		//寿命
+	m_fWidth = 50.0f;	//幅
+	m_fHeight = 50.0f;	//高さ
 
 	CObject2D::Init(m_pos);
 
@@ -74,6 +74,18 @@ void CItem::Uninit()
 void CItem::Update()
 {
 	CObject2D::Update();
+
+	//-------------------------------
+	// 寿命の減少処理
+	//-------------------------------
+	//寿命の減少
+	m_nLife--;
+
+	if (m_nLife <= 0)
+	{//寿命が尽きたら
+		Uninit();
+		return;
+	}
 
 	//-------------------------------
 	// プレイヤーとの当たり判定

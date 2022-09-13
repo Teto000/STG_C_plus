@@ -23,11 +23,12 @@
 #include "skill.h"
 #include "level.h"
 #include "hpfream.h"
+#include "barrier.h"
 
 //------------------------
 // 静的メンバ変数宣言
 //------------------------
-const float CPlayer::fPlayerSpeed = (30.0f / 5.0f);
+const float CPlayer::fPlayerSpeed = 8.0f;
 D3DXCOLOR CPlayer::m_col = D3DXCOLOR(1.0f, 1.0f, 1.0f,1.0f);
 
 //===========================
@@ -41,9 +42,9 @@ CPlayer::CPlayer() : CObject2D()
 	m_nLife = 0;				//体力
 	m_nMaxLife = 0;				//最大体力
 	m_nRemLife = 0;				//残り体力
-	m_nMagic = 0;					//MP
-	m_nMaxMagic = 0;				//最大MP
-	m_nRemMagic = 0;				//残りMP
+	m_nMagic = 0;				//MP
+	m_nMaxMagic = 0;			//最大MP
+	m_nRemMagic = 0;			//残りMP
 	m_nAttack = 0;				//攻撃力
 	m_nLevel = 0;				//レベル
 	m_nShotTime = 0;			//弾の発射時間
@@ -60,6 +61,7 @@ CPlayer::CPlayer() : CObject2D()
 	m_Level = nullptr;			//レベルクラス
 	m_Bullet = nullptr;			//弾クラス
 	m_pHpFream = nullptr;		//HPフレームクラス
+	m_pBarrier = nullptr;		//バリアクラス
 }
 
 //===========================
@@ -85,7 +87,7 @@ HRESULT CPlayer::Init(D3DXVECTOR3 pos)
 	m_nRemMagic = 100;				//残りMP
 	m_fWidth = 80.0f;			//幅
 	m_fHeight = 100.0f;			//高さ
-	m_nAttack = 40;				//攻撃力
+	m_nAttack = 10;				//攻撃力
 	m_nShotTime = 20;			//弾の発射時間
 	m_nSpeed = fPlayerSpeed;	//速度
 
@@ -180,7 +182,10 @@ void CPlayer::Update()
 	//--------------------------
 	// スキルの発動
 	//--------------------------
-	SetSkill();
+	if (!m_bSlill)
+	{
+		SetSkill();
+	}
 
 	//--------------------------
 	// スキルの効果が切れる
@@ -192,7 +197,11 @@ void CPlayer::Update()
 
 		if (m_nCntSkill == 0)
 		{//5秒経過したら
-			m_nShotTime = 20;	//速度を元に戻す
+			m_nAttack = 10;				//攻撃力
+			m_nShotTime = 20;			//弾の発射時間
+			m_nSpeed = fPlayerSpeed;	//速度
+
+			m_bSlill = false;
 		}
 	}
 
@@ -275,43 +284,43 @@ D3DXVECTOR3 CPlayer::OperationPlayer()
 	{//Aキーが押された
 		if (CInputKeyboard::Press(DIK_W) == true)
 		{//Wキーが押された
-			m_move.y += cosf(-D3DX_PI * 0.75f) * fPlayerSpeed;		//上左移動
-			m_move.x += sinf(-D3DX_PI * 0.75f) * fPlayerSpeed;
+			m_move.y += cosf(-D3DX_PI * 0.75f) * m_nSpeed;		//上左移動
+			m_move.x += sinf(-D3DX_PI * 0.75f) * m_nSpeed;
 		}
 		else if (CInputKeyboard::Press(DIK_S) == true)
 		{//Sキーが押された
-			m_move.y += cosf(D3DX_PI * 0.25f) * fPlayerSpeed;		//下左移動
-			m_move.x += sinf(-D3DX_PI * 0.25f) * fPlayerSpeed;
+			m_move.y += cosf(D3DX_PI * 0.25f) * m_nSpeed;		//下左移動
+			m_move.x += sinf(-D3DX_PI * 0.25f) * m_nSpeed;
 		}
 		else
 		{
-			m_move.x += sinf(-D3DX_PI * 0.5f) * fPlayerSpeed;		//左移動
+			m_move.x += sinf(-D3DX_PI * 0.5f) * m_nSpeed;		//左移動
 		}
 	}
 	else if (CInputKeyboard::Press(DIK_D) == true)
 	{//Dキーが押された
 		if (CInputKeyboard::Press(DIK_W) == true)
 		{//Wキーが押された
-			m_move.y += cosf(-D3DX_PI * 0.75f) * fPlayerSpeed;		//上右移動
-			m_move.x += sinf(D3DX_PI * 0.75f) * fPlayerSpeed;
+			m_move.y += cosf(-D3DX_PI * 0.75f) * m_nSpeed;		//上右移動
+			m_move.x += sinf(D3DX_PI * 0.75f) * m_nSpeed;
 		}
 		else if (CInputKeyboard::Press(DIK_S) == true)
 		{//Sキーが押された
-			m_move.y += cosf(D3DX_PI * 0.25f) * fPlayerSpeed;		//下右移動
-			m_move.x += sinf(D3DX_PI * 0.25f) * fPlayerSpeed;
+			m_move.y += cosf(D3DX_PI * 0.25f) * m_nSpeed;		//下右移動
+			m_move.x += sinf(D3DX_PI * 0.25f) * m_nSpeed;
 		}
 		else
 		{
-			m_move.x += sinf(D3DX_PI * 0.5f) * fPlayerSpeed;		//右移動
+			m_move.x += sinf(D3DX_PI * 0.5f) * m_nSpeed;		//右移動
 		}
 	}
 	else if (CInputKeyboard::Press(DIK_W) == true)
 	{//Wキーが押された
-		m_move.y += cosf(-D3DX_PI * 1.0f) * fPlayerSpeed;			//上移動
+		m_move.y += cosf(-D3DX_PI * 1.0f) * m_nSpeed;			//上移動
 	}
 	else if (CInputKeyboard::Press(DIK_S) == true)
 	{//Sキーが押された
-		m_move.y += cosf(D3DX_PI * 0.0f) * fPlayerSpeed;			//下移動
+		m_move.y += cosf(D3DX_PI * 0.0f) * m_nSpeed;			//下移動
 	}
 
 	return m_move;
@@ -367,11 +376,46 @@ void CPlayer::SetSkill()
 	}
 
 	//-----------------------
-	// 弾の拡大
+	// 攻撃力上昇
 	//-----------------------
-	if (CInputKeyboard::Trigger(DIK_3) && m_Bullet != nullptr)
+	if (CInputKeyboard::Trigger(DIK_3))
 	{
-		m_Bullet->SetBulletSize(50.0f);
+		//攻撃力の上昇
+		m_nAttack = 20;
+
+		//MPの減少
+		AddMagic(-10);
+
+		m_bSlill = true;
+	}
+
+	//-----------------------
+	// 速度上昇
+	//-----------------------
+	if (CInputKeyboard::Trigger(DIK_4))
+	{
+		//速度の上昇
+		m_nSpeed = 12.0f;
+
+		//MPの減少
+		AddMagic(-10);
+
+		m_bSlill = true;
+	}
+
+	//-----------------------
+	// バリアの生成
+	//-----------------------
+	if (CInputKeyboard::Trigger(DIK_5))
+	{
+		//バリアの生成
+		m_pBarrier = CBarrier::Create(m_pos, m_move, m_fWidth, m_fHeight,
+										CBarrier::BARRIERTYPE_PLAYER);
+
+		//MPの減少
+		AddMagic(-10);
+
+		m_bSlill = true;
 	}
 }
 
@@ -394,13 +438,13 @@ void CPlayer::InvincibleTime()
 }
 
 //===========================
-// HPの減少
+// HPの加算
 //===========================
 void CPlayer::AddLife(int nValue)
 {
 	if (m_nLife + nValue < m_nMaxLife)
 	{
-		m_nLife += nValue;	//プレイヤーの体力の減少
+		m_nLife += nValue;	//プレイヤーの体力の加算
 	}
 	else
 	{
@@ -421,7 +465,7 @@ void CPlayer::AddMagic(int nValue)
 {
 	if (m_nMagic + nValue < m_nMaxMagic)
 	{//最大MPを超えないなら
-		m_nMagic += nValue;	//プレイヤーの体力の減少
+		m_nMagic += nValue;	//プレイヤーの体力の加算
 	}
 	else 
 	{
@@ -442,6 +486,14 @@ void CPlayer::AddMagic(int nValue)
 void CPlayer::SetCol(D3DXCOLOR col)
 {
 	m_col = col;
+}
+
+//===========================
+// 移動量の取得
+//===========================
+D3DXVECTOR3 CPlayer::GetMove()
+{
+	return m_move;
 }
 
 //===========================

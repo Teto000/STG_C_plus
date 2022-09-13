@@ -88,8 +88,8 @@ HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 
 	case ENEMYTYPE_BIG:
 		m_move.x = -1.0f;	//移動量
-		m_fWidth = 170.0f;	//幅
-		m_fHeight = 170.0f;	//高さ
+		m_fWidth = 120.0f;	//幅
+		m_fHeight = 120.0f;	//高さ
 		SetLife(500);
 		CObject2D::SetTexCIE(0.0f, 0.5f);	//テクスチャ座標の設定
 		CObject2D::SetTexture(CTexture::TEXTURE_ENEMYDEVIL);
@@ -97,15 +97,15 @@ HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 
 	case ENEMYTYPE_HORMING:
 		m_move.x = -1.0f;	//移動量
-		m_fWidth = 170.0f;	//幅
-		m_fHeight = 170.0f;	//高さ
+		m_fWidth = 120.0f;	//幅
+		m_fHeight = 120.0f;	//高さ
 		SetLife(500);
 		break;
 
 	default:
 		m_move.x = -2.0f;	//移動量
-		m_fWidth = 100.0f;	//幅
-		m_fHeight = 100.0f;	//高さ
+		m_fWidth = 80.0f;	//幅
+		m_fHeight = 80.0f;	//高さ
 		SetLife(100);
 		CObject2D::SetTexCIE(0.0f, 0.5f);	//テクスチャ座標の設定
 		break;
@@ -137,7 +137,7 @@ HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 		if (m_type != ENEMYTYPE_BOSS && nData == 1)
 		{//ボス以外の敵 かつ ランダムな値が1の時
 			//バリアの生成
-			m_pBarrier->Create(m_pos, m_move, m_fWidth * 1.1f, m_fHeight * 1.1f);
+			m_pBarrier->Create(m_pos, m_move, m_fWidth, m_fHeight, CBarrier::BARRIERTYPE_ENEMY);
 		}
 	}
 
@@ -239,7 +239,7 @@ void CEnemy::Update()
 		//-----------------------
 		// アイテムの生成
 		//-----------------------
-		m_pItem = CItem::Create(m_pos,CItem::ITEMTYPE_HPHEAL);
+		//m_pItem = CItem::Create(m_pos,CItem::ITEMTYPE_HPHEAL);
 
 		//敵の消滅
 		Uninit();

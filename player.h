@@ -20,6 +20,7 @@ class CMp;		//MPクラス
 class CLevel;	//レベルクラス
 class CBullet;	//弾クラス
 class CHpFream;	//HPフレームクラス
+class CBarrier;	//バリアクラス
 
 //--------------------------
 // プレイヤークラス
@@ -50,6 +51,7 @@ public:
 	void AddMagic(int nValue);	//MPの減少
 
 	//ゲッター
+	D3DXVECTOR3 GetMove();
 	int GetLife();
 	int GetRemLife();
 	int GetAttack();
@@ -101,6 +103,7 @@ private:
 	CLevel* m_Level;		//レベルクラス
 	CBullet* m_Bullet;		//弾クラス
 	CHpFream*m_pHpFream;	//HPフレームクラス
+	CBarrier*m_pBarrier;	//バリアクラス
 
 	//------------------
 	// 静的メンバ変数

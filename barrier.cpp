@@ -14,7 +14,9 @@
 #include "object2D.h"
 #include "input_keybord.h"
 #include "texture.h"
+#include "game.h"
 #include "bullet.h"
+#include "player.h"
 
 //===========================
 // コンストラクタ
@@ -23,6 +25,7 @@ CBarrier::CBarrier() : CObject2D()
 {
 	m_pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	//位置
 	m_move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	//移動量
+	m_playermove = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	//プレイヤーの移動量
 	m_nLife = 0;		//体力
 	m_fWidth = 0.0f;	//幅
 	m_fHeight = 0.0f;	//高さ
@@ -71,7 +74,17 @@ void CBarrier::Update()
 {
 	CObject2D::Update();
 
-	m_pos = CObject2D::AddMove(m_move);
+	switch (m_type)
+	{
+	case BARRIERTYPE_PLAYER:
+		m_playermove = CGame::GetPlayer()->GetMove();
+		m_pos = CObject2D::AddMove(m_playermove);
+		break;
+
+	case BARRIERTYPE_ENEMY:
+		m_pos = CObject2D::AddMove(m_move);
+		break;
+	}
 
 	if (m_nLife <= 0)
 	{
@@ -91,7 +104,8 @@ void CBarrier::Draw()
 //===========================
 // 生成
 //===========================
-CBarrier *CBarrier::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, float fWidth, float fHeight)
+CBarrier *CBarrier::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move,
+							float fWidth, float fHeight, BARRIERTYPE type)
 {
 	CBarrier *pBarrier = nullptr;
 
@@ -104,8 +118,9 @@ CBarrier *CBarrier::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, float fWidth, floa
 	{//NULLチェック
 		//メンバ変数に代入
 		pBarrier->m_move = move;				//移動量
-		pBarrier->m_fWidth = fWidth + 50.0f;	//幅
-		pBarrier->m_fHeight = fHeight + 50.0f;	//高さ
+		pBarrier->m_fWidth = fWidth + 30.0f;	//幅
+		pBarrier->m_fHeight = fHeight + 30.0f;	//高さ
+		pBarrier->m_type = type;				//種類
 
 		//初期化
 		pBarrier->Init(pos);
@@ -131,4 +146,12 @@ void CBarrier::SubLife(CBullet::BULLETTYPE type)
 		m_nLife -= 10;
 		break;
 	}
+}
+
+//===========================
+// 種類の取得
+//===========================
+CBarrier::BARRIERTYPE CBarrier::GetType()
+{
+	return m_type;
 }
