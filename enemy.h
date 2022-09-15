@@ -54,6 +54,7 @@ public:
 	void SubLife(int nLife);	//体力の減少
 
 	//ゲッター
+	D3DXVECTOR3 GetMove();
 	int GetLife();
 	int GetRemLife();
 	int GetAttack();
@@ -64,8 +65,12 @@ public:
 	static CEnemy *Create(D3DXVECTOR3 pos, CEnemy::ENEMYTYPE type);
 
 private:
-	void EnemyMove();	//敵の移動
-	bool Destroy();		//体力が尽きた
+	void Animation();					//テクスチャアニメーション
+	void Move();						//移動処理
+	void CntAttack();					//攻撃までの時間を数える
+	void Attack();						//攻撃処理
+	void BossAttack(D3DXVECTOR2 vec);	//ボス敵の攻撃
+	bool Destroy();						//消える処理
 	D3DXVECTOR3 Homing(float& posX, float& posY,
 					float& moveX, float& moveY);	//ホーミング弾
 
@@ -97,6 +102,7 @@ private:
 	float m_fHeight;				//高さ
 	float m_fTargetRot;				//プレイヤーまでの角度
 	float m_fChangeAngle;			//変動する移動量
+	bool m_bChangeAttack;			//攻撃変化するかどうか
 	ENEMYTYPE m_type;				//種類
 
 	CHp* m_pHp;						//寿命

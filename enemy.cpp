@@ -31,7 +31,7 @@
 //------------------------
 // 静的メンバ変数宣言
 //------------------------
-const float CEnemy::fBulletSpeed_Homing = 1.001f;	//弾の速度(ホーミング)
+const float CEnemy::fBulletSpeed_Homing = 1.01f;	//弾の速度(ホーミング)
 
 //===========================
 // コンストラクタ
@@ -52,6 +52,7 @@ CEnemy::CEnemy() : CObject2D()
 	m_fHeight = 0.0f;			//高さ
 	m_fTargetRot = 0.0f;		//プレイヤーまでの角度
 	m_fChangeAngle = 0.0f;		//変動する移動量
+	m_bChangeAttack = false;	//攻撃変化
 	m_type = ENEMYTYPE_MAX;		//種類
 	m_pHp = nullptr;			//HPバー
 	m_pEnemyBullet = nullptr;	//敵の弾
@@ -74,7 +75,10 @@ CEnemy::~CEnemy()
 //===========================
 HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 {
-	//位置の設定
+	//時刻をもとにしたランダムな値を生成
+	srand((unsigned int)time(NULL));
+
+	//初期値の設定
 	m_pos = pos;		//位置
 	m_nRemLife = 100;	//残り体力
 	m_nAttack = 5;		//攻撃力
@@ -89,14 +93,25 @@ HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 	//-------------------------------
 	switch (m_type)
 	{
+	//通常の敵
 	case ENEMYTYPE_NORMAL:
 		m_move.x = -3.0f;	//移動量
 		CObject2D::SetTexture(CTexture::TEXTURE_ENEMY_BLUE);	//テクスチャの設定
 		break;
 
+	//ホーミングする敵
 	case ENEMYTYPE_HORMING:
 		SetLife(300);		//体力
 		CObject2D::SetTexture(CTexture::TEXTURE_ENEMY_RED);	//テクスチャの設定
+		break;
+
+	//ボス敵
+	case ENEMYTYPE_BOSS:
+		m_fWidth = 200.0f;	//幅
+		m_fHeight = 200.0f;	//高さ
+		SetLife(3000);		//体力
+		CObject2D::SetTexCIE(0.0f, 0.5f);
+		CObject2D::SetTexture(CTexture::TEXTURE_ENEMY_BIRD);	//テクスチャの設定
 		break;
 
 	default:
@@ -109,17 +124,18 @@ HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 	// HPの表示
 	//--------------------------
 	{
+		//HPの位置を設定
 		D3DXVECTOR3 hpPos(m_pos.x, m_pos.y - (m_fHeight / 2 + 20.0f), m_pos.z);
 
-		m_pHp = CHp::Create(hpPos, m_fWidth, 10.0f);
-		m_pHp->SetLife(m_nLife, m_nRemLife);
-		m_pHp->SetMove(m_move);
+		m_pHp = CHp::Create(hpPos, m_fWidth, 10.0f);//HPの生成
+		m_pHp->SetLife(m_nLife, m_nRemLife);		//HPに体力を設定
+		m_pHp->SetMove(m_move);						//HPに移動量を設定
 	}
 
 	//--------------------------
 	// バリアの生成
 	//--------------------------
-	{
+	/*{
 		int nData = rand() % 9;
 
 		if (m_type != ENEMYTYPE_BOSS && nData == 1)
@@ -127,7 +143,7 @@ HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 			//バリアの生成
 			m_pBarrier->Create(m_pos, m_move, m_fWidth, m_fHeight, CBarrier::BARRIERTYPE_ENEMY);
 		}
-	}
+	}*/
 
 	return S_OK;
 }
@@ -148,9 +164,19 @@ void CEnemy::Update()
 	CObject2D::Update();
 
 	//--------------------------
+	// テクスチャアニメーション
+	//--------------------------
+	Animation();
+
+	//--------------------------
 	// 移動処理
 	//--------------------------
-	EnemyMove();
+	Move();
+
+	//--------------------------
+	// 攻撃処理
+	//--------------------------
+	CntAttack();
 
 	//--------------------------
 	// 消える処理
@@ -196,32 +222,66 @@ CEnemy *CEnemy::Create(D3DXVECTOR3 pos, CEnemy::ENEMYTYPE type)
 	return pEnemy;
 }
 
-//=======================
-// 移動処理
-//=======================
-void CEnemy::EnemyMove()
+//============================
+// テクスチャアニメーション
+//============================
+void CEnemy::Animation()
 {
 	switch (m_type)
 	{
-		/* ↓ 通常の敵 ↓ */
+	case ENEMYTYPE_BOSS:
+		//テクスチャ切り替え時間の加算
+		m_nCntTime++;
+		m_nCntTime %= nMaxTexTime;	//リセット
+
+		if (m_nCntTime >= nHalfTexTime)
+		{
+			//テクスチャ座標の設定
+			CObject2D::SetTexCIE(0.0f, 0.5f);
+		}
+		else
+		{
+			CObject2D::SetTexCIE(0.5f, 1.0f);
+		}
+		break;
+
+	default:
+		break;
+	}
+}
+
+//=======================
+// 移動処理
+//=======================
+void CEnemy::Move()
+{
+	switch (m_type)
+	{
+	/* ↓ 通常の敵 ↓ */
 	case ENEMYTYPE_NORMAL:
 		//上下移動
 		m_fChangeAngle += 0.01f;	//角度の加算
 		m_move.y = sinf(D3DX_PI * m_fChangeAngle);	//上下の移動量を計算
 		break;
 
-		/* ↓ ホーミングする敵 ↓ */
+	/* ↓ ホーミングする敵 ↓ */
 	case ENEMYTYPE_HORMING:
 		m_nCntHorming++;	//ホーミング時間のカウント
 
 		if (m_nCntHorming <= 200)
 		{//カウントが200以下なら
-		 //プレイヤーの位置を取得
+			//プレイヤーの位置を取得
 			m_Tirget = CGame::GetPlayer()->GetPosition();
 
 			//ホーミングの移動量を取得
 			m_move = Homing(m_pos.x, m_pos.y, m_move.x, m_move.y);
 		}
+		break;
+
+	case ENEMYTYPE_BOSS:
+		//上下移動
+		m_fChangeAngle += 0.01f;	//角度の加算
+		m_move.y = sinf(D3DX_PI * m_fChangeAngle) * 2.0f;	//上下の移動量を計算
 		break;
 
 	default:
@@ -230,6 +290,98 @@ void CEnemy::EnemyMove()
 
 	m_pos = CObject2D::AddMove(m_move);	//敵の移動
 	m_pHp->SetMove(m_move);				//HPバーの移動量の設定
+}
+
+//=======================
+// 攻撃までの時間を数える
+//=======================
+void CEnemy::CntAttack()
+{
+	//カウントの加算
+	m_nCntShotTime++;
+	m_nCntShotTime %= nShotTime;
+
+	//----------------------------
+	// カウントが0になったら
+	//----------------------------
+	if (m_nCntShotTime == 0)
+	{
+		//攻撃処理
+		Attack();
+	}
+}
+
+//=======================
+// 攻撃処理
+//=======================
+void CEnemy::Attack()
+{
+	//-------------------------------
+	// プレイヤーの位置を保存
+	//-------------------------------
+	if (CGame::GetPlayer()->GetLife() > 0)
+	{//プレイヤーが生きているなら
+		m_targetPos = CGame::GetPlayer()->GetPosition();
+	}
+
+	//プレイヤーまでの角度
+	D3DXVECTOR2 vec = m_pos - m_targetPos;
+	D3DXVec2Normalize(&vec, &vec);
+
+	//-------------------------------
+	// 攻撃
+	//-------------------------------
+	switch (m_type)
+	{
+	/* ↓ 通常の敵 ↓ */
+	case ENEMYTYPE_NORMAL:
+		m_pEnemyBullet->Create(m_pos, D3DXVECTOR3(-6.0f, 0.0f, 0.0f), m_nAttack);
+		break;
+
+	/* ↓ ボス敵 ↓ */
+	case ENEMYTYPE_BOSS:
+		BossAttack(vec);
+		break;
+
+	default:
+		break;
+	}
+}
+
+//=======================
+// ボス敵の攻撃
+//=======================
+void CEnemy::BossAttack(D3DXVECTOR2 vec)
+{
+	int nRandAttack = rand() % 3;
+
+	switch (nRandAttack)
+	{
+	case 0:
+		/* ↓ 攻撃1 ↓ */
+		for (int i = 0; i < 3; i++)
+		{
+			D3DXVECTOR3 move(-vec.x * 4.0f, -vec.y * (i + 1), 0.0f);
+			m_pEnemyBullet->Create(m_pos, move, m_nAttack);
+		}
+		break;
+
+	case 1:
+		/* ↓ 攻撃2 ↓ */
+		for (int i = 0; i < 3; i++)
+		{
+			D3DXVECTOR3 pos(m_pos.x, 50.0f + 200.0f * (i + 1), m_pos.z);
+			m_pEnemyBullet->Create(pos, D3DXVECTOR3(-6.0f, 0.0f, 0.0f), m_nAttack);
+		}
+		break;
+	case 2:
+		/* ↓ 攻撃3 ↓ */
+
+		break;
+
+	default:
+		break;
+	}
 }
 
 //=======================
@@ -254,6 +406,18 @@ bool CEnemy::Destroy()
 	//--------------------------
 	if (m_pos.x <= 0.0f || m_pos.y <= 0.0f || m_pos.y >= SCREEN_HEIGHT)
 	{
+		return true;
+	}
+
+	//--------------------------
+	// 自爆
+	//--------------------------
+	if (CObject2D::GetCollision(OBJTYPE_PLAYER) && m_type == ENEMYTYPE_HORMING)
+	{//プレイヤーと当たった && ホーミングする敵なら
+		CLevel::AddExp(10);					//経験値の取得
+		CScore::AddScore(10);				//スコアの加算
+		m_pExplosion->Create(m_pos);		//爆発の生成
+		CGame::GetPlayer()->AddLife(-30);	//プレイヤーの体力を減らす
 		return true;
 	}
 
@@ -325,6 +489,14 @@ D3DXVECTOR3 CEnemy::Homing(float& posX, float& posY, float& moveX, float& moveY)
 	moveY *= fBulletSpeed_Homing;
 
 	return D3DXVECTOR3(moveX, moveY, 0.0f);
+}
+
+//===========================
+// 移動量の取得
+//===========================
+D3DXVECTOR3 CEnemy::GetMove()
+{
+	return m_move;
 }
 
 //===========================

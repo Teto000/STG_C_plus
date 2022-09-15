@@ -63,8 +63,6 @@ HRESULT CGame::Init()
 	//ÉXÉRÉAÇÃê∂ê¨
 	m_pScore = CScore::Create();
 
-	//m_pEnemy = CEnemy::Create(D3DXVECTOR3(1000.0f, 360.0f, 0.0f), CEnemy::ENEMYTYPE_BOSS);
-
 	return S_OK;
 }
 
@@ -85,7 +83,15 @@ void CGame::Update()
 
 	if (m_nTime % (nOneSecond * 5) == 0)
 	{
+		m_pEnemy = CEnemy::Create(D3DXVECTOR3(1300, 360.0f, 0.0f), CEnemy::ENEMYTYPE_NORMAL);
+	}
+	else if (m_nTime % (nOneSecond * 12) == 0)
+	{
 		m_pEnemy = CEnemy::Create(D3DXVECTOR3(1300, 360.0f, 0.0f), CEnemy::ENEMYTYPE_HORMING);
+	}
+	else if (m_nTime == (nOneSecond * 60))
+	{
+		m_pEnemy = CEnemy::Create(D3DXVECTOR3(1000.0f, 360.0f, 0.0f), CEnemy::ENEMYTYPE_BOSS);
 	}
 
 	//âÊñ ëJà⁄

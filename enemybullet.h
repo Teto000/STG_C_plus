@@ -18,16 +18,6 @@
 class CEnemyBullet : public CObject2D
 {
 public:
-	//---------------------------
-	// 敵の弾の列挙型の定義
-	//---------------------------
-	enum ENEMYBULLETTYPE
-	{
-		ENEMYBULLETTYPE_NORMAL = 0,
-		ENEMYBULLETTYPE_HORMING,
-		ENEMYBULLETTYPE_MAX
-	};
-
 	CEnemyBullet();				//コンストラクタ
 	~CEnemyBullet() override;	//デストラクタ
 
@@ -44,8 +34,7 @@ public:
 	//----------------
 	// 静的メンバ関数
 	//----------------
-	static CEnemyBullet *Create(D3DXVECTOR3 pos, D3DXVECTOR3 move,
-								int nAttack, CEnemyBullet::ENEMYBULLETTYPE type);
+	static CEnemyBullet *Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, int nAttack);
 
 private:
 	void CollisionEnemyBullet();	//当たった処理
@@ -61,7 +50,6 @@ private:
 	int m_nLife;			//寿命
 	float m_fWidth;			//幅
 	float m_fHeight;		//高さ
-	ENEMYBULLETTYPE m_type;	//弾の種類
 };
 
 #endif // !_BULLET_H_

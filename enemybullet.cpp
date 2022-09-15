@@ -30,7 +30,6 @@ CEnemyBullet::CEnemyBullet() : CObject2D()
 	m_nLife = 0;				//Žõ–½
 	m_fWidth = 0.0f;			//•
 	m_fHeight = 0.0f;			//‚‚³
-	m_type = ENEMYBULLETTYPE_NORMAL;
 }
 
 //===========================
@@ -107,8 +106,7 @@ void CEnemyBullet::Draw()
 //===========================
 // ¶¬
 //===========================
-CEnemyBullet *CEnemyBullet::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move
-									, int nAttack, CEnemyBullet::ENEMYBULLETTYPE type)
+CEnemyBullet *CEnemyBullet::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move, int nAttack)
 {
 	CEnemyBullet *pBullet = nullptr;
 
@@ -122,7 +120,6 @@ CEnemyBullet *CEnemyBullet::Create(D3DXVECTOR3 pos, D3DXVECTOR3 move
 		//ƒƒ“ƒo•Ï”‚É‘ã“ü
 		pBullet->m_move = move;				//ˆÚ“®—Ê‚Ì‘ã“ü
 		pBullet->m_nEnemyAttack = nAttack;	//UŒ‚—Í‚Ì‘ã“ü
-		pBullet->m_type = type;				//Ží—Þ
 
 		//‰Šú‰»
 		pBullet->Init(pos);
