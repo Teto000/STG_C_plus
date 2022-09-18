@@ -35,6 +35,8 @@ public:
 	{
 		ENEMYTYPE_NORMAL = 0,	//直進する敵
 		ENEMYTYPE_HORMING,		//ホーミングしてくる敵
+		ENEMYTYPE_HPITEM,		//HP回復アイテムを落とす敵
+		ENEMYTYPE_MPITEM,		//MP回復アイテムを落とす敵
 		ENEMYTYPE_BOSS,			//ボス敵
 		ENEMYTYPE_MAX
 	};

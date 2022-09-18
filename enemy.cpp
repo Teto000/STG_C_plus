@@ -398,6 +398,22 @@ bool CEnemy::Destroy()
 		CScore::AddScore(10);			//スコアの加算
 		m_pExplosion->Create(m_pos);	//爆発の生成
 
+		switch (m_type)
+		{
+		case ENEMYTYPE_HPITEM:
+			//アイテムの生成
+			m_pItem = CItem::Create(m_pos, CItem::ITEMTYPE_HPHEAL);
+			break;
+
+		case ENEMYTYPE_MPITEM:
+			//アイテムの生成
+			m_pItem = CItem::Create(m_pos, CItem::ITEMTYPE_MPHEAL);
+			break;
+
+		default:
+			break;
+		}
+
 		return true;
 	}
 

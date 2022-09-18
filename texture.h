@@ -24,7 +24,6 @@ public: /* 定義 */
 
 		/* ↓　エネミー　↓　*/
 		TEXTURE_ENEMY_BIRD,			//敵(鳥)
-		TEXTURE_ENEMY_DEVIL,		//敵(悪魔)
 		TEXTURE_ENEMY_RED,			//敵(赤)
 		TEXTURE_ENEMY_BLUE,			//敵(青)
 		TEXTURE_ENEMY_GREEN,		//敵(緑)
