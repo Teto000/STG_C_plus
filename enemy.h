@@ -80,7 +80,7 @@ private:
 	//----------------
 	static const int nMaxTexTime = 80;
 	static const int nHalfTexTime = (nMaxTexTime / 2);
-	static const int nShotTime = 50;	//弾の発射時間
+	static const int nShotTime = 100;	//弾の発射時間
 	static const float fBulletSpeed_Homing;	//ホーミング弾の速度
 
 	//----------------

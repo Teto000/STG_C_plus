@@ -23,10 +23,10 @@ const char* CTexture::s_FileName[] =
 
 	/* «@ƒGƒlƒ~[@«@*/
 	"data/TEXTURE/Enemy/Bird.png",		//“G(’¹)
-	"data/TEXTURE/Enemy/Devil.png",		//“G(ˆ«–‚)
 	"data/TEXTURE/Enemy/Red.png",		//“G(Ô)
 	"data/TEXTURE/Enemy/Blue.png",		//“G(Â)
-	"data/TEXTURE/Enemy/Yellow.png",	//“G(‰©)
+	"data/TEXTURE/Enemy/Green.png",		//“G(—Î)
+	"data/TEXTURE/Enemy/Pink.png",		//“G(“)
 
 	/* « ƒQ[ƒ€ «@*/
 	"data/TEXTURE/Game/Bullet.png",			//’e

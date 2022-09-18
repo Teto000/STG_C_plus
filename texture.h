@@ -27,7 +27,8 @@ public: /* ’è‹` */
 		TEXTURE_ENEMY_DEVIL,		//“G(ˆ«–‚)
 		TEXTURE_ENEMY_RED,			//“G(Ô)
 		TEXTURE_ENEMY_BLUE,			//“G(Â)
-		TEXTURE_ENEMY_YELLOW,		//“G(‰©)
+		TEXTURE_ENEMY_GREEN,		//“G(—Î)
+		TEXTURE_ENEMY_PINK,			//“G(“)
 
 		/* « ƒQ[ƒ€ «*/
 		TEXTURE_BULLET,				//’e
