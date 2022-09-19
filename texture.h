@@ -31,8 +31,7 @@ public: /* 定義 */
 
 		/* ↓ ゲーム ↓*/
 		TEXTURE_BULLET,				//弾
-		TEXTURE_EXPLOSION,			//爆発
-		TEXTURE_RING,				//輪
+		TEXTURE_HEART,				//ハート
 		TEXTURE_EFFECT,				//エフェクト
 		TEXTURE_BARRIER,			//バリア
 

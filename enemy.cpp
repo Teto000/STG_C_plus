@@ -82,7 +82,7 @@ HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 	m_pos = pos;		//位置
 	m_nRemLife = 100;	//残り体力
 	m_nAttack = 5;		//攻撃力
-	SetLife(100);		//体力
+	SetLife(50);		//体力
 	m_fWidth = 80.0f;	//幅
 	m_fHeight = 80.0f;	//高さ
 
@@ -96,13 +96,25 @@ HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 	//通常の敵
 	case ENEMYTYPE_NORMAL:
 		m_move.x = -3.0f;	//移動量
-		CObject2D::SetTexture(CTexture::TEXTURE_ENEMY_BLUE);	//テクスチャの設定
+		CObject2D::SetTexture(CTexture::TEXTURE_ENEMY_RED);	//テクスチャの設定
 		break;
 
 	//ホーミングする敵
 	case ENEMYTYPE_HORMING:
-		SetLife(300);		//体力
-		CObject2D::SetTexture(CTexture::TEXTURE_ENEMY_RED);	//テクスチャの設定
+		SetLife(100);		//体力
+		CObject2D::SetTexture(CTexture::TEXTURE_ENEMY_BLUE);	//テクスチャの設定
+		break;
+
+	case ENEMYTYPE_HPITEM:
+		m_move.x = -2.0f;	//移動量
+		SetLife(100);		//体力
+		CObject2D::SetTexture(CTexture::TEXTURE_ENEMY_GREEN);	//テクスチャの設定
+		break;
+
+	case ENEMYTYPE_MPITEM:
+		m_move.x = -2.0f;	//移動量
+		SetLife(100);		//体力
+		CObject2D::SetTexture(CTexture::TEXTURE_ENEMY_PINK);	//テクスチャの設定
 		break;
 
 	//ボス敵
@@ -278,10 +290,15 @@ void CEnemy::Move()
 		}
 		break;
 
-	case ENEMYTYPE_BOSS:
-		//上下移動
+	case ENEMYTYPE_HPITEM:
 		m_fChangeAngle += 0.01f;	//角度の加算
-		m_move.y = sinf(D3DX_PI * m_fChangeAngle) * 2.0f;	//上下の移動量を計算
+		m_move.y = sinf(D3DX_PI * m_fChangeAngle);	//上下の移動量を計算
+		break;
+
+	case ENEMYTYPE_MPITEM:
+		break;
+
+	case ENEMYTYPE_BOSS:
 		break;
 
 	default:

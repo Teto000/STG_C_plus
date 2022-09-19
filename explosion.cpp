@@ -63,7 +63,7 @@ HRESULT CExplosion::Init(D3DXVECTOR3 pos)
 
 	CObject2D::SetSize(m_fWidth, m_fHeight);	//サイズの設定
 
-	CObject2D::SetTexture(CTexture::TEXTURE_RING);	//テクスチャの設定
+	CObject2D::SetTexture(CTexture::TEXTURE_HEART);	//テクスチャの設定
 
 	return S_OK;
 }

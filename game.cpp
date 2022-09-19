@@ -79,26 +79,47 @@ void CGame::Uninit()
 //===========================
 void CGame::Update()
 {
-	m_nTime++;
-
-	if (m_nTime % (nOneSecond * 5) == 0)
-	{
-		m_pEnemy = CEnemy::Create(D3DXVECTOR3(1300, 360.0f, 0.0f), CEnemy::ENEMYTYPE_NORMAL);
-	}
-	else if (m_nTime % (nOneSecond * 12) == 0)
-	{
-		m_pEnemy = CEnemy::Create(D3DXVECTOR3(1300, 360.0f, 0.0f), CEnemy::ENEMYTYPE_HORMING);
-	}
-	else if (m_nTime == (nOneSecond * 60))
-	{
-		m_pEnemy = CEnemy::Create(D3DXVECTOR3(1000.0f, 360.0f, 0.0f), CEnemy::ENEMYTYPE_BOSS);
-	}
+	//ìGÇÃèoåª
+	SetEnemy();
 
 	//âÊñ ëJà⁄
 	/*if (CInputKeyboard::Trigger(DIK_RETURN))
 	{
 		CApplication::SetMode(CApplication::MODE_RESULT);
 	}*/
+}
+
+//===========================
+// ìGÇÃèoåª
+//===========================
+void CGame::SetEnemy()
+{
+	m_nTime++;
+
+	if (m_nTime % (nOneSecond * 5) == 0)
+	{
+		m_pEnemy = CEnemy::Create(D3DXVECTOR3(1300, 360.0f, 0.0f), CEnemy::ENEMYTYPE_NORMAL);
+	}
+
+	if (m_nTime % (nOneSecond * 12) == 0)
+	{
+		m_pEnemy = CEnemy::Create(D3DXVECTOR3(1300, 360.0f, 0.0f), CEnemy::ENEMYTYPE_HORMING);
+	}
+
+	if (m_nTime % (nOneSecond * 20) == 0)
+	{
+		m_pEnemy = CEnemy::Create(D3DXVECTOR3(1300, 360.0f, 0.0f), CEnemy::ENEMYTYPE_HPITEM);
+	}
+
+	if (m_nTime % (nOneSecond * 20) == 0)
+	{
+		m_pEnemy = CEnemy::Create(D3DXVECTOR3(1300, 360.0f, 0.0f), CEnemy::ENEMYTYPE_MPITEM);
+	}
+
+	if (m_nTime == (nOneSecond * 60))
+	{
+		m_pEnemy = CEnemy::Create(D3DXVECTOR3(1000.0f, 360.0f, 0.0f), CEnemy::ENEMYTYPE_BOSS);
+	}
 }
 
 //===========================

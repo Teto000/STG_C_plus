@@ -44,6 +44,9 @@ public:
 	static CBg		*GetBG();		//”wŒi‚Ìæ“¾
 
 private:
+	void SetEnemy();
+
+private:
 	//------------------
 	// ’è”
 	//------------------

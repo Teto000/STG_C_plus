@@ -30,8 +30,7 @@ const char* CTexture::s_FileName[] =
 
 	/* ↓ ゲーム ↓　*/
 	"data/TEXTURE/Game/Bullet.png",			//弾
-	"data/TEXTURE/Game/Explosion.png",		//爆発
-	"data/TEXTURE/Game/Ring.png",			//輪
+	"data/TEXTURE/Game/HitEffect.png",		//ハート
 	"data/TEXTURE/Game/Effect.jpg",			//エフェクト
 	"data/TEXTURE/Game/Barrier.png",		//バリア
 
