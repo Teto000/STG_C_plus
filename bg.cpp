@@ -63,6 +63,8 @@ HRESULT CBg::Init(D3DXVECTOR3 pos)
 
 		case BGTYPE_TITLE:
 			m_pObject2D->SetTexture(CTexture::TEXTURE_BG_TITLE);
+			m_fTexRight = 0.5f;
+			m_pObject2D->SetTexCIE(m_fTexLeft, m_fTexRight);
 			break;
 
 		case BGTYPE_RESULT:
@@ -107,7 +109,8 @@ void CBg::Update()
 		m_nCntAnim %= 10;
 
 		//ゲーム画面
-		if (m_type == BGTYPE_GAME && m_nCntAnim == 0)
+		if (m_type == BGTYPE_TITLE || m_type == BGTYPE_GAME 
+			&& m_nCntAnim == 0)
 		{
 			//テクスチャ座標の加算
 			m_fTexLeft += 0.0005f;

@@ -413,7 +413,7 @@ bool CEnemy::Destroy()
 	{
 		CLevel::AddExp(10);				//経験値の取得
 		CScore::AddScore(10);			//スコアの加算
-		m_pExplosion->Create(m_pos);	//爆発の生成
+		//m_pExplosion->Create(m_pos);	//爆発の生成
 
 		switch (m_type)
 		{
@@ -448,7 +448,6 @@ bool CEnemy::Destroy()
 	if (CObject2D::GetCollision(OBJTYPE_PLAYER) && m_type == ENEMYTYPE_HORMING)
 	{//プレイヤーと当たった && ホーミングする敵なら
 		CLevel::AddExp(10);					//経験値の取得
-		m_pExplosion->Create(m_pos);		//爆発の生成
 		CGame::GetPlayer()->AddLife(-30);	//プレイヤーの体力を減らす
 		return true;
 	}

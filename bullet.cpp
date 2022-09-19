@@ -157,7 +157,6 @@ void CBullet::Update()
 	//寿命が尽きた
 	if (m_nLife <= 0.0f)
 	{
-		//pExplosion->Create(m_pos);//爆発の生成
 		Uninit();
 		return;
 	}
@@ -312,7 +311,8 @@ void CBullet::CollisionBullet(CObject::EObjType ObjType)
 				pEnemy->SubLife(m_nPlayerAttack);	//敵の体力の減少
 			}
 
-			pDamage->Create(m_pos, 20.0f, 30.0f, 20.0f, 2, m_nPlayerAttack);	//ダメージの表示
+			pExplosion->Create(m_pos, m_nPlayerAttack, m_nPlayerAttack);//爆発の生成
+			//pDamage->Create(m_pos, 20.0f, 30.0f, 20.0f, 2, m_nPlayerAttack);	//ダメージの表示
 
 			//弾の消滅
 			Uninit();

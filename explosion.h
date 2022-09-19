@@ -32,7 +32,7 @@ public:
 	//----------------
 	// Ã“Iƒƒ“ƒoŠÖ”
 	//----------------
-	static CExplosion *Create(D3DXVECTOR3 pos);
+	static CExplosion *Create(D3DXVECTOR3 pos, float fWidth, float fHeight);
 
 private:
 	//----------------

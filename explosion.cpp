@@ -84,15 +84,6 @@ void CExplosion::Update()
 	CObject2D::Update();
 
 	//--------------------
-	// 拡大
-	//--------------------
-	m_fWidth += 3;
-	m_fHeight += 3;
-
-	CObject2D::SetPosition(m_pos);	//位置の設定
-	CObject2D::SetSize(m_fWidth, m_fHeight);	//サイズの設定
-
-	//--------------------
 	// 徐々に透過
 	//--------------------
 	m_col.a -= 0.05f;
@@ -123,7 +114,7 @@ void CExplosion::Draw()
 //===========================
 // 生成
 //===========================
-CExplosion *CExplosion::Create(D3DXVECTOR3 pos)
+CExplosion *CExplosion::Create(D3DXVECTOR3 pos, float fWidth, float fHeight)
 {
 	CExplosion *pExplosion = nullptr;
 
@@ -134,6 +125,10 @@ CExplosion *CExplosion::Create(D3DXVECTOR3 pos)
 
 	if (pExplosion != nullptr)
 	{//NULLチェック
+		//メンバ変数に代入
+		pExplosion->m_fWidth = fWidth;
+		pExplosion->m_fHeight = fHeight;
+
 		//初期化
 		pExplosion->Init(pos);
 		pExplosion->SetObjType(OBJTYPE_EXPLOSION);
