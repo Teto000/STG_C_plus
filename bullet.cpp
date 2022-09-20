@@ -78,8 +78,8 @@ HRESULT CBullet::Init(D3DXVECTOR3 pos)
 	//----------------------------
 	if (m_type == BULLETTYPE_CHARGE)
 	{//チャージショットなら
-		m_fWidth *= 1.5f;
-		m_fHeight *= 1.5f;
+		m_fWidth *= 3.0f;
+		m_fHeight *= 3.0f;
 	}
 	else if (m_type == BULLETTYPE_HORMING)
 	{//ホーミング弾なら
@@ -270,12 +270,12 @@ void CBullet::ShotBullet(D3DXVECTOR3 pos, int nLevel, int nShotTime)
 
 	if (CInputKeyboard::Release(DIK_SPACE) && m_nChageTime >= 40)
 	{//SPACEキーを離したとき かつ チャージ状態なら
-		//Create(pos, D3DXVECTOR3(-sinf(rot.x) * fBulletSpeed, -cosf(rot.x) * fBulletSpeed, 0.0f), BULLETTYPE_CHARGE);
+		Create(pos, D3DXVECTOR3(fBulletSpeed, 0.0f, 0.0f), BULLETTYPE_CHARGE);
 		
-		for (int i = 0; i < nMaxHoming; i++)
+		/*for (int i = 0; i < nMaxHoming; i++)
 		{
 			Create(pos, D3DXVECTOR3(-5.0f, (float)(nMaxHoming - (i * nMaxHoming)), 0.0f), BULLETTYPE_HORMING);
-		}
+		}*/
 
 		m_nChageTime = 0;	//チャージ時間をリセット
 		CPlayer::SetCol(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));	//プレイヤーの色を変更
@@ -311,7 +311,7 @@ void CBullet::CollisionBullet(CObject::EObjType ObjType)
 				pEnemy->SubLife(m_nPlayerAttack);	//敵の体力の減少
 			}
 
-			pExplosion->Create(m_pos, m_nPlayerAttack, m_nPlayerAttack);//爆発の生成
+			pExplosion->Create(m_pos, (float)m_nPlayerAttack, (float)m_nPlayerAttack);//爆発の生成
 			//pDamage->Create(m_pos, 20.0f, 30.0f, 20.0f, 2, m_nPlayerAttack);	//ダメージの表示
 
 			//弾の消滅

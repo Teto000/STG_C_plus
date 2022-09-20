@@ -143,7 +143,7 @@ void CGame::SetEnemy()
 {
 	m_nTime++;
 
-	/*if (m_nTime % (nOneSecond * 5) == 0)
+	if (m_nTime % (nOneSecond * 5) == 0)
 	{
 		m_pEnemy = CEnemy::Create(D3DXVECTOR3(1300, 360.0f, 0.0f), CEnemy::ENEMYTYPE_NORMAL);
 	}
@@ -166,7 +166,7 @@ void CGame::SetEnemy()
 	if (m_nTime == (nOneSecond * 60))
 	{
 		m_pEnemy = CEnemy::Create(D3DXVECTOR3(1000.0f, 360.0f, 0.0f), CEnemy::ENEMYTYPE_BOSS);
-	}*/
+	}
 }
 
 //===========================
