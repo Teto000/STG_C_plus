@@ -95,7 +95,7 @@ HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 	{
 	//通常の敵
 	case ENEMYTYPE_NORMAL:
-		m_move.x = -3.0f;	//移動量
+		m_move.x = -2.0f;	//移動量
 		CObject2D::SetTexture(CTexture::TEXTURE_ENEMY_RED);	//テクスチャの設定
 		break;
 
@@ -106,24 +106,23 @@ HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 		break;
 
 	case ENEMYTYPE_HPITEM:
-		m_move.x = -2.0f;	//移動量
+		m_move.x = -3.0f;	//移動量
 		SetLife(100);		//体力
 		CObject2D::SetTexture(CTexture::TEXTURE_ENEMY_GREEN);	//テクスチャの設定
 		break;
 
 	case ENEMYTYPE_MPITEM:
-		m_move.x = -2.0f;	//移動量
+		m_move.x = -3.0f;	//移動量
 		SetLife(100);		//体力
 		CObject2D::SetTexture(CTexture::TEXTURE_ENEMY_PINK);	//テクスチャの設定
 		break;
 
-	//ボス敵
-	case ENEMYTYPE_BOSS:
+	case ENEMYTYPE_BIG:
+		m_move.x = -2.0f;	//移動量
 		m_fWidth = 200.0f;	//幅
 		m_fHeight = 200.0f;	//高さ
-		SetLife(3000);		//体力
-		CObject2D::SetTexCIE(0.0f, 0.5f);
-		CObject2D::SetTexture(CTexture::TEXTURE_ENEMY_BIRD);	//テクスチャの設定
+		SetLife(250);		//体力
+		CObject2D::SetTexture(CTexture::TEXTURE_ENEMY_BIG);	//テクスチャの設定
 		break;
 
 	default:
@@ -178,7 +177,7 @@ void CEnemy::Update()
 	//--------------------------
 	// テクスチャアニメーション
 	//--------------------------
-	Animation();
+	//Animation();
 
 	//--------------------------
 	// 移動処理
@@ -189,6 +188,11 @@ void CEnemy::Update()
 	// 攻撃処理
 	//--------------------------
 	CntAttack();
+
+	//--------------------
+	// 画面端の設定
+	//--------------------
+	CObject2D::SetScreenY(m_pos.y, 0.0f + 200.0f, SCREEN_HEIGHT - 140.0f);
 
 	//--------------------------
 	// 消える処理
@@ -241,7 +245,7 @@ void CEnemy::Animation()
 {
 	switch (m_type)
 	{
-	case ENEMYTYPE_BOSS:
+	case ENEMYTYPE_BIG:
 		//テクスチャ切り替え時間の加算
 		m_nCntTime++;
 		m_nCntTime %= nMaxTexTime;	//リセット
@@ -291,14 +295,15 @@ void CEnemy::Move()
 		break;
 
 	case ENEMYTYPE_HPITEM:
-		m_fChangeAngle += 0.01f;	//角度の加算
-		m_move.y = sinf(D3DX_PI * m_fChangeAngle);	//上下の移動量を計算
 		break;
 
 	case ENEMYTYPE_MPITEM:
 		break;
 
-	case ENEMYTYPE_BOSS:
+	case ENEMYTYPE_BIG:
+		//上下移動
+		m_fChangeAngle += 0.01f;	//角度の加算
+		m_move.y = sinf(D3DX_PI * m_fChangeAngle);	//上下の移動量を計算
 		break;
 
 	default:
@@ -356,7 +361,7 @@ void CEnemy::Attack()
 		break;
 
 	/* ↓ ボス敵 ↓ */
-	case ENEMYTYPE_BOSS:
+	case ENEMYTYPE_BIG:
 		BossAttack(vec);
 		break;
 
@@ -370,12 +375,12 @@ void CEnemy::Attack()
 //=======================
 void CEnemy::BossAttack(D3DXVECTOR2 vec)
 {
-	int nRandAttack = rand() % 3;
+	//int nRandAttack = rand() % 3;
 
-	switch (nRandAttack)
+	/*switch (nRandAttack)
 	{
 	case 0:
-		/* ↓ 攻撃1 ↓ */
+		 ↓ 攻撃1 ↓ 
 		for (int i = 0; i < 3; i++)
 		{
 			D3DXVECTOR3 move(-vec.x * 4.0f, -vec.y * (i + 1), 0.0f);
@@ -384,7 +389,7 @@ void CEnemy::BossAttack(D3DXVECTOR2 vec)
 		break;
 
 	case 1:
-		/* ↓ 攻撃2 ↓ */
+		 ↓ 攻撃2 ↓ 
 		for (int i = 0; i < 3; i++)
 		{
 			D3DXVECTOR3 pos(m_pos.x, 50.0f + 200.0f * (i + 1), m_pos.z);
@@ -392,12 +397,18 @@ void CEnemy::BossAttack(D3DXVECTOR2 vec)
 		}
 		break;
 	case 2:
-		/* ↓ 攻撃3 ↓ */
+		 ↓ 攻撃3 ↓ 
 
 		break;
 
 	default:
 		break;
+	}*/
+
+	for (int i = 0; i < 3; i++)
+	{
+		D3DXVECTOR3 move(-vec.x * 4.0f, -vec.y * (i + 1), 0.0f);
+		m_pEnemyBullet->Create(m_pos, move, m_nAttack);
 	}
 }
 

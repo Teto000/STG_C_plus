@@ -116,7 +116,7 @@ void CBg::Update()
 		m_nCntAnim++;
 		m_nCntAnim %= 10;
 
-		//ゲーム画面
+		//タイトル画面 リザルト画面
 		if (m_type == BGTYPE_TITLE || m_type == BGTYPE_RESULT
 			&& m_nCntAnim == 0)
 		{
@@ -128,6 +128,7 @@ void CBg::Update()
 			m_pObject2D->SetTexCIE(m_fTexLeft, m_fTexRight);
 		}
 
+		//ゲーム画面
 		if (m_type == BGTYPE_GAME && m_nCntAnim == 0)
 		{
 			//テクスチャ座標の加算

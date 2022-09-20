@@ -27,6 +27,7 @@ const char* CTexture::s_FileName[] =
 	"data/TEXTURE/Enemy/Blue.png",		//“G(Â)
 	"data/TEXTURE/Enemy/Green.png",		//“G(—Î)
 	"data/TEXTURE/Enemy/Pink.png",		//“G(“)
+	"data/TEXTURE/Enemy/Big.png",		//‘å‚«‚¢“G
 
 	/* « ƒQ[ƒ€ «@*/
 	"data/TEXTURE/Game/Bullet.png",			//’e
@@ -35,7 +36,7 @@ const char* CTexture::s_FileName[] =
 	"data/TEXTURE/Game/Barrier.png",		//ƒoƒŠƒA
 
 	/* « BG «@*/
-	"data/TEXTURE/BG/Game2.jpg",				//”wŒi
+	"data/TEXTURE/BG/Game3.png",			//”wŒi
 	"data/TEXTURE/BG/Title.png",			//ƒ^ƒCƒgƒ‹‰æ–Ê‚Ì”wŒi
 	"data/TEXTURE/BG/TitleLogo.png",		//ƒ^ƒCƒgƒ‹ƒƒS
 	"data/TEXTURE/BG/Title.png",			//ƒŠƒUƒ‹ƒg‰æ–Ê‚Ì”wŒi

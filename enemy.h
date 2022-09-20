@@ -37,7 +37,7 @@ public:
 		ENEMYTYPE_HORMING,		//ホーミングしてくる敵
 		ENEMYTYPE_HPITEM,		//HP回復アイテムを落とす敵
 		ENEMYTYPE_MPITEM,		//MP回復アイテムを落とす敵
-		ENEMYTYPE_BOSS,			//ボス敵
+		ENEMYTYPE_BIG,			//ボス敵
 		ENEMYTYPE_MAX
 	};
 

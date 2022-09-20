@@ -27,6 +27,16 @@ class CSkill;	//スキル
 class CGame
 {
 public:
+	enum EnemyType
+	{
+		NORMAL = 0,	//通常敵
+		HORMING,	//ホーミング
+		HPITEM,		//HPアイテム
+		MPITEM,		//MPアイテム
+		BIG,		//大きい敵
+		MAX
+	};
+
 	CGame();	//コンストラクタ
 	~CGame();	//デストラクタ
 
@@ -45,7 +55,8 @@ public:
 	static CBg		*GetBG();		//背景の取得
 
 private:
-	void SetEnemy();
+	void AppearEnemy();
+	void SetEnemy(float X, float Y, EnemyType type);
 
 private:
 	//------------------
@@ -61,14 +72,15 @@ private:
 	int m_nTime;
 	int m_nSkillTime[nMaxSkill];
 	bool m_bSkill[nMaxSkill];
+	EnemyType type;
 
 	//------------------
 	// 静的メンバ変数
 	//------------------
-	static CPlayer	*m_pPlayer;		//プレイヤークラス
-	static CEnemy	*m_pEnemy;		//敵クラス
-	static CScore	*m_pScore;		//スコアクラス
-	static CBg		*m_pBG;			//背景クラス
+	static CPlayer	*m_pPlayer;				//プレイヤークラス
+	static CEnemy	*m_pEnemy;				//敵クラス
+	static CScore	*m_pScore;				//スコアクラス
+	static CBg		*m_pBG;					//背景クラス
 	static CSkill	*m_pSkill[nMaxSkill];	//スキルクラス
 };
 

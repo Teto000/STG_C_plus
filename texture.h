@@ -28,6 +28,7 @@ public: /* ’è‹` */
 		TEXTURE_ENEMY_BLUE,			//“G(Â)
 		TEXTURE_ENEMY_GREEN,		//“G(—Î)
 		TEXTURE_ENEMY_PINK,			//“G(“)
+		TEXTURE_ENEMY_BIG,			//‘å‚«‚¢“G
 
 		/* « ƒQ[ƒ€ «*/
 		TEXTURE_BULLET,				//’e

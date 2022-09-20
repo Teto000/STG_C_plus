@@ -94,7 +94,7 @@ void CGame::Uninit()
 void CGame::Update()
 {
 	//ìGÇÃèoåª
-	SetEnemy();
+	AppearEnemy();
 
 	//------------------------
 	// ÉXÉLÉãÇÃêFïœçX
@@ -139,33 +139,116 @@ void CGame::Update()
 //===========================
 // ìGÇÃèoåª
 //===========================
-void CGame::SetEnemy()
+void CGame::AppearEnemy()
 {
 	m_nTime++;
 
-	if (m_nTime % (nOneSecond * 5) == 0)
+	if (m_nTime == nOneSecond * 1)
 	{
-		m_pEnemy = CEnemy::Create(D3DXVECTOR3(1300, 360.0f, 0.0f), CEnemy::ENEMYTYPE_NORMAL);
+		SetEnemy(1300.0f, 400.0f, NORMAL);
+	}
+	else if (m_nTime == nOneSecond * 4)
+	{
+		SetEnemy(1300.0f, 400.0f, NORMAL);
+	}
+	else if (m_nTime == nOneSecond * 5)
+	{
+		SetEnemy(1300.0f, 600.0f, NORMAL);
+	}
+	else if (m_nTime == nOneSecond * 7)
+	{
+		SetEnemy(1300.0f, 450.0f, NORMAL);
+	}
+	else if (m_nTime == nOneSecond * 10)
+	{
+		SetEnemy(1300.0f, 200.0f, NORMAL);
+		SetEnemy(1300.0f, 300.0f, NORMAL);
+	}
+	else if (m_nTime == nOneSecond * 15)
+	{
+		SetEnemy(1300.0f, 300.0f, BIG);
+	}
+	else if (m_nTime == nOneSecond * 20)
+	{
+		SetEnemy(1300.0f, 400.0f, NORMAL);
+	}
+	else if (m_nTime == nOneSecond * 25)
+	{
+		SetEnemy(1300.0f, 300.0f, NORMAL);
+		SetEnemy(1300.0f, 500.0f, NORMAL);
+	}
+	else if (m_nTime == nOneSecond * 28)
+	{
+		SetEnemy(1300.0f, 500.0f, BIG);
+		SetEnemy(1300.0f, 400.0f, NORMAL);
+	}
+	else if (m_nTime == nOneSecond * 33)
+	{
+		SetEnemy(1300.0f, 250.0f, HPITEM);
+	}
+	else if (m_nTime == nOneSecond * 38)
+	{
+		SetEnemy(1300.0f, 200.0f, NORMAL);
+		SetEnemy(1300.0f, 300.0f, NORMAL);
+	}
+	else if (m_nTime == nOneSecond * 40)
+	{
+		SetEnemy(1300.0f, 250.0f, BIG);
+	}
+	else if (m_nTime == nOneSecond * 41)
+	{
+		SetEnemy(1300.0f, 250.0f, MPITEM);
+	}
+	else if (m_nTime == nOneSecond * 45)
+	{
+		SetEnemy(1300.0f, 400.0f, BIG);
+	}
+	else if (m_nTime == nOneSecond * 47)
+	{
+		SetEnemy(1300.0f, 200.0f, NORMAL);
+		SetEnemy(1300.0f, 600.0f, NORMAL);
+	}
+	else if (m_nTime == nOneSecond * 49)
+	{
+		SetEnemy(1300.0f, 300.0f, NORMAL);
+		SetEnemy(1300.0f, 500.0f, NORMAL);
 	}
 
-	if (m_nTime % (nOneSecond * 12) == 0)
+	else if (m_nTime == nOneSecond * 50)
 	{
-		m_pEnemy = CEnemy::Create(D3DXVECTOR3(1300, 360.0f, 0.0f), CEnemy::ENEMYTYPE_HORMING);
+		m_nTime = 0;
 	}
+}
 
-	if (m_nTime % (nOneSecond * 20) == 0)
+//===========================
+// ìGÇÃê∂ê¨
+//===========================
+void CGame::SetEnemy(float X, float Y, EnemyType type)
+{
+	switch (type)
 	{
-		m_pEnemy = CEnemy::Create(D3DXVECTOR3(1300, 200.0f, 0.0f), CEnemy::ENEMYTYPE_HPITEM);
-	}
+	case NORMAL:
+		m_pEnemy = CEnemy::Create(D3DXVECTOR3(X, Y, 0.0f), CEnemy::ENEMYTYPE_NORMAL);
+		break;
 
-	if (m_nTime % (nOneSecond * 20) == 0)
-	{
-		m_pEnemy = CEnemy::Create(D3DXVECTOR3(1300, 500.0f, 0.0f), CEnemy::ENEMYTYPE_MPITEM);
-	}
+	case HORMING:
+		m_pEnemy = CEnemy::Create(D3DXVECTOR3(X, Y, 0.0f), CEnemy::ENEMYTYPE_HORMING);
+		break;
 
-	if (m_nTime == (nOneSecond * 60))
-	{
-		m_pEnemy = CEnemy::Create(D3DXVECTOR3(1000.0f, 360.0f, 0.0f), CEnemy::ENEMYTYPE_BOSS);
+	case HPITEM:
+		m_pEnemy = CEnemy::Create(D3DXVECTOR3(X, Y, 0.0f), CEnemy::ENEMYTYPE_HPITEM);
+		break;
+
+	case MPITEM:
+		m_pEnemy = CEnemy::Create(D3DXVECTOR3(X, Y, 0.0f), CEnemy::ENEMYTYPE_MPITEM);
+		break;
+
+	case BIG:
+		m_pEnemy = CEnemy::Create(D3DXVECTOR3(X, Y, 0.0f), CEnemy::ENEMYTYPE_BIG);
+		break;
+
+	default:
+		break;
 	}
 }
 
