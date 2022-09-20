@@ -50,11 +50,11 @@ CPlayer::CPlayer() : CObject2D()
 	m_nShotTime = 0;			//弾の発射時間
 	m_nCntShotTime = 0;			//弾の発射時間を数える
 	m_nCntInvincible = 0;		//無敵時間を数える
-	m_nCntSkill = 0;			//スキルの使用可能時間を数える
+	m_nCntSkill[nMaxSkill] = {};//スキルの使用可能時間を数える
 	m_nSpeed = 0.0f;			//速度
 	m_fWidth = 0.0f;			//幅
 	m_fHeight = 0.0f;			//高さ
-	m_bSlill = false;			//スキル使用可能かどうか
+	m_bSlill[nMaxSkill] = {};	//スキル使用可能かどうか
 	m_type = PLAYERSTATE_NORMAL;//状態
 	m_Hp = nullptr;				//HPクラス
 	m_Mp = nullptr;				//MPクラス
@@ -83,13 +83,19 @@ HRESULT CPlayer::Init(D3DXVECTOR3 pos)
 	m_nMaxLife = nPlayerLife;	//最大体力
 	m_nRemLife = nMaxLife;		//残り体力
 	m_nMagic = 100;				//MP
-	m_nMaxMagic = 100;				//最大MP
-	m_nRemMagic = 100;				//残りMP
+	m_nMaxMagic = 100;			//最大MP
+	m_nRemMagic = 100;			//残りMP
 	m_fWidth = 80.0f;			//幅
 	m_fHeight = 100.0f;			//高さ
 	m_nAttack = 10;				//攻撃力
 	m_nShotTime = 20;			//弾の発射時間
 	m_nSpeed = fPlayerSpeed;	//速度
+
+	for (int i = 0; i < nMaxSkill; i++)
+	{
+		m_nCntSkill[i] = 0;
+		m_bSlill[i] = false;
+	}
 
 	CObject2D::Init(m_pos);
 
@@ -159,7 +165,7 @@ void CPlayer::Update()
 	// 画面端の設定
 	//--------------------
 	CObject2D::SetScreenX(m_pos.x, 0.0f + m_fWidth / 2, SCREEN_WIDTH - m_fWidth / 2);
-	CObject2D::SetScreenY(m_pos.y, 0.0f + 200.0f, SCREEN_HEIGHT - m_fHeight / 2);
+	CObject2D::SetScreenY(m_pos.y, 0.0f + 200.0f, SCREEN_HEIGHT - 140.0f);
 	
 	//--------------------
 	// レベルによる変化
@@ -182,26 +188,34 @@ void CPlayer::Update()
 	//--------------------------
 	// スキルの発動
 	//--------------------------
-	if (!m_bSlill)
+	for (int i = 0; i < nMaxSkill; i++)
 	{
-		SetSkill();
+		if (!m_bSlill[i])
+		{
+			SetSkill();
+		}
 	}
 
 	//--------------------------
 	// スキルの効果が切れる
 	//--------------------------
-	if (m_bSlill)
-	{//スキル使用状態なら
-		m_nCntSkill++;
-		m_nCntSkill %= 300;
+	for (int i = 0; i < nMaxSkill; i++)
+	{
+		if (m_bSlill[i])
+		{//スキル使用状態なら
+			m_nCntSkill[i]++;
 
-		if (m_nCntSkill == 0)
-		{//5秒経過したら
-			m_nAttack = 10;				//攻撃力
-			m_nShotTime = 20;			//弾の発射時間
-			m_nSpeed = fPlayerSpeed;	//速度
-
-			m_bSlill = false;
+			if (m_nCntSkill[i] >= 600)
+			{
+				m_bSlill[i] = false;
+				m_nCntSkill[i] = 0;
+			}
+			else if (m_nCntSkill[i] >= 300)
+			{//5秒経過したら
+				m_nAttack = 10;				//攻撃力
+				m_nShotTime = 20;			//弾の発射時間
+				m_nSpeed = fPlayerSpeed;	//速度
+			}
 		}
 	}
 
@@ -334,7 +348,7 @@ void CPlayer::SetSkill()
 	//-----------------------
 	// 体力の回復
 	//-----------------------
-	if (CInputKeyboard::Trigger(DIK_1))
+	if (CInputKeyboard::Trigger(DIK_1) && !m_bSlill[0])
 	{//1キーが押されたら
 		if (m_nLife + 30 >= m_nMaxLife)
 		{//回復して上限なら
@@ -354,29 +368,27 @@ void CPlayer::SetSkill()
 		//MPの減少
 		AddMagic(-10);
 
-		m_bSlill = true;
+		m_bSlill[0] = true;
 	}
 
 	//-----------------------
 	// 弾速の強化
 	//-----------------------
-	if (CInputKeyboard::Trigger(DIK_2))
+	if (CInputKeyboard::Trigger(DIK_2) && !m_bSlill[1])
 	{//2キーが押されたら
-		//CSkill::Create(CSkill::SKILLTYPE_SPEEDUP_FIRE);
-
 		//発射間隔の減少
 		m_nShotTime = 10;
 
 		//MPの減少
 		AddMagic(-10);
 
-		m_bSlill = true;
+		m_bSlill[1]= true;
 	}
 
 	//-----------------------
 	// 攻撃力上昇
 	//-----------------------
-	if (CInputKeyboard::Trigger(DIK_3))
+	if (CInputKeyboard::Trigger(DIK_3) && !m_bSlill[2])
 	{
 		//攻撃力の上昇
 		m_nAttack = 20;
@@ -384,13 +396,13 @@ void CPlayer::SetSkill()
 		//MPの減少
 		AddMagic(-10);
 
-		m_bSlill = true;
+		m_bSlill[2] = true;
 	}
 
 	//-----------------------
 	// 速度上昇
 	//-----------------------
-	if (CInputKeyboard::Trigger(DIK_4))
+	if (CInputKeyboard::Trigger(DIK_4) && !m_bSlill[3])
 	{
 		//速度の上昇
 		m_nSpeed = 12.0f;
@@ -398,22 +410,7 @@ void CPlayer::SetSkill()
 		//MPの減少
 		AddMagic(-10);
 
-		m_bSlill = true;
-	}
-
-	//-----------------------
-	// バリアの生成
-	//-----------------------
-	if (CInputKeyboard::Trigger(DIK_5))
-	{
-		//バリアの生成
-		m_pBarrier = CBarrier::Create(m_pos, m_move, m_fWidth, m_fHeight,
-										CBarrier::BARRIERTYPE_PLAYER);
-
-		//MPの減少
-		AddMagic(-10);
-
-		m_bSlill = true;
+		m_bSlill[3] = true;
 	}
 }
 

@@ -38,6 +38,8 @@ CGame::CGame()
 {
 	m_EnemyCnt = 0;
 	m_nTime = 0;
+	m_nSkillTime[nMaxSkill] = {};
+	m_bSkill[nMaxSkill] = {};
 }
 
 //===========================
@@ -55,6 +57,13 @@ HRESULT CGame::Init()
 {
 	//時刻をもとにしたランダムな値を生成
 	srand((unsigned int)time(NULL));
+
+	//メンバ変数の初期化
+	for (int i = 0; i < 2; i++)
+	{
+		m_bSkill[i] = false;
+		m_nSkillTime[i] = 0;
+	}
 
 	//背景の生成
 	m_pBG = CBg::Create(D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0.0f), CBg::BGTYPE_GAME);
@@ -87,14 +96,37 @@ void CGame::Update()
 	//敵の出現
 	SetEnemy();
 
-	//スキルの色変更
-	if (CInputKeyboard::Trigger(DIK_1))
+	//------------------------
+	// スキルの色変更
+	//------------------------
+	if (CInputKeyboard::Trigger(DIK_1) && !m_bSkill[0])
 	{
 		m_pSkill[0]->CObject2D::SetColor(D3DXCOLOR(0.4f, 0.4f, 0.4f, 1.0f));
+		m_bSkill[0] = true;
 	}
-	else if (CInputKeyboard::Trigger(DIK_2))
+	else if (CInputKeyboard::Trigger(DIK_2) && !m_bSkill[1])
 	{
 		m_pSkill[1]->CObject2D::SetColor(D3DXCOLOR(0.4f, 0.4f, 0.4f, 1.0f));
+		m_bSkill[1] = true;
+	}
+
+	//-------------------------
+	// スキル時間のカウント
+	//-------------------------
+	for (int i = 0; i < nMaxSkill; i++)
+	{
+		if (m_bSkill[i])
+		{
+			m_nSkillTime[i]++;
+		}
+
+		if (m_nSkillTime[i] >= 600)
+		{
+			//スキルの色を戻す
+			m_bSkill[i] = false;
+			m_pSkill[i]->CObject2D::SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
+			m_nSkillTime[i] = 0;
+		}
 	}
 
 	//画面遷移

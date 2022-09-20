@@ -75,6 +75,8 @@ HRESULT CBg::Init(D3DXVECTOR3 pos)
 
 		case BGTYPE_RESULT:
 			m_pObject2D->SetTexture(CTexture::TEXTURE_BG_RESULT);
+			m_fTexRight = 0.5f;
+			m_pObject2D->SetTexCIE(m_fTexLeft, m_fTexRight);
 			break;
 
 		case BGTYPE_SKILLSELECT:
@@ -115,7 +117,7 @@ void CBg::Update()
 		m_nCntAnim %= 10;
 
 		//ゲーム画面
-		if (m_type == BGTYPE_TITLE || m_type == BGTYPE_GAME 
+		if (m_type == BGTYPE_TITLE || m_type == BGTYPE_GAME || m_type == BGTYPE_RESULT
 			&& m_nCntAnim == 0)
 		{
 			//テクスチャ座標の加算

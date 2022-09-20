@@ -38,7 +38,7 @@ const char* CTexture::s_FileName[] =
 	"data/TEXTURE/BG/Game.jpg",				//背景
 	"data/TEXTURE/BG/Title.png",			//タイトル画面の背景
 	"data/TEXTURE/BG/TitleLogo.png",		//タイトルロゴ
-	"data/TEXTURE/BG/Result.png",			//リザルト画面の背景
+	"data/TEXTURE/BG/Title.png",			//リザルト画面の背景
 	"data/TEXTURE/BG/SkillSelect.png",		//スキルセレクト画面の背景
 
 	/* ↓ UI ↓　*/
