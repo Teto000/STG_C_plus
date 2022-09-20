@@ -164,59 +164,65 @@ void CGame::AppearEnemy()
 		SetEnemy(1300.0f, 200.0f, NORMAL);
 		SetEnemy(1300.0f, 300.0f, NORMAL);
 	}
-	else if (m_nTime == nOneSecond * 15)
+	else if (m_nTime == nOneSecond * 13)
+	{
+		SetEnemy(1300.0f, 200.0f, HORMING);
+	}
+	else if (m_nTime == nOneSecond * 18)
 	{
 		SetEnemy(1300.0f, 300.0f, BIG);
 	}
-	else if (m_nTime == nOneSecond * 20)
+	else if (m_nTime == nOneSecond * 23)
 	{
 		SetEnemy(1300.0f, 400.0f, NORMAL);
 	}
-	else if (m_nTime == nOneSecond * 25)
+	else if (m_nTime == nOneSecond * 28)
 	{
 		SetEnemy(1300.0f, 300.0f, NORMAL);
 		SetEnemy(1300.0f, 500.0f, NORMAL);
 	}
-	else if (m_nTime == nOneSecond * 28)
+	else if (m_nTime == nOneSecond * 31)
 	{
 		SetEnemy(1300.0f, 500.0f, BIG);
-		SetEnemy(1300.0f, 400.0f, NORMAL);
+		SetEnemy(1300.0f, 250.0f, NORMAL);
 	}
-	else if (m_nTime == nOneSecond * 33)
+	else if (m_nTime == nOneSecond * 36)
 	{
 		SetEnemy(1300.0f, 250.0f, HPITEM);
 	}
-	else if (m_nTime == nOneSecond * 38)
+	else if (m_nTime == nOneSecond * 41)
 	{
 		SetEnemy(1300.0f, 200.0f, NORMAL);
 		SetEnemy(1300.0f, 300.0f, NORMAL);
+		SetEnemy(1300.0f, 500.0f, NORMAL);
 	}
-	else if (m_nTime == nOneSecond * 40)
+	else if (m_nTime == nOneSecond * 43)
 	{
-		SetEnemy(1300.0f, 250.0f, BIG);
+		SetEnemy(1300.0f, 250.0f, HORMING);
 	}
-	else if (m_nTime == nOneSecond * 41)
+	else if (m_nTime == nOneSecond * 44)
 	{
 		SetEnemy(1300.0f, 250.0f, MPITEM);
 	}
-	else if (m_nTime == nOneSecond * 45)
+	else if (m_nTime == nOneSecond * 48)
 	{
 		SetEnemy(1300.0f, 400.0f, BIG);
 	}
-	else if (m_nTime == nOneSecond * 47)
+	else if (m_nTime == nOneSecond * 50)
 	{
 		SetEnemy(1300.0f, 200.0f, NORMAL);
 		SetEnemy(1300.0f, 600.0f, NORMAL);
 	}
-	else if (m_nTime == nOneSecond * 49)
+	else if (m_nTime == nOneSecond * 52)
 	{
-		SetEnemy(1300.0f, 300.0f, NORMAL);
-		SetEnemy(1300.0f, 500.0f, NORMAL);
+		SetEnemy(1300.0f, 300.0f, HORMING);
+		SetEnemy(1300.0f, 500.0f, HORMING);
 	}
 
-	else if (m_nTime == nOneSecond * 50)
+	else if (m_nTime == nOneSecond * 55)
 	{
 		m_nTime = 0;
+		CEnemy::AddLevel();
 	}
 }
 

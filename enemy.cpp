@@ -32,6 +32,7 @@
 // 静的メンバ変数宣言
 //------------------------
 const float CEnemy::fBulletSpeed_Homing = 1.01f;	//弾の速度(ホーミング)
+int CEnemy::m_nLevel = 0;	//レベル
 
 //===========================
 // コンストラクタ
@@ -79,12 +80,12 @@ HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 	srand((unsigned int)time(NULL));
 
 	//初期値の設定
-	m_pos = pos;		//位置
-	m_nRemLife = 100;	//残り体力
-	m_nAttack = 5;		//攻撃力
-	SetLife(50);		//体力
-	m_fWidth = 80.0f;	//幅
-	m_fHeight = 80.0f;	//高さ
+	m_pos = pos;					//位置
+	m_nRemLife = 100;				//残り体力
+	m_nAttack = 10 + (5 * m_nLevel);//攻撃力
+	SetLife(50);					//体力
+	m_fWidth = 80.0f;				//幅
+	m_fHeight = 80.0f;				//高さ
 
 	CObject2D::Init(m_pos);
 
@@ -101,27 +102,28 @@ HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 
 	//ホーミングする敵
 	case ENEMYTYPE_HORMING:
-		SetLife(100);		//体力
+		SetLife(100 + (20 * m_nLevel));		//体力
 		CObject2D::SetTexture(CTexture::TEXTURE_ENEMY_BLUE);	//テクスチャの設定
 		break;
 
 	case ENEMYTYPE_HPITEM:
 		m_move.x = -3.0f;	//移動量
-		SetLife(100);		//体力
+		SetLife(100 + (20 * m_nLevel));		//体力
 		CObject2D::SetTexture(CTexture::TEXTURE_ENEMY_GREEN);	//テクスチャの設定
 		break;
 
 	case ENEMYTYPE_MPITEM:
 		m_move.x = -3.0f;	//移動量
-		SetLife(100);		//体力
+		SetLife(100 + (20 * m_nLevel));		//体力
 		CObject2D::SetTexture(CTexture::TEXTURE_ENEMY_PINK);	//テクスチャの設定
 		break;
 
 	case ENEMYTYPE_BIG:
-		m_move.x = -2.0f;	//移動量
-		m_fWidth = 200.0f;	//幅
-		m_fHeight = 200.0f;	//高さ
-		SetLife(250);		//体力
+
+		m_move.x = -2.0f;					//移動量
+		m_fWidth = 200.0f;					//幅
+		m_fHeight = 200.0f;					//高さ
+		SetLife(250 + (30 * m_nLevel));		//体力
 		CObject2D::SetTexture(CTexture::TEXTURE_ENEMY_BIG);	//テクスチャの設定
 		break;
 
@@ -149,7 +151,7 @@ HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 	/*{
 		int nData = rand() % 9;
 
-		if (m_type != ENEMYTYPE_BOSS && nData == 1)
+		if (nData == 0)
 		{//ボス以外の敵 かつ ランダムな値が1の時
 			//バリアの生成
 			m_pBarrier->Create(m_pos, m_move, m_fWidth, m_fHeight, CBarrier::BARRIERTYPE_ENEMY);
@@ -236,6 +238,14 @@ CEnemy *CEnemy::Create(D3DXVECTOR3 pos, CEnemy::ENEMYTYPE type)
 	}
 
 	return pEnemy;
+}
+
+//=======================
+// レベルアップ
+//=======================
+void CEnemy::AddLevel()
+{
+	m_nLevel++;
 }
 
 //============================

@@ -232,8 +232,8 @@ void CBullet::ShotBullet(D3DXVECTOR3 pos, int nLevel, int nShotTime)
 			D3DXVECTOR3 secondPos(pos.x, pos.y + 20.0f, pos.z);
 
 			//¬‚³‚¢’e‚ð¶‰E‚É”­ŽË‚·‚é
-			Create(firstPos, D3DXVECTOR3(fBulletSpeed, -1.5f, 0.0f), BULLETTYPE_OPTION);
-			Create(secondPos, D3DXVECTOR3(fBulletSpeed, 1.5f, 0.0f), BULLETTYPE_OPTION);
+			Create(firstPos, D3DXVECTOR3(fBulletSpeed / 2, -1.5f, 0.0f), BULLETTYPE_OPTION);
+			Create(secondPos, D3DXVECTOR3(fBulletSpeed / 2, 1.5f, 0.0f), BULLETTYPE_OPTION);
 		}
 		else if (nLevel >= 3)
 		{//ƒŒƒxƒ‹3‚È‚ç

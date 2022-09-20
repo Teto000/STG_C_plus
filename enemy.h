@@ -65,6 +65,7 @@ public:
 	// 静的メンバ関数
 	//----------------
 	static CEnemy *Create(D3DXVECTOR3 pos, CEnemy::ENEMYTYPE type);
+	static void AddLevel();	//レベルアップ
 
 private:
 	void Animation();					//テクスチャアニメーション
@@ -113,6 +114,11 @@ private:
 	CBarrier*		m_pBarrier;		//バリア
 	CHpFream*		m_pHpFream;		//HPフレームクラス
 	CItem*			m_pItem;		//アイテムクラス
+
+	//----------------
+	// 静的メンバ変数
+	//----------------
+	static int m_nLevel;	//レベル
 };
 
 #endif // !_ENEMY_H_

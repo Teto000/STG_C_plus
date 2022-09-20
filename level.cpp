@@ -87,7 +87,7 @@ void CLevel::Update()
 	//-----------------------
 	if (m_nLevel < nMaxLevel)
 	{//レベルが最大じゃないなら
-		if (m_nExp >= (10 * m_nLevel))
+		if (m_nExp >= (5 * m_nLevel))
 		{//一定経験値量を獲得したら
 			//経験値ゲージの生成
 			CExp::Create(CirclePos, m_rot, m_fLength * 0.6f);
@@ -110,13 +110,13 @@ void CLevel::Update()
 		}
 	}
 
-	if (CInputKeyboard::Trigger(DIK_UP))
+	/*if (CInputKeyboard::Trigger(DIK_UP))
 	{
 		if (m_nLevel < nMaxLevel)
 		{//レベルが最大じゃないなら
 			m_nLevel++;		//レベルの加算
 		}
-	}
+	}*/
 }
 
 //===========================
