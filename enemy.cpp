@@ -155,7 +155,7 @@ HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 		{//ボス以外の敵 かつ ランダムな値が1の時
 			//バリアの生成
 			m_pBarrier->Create(m_pos, m_move, m_fWidth, m_fHeight, CBarrier::BARRIERTYPE_ENEMY);
-		}
+		} 
 	}*/
 
 	return S_OK;
