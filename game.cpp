@@ -20,14 +20,16 @@
 #include "enemy.h"
 #include "score.h"
 #include "bg.h"
+#include "skill.h"
 
 //------------------------
 // 静的メンバ変数宣言
 //------------------------
-CPlayer	  *CGame::m_pPlayer = nullptr;	//プレイヤー
-CEnemy	  *CGame::m_pEnemy = nullptr;	//敵
-CScore	  *CGame::m_pScore = nullptr;	//スコア
-CBg		  *CGame::m_pBG = nullptr;		//背景
+CPlayer	  *CGame::m_pPlayer = nullptr;		//プレイヤー
+CEnemy	  *CGame::m_pEnemy = nullptr;		//敵
+CScore	  *CGame::m_pScore = nullptr;		//スコア
+CBg		  *CGame::m_pBG = nullptr;			//背景
+CSkill	  *CGame::m_pSkill[nMaxSkill] = {};	//スキル
 
 //===========================
 // コンストラクタ
@@ -63,6 +65,9 @@ HRESULT CGame::Init()
 	//スコアの生成
 	m_pScore = CScore::Create();
 
+	m_pSkill[0] = CSkill::Create(CSkill::SKILLTYPE_HEAL);
+	m_pSkill[1] = CSkill::Create(CSkill::SKILLTYPE_SPEEDUP_FIRE);
+
 	return S_OK;
 }
 
@@ -82,6 +87,16 @@ void CGame::Update()
 	//敵の出現
 	SetEnemy();
 
+	//スキルの色変更
+	if (CInputKeyboard::Trigger(DIK_1))
+	{
+		m_pSkill[0]->CObject2D::SetColor(D3DXCOLOR(0.4f, 0.4f, 0.4f, 1.0f));
+	}
+	else if (CInputKeyboard::Trigger(DIK_2))
+	{
+		m_pSkill[1]->CObject2D::SetColor(D3DXCOLOR(0.4f, 0.4f, 0.4f, 1.0f));
+	}
+
 	//画面遷移
 	/*if (CInputKeyboard::Trigger(DIK_RETURN))
 	{
@@ -96,7 +111,7 @@ void CGame::SetEnemy()
 {
 	m_nTime++;
 
-	if (m_nTime % (nOneSecond * 5) == 0)
+	/*if (m_nTime % (nOneSecond * 5) == 0)
 	{
 		m_pEnemy = CEnemy::Create(D3DXVECTOR3(1300, 360.0f, 0.0f), CEnemy::ENEMYTYPE_NORMAL);
 	}
@@ -108,18 +123,18 @@ void CGame::SetEnemy()
 
 	if (m_nTime % (nOneSecond * 20) == 0)
 	{
-		m_pEnemy = CEnemy::Create(D3DXVECTOR3(1300, 360.0f, 0.0f), CEnemy::ENEMYTYPE_HPITEM);
+		m_pEnemy = CEnemy::Create(D3DXVECTOR3(1300, 200.0f, 0.0f), CEnemy::ENEMYTYPE_HPITEM);
 	}
 
 	if (m_nTime % (nOneSecond * 20) == 0)
 	{
-		m_pEnemy = CEnemy::Create(D3DXVECTOR3(1300, 360.0f, 0.0f), CEnemy::ENEMYTYPE_MPITEM);
+		m_pEnemy = CEnemy::Create(D3DXVECTOR3(1300, 500.0f, 0.0f), CEnemy::ENEMYTYPE_MPITEM);
 	}
 
 	if (m_nTime == (nOneSecond * 60))
 	{
 		m_pEnemy = CEnemy::Create(D3DXVECTOR3(1000.0f, 360.0f, 0.0f), CEnemy::ENEMYTYPE_BOSS);
-	}
+	}*/
 }
 
 //===========================

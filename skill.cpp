@@ -47,7 +47,6 @@ CSkill::~CSkill()
 HRESULT CSkill::Init(D3DXVECTOR3 pos)
 {
 	//構造体に代入
-	m_move = D3DXVECTOR3(nSkillSpeed, 0.0f, 0.0f);
 	m_fWidth = 300.0f;
 	m_fHeight = 80.0f;
 	m_pos = D3DXVECTOR3(pos.x - (m_fWidth / 2), pos.y - (m_fHeight / 2), pos.z);
@@ -91,29 +90,6 @@ void CSkill::Update()
 	//--------------------------
 	// スキル表示
 	//--------------------------
-	//画面端から移動
-	if (m_pos.x >= (m_fWidth / 2))
-	{
-		//移動の停止
-		m_move.x = 0;
-
-		//タイマーを加算
-		m_nCntTimer++;
-
-		if (m_nCntTimer >= nMaxTimer)
-		{//一定時間経過
-			//画面端から見えなくなったら
-			m_move.x = -nSkillSpeed;
-			m_nCntTimer = 0;
-		}
-	}
-	//画面外に消えたら
-	else if (m_move.x <= 0.0f && m_pos.x + (m_fWidth / 2) <= 0.0f)
-	{
-		//スキル表示の消去
-		Uninit();
-		return;
-	}
 
 	//位置に移動量を加算
 	m_pos = CObject2D::AddMove(m_move);
@@ -148,11 +124,11 @@ CSkill *CSkill::Create(SKILLTYPE type)
 		switch (pSkill->m_type)
 		{
 		case SKILLTYPE_HEAL:
-			pSkill->Init(D3DXVECTOR3(0.0f, 720.0f, 0.0f));
+			pSkill->Init(D3DXVECTOR3(300.0f, 720.0f, 0.0f));
 			break;
 
 		case SKILLTYPE_SPEEDUP_FIRE:
-			pSkill->Init(D3DXVECTOR3(0.0f, 640.0f, 0.0f));
+			pSkill->Init(D3DXVECTOR3(600.0f, 720.0f, 0.0f));
 			break;
 
 		default:

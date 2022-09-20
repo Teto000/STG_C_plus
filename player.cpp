@@ -336,8 +336,6 @@ void CPlayer::SetSkill()
 	//-----------------------
 	if (CInputKeyboard::Trigger(DIK_1))
 	{//1キーが押されたら
-		CSkill::Create(CSkill::SKILLTYPE_HEAL);
-
 		if (m_nLife + 30 >= m_nMaxLife)
 		{//回復して上限なら
 			m_nLife = m_nMaxLife;	//体力を最大にする
@@ -364,7 +362,7 @@ void CPlayer::SetSkill()
 	//-----------------------
 	if (CInputKeyboard::Trigger(DIK_2))
 	{//2キーが押されたら
-		CSkill::Create(CSkill::SKILLTYPE_SPEEDUP_FIRE);
+		//CSkill::Create(CSkill::SKILLTYPE_SPEEDUP_FIRE);
 
 		//発射間隔の減少
 		m_nShotTime = 10;

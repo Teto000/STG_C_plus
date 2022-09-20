@@ -19,6 +19,7 @@ class CPlayer;	//プレイヤー
 class CEnemy;	//敵
 class CScore;	//スコア
 class CBg;		//背景
+class CSkill;	//スキル
 
 //-------------------------
 // ゲームクラスの定義
@@ -51,6 +52,7 @@ private:
 	// 定数
 	//------------------
 	static const int nOneSecond = 60;	//一秒
+	static const int nMaxSkill = 2;		//スキルの最大数
 
 	//------------------
 	// メンバ変数
@@ -65,6 +67,7 @@ private:
 	static CEnemy	*m_pEnemy;		//敵クラス
 	static CScore	*m_pScore;		//スコアクラス
 	static CBg		*m_pBG;			//背景クラス
+	static CSkill	*m_pSkill[nMaxSkill];	//スキルクラス
 };
 
 #endif // !_APPLICATION_H_

@@ -19,7 +19,7 @@
 //------------------------
 // Ã“Iƒƒ“ƒo•Ï”éŒ¾
 //------------------------
-CBg *CTitle::m_pBG = nullptr;	//”wŒi
+CBg *CTitle::m_pBG[2] = {};	//”wŒi
 
 //===========================
 // ƒRƒ“ƒXƒgƒ‰ƒNƒ^
@@ -43,8 +43,11 @@ CTitle::~CTitle()
 HRESULT CTitle::Init()
 {
 	//”wŒi‚Ì¶¬
-	m_pBG->Create(D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0.0f)
+	m_pBG[0]->Create(D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0.0f)
 					, CBg::BGTYPE_TITLE);
+
+	m_pBG[1]->Create(D3DXVECTOR3(SCREEN_WIDTH / 2, 300.0f, 0.0f)
+					, CBg::BGTYPE_TITLE_LOGO);
 
 	return S_OK;
 }
@@ -64,7 +67,7 @@ void CTitle::Update()
 {
 	if (CInputKeyboard::Trigger(DIK_RETURN))
 	{
-		CApplication::SetMode(CApplication::MODE_SKILLSELECT);
+		CApplication::SetMode(CApplication::MODE_GAME);
 	}
 }
 
@@ -73,5 +76,5 @@ void CTitle::Update()
 //===========================
 CBg *CTitle::GetBG()
 {
-	return m_pBG;
+	return m_pBG[0];
 }
