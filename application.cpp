@@ -76,7 +76,7 @@ HRESULT CApplication::Init(HINSTANCE hInstance, HWND hWnd)
 	m_pInput->Init(hInstance, hWnd);
 
 	//サウンドの初期化
-	//m_pSound->Init(hWnd);
+	m_pSound->Init(hWnd);
 
 	//モードの設定
 	SetMode(MODE_TITLE);
@@ -117,12 +117,12 @@ void CApplication::Uninit()
 	}
 
 	//サウンドの終了
-	/*if (m_pSound != nullptr)
+	if (m_pSound != nullptr)
 	{
 		m_pSound->Uninit();
 		delete m_pSound;
 		m_pSound = nullptr;
-	}*/
+	}
 
 }
 

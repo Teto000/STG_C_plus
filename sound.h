@@ -35,9 +35,11 @@ public:
 	{
 		/*« BGM «*/
 		SOUND_LABEL_GAME = 0,	// ƒQ[ƒ€
+		SOUND_LABEL_TITLE,
+		SOUND_LABEL_RESULT,
 
 		/*« SE «*/
-		SOUND_LABEL_SE_SHOT,	// ’e”­ŽË‰¹
+		SOUND_LABEL_SE_BUTTOM,	// Œˆ’è‰¹
 
 		SOUND_LABEL_MAX,
 	} SOUND_LABEL;

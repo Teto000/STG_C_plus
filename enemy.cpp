@@ -365,32 +365,16 @@ void CEnemy::Attack()
 	//-------------------------------
 	switch (m_type)
 	{
-	/* « ’Êí‚Ì“G « */
+		/* « ’Êí‚Ì“G « */
 	case ENEMYTYPE_NORMAL:
-		m_pEnemyBullet->Create(m_pos, D3DXVECTOR3(-6.0f, 0.0f, 0.0f), m_nAttack);
-		break;
-
-	/* « ƒ{ƒX“G « */
-	case ENEMYTYPE_BIG:
-		BossAttack(vec);
-		break;
-
-	default:
-		break;
-	}
-}
-
-//=======================
-// ƒ{ƒX“G‚ÌUŒ‚
-//=======================
-void CEnemy::BossAttack(D3DXVECTOR2 vec)
-{
-	//int nRandAttack = rand() % 3;
-
-	/*switch (nRandAttack)
 	{
-	case 0:
-		 « UŒ‚1 « 
+		D3DXVECTOR3 pos(m_pos.x - m_fWidth / 2, m_pos.y, m_pos.z);
+		m_pEnemyBullet->Create(pos, D3DXVECTOR3(-6.0f, 0.0f, 0.0f), m_nAttack);
+	}
+		break;
+
+		/* « ‘å‚«‚¢“G « */
+	case ENEMYTYPE_BIG:
 		for (int i = 0; i < 3; i++)
 		{
 			D3DXVECTOR3 move(-vec.x * 4.0f, -vec.y * (i + 1), 0.0f);
@@ -398,27 +382,8 @@ void CEnemy::BossAttack(D3DXVECTOR2 vec)
 		}
 		break;
 
-	case 1:
-		 « UŒ‚2 « 
-		for (int i = 0; i < 3; i++)
-		{
-			D3DXVECTOR3 pos(m_pos.x, 50.0f + 200.0f * (i + 1), m_pos.z);
-			m_pEnemyBullet->Create(pos, D3DXVECTOR3(-6.0f, 0.0f, 0.0f), m_nAttack);
-		}
-		break;
-	case 2:
-		 « UŒ‚3 « 
-
-		break;
-
 	default:
 		break;
-	}*/
-
-	for (int i = 0; i < 3; i++)
-	{
-		D3DXVECTOR3 move(-vec.x * 4.0f, -vec.y * (i + 1), 0.0f);
-		m_pEnemyBullet->Create(m_pos, move, m_nAttack);
 	}
 }
 

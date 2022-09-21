@@ -322,7 +322,7 @@ void CObject2D::SetVtxCIE(D3DXVECTOR3 pos, float fWidth, float fHeight)
 //==================================
 // 頂点座標の設定(回転)
 //==================================
-void CObject2D::SetVtxCIE_Rot(D3DXVECTOR3 pos, D3DXVECTOR3 rot, float fWidth, float fHeight)
+void CObject2D::SetVtxCIE_Rot(D3DXVECTOR3 pos, float rotX, float fWidth, float fHeight)
 {
 	VERTEX_2D*pVtx;		//頂点情報へのポインタ
 
@@ -333,20 +333,20 @@ void CObject2D::SetVtxCIE_Rot(D3DXVECTOR3 pos, D3DXVECTOR3 rot, float fWidth, fl
 	float fAngle = atan2f(fWidth, fHeight);								//対角線の角度を算出
 
 	//頂点座標の設定
-	pVtx[0].pos.x = pos.x + sinf(rot.x + (D3DX_PI + fAngle)) * fLength;
-	pVtx[0].pos.y = pos.y + cosf(rot.x + (D3DX_PI + fAngle)) * fLength;
+	pVtx[0].pos.x = pos.x + sinf(rotX + (D3DX_PI + fAngle)) * fLength;
+	pVtx[0].pos.y = pos.y + cosf(rotX + (D3DX_PI + fAngle)) * fLength;
 	pVtx[0].pos.z = 0.0f;
 
-	pVtx[1].pos.x = pos.x + sinf(rot.x + (D3DX_PI - fAngle)) * fLength;
-	pVtx[1].pos.y = pos.y + cosf(rot.x + (D3DX_PI - fAngle)) * fLength;
+	pVtx[1].pos.x = pos.x + sinf(rotX + (D3DX_PI - fAngle)) * fLength;
+	pVtx[1].pos.y = pos.y + cosf(rotX + (D3DX_PI - fAngle)) * fLength;
 	pVtx[1].pos.z = 0.0f;
 
-	pVtx[2].pos.x = pos.x + sinf(rot.x - (0 + fAngle)) * fLength;
-	pVtx[2].pos.y = pos.y + cosf(rot.x - (0 + fAngle)) * fLength;
+	pVtx[2].pos.x = pos.x + sinf(rotX - (0 + fAngle)) * fLength;
+	pVtx[2].pos.y = pos.y + cosf(rotX - (0 + fAngle)) * fLength;
 	pVtx[2].pos.z = 0.0f;
 
-	pVtx[3].pos.x = pos.x + sinf(rot.x - (0 - fAngle)) * fLength;
-	pVtx[3].pos.y = pos.y + cosf(rot.x - (0 - fAngle)) * fLength;
+	pVtx[3].pos.x = pos.x + sinf(rotX - (0 - fAngle)) * fLength;
+	pVtx[3].pos.y = pos.y + cosf(rotX - (0 - fAngle)) * fLength;
 	pVtx[3].pos.z = 0.0f;
 
 	//頂点バッファをアンロックする

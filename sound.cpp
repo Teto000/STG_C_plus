@@ -16,10 +16,12 @@
 CSound::SOUNDPARAM g_aParam[CSound::SOUND_LABEL_MAX] =
 {
 	/*↓ BGM ↓*/
-	{ "data/BGM/bgm000.wav", -1 },	// ゲーム中
+	{ "data/BGM/Nagatsuki_Beat.wav", -1 },	// ゲーム
+	{ "data/BGM/ゆったり初詣.wav", -1 },	// タイトル
+	{ "data/BGM/神様の道.wav", -1 },		// リザルト
 
 	/*↓ SE ↓*/
-	{ "data/SE/shot000.wav", 0 },	// 弾発射音
+	{ "data/SE/ボタン押下音０１.wav", 0 },	// 決定音
 };
 
 //------------------------

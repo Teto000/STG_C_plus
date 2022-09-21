@@ -45,7 +45,7 @@ HRESULT CExp::Init(D3DXVECTOR3 pos)
 	CObject2D::Init(m_pos);
 
 	//頂点座標の設定(回転)
-	CObject2D::SetVtxCIE_Rot(m_pos, m_rot, m_fWidth, m_fHeight);
+	CObject2D::SetVtxCIE_Rot(m_pos, m_rot.x, m_fWidth, m_fHeight);
 
 	CObject2D::SetTexture(CTexture::TEXTURE_EXP);	//テクスチャの設定
 
@@ -68,7 +68,7 @@ void CExp::Update()
 	CObject2D::Update();
 
 	//頂点座標の設定(回転)
-	CObject2D::SetVtxCIE_Rot(m_pos, m_rot, m_fWidth, m_fHeight);
+	CObject2D::SetVtxCIE_Rot(m_pos, m_rot.x, m_fWidth, m_fHeight);
 
 	//----------------------------
 	// レベルアップの処理

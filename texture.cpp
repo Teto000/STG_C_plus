@@ -30,22 +30,23 @@ const char* CTexture::s_FileName[] =
 	"data/TEXTURE/Enemy/Big.png",		//大きい敵
 
 	/* ↓ ゲーム ↓　*/
-	"data/TEXTURE/Game/Bullet.png",			//弾
-	"data/TEXTURE/Game/HitEffect.png",		//ハート
-	"data/TEXTURE/Game/Effect.jpg",			//エフェクト
-	"data/TEXTURE/Game/Barrier.png",		//バリア
+	"data/TEXTURE/Game/Bullet.png",		//弾
+	"data/TEXTURE/Game/EnemyBullet.png",//敵の弾
+	"data/TEXTURE/Game/HitEffect.png",	//ハート
+	"data/TEXTURE/Game/Effect.jpg",		//エフェクト
+	"data/TEXTURE/Game/Barrier.png",	//バリア
 
 	/* ↓ BG ↓　*/
-	"data/TEXTURE/BG/Game3.png",			//背景
-	"data/TEXTURE/BG/Title.png",			//タイトル画面の背景
-	"data/TEXTURE/BG/TitleLogo.png",		//タイトルロゴ
-	"data/TEXTURE/BG/Title.png",			//リザルト画面の背景
-	"data/TEXTURE/BG/SkillSelect.png",		//スキルセレクト画面の背景
+	"data/TEXTURE/BG/Game.png",			//背景
+	"data/TEXTURE/BG/Title.png",		//タイトル画面の背景
+	"data/TEXTURE/BG/TitleLogo.png",	//タイトルロゴ
+	"data/TEXTURE/BG/Title.png",		//リザルト画面の背景
+	"data/TEXTURE/BG/SkillSelect.png",	//スキルセレクト画面の背景
 
 	/* ↓ UI ↓　*/
-	"data/TEXTURE/UI/Exp.png",				//経験値
-	"data/TEXTURE/UI/Level.png",			//レベル
-	"data/TEXTURE/UI/HPFream.png",			//HPバーのフレーム
+	"data/TEXTURE/UI/Exp.png",			//経験値
+	"data/TEXTURE/UI/Level.png",		//レベル
+	"data/TEXTURE/UI/HPFream.png",		//HPバーのフレーム
 
 	/* ↓ スキル ↓　*/
 	"data/TEXTURE/Skill/HPheal.png",		//スキル(体力回復)

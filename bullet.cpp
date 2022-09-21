@@ -112,10 +112,6 @@ void CBullet::Update()
 {
 	CObject2D::Update();
 
-	m_rot.x = 10.0f;
-
-	SetVtxCIE_Rot(m_pos, m_rot, m_fWidth, m_fHeight);
-
 	switch (m_type)
 	{
 	//----------------------
@@ -228,21 +224,21 @@ void CBullet::ShotBullet(D3DXVECTOR3 pos, int nLevel, int nShotTime)
 
 		if (nLevel == 2)
 		{//ƒŒƒxƒ‹2‚È‚ç
-			D3DXVECTOR3 firstPos(pos.x, pos.y - 20.0f, pos.z);
-			D3DXVECTOR3 secondPos(pos.x, pos.y + 20.0f, pos.z);
-
-			//¬‚³‚¢’e‚ð¶‰E‚É”­ŽË‚·‚é
-			Create(firstPos, D3DXVECTOR3(fBulletSpeed / 2, -1.5f, 0.0f), BULLETTYPE_OPTION);
-			Create(secondPos, D3DXVECTOR3(fBulletSpeed / 2, 1.5f, 0.0f), BULLETTYPE_OPTION);
-		}
-		else if (nLevel >= 3)
-		{//ƒŒƒxƒ‹3‚È‚ç
 			D3DXVECTOR3 firstPos(pos.x, pos.y - 40.0f, pos.z);
 			D3DXVECTOR3 secondPos(pos.x, pos.y + 40.0f, pos.z);
 
 			//’e‚ð2”­‚É‘‚â‚·
 			Create(firstPos, D3DXVECTOR3(fBulletSpeed, 0.0f, 0.0f), BULLETTYPE_NORMAL);
 			Create(secondPos, D3DXVECTOR3(fBulletSpeed, 0.0f, 0.0f), BULLETTYPE_NORMAL);
+		}
+		else if (nLevel >= 3)
+		{//ƒŒƒxƒ‹3‚È‚ç
+			D3DXVECTOR3 firstPos(pos.x, pos.y - 20.0f, pos.z);
+			D3DXVECTOR3 secondPos(pos.x, pos.y + 20.0f, pos.z);
+
+			//¬‚³‚¢’e‚ð¶‰E‚É”­ŽË‚·‚é
+			Create(firstPos, D3DXVECTOR3(fBulletSpeed / 2, -1.5f, 0.0f), BULLETTYPE_OPTION);
+			Create(secondPos, D3DXVECTOR3(fBulletSpeed / 2, 1.5f, 0.0f), BULLETTYPE_OPTION);
 		}
 
 		if (nLevel >= 4 && m_nCntHorming >= 3)

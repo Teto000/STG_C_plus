@@ -72,7 +72,6 @@ private:
 	void Move();						//移動処理
 	void CntAttack();					//攻撃までの時間を数える
 	void Attack();						//攻撃処理
-	void BossAttack(D3DXVECTOR2 vec);	//ボス敵の攻撃
 	bool Destroy();						//消える処理
 	D3DXVECTOR3 Homing(float& posX, float& posY,
 					float& moveX, float& moveY);	//ホーミング弾

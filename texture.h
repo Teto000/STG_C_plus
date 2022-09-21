@@ -32,6 +32,7 @@ public: /* 定義 */
 
 		/* ↓ ゲーム ↓*/
 		TEXTURE_BULLET,				//弾
+		TEXTURE_ENEMYBULLET,		//敵の弾
 		TEXTURE_HEART,				//ハート
 		TEXTURE_EFFECT,				//エフェクト
 		TEXTURE_BARRIER,			//バリア

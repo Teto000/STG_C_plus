@@ -15,6 +15,7 @@
 #include "input.h"
 #include "input_keybord.h"
 #include "input_joypad.h"
+#include "sound.h"
 #include "player.h"
 #include "bullet.h"
 #include "enemy.h"
@@ -77,6 +78,9 @@ HRESULT CGame::Init()
 	m_pSkill[0] = CSkill::Create(CSkill::SKILLTYPE_HEAL);
 	m_pSkill[1] = CSkill::Create(CSkill::SKILLTYPE_SPEEDUP_FIRE);
 
+	//サウンドの再生
+	CSound::PlaySound(CSound::SOUND_LABEL_GAME);
+
 	return S_OK;
 }
 
@@ -85,7 +89,8 @@ HRESULT CGame::Init()
 //===========================
 void CGame::Uninit()
 {
-
+	//サウンドの停止
+	CSound::StopSound(CSound::SOUND_LABEL_GAME);
 }
 
 //===========================
@@ -130,10 +135,10 @@ void CGame::Update()
 	}
 
 	//画面遷移
-	/*if (CInputKeyboard::Trigger(DIK_RETURN))
+	if (CInputKeyboard::Trigger(DIK_RETURN))
 	{
 		CApplication::SetMode(CApplication::MODE_RESULT);
-	}*/
+	}
 }
 
 //===========================

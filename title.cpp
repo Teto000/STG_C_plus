@@ -15,6 +15,7 @@
 #include "input_joypad.h"
 #include "application.h"
 #include "bg.h"
+#include "sound.h"
 
 //------------------------
 // 静的メンバ変数宣言
@@ -49,6 +50,9 @@ HRESULT CTitle::Init()
 	m_pBG[1]->Create(D3DXVECTOR3(SCREEN_WIDTH / 2, 300.0f, 0.0f)
 					, CBg::BGTYPE_TITLE_LOGO);
 
+	//サウンドの再生
+	CSound::PlaySound(CSound::SOUND_LABEL_TITLE);
+
 	return S_OK;
 }
 
@@ -57,7 +61,8 @@ HRESULT CTitle::Init()
 //===========================
 void CTitle::Uninit()
 {
-
+	//サウンドの停止
+	CSound::StopSound(CSound::SOUND_LABEL_TITLE);
 }
 
 //===========================
@@ -67,6 +72,9 @@ void CTitle::Update()
 {
 	if (CInputKeyboard::Trigger(DIK_RETURN))
 	{
+		//SEの再生
+		CSound::PlaySound(CSound::SOUND_LABEL_SE_BUTTOM);
+
 		CApplication::SetMode(CApplication::MODE_GAME);
 	}
 }

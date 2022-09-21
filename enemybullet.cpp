@@ -49,14 +49,14 @@ HRESULT CEnemyBullet::Init(D3DXVECTOR3 pos)
 	// メンバ変数の初期化
 	//----------------------------
 	m_pos = pos;
-	m_fWidth = 50.0f;
-	m_fHeight = 50.0f;
+	m_fWidth = 60.0f;
+	m_fHeight = 20.0f;
 	m_nLife = 300;
 
 	CObject2D::Init(m_pos);
 
 	CObject2D::SetSize(m_fWidth, m_fHeight);			//サイズの設定
-	CObject2D::SetTexture(CTexture::TEXTURE_BULLET);	//テクスチャの設定
+	CObject2D::SetTexture(CTexture::TEXTURE_ENEMYBULLET);	//テクスチャの設定
 
 	return S_OK;
 }
