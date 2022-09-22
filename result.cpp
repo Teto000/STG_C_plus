@@ -44,8 +44,8 @@ CResult::~CResult()
 HRESULT CResult::Init()
 {
 	//îwåiÇÃê∂ê¨
-	m_pBG->Create(D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0.0f)
-		, CBg::BGTYPE_RESULT);
+	m_pBG = CBg::Create(D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0.0f)
+						, CBg::BGTYPE_RESULT);
 
 	//ÉTÉEÉìÉhÇÃçƒê∂
 	CSound::PlaySound(CSound::SOUND_LABEL_RESULT);

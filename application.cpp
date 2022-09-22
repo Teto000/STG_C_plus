@@ -152,10 +152,6 @@ void CApplication::Update()
 		m_pResult->Update();
 		break;
 
-	case MODE_SKILLSELECT:
-		m_pSkillSelect->Update();
-		break;
-
 	default:
 		break;
 	}
@@ -196,10 +192,6 @@ void CApplication::SetMode(MODE mode)
 		m_pResult->Uninit();
 		break;
 
-	case MODE_SKILLSELECT:
-		m_pSkillSelect->Uninit();
-		break;
-
 	default:
 		break;
 	}
@@ -229,12 +221,6 @@ void CApplication::SetMode(MODE mode)
 		m_pResult = nullptr;
 		m_pResult = new CResult;
 		m_pResult->Init();
-		break;
-
-	case MODE_SKILLSELECT:
-		m_pSkillSelect = nullptr;
-		m_pSkillSelect = new CSkillSelect;
-		m_pSkillSelect->Init();
 		break;
 
 	default:

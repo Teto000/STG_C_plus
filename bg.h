@@ -24,7 +24,6 @@ public:
 		BGTYPE_TITLE,		//タイトル画面
 		BGTYPE_TITLE_LOGO,	//タイトルロゴ
 		BGTYPE_RESULT,		//リザルト画面
-		BGTYPE_SKILLSELECT,	//スキルセレクト画面
 		BGTYPE_MAX
 	};
 

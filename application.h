@@ -40,7 +40,6 @@ public:
 		MODE_TITLE = 0,		//タイトル
 		MODE_GAME,			//ゲーム
 		MODE_RESULT,		//リザルト
-		MODE_SKILLSELECT,	//スキルセレクト
 		MODE_FADE,			//フェード
 		MODE_MAX
 	};

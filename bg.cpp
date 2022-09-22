@@ -43,6 +43,8 @@ CBg::~CBg()
 HRESULT CBg::Init(D3DXVECTOR3 pos)
 {
 	m_pos = pos;
+	m_nCntAnim = 0;
+	m_fTexLeft = 0.0f;
 
 	if (m_pObject2D != nullptr)
 	{
@@ -56,8 +58,8 @@ HRESULT CBg::Init(D3DXVECTOR3 pos)
 		switch (m_type)
 		{
 		case BGTYPE_GAME:
-			m_fTexRight = 0.2f;
 			m_pObject2D->SetTexture(CTexture::TEXTURE_BG_GAME);	//テクスチャの設定
+			m_fTexRight = 0.5f;
 			m_pObject2D->SetTexCIE(m_fTexLeft, m_fTexRight);
 			break;
 
@@ -77,10 +79,6 @@ HRESULT CBg::Init(D3DXVECTOR3 pos)
 			m_pObject2D->SetTexture(CTexture::TEXTURE_BG_RESULT);
 			m_fTexRight = 0.5f;
 			m_pObject2D->SetTexCIE(m_fTexLeft, m_fTexRight);
-			break;
-
-		case BGTYPE_SKILLSELECT:
-			m_pObject2D->SetTexture(CTexture::TEXTURE_BG_SKILLSELECT);
 			break;
 
 		default:
@@ -116,8 +114,8 @@ void CBg::Update()
 		m_nCntAnim++;
 		m_nCntAnim %= 10;
 
-		//タイトル画面 リザルト画面
-		if (m_type == BGTYPE_TITLE || m_type == BGTYPE_RESULT
+		//ゲーム画面 or タイトル画面 or リザルト画面なら
+		if (m_type == BGTYPE_GAME || m_type == BGTYPE_TITLE || m_type == BGTYPE_RESULT
 			&& m_nCntAnim == 0)
 		{
 			//テクスチャ座標の加算
@@ -129,7 +127,7 @@ void CBg::Update()
 		}
 
 		//ゲーム画面
-		if (m_type == BGTYPE_GAME && m_nCntAnim == 0)
+		/*if (m_type == BGTYPE_GAME && m_nCntAnim == 0)
 		{
 			//テクスチャ座標の加算
 			m_fTexLeft += 0.0005f;
@@ -137,7 +135,7 @@ void CBg::Update()
 
 			//テクスチャ座標の設定
 			m_pObject2D->SetTexCIE(m_fTexLeft, m_fTexRight);
-		}
+		}*/
 	}
 }
 

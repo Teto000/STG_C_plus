@@ -72,7 +72,7 @@ private:
 	int m_nTime;
 	int m_nSkillTime[nMaxSkill];
 	bool m_bSkill[nMaxSkill];
-	EnemyName type;
+	EnemyName m_type;
 
 	//------------------
 	// Ã“Iƒƒ“ƒo•Ï”
