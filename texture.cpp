@@ -27,7 +27,7 @@ const char* CTexture::s_FileName[] =
 	"data/TEXTURE/Enemy/Blue.png",		//“G(Â)
 	"data/TEXTURE/Enemy/Green.png",		//“G(—Î)
 	"data/TEXTURE/Enemy/Pink.png",		//“G(“)
-	"data/TEXTURE/Enemy/Big.png",		//‘å‚«‚¢“G
+	"data/TEXTURE/Enemy/Big2.png",		//‘å‚«‚¢“G
 
 	/* « ƒQ[ƒ€ «@*/
 	"data/TEXTURE/Game/Bullet.png",		//’e

@@ -43,6 +43,9 @@ public:
 	int GetLevel();
 
 private:
+	void LevelUp();
+
+private:
 	//------------------
 	// ’è”
 	//------------------

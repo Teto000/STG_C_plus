@@ -125,6 +125,7 @@ HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 		m_fWidth = 200.0f;					//幅
 		m_fHeight = 200.0f;					//高さ
 		SetLife(250 + (30 * m_nLevel));		//体力
+		CObject2D::SetTexCIE(0.0f, 0.5f);
 		CObject2D::SetTexture(CTexture::TEXTURE_ENEMY_BIG);	//テクスチャの設定
 		break;
 
@@ -180,7 +181,7 @@ void CEnemy::Update()
 	//--------------------------
 	// テクスチャアニメーション
 	//--------------------------
-	//Animation();
+	Animation();
 
 	//--------------------------
 	// 移動処理

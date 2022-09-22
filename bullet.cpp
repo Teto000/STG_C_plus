@@ -216,7 +216,7 @@ void CBullet::ShotBullet(D3DXVECTOR3 pos, int nLevel, int nShotTime)
 	//---------------------------
 	if (!CInputKeyboard::Press(DIK_SPACE) && nShotTime == 0)
 	{//チャージしていない時 かつ 弾の発射時間が0なら
-		if (nLevel <= 2)
+		if (nLevel == 1)
 		{//レベル2以下なら
 			//右側に弾を発射する
 			Create(pos, D3DXVECTOR3(fBulletSpeed, 0.0f, 0.0f), BULLETTYPE_NORMAL);
@@ -224,8 +224,8 @@ void CBullet::ShotBullet(D3DXVECTOR3 pos, int nLevel, int nShotTime)
 
 		if (nLevel == 2)
 		{//レベル2なら
-			D3DXVECTOR3 firstPos(pos.x, pos.y - 40.0f, pos.z);
-			D3DXVECTOR3 secondPos(pos.x, pos.y + 40.0f, pos.z);
+			D3DXVECTOR3 firstPos(pos.x, pos.y - 20.0f, pos.z);
+			D3DXVECTOR3 secondPos(pos.x, pos.y + 20.0f, pos.z);
 
 			//弾を2発に増やす
 			Create(firstPos, D3DXVECTOR3(fBulletSpeed, 0.0f, 0.0f), BULLETTYPE_NORMAL);
@@ -236,9 +236,12 @@ void CBullet::ShotBullet(D3DXVECTOR3 pos, int nLevel, int nShotTime)
 			D3DXVECTOR3 firstPos(pos.x, pos.y - 20.0f, pos.z);
 			D3DXVECTOR3 secondPos(pos.x, pos.y + 20.0f, pos.z);
 
+			//右側に弾を発射する
+			Create(pos, D3DXVECTOR3(fBulletSpeed, 0.0f, 0.0f), BULLETTYPE_NORMAL);
+
 			//小さい弾を左右に発射する
-			Create(firstPos, D3DXVECTOR3(fBulletSpeed / 2, -1.5f, 0.0f), BULLETTYPE_OPTION);
-			Create(secondPos, D3DXVECTOR3(fBulletSpeed / 2, 1.5f, 0.0f), BULLETTYPE_OPTION);
+			Create(firstPos, D3DXVECTOR3(fBulletSpeed / 2, -1.0f, 0.0f), BULLETTYPE_OPTION);
+			Create(secondPos, D3DXVECTOR3(fBulletSpeed / 2, 1.0f, 0.0f), BULLETTYPE_OPTION);
 		}
 
 		if (nLevel >= 4 && m_nCntHorming >= 3)

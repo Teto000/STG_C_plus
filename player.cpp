@@ -171,7 +171,7 @@ void CPlayer::Update()
 	// ƒŒƒxƒ‹‚É‚æ‚é•Ï‰»
 	//--------------------
 	m_nLevel = m_Level->GetLevel();	//ƒŒƒxƒ‹‚ÌŽæ“¾
-	m_nAttack += (10 * (m_nLevel -1));
+	//m_nAttack += (10 * (m_nLevel -1));
 
 	//--------------------------
 	// ’e‚Ì”­ŽË
