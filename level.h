@@ -13,6 +13,11 @@
 #include "object2D.h"
 
 //--------------------------
+// 前方宣言
+//--------------------------
+class CExp;		//経験値
+
+//--------------------------
 // レベルクラス
 //--------------------------
 class CLevel : public CObject2D
@@ -50,11 +55,12 @@ private:
 	D3DXVECTOR3 m_rot;	//回転
 	int m_nLevel;		//レベルの値
 	float m_fLength;	//幅
+	CExp* m_pExp;		//経験値
 
 	//------------------
 	// 静的メンバ変数
 	//------------------
-	static int m_nExp;		//経験値の値
+	static int m_nExpPoint;		//経験値の値
 };
 
 #endif // !_LEVEL_H_

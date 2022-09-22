@@ -15,6 +15,7 @@
 #include "application.h"
 #include "object2D.h"
 #include "input_keybord.h"
+#include "sound.h"
 #include "bullet.h"
 #include "texture.h"
 #include "hp.h"
@@ -385,6 +386,9 @@ void CEnemy::Attack()
 	default:
 		break;
 	}
+
+	//ÉTÉEÉìÉhÇÃçƒê∂
+	CSound::PlaySound(CSound::SOUND_LABEL_SE_ENEMYATTACK);
 }
 
 //=======================

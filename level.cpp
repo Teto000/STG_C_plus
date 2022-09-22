@@ -20,7 +20,7 @@
 //-----------------------------
 // 静的メンバ変数宣言
 //-----------------------------
-int CLevel::m_nExp;
+int CLevel::m_nExpPoint;
 
 //===========================
 // コンストラクタ
@@ -31,6 +31,7 @@ CLevel::CLevel() : CObject2D()
 	m_rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);	//回転
 	m_nLevel = 0;
 	m_fLength = 0.0f;	//幅
+	m_pExp = nullptr;
 }
 
 //===========================
@@ -76,47 +77,48 @@ void CLevel::Update()
 {
 	CObject2D::Update();
 
-	//円形に移動する
-	D3DXVECTOR3 CirclePos = CObject2D::MoveCircle(m_pos, m_rot.x, m_fLength * 0.6f);
+	//取得した経験値で出現するゲージ分回す
+	for (int i = 0; i < m_nExpPoint / (5 * m_nLevel); i++)
+	{
+		//円形に移動した座標を求める
+		D3DXVECTOR3 CirclePos = CObject2D::MoveCircle(m_pos, m_rot.x, m_fLength * 0.6f);
 
-	//位置の設定
-	CObject2D::SetPosition(m_pos);
+		//位置の設定
+		CObject2D::SetPosition(m_pos);
 
-	//-----------------------
-	// レベルアップの処理
-	//-----------------------
-	if (m_nLevel < nMaxLevel)
-	{//レベルが最大じゃないなら
-		if (m_nExp >= (5 * m_nLevel))
-		{//一定経験値量を獲得したら
-			//経験値ゲージの生成
-			CExp::Create(CirclePos, m_rot, m_fLength * 0.6f);
+		//-----------------------
+		// レベルアップの処理
+		//-----------------------
+		if (m_nLevel > nMaxLevel)
+		{//レベルが最大なら
+			return;
+		}
 
-			if (m_rot.x >= 360.0f)
-			{//ゲージが一周したら
-				m_rot.x -= 360.0f;	//正規化
+		if (m_nExpPoint < (5 * m_nLevel))
+		{//一定経験値量に達していないなら
+			return;
+		}
 
-				//テクスチャ座標の変更
-				CObject2D::SetTexCIE(0.0f + (0.2f * m_nLevel), 0.2f + (0.2f * m_nLevel));
-				m_nLevel++;		//レベルの加算
-			}
-			else
-			{
-				//経験値ゲージを配置する角度を加算
-				m_rot.x += 30.0f;
-			}
+		//経験値ゲージの生成
+		m_pExp = CExp::Create(CirclePos, m_rot, m_fLength * 0.6f);
 
-			m_nExp = 0;
+		if (m_rot.x >= 360.0f)
+		{//ゲージが一周したら
+			m_rot.x -= 360.0f;	//正規化
+
+			//テクスチャ座標の変更
+			CObject2D::SetTexCIE(0.0f + (0.2f * m_nLevel), 0.2f + (0.2f * m_nLevel));
+			m_nLevel++;		//レベルの加算
+		}
+		else
+		{
+			//経験値ゲージを配置する角度を加算
+			m_rot.x += 30.0f;
 		}
 	}
 
-	/*if (CInputKeyboard::Trigger(DIK_UP))
-	{
-		if (m_nLevel < nMaxLevel)
-		{//レベルが最大じゃないなら
-			m_nLevel++;		//レベルの加算
-		}
-	}*/
+	//経験値の値をリセット
+	m_nExpPoint = 0;
 }
 
 //===========================
@@ -162,5 +164,5 @@ int CLevel::GetLevel()
 //===========================
 void CLevel::AddExp(int nValue)
 {
-	m_nExp += nValue;
+	m_nExpPoint += nValue;
 }

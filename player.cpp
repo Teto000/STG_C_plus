@@ -349,13 +349,13 @@ void CPlayer::SetSkill()
 	//-----------------------
 	if (CInputKeyboard::Trigger(DIK_1) && !m_bSlill[0])
 	{//1キーが押されたら
-		if (m_nLife + 30 >= m_nMaxLife)
+		if (m_nLife + 50 >= m_nMaxLife)
 		{//回復して上限なら
 			m_nLife = m_nMaxLife;	//体力を最大にする
 		}
 		else
 		{//それ以外なら
-			m_nLife += 30;	//体力を回復
+			m_nLife += 50;	//体力を回復
 		}
 
 		//残り体力を計算
@@ -366,6 +366,9 @@ void CPlayer::SetSkill()
 
 		//MPの減少
 		AddMagic(-10);
+
+		//サウンドの再生
+		CSound::PlaySound(CSound::SOUND_LABEL_SE_SKILL);
 
 		m_bSlill[0] = true;
 	}
@@ -381,6 +384,9 @@ void CPlayer::SetSkill()
 		//MPの減少
 		AddMagic(-10);
 
+		//サウンドの再生
+		CSound::PlaySound(CSound::SOUND_LABEL_SE_SKILL);
+
 		m_bSlill[1]= true;
 	}
 
@@ -395,6 +401,9 @@ void CPlayer::SetSkill()
 		//MPの減少
 		AddMagic(-10);
 
+		//サウンドの再生
+		CSound::PlaySound(CSound::SOUND_LABEL_SE_SKILL);
+
 		m_bSlill[2] = true;
 	}
 
@@ -404,10 +413,13 @@ void CPlayer::SetSkill()
 	if (CInputKeyboard::Trigger(DIK_4) && !m_bSlill[3])
 	{
 		//速度の上昇
-		m_nSpeed = 12.0f;
+		m_nSpeed = 13.0f;
 
 		//MPの減少
 		AddMagic(-10);
+
+		//サウンドの再生
+		CSound::PlaySound(CSound::SOUND_LABEL_SE_SKILL);
 
 		m_bSlill[3] = true;
 	}

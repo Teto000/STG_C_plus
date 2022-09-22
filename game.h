@@ -27,7 +27,7 @@ class CSkill;	//スキル
 class CGame
 {
 public:
-	enum EnemyType
+	enum EnemyName
 	{
 		NORMAL = 0,	//通常敵
 		HORMING,	//ホーミング
@@ -56,7 +56,7 @@ public:
 
 private:
 	void AppearEnemy();
-	void SetEnemy(float X, float Y, EnemyType type);
+	void SetEnemy(float X, float Y, EnemyName type);
 
 private:
 	//------------------
@@ -72,7 +72,7 @@ private:
 	int m_nTime;
 	int m_nSkillTime[nMaxSkill];
 	bool m_bSkill[nMaxSkill];
-	EnemyType type;
+	EnemyName type;
 
 	//------------------
 	// 静的メンバ変数

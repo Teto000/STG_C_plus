@@ -21,7 +21,9 @@ CSound::SOUNDPARAM g_aParam[CSound::SOUND_LABEL_MAX] =
 	{ "data/BGM/神様の道.wav", -1 },		// リザルト
 
 	/*↓ SE ↓*/
-	{ "data/SE/ボタン押下音０１.wav", 0 },	// 決定音
+	{ "data/SE/刀がぶつかる音_2.wav", 0 },			// 決定
+	{ "data/SE/風切り音（軽）.wav", 0 },			// 敵の攻撃
+	{ "data/SE/パワーアップ・強化・上昇.wav", 0 },	// スキル発動
 };
 
 //------------------------

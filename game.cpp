@@ -234,7 +234,7 @@ void CGame::AppearEnemy()
 //===========================
 // ìGÇÃê∂ê¨
 //===========================
-void CGame::SetEnemy(float X, float Y, EnemyType type)
+void CGame::SetEnemy(float X, float Y, EnemyName type)
 {
 	switch (type)
 	{
