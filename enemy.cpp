@@ -54,6 +54,8 @@ CEnemy::CEnemy() : CObject2D()
 	m_fHeight = 0.0f;			//高さ
 	m_fTargetRot = 0.0f;		//プレイヤーまでの角度
 	m_fChangeAngle = 0.0f;		//変動する移動量
+	m_fTexLeft = 0.0f;			//テクスチャ座標左側
+	m_fTexRight = 0.0f;			//テクスチャ座標右側
 	m_bChangeAttack = false;	//攻撃変化
 	m_type = ENEMYTYPE_MAX;		//種類
 	m_pHp = nullptr;			//HPバー
@@ -87,6 +89,7 @@ HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 	SetLife(50);					//体力
 	m_fWidth = 80.0f;				//幅
 	m_fHeight = 80.0f;				//高さ
+	m_fTexRight = 1.0f;				//テクスチャ座標右側	
 
 	CObject2D::Init(m_pos);
 
@@ -120,12 +123,11 @@ HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 		break;
 
 	case ENEMYTYPE_BIG:
-
+		m_fTexRight = 0.5f;
 		m_move.x = -2.0f;					//移動量
 		m_fWidth = 200.0f;					//幅
 		m_fHeight = 200.0f;					//高さ
 		SetLife(250 + (30 * m_nLevel));		//体力
-		CObject2D::SetTexCIE(0.0f, 0.5f);
 		CObject2D::SetTexture(CTexture::TEXTURE_ENEMY_BIG);	//テクスチャの設定
 		break;
 
@@ -133,7 +135,8 @@ HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 		break;
 	}
 
-	CObject2D::SetSize(m_fWidth, m_fHeight);	//サイズの設定
+	CObject2D::SetTexCIE(m_fTexLeft, m_fTexRight);	//テクスチャ座標設定
+	CObject2D::SetSize(m_fWidth, m_fHeight);		//サイズの設定
 
 	//--------------------------
 	// HPの表示
@@ -260,16 +263,15 @@ void CEnemy::Animation()
 	case ENEMYTYPE_BIG:
 		//テクスチャ切り替え時間の加算
 		m_nCntTime++;
-		m_nCntTime %= nMaxTexTime;	//リセット
+		m_nCntTime %= 80;	//リセット
 
-		if (m_nCntTime >= nHalfTexTime)
+		if (m_nCntTime % 40 == 0)
 		{
+			m_fTexLeft += 0.5f;
+			m_fTexRight += 0.5f;
+
 			//テクスチャ座標の設定
-			CObject2D::SetTexCIE(0.0f, 0.5f);
-		}
-		else
-		{
-			CObject2D::SetTexCIE(0.5f, 1.0f);
+			CObject2D::SetTexCIE(m_fTexLeft, m_fTexRight);
 		}
 		break;
 
@@ -402,12 +404,18 @@ bool CEnemy::Destroy()
 	//--------------------------
 	if (m_nLife <= 0)
 	{
-		CLevel::AddExp(10);				//経験値の取得
+		CLevel::AddExp(5);				//経験値の取得
 		CScore::AddScore(10);			//スコアの加算
 		//m_pExplosion->Create(m_pos);	//爆発の生成
 
 		switch (m_type)
 		{
+		case ENEMYTYPE_NORMAL:
+			break;
+
+		case ENEMYTYPE_HORMING:
+			break;
+
 		case ENEMYTYPE_HPITEM:
 			//アイテムの生成
 			m_pItem = CItem::Create(m_pos, CItem::ITEMTYPE_HPHEAL);
@@ -416,6 +424,10 @@ bool CEnemy::Destroy()
 		case ENEMYTYPE_MPITEM:
 			//アイテムの生成
 			m_pItem = CItem::Create(m_pos, CItem::ITEMTYPE_MPHEAL);
+			break;
+
+		case ENEMYTYPE_BIG:
+			CLevel::AddExp(10);				//経験値の取得
 			break;
 
 		default:

@@ -104,6 +104,8 @@ private:
 	float m_fHeight;				//高さ
 	float m_fTargetRot;				//プレイヤーまでの角度
 	float m_fChangeAngle;			//変動する移動量
+	float m_fTexLeft;				//テクスチャ座標左側
+	float m_fTexRight;				//テクスチャ座標右側
 	bool m_bChangeAttack;			//攻撃変化するかどうか
 	ENEMYTYPE m_type;				//種類
 

@@ -44,7 +44,7 @@ CResult::~CResult()
 HRESULT CResult::Init()
 {
 	//”wŒi‚Ì¶¬
-	m_pBG = CBg::Create(D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0.0f)
+	m_pBG->Create(D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0.0f)
 						, CBg::BGTYPE_RESULT);
 
 	//ƒTƒEƒ“ƒh‚ÌÄ¶
