@@ -60,7 +60,7 @@ HRESULT CGame::Init()
 	srand((unsigned int)time(NULL));
 
 	//メンバ変数の初期化
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i < nMaxSkill; i++)
 	{
 		m_bSkill[i] = false;
 		m_nSkillTime[i] = 0;
@@ -77,6 +77,8 @@ HRESULT CGame::Init()
 
 	m_pSkill[0] = CSkill::Create(CSkill::SKILLTYPE_HEAL);
 	m_pSkill[1] = CSkill::Create(CSkill::SKILLTYPE_SPEEDUP_FIRE);
+	m_pSkill[2] = CSkill::Create(CSkill::SKILLTYPE_ATTACKUP);
+	m_pSkill[3] = CSkill::Create(CSkill::SKILLTYPE_SPEEDUP);
 
 	//サウンドの再生
 	CSound::PlaySound(CSound::SOUND_LABEL_GAME);
@@ -113,6 +115,16 @@ void CGame::Update()
 	{
 		m_pSkill[1]->CObject2D::SetColor(D3DXCOLOR(0.4f, 0.4f, 0.4f, 1.0f));
 		m_bSkill[1] = true;
+	}
+	else if (CInputKeyboard::Trigger(DIK_3) && !m_bSkill[2])
+	{
+		m_pSkill[2]->CObject2D::SetColor(D3DXCOLOR(0.4f, 0.4f, 0.4f, 1.0f));
+		m_bSkill[2] = true;
+	}
+	else if (CInputKeyboard::Trigger(DIK_4) && !m_bSkill[3])
+	{
+		m_pSkill[3]->CObject2D::SetColor(D3DXCOLOR(0.4f, 0.4f, 0.4f, 1.0f));
+		m_bSkill[3] = true;
 	}
 
 	//-------------------------

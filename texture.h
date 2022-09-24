@@ -51,6 +51,8 @@ public: /* 定義 */
 		/* ↓ スキル ↓*/
 		TEXTURE_SKILL_HPHEAL,		//スキル(体力回復)
 		TEXTURE_SKILL_SPEEDUP_FIRE,	//スキル(弾速強化)
+		TEXTURE_SKILL_ATTACKUP,		//スキル(攻撃力上昇)
+		TEXTURE_SKILL_SPEEDUP,		//スキル(速度上昇)
 
 		/* ↓ 共通 ↓*/
 		TEXTURE_NUMBER,				//数字

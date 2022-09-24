@@ -50,6 +50,8 @@ const char* CTexture::s_FileName[] =
 	/* ↓ スキル ↓　*/
 	"data/TEXTURE/Skill/HPheal.png",		//スキル(体力回復)
 	"data/TEXTURE/Skill/SpeedUp_Fire.png",	//スキル(弾速強化)
+	"data/TEXTURE/Skill/AttackUp.png",		//スキル(攻撃力上昇)
+	"data/TEXTURE/Skill/SpeedUp.png",		//スキル(速度上昇)
 
 	/* ↓ 共通 ↓　*/
 	"data/TEXTURE/Number.png",		//数字

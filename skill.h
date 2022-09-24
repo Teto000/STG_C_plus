@@ -25,6 +25,8 @@ public:
 	{
 		SKILLTYPE_HEAL = 0,			//‰ñ•œ
 		SKILLTYPE_SPEEDUP_FIRE,		//”­ŽË‘¬“x‹­‰»
+		SKILLTYPE_ATTACKUP,			//UŒ‚—Íã¸
+		SKILLTYPE_SPEEDUP,			//‘¬“xã¸
 		SKILLTYPE_MAX,
 	};
 

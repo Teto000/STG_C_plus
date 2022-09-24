@@ -47,7 +47,7 @@ CSkill::~CSkill()
 HRESULT CSkill::Init(D3DXVECTOR3 pos)
 {
 	//構造体に代入
-	m_fWidth = 300.0f;
+	m_fWidth = 320.0f;
 	m_fHeight = 80.0f;
 	m_pos = D3DXVECTOR3(pos.x - (m_fWidth / 2), pos.y - (m_fHeight / 2), pos.z);
 
@@ -62,7 +62,15 @@ HRESULT CSkill::Init(D3DXVECTOR3 pos)
 		break;
 
 	case SKILLTYPE_SPEEDUP_FIRE:
-		CObject2D::SetTexture(CTexture::TEXTURE_SKILL_SPEEDUP_FIRE);	//テクスチャの設定
+		CObject2D::SetTexture(CTexture::TEXTURE_SKILL_SPEEDUP_FIRE);
+		break;
+
+	case SKILLTYPE_ATTACKUP:
+		CObject2D::SetTexture(CTexture::TEXTURE_SKILL_ATTACKUP);
+		break;
+
+	case SKILLTYPE_SPEEDUP:
+		CObject2D::SetTexture(CTexture::TEXTURE_SKILL_SPEEDUP);
 		break;
 
 	default:
@@ -86,10 +94,6 @@ void CSkill::Uninit()
 void CSkill::Update()
 {
 	CObject2D::Update();
-
-	//--------------------------
-	// スキル表示
-	//--------------------------
 
 	//位置に移動量を加算
 	m_pos = CObject2D::AddMove(m_move);
@@ -124,11 +128,19 @@ CSkill *CSkill::Create(SKILLTYPE type)
 		switch (pSkill->m_type)
 		{
 		case SKILLTYPE_HEAL:
-			pSkill->Init(D3DXVECTOR3(300.0f, 720.0f, 0.0f));
+			pSkill->Init(D3DXVECTOR3(320.0f, 720.0f, 0.0f));
 			break;
 
 		case SKILLTYPE_SPEEDUP_FIRE:
-			pSkill->Init(D3DXVECTOR3(600.0f, 720.0f, 0.0f));
+			pSkill->Init(D3DXVECTOR3(640.0f, 720.0f, 0.0f));
+			break;
+
+		case SKILLTYPE_ATTACKUP:
+			pSkill->Init(D3DXVECTOR3(960.0f, 720.0f, 0.0f));
+			break;
+
+		case SKILLTYPE_SPEEDUP:
+			pSkill->Init(D3DXVECTOR3(1280.0f, 720.0f, 0.0f));
 			break;
 
 		default:

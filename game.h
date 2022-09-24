@@ -63,7 +63,7 @@ private:
 	// 定数
 	//------------------
 	static const int nOneSecond = 60;	//一秒
-	static const int nMaxSkill = 2;		//スキルの最大数
+	static const int nMaxSkill = 4;		//スキルの最大数
 
 	//------------------
 	// メンバ変数
