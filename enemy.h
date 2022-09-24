@@ -68,11 +68,11 @@ public:
 	static void AddLevel();	//レベルアップ
 
 private:
-	void Animation();					//テクスチャアニメーション
-	void Move();						//移動処理
-	void CntAttack();					//攻撃までの時間を数える
-	void Attack();						//攻撃処理
-	bool Destroy();						//消える処理
+	void Animation();	//テクスチャアニメーション
+	void Move();		//移動処理
+	void CntAttack();	//攻撃までの時間を数える
+	void Attack();		//攻撃処理
+	bool Destroy();		//消える処理
 	D3DXVECTOR3 Homing(float& posX, float& posY,
 					float& moveX, float& moveY);	//ホーミング弾
 
@@ -82,7 +82,7 @@ private:
 	//----------------
 	static const int nMaxTexTime = 80;
 	static const int nHalfTexTime = (nMaxTexTime / 2);
-	static const int nShotTime = 100;	//弾の発射時間
+	static const int nShotTime = 130;		//弾の発射時間
 	static const float fBulletSpeed_Homing;	//ホーミング弾の速度
 
 	//----------------

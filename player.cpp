@@ -28,7 +28,7 @@
 //------------------------
 // 静的メンバ変数宣言
 //------------------------
-const float CPlayer::fPlayerSpeed = 8.0f;
+const float CPlayer::fPlayerSpeed = 7.0f;
 D3DXCOLOR CPlayer::m_col = D3DXCOLOR(1.0f, 1.0f, 1.0f,1.0f);
 
 //===========================
@@ -51,6 +51,7 @@ CPlayer::CPlayer() : CObject2D()
 	m_nCntShotTime = 0;			//弾の発射時間を数える
 	m_nCntInvincible = 0;		//無敵時間を数える
 	m_nCntSkill[nMaxSkill] = {};//スキルの使用可能時間を数える
+	m_nCntTime = 0;				//テクスチャアニメーションカウント
 	m_nSpeed = 0.0f;			//速度
 	m_fWidth = 0.0f;			//幅
 	m_fHeight = 0.0f;			//高さ
@@ -85,8 +86,8 @@ HRESULT CPlayer::Init(D3DXVECTOR3 pos)
 	m_nMagic = 100;				//MP
 	m_nMaxMagic = 100;			//最大MP
 	m_nRemMagic = 100;			//残りMP
-	m_fWidth = 60.0f;			//幅
-	m_fHeight = 80.0f;			//高さ
+	m_fWidth = 90.0f;			//幅
+	m_fHeight = 100.0f;			//高さ
 	m_nAttack = 10;				//攻撃力
 	m_nShotTime = 20;			//弾の発射時間
 	m_nSpeed = fPlayerSpeed;	//速度
@@ -104,6 +105,9 @@ HRESULT CPlayer::Init(D3DXVECTOR3 pos)
 	CObject2D::SetTexture(CTexture::TEXTURE_PLAYER);	//テクスチャの設定
 
 	m_pos = CObject2D::GetPosition();
+
+	//テクスチャ座標の設定
+	CObject2D::SetTexCIE(0.0f, 0.5f);
 
 	//--------------------------
 	// HPの表示
@@ -149,6 +153,11 @@ void CPlayer::Update()
 	// プレイヤーの操作
 	//--------------------
 	D3DXVECTOR3 move = OperationPlayer();
+
+	//---------------------------
+	// テクスチャアニメーション
+	//---------------------------
+	Animation();
 
 	//--------------------
 	// 移動量を更新(減衰)
@@ -413,7 +422,7 @@ void CPlayer::SetSkill()
 	if (CInputKeyboard::Trigger(DIK_4) && !m_bSlill[3])
 	{
 		//速度の上昇
-		m_nSpeed = 13.0f;
+		m_nSpeed = 10.0f;
 
 		//MPの減少
 		AddMagic(-10);
@@ -440,6 +449,24 @@ void CPlayer::InvincibleTime()
 		m_type = PLAYERSTATE_NORMAL;	//通常の状態に戻す
 		m_col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 		m_nCntInvincible = 0;
+	}
+}
+
+//============================
+// テクスチャアニメーション
+//============================
+void CPlayer::Animation()
+{
+	m_nCntTime++;
+	m_nCntTime %= 80;	//リセット
+
+	if (m_nCntTime >= 40)
+	{
+		CObject2D::SetTexCIE(0.0f, 0.5f);	//テクスチャ座標の設定
+	}
+	else
+	{
+		CObject2D::SetTexCIE(0.5f, 1.0f);
 	}
 }
 

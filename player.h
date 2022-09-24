@@ -66,6 +66,7 @@ public:
 private:
 	D3DXVECTOR3 OperationPlayer();	//操作
 	void InvincibleTime();			//無敵時間
+	void Animation();				//テクスチャアニメーション
 
 private:
 	//------------------
@@ -94,6 +95,7 @@ private:
 	int m_nCntShotTime;			//弾の発射時間を数える
 	int m_nCntInvincible;		//無敵時間を数える
 	int m_nCntSkill[nMaxSkill];	//スキルの使用可能時間を数える
+	int m_nCntTime;				//テクスチャアニメーションカウント
 	float m_nSpeed;				//速度
 	float m_fWidth;				//幅
 	float m_fHeight;			//高さ
