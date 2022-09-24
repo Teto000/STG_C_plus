@@ -14,6 +14,7 @@
 #include "object2D.h"
 #include "input_keybord.h"
 #include "game.h"
+#include "sound.h"
 #include "player.h"
 #include "explosion.h"
 #include "damage.h"
@@ -312,6 +313,9 @@ void CBullet::CollisionBullet(CObject::EObjType ObjType)
 
 			pExplosion->Create(m_pos, (float)m_nPlayerAttack, (float)m_nPlayerAttack);//爆発の生成
 			//pDamage->Create(m_pos, 20.0f, 30.0f, 20.0f, 2, m_nPlayerAttack);	//ダメージの表示
+
+			//サウンドの再生
+			CSound::PlaySound(CSound::SOUND_LABEL_SE_EXPLOSION);
 
 			//弾の消滅
 			Uninit();

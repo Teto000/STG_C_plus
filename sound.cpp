@@ -24,6 +24,7 @@ CSound::SOUNDPARAM g_aParam[CSound::SOUND_LABEL_MAX] =
 	{ "data/SE/刀がぶつかる音_2.wav", 0 },			// 決定
 	{ "data/SE/風切り音（軽）.wav", 0 },			// 敵の攻撃
 	{ "data/SE/パワーアップ・強化・上昇.wav", 0 },	// スキル発動
+	{ "data/SE/可愛い足音.wav", 0 },				// 爆発
 };
 
 //------------------------
