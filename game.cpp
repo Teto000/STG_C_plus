@@ -73,7 +73,7 @@ HRESULT CGame::Init()
 	m_pPlayer = CPlayer::Create();
 
 	//ÉXÉRÉAÇÃê∂ê¨
-	m_pScore = CScore::Create();
+	m_pScore = CScore::Create(CScore::MODE_GAME);
 
 	m_pSkill[0] = CSkill::Create(CSkill::SKILLTYPE_HEAL);
 	m_pSkill[1] = CSkill::Create(CSkill::SKILLTYPE_SPEEDUP_FIRE);

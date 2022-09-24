@@ -81,6 +81,8 @@ private:
 	static CInput*			m_pInput;		//インプットクラス
 	static CTexture*		m_pTexture;		//テクスチャクラス
 	static CSound*			m_pSound;		//サウンドクラス
+
+	static int m_score;		//スコアの値
 };
 
 #endif // !_APPLICATION_H_

@@ -21,6 +21,7 @@
 #include "result.h"
 #include "skillselect.h"
 #include "fade.h"
+#include "score.h"
 
 //------------------------
 // 静的メンバ変数宣言
@@ -36,6 +37,8 @@ CRenderer*	CApplication::m_pRenderer = nullptr;//レンダラー
 CInput*		CApplication::m_pInput = nullptr;	//インプット
 CTexture*	CApplication::m_pTexture = nullptr;	//テクスチャ
 CSound*		CApplication::m_pSound = nullptr;	//サウンド
+
+int CApplication::m_score = 0;	//スコアの値
 
 //===========================
 // コンストラクタ
@@ -185,6 +188,7 @@ void CApplication::SetMode(MODE mode)
 		break;
 
 	case MODE_GAME:
+		m_score = m_pGame->GetScore()->GetScore();
 		m_pGame->Uninit();
 		break;
 
@@ -221,6 +225,7 @@ void CApplication::SetMode(MODE mode)
 		m_pResult = nullptr;
 		m_pResult = new CResult;
 		m_pResult->Init();
+		m_pResult->GetScore()->SetScore(m_score);
 		break;
 
 	default:

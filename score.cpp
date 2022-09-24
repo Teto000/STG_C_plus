@@ -44,9 +44,22 @@ HRESULT CScore::Init(D3DXVECTOR3 pos)
 {
 	//構造体の初期化
 	m_pos = pos;
-	m_fWidth = 30.0f;		//幅
-	m_fHeight = 50.0f;	//高さ
-	m_fSpace = 35.0f;		//間隔
+
+	switch (m_mode)
+	{
+	case MODE_GAME:
+		m_fWidth = 30.0f;		//幅
+		m_fHeight = 50.0f;		//高さ
+		break;
+
+	case MODE_RESULT:
+		m_fWidth = 60.0f;		//幅
+		m_fHeight = 100.0f;		//高さ
+		break;
+
+	default:
+		break;
+	}
 
 	m_nScore = 0;	//スコアの初期設定
 
@@ -101,7 +114,7 @@ void CScore::Draw()
 //===========================
 // 生成
 //===========================
-CScore *CScore::Create()
+CScore *CScore::Create(MODE mode)
 {
 	CScore *pScore = nullptr;
 
@@ -114,8 +127,25 @@ CScore *CScore::Create()
 
 		if (pScore != nullptr)
 		{//NULLチェック
+			//メンバ変数に代入
+			pScore->m_mode = mode;
+
 			//初期化
-			pScore->Init(D3DXVECTOR3(1000.0f + (i * 35.0f), 50.0f, 0.0f));
+			switch (pScore->m_mode)
+			{
+			case MODE_GAME:
+				pScore->m_fSpace = 35.0f;	//間隔
+				pScore->Init(D3DXVECTOR3(1000.0f + (i * pScore->m_fSpace), 50.0f, 0.0f));
+				break;
+
+			case MODE_RESULT:
+				pScore->m_fSpace = 70.0f;	//間隔
+				pScore->Init(D3DXVECTOR3(640.0f + (i * pScore->m_fSpace), 360.0f, 0.0f));
+				break;
+				
+			default:
+				break;
+			}
 			pScore->SetObjType(OBJTYPE_SCORE);
 		}
 	}
@@ -129,6 +159,14 @@ CScore *CScore::Create()
 void CScore::AddScore(int nValue)
 {
 	m_nScore += nValue;
+}
+
+//===========================
+// 数値の設定
+//===========================
+void CScore::SetScore(int nScore)
+{
+	m_nScore = nScore;
 }
 
 //===========================

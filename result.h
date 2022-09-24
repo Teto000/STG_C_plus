@@ -15,7 +15,8 @@
 //-----------------------
 // 前方宣言
 //-----------------------
-class CBg;			//背景
+class CBg;		//背景
+class CScore;	//スコア
 
 //-------------------------
 // リザルトクラスの定義
@@ -36,13 +37,15 @@ public:
 	//------------------
 	// 静的メンバ関数
 	//------------------
-	static CBg	*GetBG();	//背景の取得
+	static CBg		*GetBG();		//背景の取得
+	static CScore	*GetScore();	//スコアの取得
 
 private:
 	//------------------
 	// 静的メンバ変数
 	//------------------
-	static CBg	*m_pBG;	//背景クラス
+	static CBg		*m_pBG;		//背景クラス
+	static CScore	*m_pScore;	//スコアクラス
 };
 
 #endif

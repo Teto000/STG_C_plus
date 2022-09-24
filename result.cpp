@@ -16,11 +16,13 @@
 #include "application.h"
 #include "bg.h"
 #include "sound.h"
+#include "score.h"
 
 //------------------------
 // 静的メンバ変数宣言
 //------------------------
-CBg *CResult::m_pBG = nullptr;	//背景
+CBg		*CResult::m_pBG = nullptr;		//背景
+CScore	*CResult::m_pScore = nullptr;	//スコア
 
 //===========================
 // コンストラクタ
@@ -46,6 +48,9 @@ HRESULT CResult::Init()
 	//背景の生成
 	m_pBG->Create(D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0.0f)
 						, CBg::BGTYPE_RESULT);
+
+	//スコアの生成
+	m_pScore->Create(CScore::MODE_RESULT);
 
 	//サウンドの再生
 	CSound::PlaySound(CSound::SOUND_LABEL_RESULT);
@@ -82,4 +87,12 @@ void CResult::Update()
 CBg *CResult::GetBG()
 {
 	return m_pBG;
+}
+
+//===========================
+// スコアの取得
+//===========================
+CScore *CResult::GetScore()
+{
+	return m_pScore;
 }

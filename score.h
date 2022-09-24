@@ -16,6 +16,13 @@
 class CScore : public CObject2D
 {
 public:
+	enum MODE
+	{
+		MODE_GAME = 0,	//ゲーム画面
+		MODE_RESULT,	//リザルト画面
+		MODE_MAX
+	};
+
 	CScore();				//コンストラクタ
 	~CScore() override;		//デストラクタ
 
@@ -33,8 +40,9 @@ public:
 	//----------------
 	// 静的メンバ関数
 	//----------------
-	static CScore *Create();
+	static CScore *Create(MODE mode);
 	static void AddScore(int nValue);
+	static void SetScore(int nScore);
 
 private:
 	//----------------
@@ -49,6 +57,7 @@ private:
 	float m_fWidth;		//幅
 	float m_fHeight;	//高さ
 	float m_fSpace;		//間隔
+	MODE  m_mode;		//モード
 
 	//----------------
 	// 静的メンバ変数
