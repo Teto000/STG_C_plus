@@ -45,6 +45,7 @@ public: /* 定義 */
 		TEXTURE_BG_TITLE_TIME,		//タイムアタック
 		TEXTURE_BG_TITLE_SCORE,		//スコアアタック
 		TEXTURE_BG_RESULT,			//リザルト画面の背景
+		TEXTURE_BG_RESULTTEXT,		//リザルト画面の文字
 
 		/* ↓ UI ↓*/
 		TEXTURE_EXP,				//経験値

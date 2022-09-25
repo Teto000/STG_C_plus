@@ -42,10 +42,15 @@ public:
 
 private:
 	//------------------
+	// 定数
+	//------------------
+	static const int MaxBg = 2;	//背景の最大数
+
+	//------------------
 	// 静的メンバ変数
 	//------------------
-	static CBg		*m_pBG;		//背景クラス
-	static CScore	*m_pScore;	//スコアクラス
+	static CBg		*m_pBG[MaxBg];	//背景クラス
+	static CScore	*m_pScore;		//スコアクラス
 };
 
 #endif

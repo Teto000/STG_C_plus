@@ -25,6 +25,7 @@ public:
 		BGTYPE_TITLE_LOGO,	//タイトルロゴ
 		BGTYPE_TITLE_ENTER,	//プレスエンター
 		BGTYPE_RESULT,		//リザルト画面
+		BGTYPE_RESULTTEXT,	//リザルトの文字
 		BGTYPE_SELECTMODE,	//モード選択画面
 		BGTYPE_MAX
 	};

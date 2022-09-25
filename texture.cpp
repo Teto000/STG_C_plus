@@ -44,6 +44,7 @@ const char* CTexture::s_FileName[] =
 	"data/TEXTURE/BG/TimeAttack.png",	//タイムアタック
 	"data/TEXTURE/BG/ScoreAttack.png",	//スコアアタック
 	"data/TEXTURE/BG/Result.png",		//リザルト画面の背景
+	"data/TEXTURE/BG/ResultText.png",	//リザルト画面の文字
 
 	/* ↓ UI ↓　*/
 	"data/TEXTURE/UI/Exp.png",			//経験値

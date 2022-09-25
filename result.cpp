@@ -21,7 +21,7 @@
 //------------------------
 // Ã“Iƒƒ“ƒo•Ï”éŒ¾
 //------------------------
-CBg		*CResult::m_pBG = nullptr;		//”wŒi
+CBg		*CResult::m_pBG[MaxBg] = {};	//”wŒi
 CScore	*CResult::m_pScore = nullptr;	//ƒXƒRƒA
 
 //===========================
@@ -46,8 +46,11 @@ CResult::~CResult()
 HRESULT CResult::Init()
 {
 	//”wŒi‚Ì¶¬
-	m_pBG->Create(D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0.0f)
+	m_pBG[0]->Create(D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0.0f)
 						, CBg::BGTYPE_RESULT);
+
+	m_pBG[1]->Create(D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0.0f)
+		, CBg::BGTYPE_RESULTTEXT);
 
 	//ƒXƒRƒA‚Ì¶¬
 	m_pScore->Create(CScore::MODE_RESULT);
@@ -86,7 +89,7 @@ void CResult::Update()
 //===========================
 CBg *CResult::GetBG()
 {
-	return m_pBG;
+	return m_pBG[0];
 }
 
 //===========================
