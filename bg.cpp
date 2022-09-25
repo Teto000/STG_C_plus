@@ -124,10 +124,12 @@ void CBg::Update()
 		m_nCntClear++;
 		m_nCntClear %= 80;
 
-		//ゲーム画面 or タイトル画面 or リザルト画面なら
+		//-----------------
+		// 背景の移動
+		//-----------------
 		if (m_type == BGTYPE_GAME || m_type == BGTYPE_TITLE || m_type == BGTYPE_RESULT
 			&& m_nCntAnim == 0)
-		{
+		{//ゲーム画面 or タイトル画面 or リザルト画面なら
 			//テクスチャ座標の加算
 			m_fTexLeft += 0.0005f;
 			m_fTexRight += 0.0005f;
@@ -136,7 +138,9 @@ void CBg::Update()
 			m_pObject2D->SetTexCIE(m_fTexLeft, m_fTexRight);
 		}
 
-		//プレスエンターを点滅させる
+		//-----------------------------
+		// プレスエンターを点滅させる
+		//-----------------------------
 		if (m_type == BGTYPE_TITLE_ENTER)
 		{
 			if (m_nCntClear < 40)
