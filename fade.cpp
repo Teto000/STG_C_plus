@@ -89,7 +89,6 @@ void CFade::Update()
 				m_col.a = 1.0f;
 				m_fade = FADE_IN;	//フェードイン状態に
 
-				//
 				SetFade(m_modeNext);
 			}
 		}

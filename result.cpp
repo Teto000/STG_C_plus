@@ -50,7 +50,7 @@ HRESULT CResult::Init()
 						, CBg::BGTYPE_RESULT);
 
 	m_pBG[1]->Create(D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0.0f)
-		, CBg::BGTYPE_RESULTTEXT);
+						, CBg::BGTYPE_RESULTTEXT);
 
 	//ƒXƒRƒA‚Ì¶¬
 	m_pScore->Create(CScore::MODE_RESULT);

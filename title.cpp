@@ -103,7 +103,10 @@ void CTitle::Update()
 	}
 
 	//ƒ‚[ƒh‘I‘ğˆ—
-	SelectMode();
+	if (m_bPressEneter)
+	{
+		SelectMode();
+	}
 }
 
 //===========================
