@@ -86,7 +86,6 @@ HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 	m_pos = pos;					//位置
 	m_nRemLife = 100;				//残り体力
 	m_nAttack = 10 + (5 * m_nLevel);//攻撃力
-	SetLife(50);					//体力
 	m_fWidth = 80.0f;				//幅
 	m_fHeight = 80.0f;				//高さ
 	m_fTexRight = 1.0f;				//テクスチャ座標右側	
@@ -100,25 +99,26 @@ HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 	{
 	//通常の敵
 	case ENEMYTYPE_NORMAL:
-		m_move.x = -2.0f;	//移動量
+		m_move.x = -2.0f;					//移動量
+		SetLife(50 + (50 * m_nLevel));		//体力
 		CObject2D::SetTexture(CTexture::TEXTURE_ENEMY_RED);	//テクスチャの設定
 		break;
 
 	//ホーミングする敵
 	case ENEMYTYPE_HORMING:
-		SetLife(100 + (20 * m_nLevel));		//体力
+		SetLife(100 + (100 * m_nLevel));		//体力
 		CObject2D::SetTexture(CTexture::TEXTURE_ENEMY_BLUE);	//テクスチャの設定
 		break;
 
 	case ENEMYTYPE_HPITEM:
 		m_move.x = -3.0f;	//移動量
-		SetLife(100 + (20 * m_nLevel));		//体力
+		SetLife(100 + (100 * m_nLevel));		//体力
 		CObject2D::SetTexture(CTexture::TEXTURE_ENEMY_GREEN);	//テクスチャの設定
 		break;
 
 	case ENEMYTYPE_MPITEM:
 		m_move.x = -3.0f;	//移動量
-		SetLife(100 + (20 * m_nLevel));		//体力
+		SetLife(100 + (100 * m_nLevel));		//体力
 		CObject2D::SetTexture(CTexture::TEXTURE_ENEMY_PINK);	//テクスチャの設定
 		break;
 
@@ -127,7 +127,7 @@ HRESULT CEnemy::Init(D3DXVECTOR3 pos)
 		m_move.x = -2.0f;					//移動量
 		m_fWidth = 200.0f;					//幅
 		m_fHeight = 200.0f;					//高さ
-		SetLife(250 + (30 * m_nLevel));		//体力
+		SetLife(250 + (250 * m_nLevel));	//体力
 		CObject2D::SetTexture(CTexture::TEXTURE_ENEMY_BIG);	//テクスチャの設定
 		break;
 

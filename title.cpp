@@ -20,7 +20,7 @@
 //------------------------
 // 静的メンバ変数宣言
 //------------------------
-CBg *CTitle::m_pBG[2] = {};	//背景
+CBg *CTitle::m_pBG[MaxBg] = {};	//背景
 
 //===========================
 // コンストラクタ
@@ -47,8 +47,11 @@ HRESULT CTitle::Init()
 	m_pBG[0]->Create(D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0.0f)
 					, CBg::BGTYPE_TITLE);
 
-	m_pBG[1]->Create(D3DXVECTOR3(SCREEN_WIDTH / 2, 300.0f, 0.0f)
+	m_pBG[1]->Create(D3DXVECTOR3(SCREEN_WIDTH / 2, 250.0f, 0.0f)
 					, CBg::BGTYPE_TITLE_LOGO);
+
+	m_pBG[2]->Create(D3DXVECTOR3(SCREEN_WIDTH / 2, 550.0f, 0.0f)
+					, CBg::BGTYPE_TITLE_ENTER);
 
 	//サウンドの再生
 	CSound::PlaySound(CSound::SOUND_LABEL_TITLE);

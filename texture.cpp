@@ -40,6 +40,7 @@ const char* CTexture::s_FileName[] =
 	"data/TEXTURE/BG/Game.png",			//背景
 	"data/TEXTURE/BG/Title.png",		//タイトル画面の背景
 	"data/TEXTURE/BG/TitleLogo.png",	//タイトルロゴ
+	"data/TEXTURE/BG/PressEnter.png",	//プレスエンター
 	"data/TEXTURE/BG/Result.png",		//リザルト画面の背景
 
 	/* ↓ UI ↓　*/

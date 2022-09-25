@@ -40,9 +40,14 @@ public:
 
 private:
 	//------------------
+	// ’è”
+	//------------------
+	static const int MaxBg = 3;	//”wŒi‚ÌÅ‘å”
+
+	//------------------
 	// Ã“Iƒƒ“ƒo•Ï”
 	//------------------
-	static CBg	*m_pBG[2];	//”wŒiƒNƒ‰ƒX
+	static CBg	*m_pBG[MaxBg];	//”wŒiƒNƒ‰ƒX
 };
 
 #endif

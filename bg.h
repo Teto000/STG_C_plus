@@ -23,6 +23,7 @@ public:
 		BGTYPE_GAME = 0,	//ゲーム画面
 		BGTYPE_TITLE,		//タイトル画面
 		BGTYPE_TITLE_LOGO,	//タイトルロゴ
+		BGTYPE_TITLE_ENTER,	//プレスエンター
 		BGTYPE_RESULT,		//リザルト画面
 		BGTYPE_MAX
 	};
@@ -55,6 +56,7 @@ private:
 	CObject2D *m_pObject2D;		//オブジェクト2D
 	D3DXVECTOR3 m_pos;			//位置
 	int m_nCntAnim;				//アニメーションカウント
+	int m_nCntClear;			//透明にする時間カウント
 	float m_fWidth;				//幅
 	float m_fHeight;			//高さ
 	float m_fTexLeft;			//テクスチャ座標左側

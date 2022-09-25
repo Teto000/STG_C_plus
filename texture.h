@@ -41,6 +41,7 @@ public: /* 定義 */
 		TEXTURE_BG_GAME,			//ゲーム画面の背景
 		TEXTURE_BG_TITLE,			//タイトル画面の背景
 		TEXTURE_BG_TITLE_LOGO,		//タイトルロゴ
+		TEXTURE_BG_TITLE_PRESSENTER,//プレスエンター
 		TEXTURE_BG_RESULT,			//リザルト画面の背景
 
 		/* ↓ UI ↓*/

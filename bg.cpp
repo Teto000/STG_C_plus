@@ -23,6 +23,7 @@ CBg::CBg() : CObject(0)
 	m_pObject2D = nullptr;
 	m_pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	m_nCntAnim = 0;
+	m_nCntClear = 0;
 	m_fTexLeft = 0.0f;
 	m_fTexRight = 0.0f;
 	m_fWidth = 0.0f;
@@ -75,6 +76,12 @@ HRESULT CBg::Init(D3DXVECTOR3 pos)
 			m_fHeight = 300.0f;
 			break;
 
+		case BGTYPE_TITLE_ENTER:
+			m_pObject2D->SetTexture(CTexture::TEXTURE_BG_TITLE_PRESSENTER);
+			m_fWidth = 600.0f;
+			m_fHeight = 100.0f;
+			break;
+
 		case BGTYPE_RESULT:
 			m_pObject2D->SetTexture(CTexture::TEXTURE_BG_RESULT);
 			m_fTexRight = 0.5f;
@@ -110,9 +117,12 @@ void CBg::Update()
 {
 	if (m_pObject2D != nullptr)
 	{
-		//アニメーションカウントの加算
+		//カウントの加算
 		m_nCntAnim++;
 		m_nCntAnim %= 10;
+
+		m_nCntClear++;
+		m_nCntClear %= 80;
 
 		//ゲーム画面 or タイトル画面 or リザルト画面なら
 		if (m_type == BGTYPE_GAME || m_type == BGTYPE_TITLE || m_type == BGTYPE_RESULT
@@ -126,16 +136,18 @@ void CBg::Update()
 			m_pObject2D->SetTexCIE(m_fTexLeft, m_fTexRight);
 		}
 
-		//ゲーム画面
-		/*if (m_type == BGTYPE_GAME && m_nCntAnim == 0)
+		//プレスエンターを点滅させる
+		if (m_type == BGTYPE_TITLE_ENTER)
 		{
-			//テクスチャ座標の加算
-			m_fTexLeft += 0.0005f;
-			m_fTexRight += 0.0005f;
-
-			//テクスチャ座標の設定
-			m_pObject2D->SetTexCIE(m_fTexLeft, m_fTexRight);
-		}*/
+			if (m_nCntClear < 40)
+			{
+				m_pObject2D->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
+			}
+			else
+			{
+				m_pObject2D->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.2f));
+			}
+		}
 	}
 }
 
