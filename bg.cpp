@@ -96,7 +96,7 @@ HRESULT CBg::Init(D3DXVECTOR3 pos)
 			m_pObject2D->SetTexture(CTexture::TEXTURE_NONE);
 			m_fWidth = 600.0f;
 			m_fHeight = 500.0f;
-			m_pObject2D->SetColor(D3DXCOLOR(0.4f, 0.4f, 0.4f, 0.5f));
+			m_pObject2D->SetColor(D3DXCOLOR(0.8f, 0.4f, 0.4f, 0.5f));
 			break;
 
 		default:
