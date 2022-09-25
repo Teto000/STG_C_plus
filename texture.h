@@ -42,6 +42,8 @@ public: /* 定義 */
 		TEXTURE_BG_TITLE,			//タイトル画面の背景
 		TEXTURE_BG_TITLE_LOGO,		//タイトルロゴ
 		TEXTURE_BG_TITLE_PRESSENTER,//プレスエンター
+		TEXTURE_BG_TITLE_TIME,		//タイムアタック
+		TEXTURE_BG_TITLE_SCORE,		//スコアアタック
 		TEXTURE_BG_RESULT,			//リザルト画面の背景
 
 		/* ↓ UI ↓*/

@@ -15,7 +15,8 @@
 //-----------------------
 // 前方宣言
 //-----------------------
-class CBg;	//背景
+class CBg;			//背景
+class CGameMode;	//ゲームモード
 
 //-------------------------
 // タイトルクラスの定義
@@ -39,15 +40,29 @@ public:
 	static CBg	*GetBG();	//背景の取得
 
 private:
+	void SelectMode();
+	void ChangeNumber();
+
+private:
 	//------------------
 	// 定数
 	//------------------
-	static const int MaxBg = 3;	//背景の最大数
+	static const int MaxBg = 3;		//背景の最大数
+	static const int MaxMode = 2;	//モードの最大数
+	static const int AnimationTime = 80;
+
+	//------------------
+	// メンバ変数
+	//------------------
+	int nCntTime;			//アニメーションカウント
+	int nNumber;			//選択中の番号
+	bool m_bPressEneter;	//エンターキーが押されたか
 
 	//------------------
 	// 静的メンバ変数
 	//------------------
-	static CBg	*m_pBG[MaxBg];	//背景クラス
+	static CBg		 *m_pBG[MaxBg];			//背景クラス
+	static CGameMode *m_pGameMode[MaxMode];	//ゲームモードクラス
 };
 
 #endif
