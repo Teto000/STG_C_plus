@@ -173,12 +173,6 @@ void CGame::Update()
 			CApplication::SetMode(CApplication::MODE_RESULT);
 		}
 	}
-
-	//‰æ–Ê‘JˆÚ
-	/*if (CInputKeyboard::Trigger(DIK_RETURN))
-	{
-		CApplication::SetMode(CApplication::MODE_RESULT);
-	}*/
 }
 
 //===========================

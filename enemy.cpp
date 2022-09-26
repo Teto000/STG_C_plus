@@ -457,6 +457,8 @@ bool CEnemy::Destroy()
 	{//プレイヤーと当たった && ホーミングする敵なら
 		CLevel::AddExp(10);					//経験値の取得
 		CGame::GetPlayer()->AddLife(-15);	//プレイヤーの体力を減らす
+		SetLife(0);							//体力を0にする
+		m_pHp->SetLife(0, 0);//HPに体力を設定
 		return true;
 	}
 
