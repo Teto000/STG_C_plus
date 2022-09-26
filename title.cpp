@@ -99,6 +99,15 @@ void CTitle::Update()
 		//SE‚ÌÄ¶
 		CSound::PlaySound(CSound::SOUND_LABEL_SE_BUTTOM);
 
+		if (nNumber == 0)
+		{
+			CGame::SetMode(CGame::MODE_TIME);
+		}
+		else if (nNumber == 1)
+		{
+			CGame::SetMode(CGame::MODE_SCORE);
+		}
+
 		CApplication::SetMode(CApplication::MODE_GAME);
 		return;
 	}
@@ -146,11 +155,6 @@ void CTitle::ChangeNumber()
 			m_pGameMode[nNumber]->GetObject2D()->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
 			nNumber = 1;
 		}
-
-		if (CInputKeyboard::Trigger(DIK_RETURN))
-		{
-			CGame::SetMode(CGame::MODE_TIME);
-		}
 	}
 	else if (nNumber == 1)
 	{
@@ -158,11 +162,6 @@ void CTitle::ChangeNumber()
 		{
 			m_pGameMode[nNumber]->GetObject2D()->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
 			nNumber = 0;
-		}
-
-		if (CInputKeyboard::Trigger(DIK_RETURN))
-		{
-			CGame::SetMode(CGame::MODE_SCORE);
 		}
 	}
 }
