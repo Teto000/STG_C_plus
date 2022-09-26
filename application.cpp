@@ -23,6 +23,7 @@
 #include "fade.h"
 #include "score.h"
 #include "timer.h"
+#include "tutorial.h"
 
 //------------------------
 // 静的メンバ変数宣言
@@ -30,7 +31,7 @@
 CTitle*				CApplication::m_pTitle = nullptr;		//タイトルクラス
 CGame*				CApplication::m_pGame = nullptr;		//ゲームクラス
 CResult*			CApplication::m_pResult = nullptr;		//リザルトクラス
-CSkillSelect*		CApplication::m_pSkillSelect = nullptr;	//スキルセレクトクラス
+CTutorial*			CApplication::m_pTutorial = nullptr;	//チュートリアルクラス
 CFade*				CApplication::m_pFade = nullptr;		//フェードクラス
 CApplication::MODE	CApplication::m_mode = MODE_MAX;		//ゲームモード
 
@@ -157,6 +158,10 @@ void CApplication::Update()
 		m_pResult->Update();
 		break;
 
+	case MODE_TUTORIAL:
+		m_pTutorial->Update();
+		break;
+
 	default:
 		break;
 	}
@@ -203,6 +208,10 @@ void CApplication::SetMode(MODE mode)
 		m_pResult->Uninit();
 		break;
 
+	case MODE_TUTORIAL:
+		m_pTutorial->Uninit();
+		break;
+
 	default:
 		break;
 	}
@@ -234,6 +243,12 @@ void CApplication::SetMode(MODE mode)
 		m_pResult->Init();
 		m_pResult->GetScore()->SetScore(m_nScore);
 		m_pResult->GetTimer()->SetTime(m_nTime);
+		break;
+
+	case MODE_TUTORIAL:
+		m_pTutorial = nullptr;
+		m_pTutorial = new CTutorial;
+		m_pTutorial->Init();
 		break;
 
 	default:

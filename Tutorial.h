@@ -1,11 +1,11 @@
 //=====================================
 //
-// タイトルヘッダー
+// チュートリアルヘッダー
 // Author : Sato Teruto
 //
 //=====================================
-#ifndef _TITLE_H_
-#define _TITLE_H_	
+#ifndef _TUTORIAL_H_
+#define _TUTORIAL_H_	
 
 //--------------------
 // インクルード
@@ -15,17 +15,16 @@
 //-----------------------
 // 前方宣言
 //-----------------------
-class CBg;			//背景
-class CGameMode;	//ゲームモード
+class CBg;	//背景
 
 //-------------------------
 // タイトルクラスの定義
 //-------------------------
-class CTitle
+class CTutorial
 {
 public:
-	CTitle();	//コンストラクタ
-	~CTitle();	//デストラクタ
+	CTutorial();	//コンストラクタ
+	~CTutorial();	//デストラクタ
 
 	//------------------
 	// メンバ関数
@@ -34,35 +33,21 @@ public:
 	void Uninit();
 	void Update();
 
-	//------------------
-	// 静的メンバ関数
-	//------------------
-	static CBg	*GetBG();	//背景の取得
-
-private:
-	void SelectMode();
-	void ChangeNumber();
-
 private:
 	//------------------
 	// 定数
 	//------------------
 	static const int MaxBg = 3;		//背景の最大数
-	static const int MaxMode = 3;	//モードの最大数
-	static const int AnimationTime = 80;
 
 	//------------------
 	// メンバ変数
 	//------------------
-	int nCntTime;			//アニメーションカウント
-	int nNumber;			//選択中の番号
 	bool m_bPressEneter;	//エンターキーが押されたか
 
 	//------------------
 	// 静的メンバ変数
 	//------------------
 	static CBg		 *m_pBG[MaxBg];			//背景クラス
-	static CGameMode *m_pGameMode[MaxMode];	//ゲームモードクラス
 };
 
 #endif

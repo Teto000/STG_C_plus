@@ -84,11 +84,13 @@ void CTitle::Update()
 		CSound::PlaySound(CSound::SOUND_LABEL_SE_BUTTOM);
 
 		{
-			D3DXVECTOR3 timePos(SCREEN_WIDTH / 2, 300.0f, 0.0f);
-			D3DXVECTOR3 scorePos(SCREEN_WIDTH / 2, 500.0f, 0.0f);
+			D3DXVECTOR3 timePos(SCREEN_WIDTH / 2, 250.0f, 0.0f);
+			D3DXVECTOR3 scorePos(SCREEN_WIDTH / 2, 400.0f, 0.0f);
+			D3DXVECTOR3 tutorialPos(SCREEN_WIDTH / 2, 550.0f, 0.0f);
 
 			m_pGameMode[0] = CGameMode::Create(timePos, CGameMode::GAMEMODE_TIME);
 			m_pGameMode[1] = CGameMode::Create(scorePos, CGameMode::GAMEMODE_SCORE);
+			m_pGameMode[2] = CGameMode::Create(tutorialPos, CGameMode::GAMEMODE_TUTORIAL);
 		}
 
 		m_bPressEneter = true;
@@ -102,14 +104,20 @@ void CTitle::Update()
 		if (nNumber == 0)
 		{
 			CGame::SetMode(CGame::MODE_TIME);
+			CApplication::SetMode(CApplication::MODE_GAME);
+			return;
 		}
 		else if (nNumber == 1)
 		{
 			CGame::SetMode(CGame::MODE_SCORE);
+			CApplication::SetMode(CApplication::MODE_GAME);
+			return;
 		}
-
-		CApplication::SetMode(CApplication::MODE_GAME);
-		return;
+		else if (nNumber == 2)
+		{
+			CApplication::SetMode(CApplication::MODE_TUTORIAL);
+			return;
+		}
 	}
 
 	//ƒ‚[ƒh‘I‘ðˆ—
@@ -150,15 +158,39 @@ void CTitle::ChangeNumber()
 {
 	if (nNumber == 0)
 	{
-		if (CInputKeyboard::Trigger(DIK_W) || CInputKeyboard::Trigger(DIK_S))
+		if (CInputKeyboard::Trigger(DIK_W))
 		{
 			m_pGameMode[nNumber]->GetObject2D()->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
-			nNumber = 1;
+
+			nNumber = 2;
+		}
+		else if (CInputKeyboard::Trigger(DIK_S))
+		{
+			m_pGameMode[nNumber]->GetObject2D()->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
+			nNumber++;
 		}
 	}
 	else if (nNumber == 1)
 	{
-		if (CInputKeyboard::Trigger(DIK_W) || CInputKeyboard::Trigger(DIK_S))
+		if (CInputKeyboard::Trigger(DIK_W))
+		{
+			m_pGameMode[nNumber]->GetObject2D()->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
+			nNumber--;
+		}
+		else if (CInputKeyboard::Trigger(DIK_S))
+		{
+			m_pGameMode[nNumber]->GetObject2D()->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
+			nNumber++;
+		}
+	}
+	else if (nNumber == 2)
+	{
+		if (CInputKeyboard::Trigger(DIK_W))
+		{
+			m_pGameMode[nNumber]->GetObject2D()->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
+			nNumber--;
+		}
+		else if (CInputKeyboard::Trigger(DIK_S))
 		{
 			m_pGameMode[nNumber]->GetObject2D()->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
 			nNumber = 0;

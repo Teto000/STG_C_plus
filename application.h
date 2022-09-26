@@ -18,7 +18,7 @@
 class CGame;		//ゲーム
 class CTitle;		//タイトル
 class CResult;		//リザルト
-class CSkillSelect;	//スキルセレクト
+class CTutorial;	//チュートリアル
 class CFade;		//フェード
 
 class CRenderer;	//レンダラー
@@ -40,6 +40,7 @@ public:
 		MODE_TITLE = 0,		//タイトル
 		MODE_GAME,			//ゲーム
 		MODE_RESULT,		//リザルト
+		MODE_TUTORIAL,		//チュートリアル
 		MODE_FADE,			//フェード
 		MODE_MAX
 	};
@@ -80,7 +81,7 @@ private:
 	static CGame*			m_pGame;		//ゲームクラス
 	static CTitle*			m_pTitle;		//タイトルクラス
 	static CResult*			m_pResult;		//リザルトクラス
-	static CSkillSelect*	m_pSkillSelect;	//スキルセレクトクラス
+	static CTutorial*		m_pTutorial;	//チュートリアル
 	static CFade*			m_pFade;		//フェードクラス
 	static MODE				m_mode;			//モード
 	static GAMEMODE			m_gameMode;		//ゲームモード

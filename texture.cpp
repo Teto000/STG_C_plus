@@ -47,9 +47,13 @@ const char* CTexture::s_FileName[] =
 	"data/TEXTURE/BG/PressEnter.png",	//プレスエンター
 	"data/TEXTURE/BG/TimeAttack.png",	//タイムアタック
 	"data/TEXTURE/BG/ScoreAttack.png",	//スコアアタック
+	"data/TEXTURE/BG/GoTutorial.png",	//チュートリアル
 	//リザルト
 	"data/TEXTURE/BG/Result.png",		//リザルト画面の背景
 	"data/TEXTURE/BG/ResultText.png",	//リザルト画面の文字
+	//チュートリアル
+	"data/TEXTURE/BG/Tutorial1.png",	//チュートリアル1
+	"data/TEXTURE/BG/Tutorial2.png",	//チュートリアル2
 
 	/* ↓ UI ↓　*/
 	"data/TEXTURE/UI/Exp.png",			//経験値

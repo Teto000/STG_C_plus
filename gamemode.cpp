@@ -60,6 +60,10 @@ HRESULT CGameMode::Init(D3DXVECTOR3 pos)
 			m_pObject2D->SetTexture(CTexture::TEXTURE_BG_TITLE_SCORE);
 			break;
 
+		case GAMEMODE_TUTORIAL:
+			m_pObject2D->SetTexture(CTexture::TEXTURE_BG_TITLE_TUTORIAL);
+			break;
+
 		default:
 			break;
 		}

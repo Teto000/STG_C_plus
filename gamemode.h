@@ -27,6 +27,7 @@ public:
 	{
 		GAMEMODE_TIME = 0,	//タイムアタック
 		GAMEMODE_SCORE,		//スコアアタック
+		GAMEMODE_TUTORIAL,	//チュートリアル
 		GAMEMODE_MAX
 	};
 

@@ -111,6 +111,14 @@ HRESULT CBg::Init(D3DXVECTOR3 pos)
 			m_pObject2D->SetColor(D3DXCOLOR(0.8f, 0.4f, 0.4f, 0.5f));
 			break;
 
+		case BGTYPE_TUTORIAL1:
+			m_pObject2D->SetTexture(CTexture::TEXTURE_BG_TUTORIAL1);
+			break;
+
+		case BGTYPE_TUTORIAL2:
+			m_pObject2D->SetTexture(CTexture::TEXTURE_BG_TUTORIAL2);
+			break;
+
 		default:
 			break;
 		}

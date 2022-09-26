@@ -258,7 +258,7 @@ void CBullet::ShotBullet(D3DXVECTOR3 pos, int nLevel, int nShotTime)
 	//---------------------------
 	// チャージショット
 	//---------------------------
-	if (CInputKeyboard::Press(DIK_SPACE))
+	/*if (CInputKeyboard::Press(DIK_SPACE))
 	{//SPACEキーが押されている間
 		m_nChageTime++;		//チャージ時間を加算
 
@@ -272,10 +272,10 @@ void CBullet::ShotBullet(D3DXVECTOR3 pos, int nLevel, int nShotTime)
 	{//SPACEキーを離したとき かつ チャージ状態なら
 		Create(pos, D3DXVECTOR3(fBulletSpeed, 0.0f, 0.0f), BULLETTYPE_CHARGE);
 		
-		/*for (int i = 0; i < nMaxHoming; i++)
+		for (int i = 0; i < nMaxHoming; i++)
 		{
 			Create(pos, D3DXVECTOR3(-5.0f, (float)(nMaxHoming - (i * nMaxHoming)), 0.0f), BULLETTYPE_HORMING);
-		}*/
+		}
 
 		m_nChageTime = 0;	//チャージ時間をリセット
 		CPlayer::SetCol(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));	//プレイヤーの色を変更
@@ -283,7 +283,7 @@ void CBullet::ShotBullet(D3DXVECTOR3 pos, int nLevel, int nShotTime)
 	else if (CInputKeyboard::Release(DIK_SPACE) && m_nChageTime < 40)
 	{
 		m_nChageTime = 0;	//チャージ時間をリセット
-	}
+	}*/
 }
 
 //=======================

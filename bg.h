@@ -29,6 +29,8 @@ public:
 		BGTYPE_RESULT,		//リザルト画面
 		BGTYPE_RESULTTEXT,	//リザルトの文字
 		BGTYPE_SELECTMODE,	//モード選択画面
+		BGTYPE_TUTORIAL1,	//チュートリアル1
+		BGTYPE_TUTORIAL2,	//チュートリアル2
 		BGTYPE_MAX
 	};
 
