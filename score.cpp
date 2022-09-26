@@ -140,7 +140,7 @@ CScore *CScore::Create(MODE mode)
 
 			case MODE_RESULT:
 				pScore->m_fSpace = 70.0f;	//ŠÔŠu
-				pScore->Init(D3DXVECTOR3(550.0f + (i * pScore->m_fSpace), 450.0f, 0.0f));
+				pScore->Init(D3DXVECTOR3(550.0f + (i * pScore->m_fSpace), 510.0f, 0.0f));
 				break;
 				
 			default:
