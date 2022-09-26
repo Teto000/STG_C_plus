@@ -261,7 +261,7 @@ void CBullet::ShotBullet(D3DXVECTOR3 pos, int nLevel, int nShotTime)
 	/*if (CInputKeyboard::Press(DIK_SPACE))
 	{//SPACEキーが押されている間
 		m_nChageTime++;		//チャージ時間を加算
-
+		
 		if (m_nChageTime >= 40)
 		{//チャージ時間が10以上なら
 			CPlayer::SetCol(D3DXCOLOR(1.0f, 0.5f, 0.5f, 1.0f));	//プレイヤーの色を変更
