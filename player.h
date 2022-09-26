@@ -73,7 +73,7 @@ private:
 	// 定数定義
 	//------------------
 	static const float fPlayerSpeed;		//プレイヤーの速度
-	static const int nPlayerLife = 300;		//プレイヤーの体力
+	static const int nPlayerLife = 3000;		//プレイヤーの体力
 	static const int nMaxLife = 100;		//最大体力(%)
 	static const int nMaxSkill = 4;			//スキルの最大数
 

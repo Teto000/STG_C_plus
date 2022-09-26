@@ -17,6 +17,7 @@
 //-----------------------
 class CBg;		//背景
 class CScore;	//スコア
+class CTimer;	//タイム
 
 //-------------------------
 // リザルトクラスの定義
@@ -39,6 +40,7 @@ public:
 	//------------------
 	static CBg		*GetBG();		//背景の取得
 	static CScore	*GetScore();	//スコアの取得
+	static CTimer	*GetTimer();	//タイマーの取得
 
 private:
 	//------------------
@@ -51,6 +53,7 @@ private:
 	//------------------
 	static CBg		*m_pBG[MaxBg];	//背景クラス
 	static CScore	*m_pScore;		//スコアクラス
+	static CTimer	*m_pTime;		//タイムクラス
 };
 
 #endif

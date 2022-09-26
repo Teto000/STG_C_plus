@@ -27,6 +27,7 @@ CTimer::CTimer() : CObject2D()
 	m_nCntTime = 0;
 	m_fWidth = 0.0f;
 	m_fHeight = 0.0;
+	m_mode = MODE_MAX;
 }
 
 //===========================
@@ -44,9 +45,18 @@ HRESULT CTimer::Init(D3DXVECTOR3 pos)
 {
 	//構造体の初期化
 	m_pos = pos;
-	m_fWidth = 30.0f;
-	m_fHeight = 50.0f;
 	m_nTime = 0;
+
+	if (m_mode == MODE_GAME)
+	{
+		m_fWidth = 30.0f;
+		m_fHeight = 50.0f;
+	}
+	else if (m_mode == MODE_RESULT)
+	{
+		m_fWidth = 60.0f;
+		m_fHeight = 100.0f;
+	}
 
 	CObject2D::Init(m_pos);
 
@@ -72,12 +82,15 @@ void CTimer::Update()
 {
 	CObject2D::Update();
 
-	m_nCntTime++;
-	m_nCntTime %= 60;
-
-	if (m_nCntTime == 0)
+	if (m_mode == MODE_GAME)
 	{
-		m_nTime++;
+		m_nCntTime++;
+		m_nCntTime %= 60;
+
+		if (m_nCntTime == 0)
+		{
+			m_nTime++;
+		}
 	}
 	
 	if (m_nTime % 3 == 0)
@@ -110,7 +123,7 @@ void CTimer::Draw()
 //===========================
 // 生成
 //===========================
-CTimer *CTimer::Create()
+CTimer *CTimer::Create(MODE mode)
 {
 	CTimer *pTimer = nullptr;
 
@@ -123,12 +136,32 @@ CTimer *CTimer::Create()
 
 		if (pTimer != nullptr)
 		{//NULLチェック
-			pTimer->Init(D3DXVECTOR3(900.0f + (i * 30.0f), 70.0f, 0.0f));
+			//メンバ変数に代入
+			pTimer->m_mode = mode;
+
+			//初期化
+			if (pTimer->m_mode == MODE_GAME)
+			{
+				pTimer->Init(D3DXVECTOR3(900.0f + (i * 30.0f), 70.0f, 0.0f));
+			}
+			else if (pTimer->m_mode == MODE_RESULT)
+			{
+				pTimer->Init(D3DXVECTOR3(550.0f + (i * 70.0f), 320.0f, 0.0f));
+			}
+
 			pTimer->SetObjType(OBJTYPE_SCORE);
 		}
 	}
 
 	return pTimer;
+}
+
+//===========================
+// 時間の設定
+//===========================
+void CTimer::SetTime(int nTime)
+{
+	m_nTime = nTime;
 }
 
 //===========================

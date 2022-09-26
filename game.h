@@ -64,6 +64,7 @@ public:
 	static CPlayer	*GetPlayer();	//プレイヤーの取得
 	static CScore	*GetScore();	//スコアの取得
 	static CBg		*GetBG();		//背景の取得
+	static CTimer	*GetTimer();	//時間の取得
 
 	static void SetMode(MODE mode);
 

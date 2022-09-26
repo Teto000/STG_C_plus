@@ -90,7 +90,8 @@ private:
 	static CTexture*		m_pTexture;		//テクスチャクラス
 	static CSound*			m_pSound;		//サウンドクラス
 
-	static int m_score;		//スコアの値
+	static int m_nScore;	//スコアの値
+	static int m_nTime;		//タイムの値
 };
 
 #endif // !_APPLICATION_H_

@@ -17,12 +17,14 @@
 #include "bg.h"
 #include "sound.h"
 #include "score.h"
+#include "timer.h"
 
 //------------------------
 // 静的メンバ変数宣言
 //------------------------
 CBg		*CResult::m_pBG[MaxBg] = {};	//背景
 CScore	*CResult::m_pScore = nullptr;	//スコア
+CTimer	*CResult::m_pTime = nullptr;	//タイム
 
 //===========================
 // コンストラクタ
@@ -54,6 +56,9 @@ HRESULT CResult::Init()
 
 	//スコアの生成
 	m_pScore->Create(CScore::MODE_RESULT);
+
+	//タイムの生成
+	m_pTime->Create(CTimer::MODE_RESULT);
 
 	//サウンドの再生
 	CSound::PlaySound(CSound::SOUND_LABEL_RESULT);
@@ -98,4 +103,12 @@ CBg *CResult::GetBG()
 CScore *CResult::GetScore()
 {
 	return m_pScore;
+}
+
+//===========================
+// タイマーの取得
+//===========================
+CTimer	*CResult::GetTimer()
+{
+	return m_pTime;
 }

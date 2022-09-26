@@ -79,7 +79,7 @@ HRESULT CGame::Init()
 	m_pScore = CScore::Create(CScore::MODE_GAME);
 
 	//タイマーの生成
-	m_pTimer = CTimer::Create();
+	m_pTimer = CTimer::Create(CTimer::MODE_GAME);
 
 	m_pSkill[0] = CSkill::Create(CSkill::SKILLTYPE_HEAL);
 	m_pSkill[1] = CSkill::Create(CSkill::SKILLTYPE_SPEEDUP_FIRE);
@@ -348,4 +348,9 @@ CScore *CGame::GetScore()
 CBg *CGame::GetBG()
 {
 	return m_pBG;
+}
+
+CTimer *CGame::GetTimer()
+{
+	return m_pTimer;
 }
