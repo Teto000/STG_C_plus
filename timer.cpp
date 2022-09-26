@@ -78,9 +78,12 @@ void CTimer::Update()
 	{
 		m_nTime++;
 	}
-
-	//桁ごとの値を求める
-	m_aPosTexU[nNum] = m_nTime % (1000 / (int)pow(10, nNum)) / (100 / (int)pow(10, nNum));
+	
+	if (m_nTime % 3 == 0)
+	{
+		//桁ごとの値を求める
+		m_aPosTexU[nNum] = (m_nTime / 3) % (1000 / (int)pow(10, nNum)) / (100 / (int)pow(10, nNum));
+	}
 
 	//テクスチャ座標の設定
 	CObject2D::SetTexCIE(0.0f + m_aPosTexU[nNum] * 0.1f, 0.1f + m_aPosTexU[nNum] * 0.1f);
