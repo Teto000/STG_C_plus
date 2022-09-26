@@ -77,6 +77,7 @@ private:
 	// 定数
 	//------------------
 	static const int nOneSecond = 60;	//一秒
+	static const int nMaxBg = 3;		//背景の最大数
 	static const int nMaxSkill = 4;		//スキルの最大数
 
 	//------------------
@@ -94,7 +95,7 @@ private:
 	static CPlayer	*m_pPlayer;				//プレイヤークラス
 	static CEnemy	*m_pEnemy;				//敵クラス
 	static CScore	*m_pScore;				//スコアクラス
-	static CBg		*m_pBG;					//背景クラス
+	static CBg		*m_pBG[nMaxBg];			//背景クラス
 	static CSkill	*m_pSkill[nMaxSkill];	//スキルクラス
 	static CTimer	*m_pTimer;				//タイマークラス
 

@@ -142,7 +142,7 @@ CTimer *CTimer::Create(MODE mode)
 			//‰Šú‰»
 			if (pTimer->m_mode == MODE_GAME)
 			{
-				pTimer->Init(D3DXVECTOR3(900.0f + (i * 30.0f), 70.0f, 0.0f));
+				pTimer->Init(D3DXVECTOR3(920.0f + (i * 30.0f), 90.0f, 0.0f));
 			}
 			else if (pTimer->m_mode == MODE_RESULT)
 			{

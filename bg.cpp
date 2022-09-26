@@ -64,6 +64,18 @@ HRESULT CBg::Init(D3DXVECTOR3 pos)
 			m_pObject2D->SetTexCIE(m_fTexLeft, m_fTexRight);
 			break;
 
+		case BGTYPE_GAME_TIME:
+			m_pObject2D->SetTexture(CTexture::TEXTURE_BG_GAME_TIME);
+			m_fWidth = 200.0f;
+			m_fHeight = 100.0f;
+			break;
+
+		case BGTYPE_GAME_SCORE:
+			m_pObject2D->SetTexture(CTexture::TEXTURE_BG_GAME_SCORE);
+			m_fWidth = 200.0f;
+			m_fHeight = 100.0f;
+			break;
+
 		case BGTYPE_TITLE:
 			m_pObject2D->SetTexture(CTexture::TEXTURE_BG_TITLE);
 			m_fTexRight = 0.5f;

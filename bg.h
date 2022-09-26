@@ -21,6 +21,8 @@ public:
 	enum BGTYPE
 	{
 		BGTYPE_GAME = 0,	//ゲーム画面
+		BGTYPE_GAME_TIME,	//タイム
+		BGTYPE_GAME_SCORE,	//スコア
 		BGTYPE_TITLE,		//タイトル画面
 		BGTYPE_TITLE_LOGO,	//タイトルロゴ
 		BGTYPE_TITLE_ENTER,	//プレスエンター

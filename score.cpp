@@ -134,8 +134,8 @@ CScore *CScore::Create(MODE mode)
 			switch (pScore->m_mode)
 			{
 			case MODE_GAME:
-				pScore->m_fSpace = 35.0f;	//ŠÔŠu
-				pScore->Init(D3DXVECTOR3(1000.0f + (i * pScore->m_fSpace), 50.0f, 0.0f));
+				pScore->m_fSpace = 30.0f;	//ŠÔŠu
+				pScore->Init(D3DXVECTOR3(1095.0f + (i * pScore->m_fSpace), 90.0f, 0.0f));
 				break;
 
 			case MODE_RESULT:

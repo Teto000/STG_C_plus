@@ -30,7 +30,7 @@
 CPlayer	  *CGame::m_pPlayer = nullptr;		//プレイヤー
 CEnemy	  *CGame::m_pEnemy = nullptr;		//敵
 CScore	  *CGame::m_pScore = nullptr;		//スコア
-CBg		  *CGame::m_pBG = nullptr;			//背景
+CBg		  *CGame::m_pBG[nMaxBg] = {};		//背景
 CSkill	  *CGame::m_pSkill[nMaxSkill] = {};	//スキル
 CTimer	  *CGame::m_pTimer;					//タイマー
 CGame::MODE CGame::m_mode = MODE_MAX;		//モード
@@ -70,7 +70,15 @@ HRESULT CGame::Init()
 	}
 
 	//背景の生成
-	m_pBG = CBg::Create(D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0.0f), CBg::BGTYPE_GAME);
+	{
+		D3DXVECTOR3 bgPos(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0.0f);
+		D3DXVECTOR3 timePos(950.0f, 70.0f, 0.0f);
+		D3DXVECTOR3 scorePos(1170.0f, 70.0f, 0.0f);
+
+		m_pBG[0] = CBg::Create(bgPos, CBg::BGTYPE_GAME);
+		m_pBG[1] = CBg::Create(timePos, CBg::BGTYPE_GAME_TIME);
+		m_pBG[2] = CBg::Create(scorePos, CBg::BGTYPE_GAME_SCORE);
+	}
 
 	//プレイヤーの生成
 	m_pPlayer = CPlayer::Create();
@@ -347,9 +355,12 @@ CScore *CGame::GetScore()
 //===========================
 CBg *CGame::GetBG()
 {
-	return m_pBG;
+	return m_pBG[0];
 }
 
+//===========================
+// タイマーの取得
+//===========================
 CTimer *CGame::GetTimer()
 {
 	return m_pTimer;

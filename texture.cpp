@@ -37,12 +37,17 @@ const char* CTexture::s_FileName[] =
 	"data/TEXTURE/Game/Barrier.png",	//バリア
 
 	/* ↓ BG ↓　*/
+	//ゲーム
 	"data/TEXTURE/BG/Game.png",			//背景
+	"data/TEXTURE/BG/Time.png",			//タイム
+	"data/TEXTURE/BG/Score.png",		//スコア
+	//タイトル
 	"data/TEXTURE/BG/Title.png",		//タイトル画面の背景
 	"data/TEXTURE/BG/TitleLogo.png",	//タイトルロゴ
 	"data/TEXTURE/BG/PressEnter.png",	//プレスエンター
 	"data/TEXTURE/BG/TimeAttack.png",	//タイムアタック
 	"data/TEXTURE/BG/ScoreAttack.png",	//スコアアタック
+	//リザルト
 	"data/TEXTURE/BG/Result.png",		//リザルト画面の背景
 	"data/TEXTURE/BG/ResultText.png",	//リザルト画面の文字
 
