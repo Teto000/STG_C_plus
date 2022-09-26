@@ -46,6 +46,7 @@ HRESULT CTimer::Init(D3DXVECTOR3 pos)
 	m_pos = pos;
 	m_fWidth = 30.0f;
 	m_fHeight = 50.0f;
+	m_nTime = 0;
 
 	CObject2D::Init(m_pos);
 
@@ -122,10 +123,18 @@ CTimer *CTimer::Create()
 
 		if (pTimer != nullptr)
 		{//NULLチェック
-			pTimer->Init(D3DXVECTOR3(850.0f + (i * 30.0f), 50.0f, 0.0f));
+			pTimer->Init(D3DXVECTOR3(900.0f + (i * 30.0f), 70.0f, 0.0f));
 			pTimer->SetObjType(OBJTYPE_SCORE);
 		}
 	}
 
 	return pTimer;
+}
+
+//===========================
+// 時間の取得
+//===========================
+int CTimer::GetTime()
+{
+	return m_nTime;
 }

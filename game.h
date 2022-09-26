@@ -11,6 +11,7 @@
 // インクルード
 //--------------------
 #include <d3dx9.h>
+#include "application.h"
 
 //-----------------------
 // 前方宣言
@@ -28,6 +29,13 @@ class CTimer;	//タイム
 class CGame
 {
 public:
+	enum MODE
+	{
+		MODE_TIME = 0,	//タイムアタック
+		MODE_SCORE,		//スコアアタック
+		MODE_MAX
+	};
+
 	enum EnemyName
 	{
 		NORMAL = 0,	//通常敵
@@ -48,12 +56,16 @@ public:
 	void Uninit();
 	void Update();
 
+	void SetMode(CApplication::GAMEMODE mode);
+
 	//------------------
 	// 静的メンバ関数
 	//------------------
 	static CPlayer	*GetPlayer();	//プレイヤーの取得
 	static CScore	*GetScore();	//スコアの取得
 	static CBg		*GetBG();		//背景の取得
+
+	static void SetMode(MODE mode);
 
 private:
 	void AppearEnemy();
@@ -84,6 +96,8 @@ private:
 	static CBg		*m_pBG;					//背景クラス
 	static CSkill	*m_pSkill[nMaxSkill];	//スキルクラス
 	static CTimer	*m_pTimer;				//タイマークラス
+
+	static MODE m_mode;
 };
 
-#endif // !_APPLICATION_H_
+#endif

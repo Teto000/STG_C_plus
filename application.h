@@ -44,6 +44,13 @@ public:
 		MODE_MAX
 	};
 
+	enum GAMEMODE
+	{
+		GAMEMODE_TIME = 0,
+		GAMEMODE_SCORE,
+		GAMEMODE_MAX
+	};
+
 	CApplication();		//コンストラクタ
 	~CApplication();	//デストラクタ
 
@@ -75,7 +82,8 @@ private:
 	static CResult*			m_pResult;		//リザルトクラス
 	static CSkillSelect*	m_pSkillSelect;	//スキルセレクトクラス
 	static CFade*			m_pFade;		//フェードクラス
-	static MODE				m_mode;			//ゲームモード
+	static MODE				m_mode;			//モード
+	static GAMEMODE			m_gameMode;		//ゲームモード
 
 	static CRenderer*		m_pRenderer;	//レンダラークラス
 	static CInput*			m_pInput;		//インプットクラス

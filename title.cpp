@@ -17,6 +17,7 @@
 #include "bg.h"
 #include "sound.h"
 #include "gamemode.h"
+#include "game.h"
 
 //------------------------
 // Ã“Iƒƒ“ƒo•Ï”éŒ¾
@@ -145,6 +146,11 @@ void CTitle::ChangeNumber()
 			m_pGameMode[nNumber]->GetObject2D()->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
 			nNumber = 1;
 		}
+
+		if (CInputKeyboard::Trigger(DIK_RETURN))
+		{
+			CGame::SetMode(CGame::MODE_TIME);
+		}
 	}
 	else if (nNumber == 1)
 	{
@@ -152,6 +158,11 @@ void CTitle::ChangeNumber()
 		{
 			m_pGameMode[nNumber]->GetObject2D()->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
 			nNumber = 0;
+		}
+
+		if (CInputKeyboard::Trigger(DIK_RETURN))
+		{
+			CGame::SetMode(CGame::MODE_SCORE);
 		}
 	}
 }

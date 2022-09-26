@@ -33,6 +33,7 @@ CScore	  *CGame::m_pScore = nullptr;		//スコア
 CBg		  *CGame::m_pBG = nullptr;			//背景
 CSkill	  *CGame::m_pSkill[nMaxSkill] = {};	//スキル
 CTimer	  *CGame::m_pTimer;					//タイマー
+CGame::MODE CGame::m_mode = MODE_MAX;		//モード
 
 //===========================
 // コンストラクタ
@@ -151,11 +152,25 @@ void CGame::Update()
 		}
 	}
 
+	//-------------------------
+	// 時間で終了する処理
+	//-------------------------
+	if (m_mode == MODE_TIME)
+	{//タイムアタックモードなら
+		int nTime = m_pTimer->GetTime();
+
+		if (nTime >= 180)
+		{//1分が経過したら
+			//リザルト画面へ移動
+			CApplication::SetMode(CApplication::MODE_RESULT);
+		}
+	}
+
 	//画面遷移
-	if (CInputKeyboard::Trigger(DIK_RETURN))
+	/*if (CInputKeyboard::Trigger(DIK_RETURN))
 	{
 		CApplication::SetMode(CApplication::MODE_RESULT);
-	}
+	}*/
 }
 
 //===========================
@@ -278,6 +293,37 @@ void CGame::SetEnemy(float X, float Y, EnemyName type)
 	default:
 		break;
 	}
+}
+
+//===========================
+// モード設定
+//===========================
+void CGame::SetMode(CApplication::GAMEMODE mode)
+{
+	switch (mode)
+	{
+	case CApplication::GAMEMODE_TIME:
+		m_mode = CGame::MODE_TIME;
+		break;
+
+	case CApplication::GAMEMODE_SCORE:
+		m_mode = CGame::MODE_SCORE;
+		break;
+
+	case CApplication::GAMEMODE_MAX:
+		break;
+
+	default:
+		break;
+	}
+}
+
+//===========================
+// モードの設定
+//===========================
+void CGame::SetMode(CGame::MODE mode)
+{
+	m_mode = mode;
 }
 
 //===========================

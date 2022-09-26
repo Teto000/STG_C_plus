@@ -31,6 +31,7 @@ public:
 	// Ã“Iƒƒ“ƒoŠÖ”
 	//----------------
 	static CTimer *Create();
+	static int GetTime();
 
 private:
 	//----------------
