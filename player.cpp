@@ -356,7 +356,7 @@ void CPlayer::SetSkill()
 	//-----------------------
 	// 体力の回復
 	//-----------------------
-	if (CInputKeyboard::Trigger(DIK_1) && !m_bSlill[0])
+	if (CInputKeyboard::Trigger(DIK_U) && !m_bSlill[0])
 	{//1キーが押されたら
 		if (m_nLife + 50 >= m_nMaxLife)
 		{//回復して上限なら
@@ -385,7 +385,7 @@ void CPlayer::SetSkill()
 	//-----------------------
 	// 弾速の強化
 	//-----------------------
-	if (CInputKeyboard::Trigger(DIK_2) && !m_bSlill[1])
+	if (CInputKeyboard::Trigger(DIK_I) && !m_bSlill[1])
 	{//2キーが押されたら
 		//発射間隔の減少
 		m_nShotTime = 10;
@@ -402,7 +402,7 @@ void CPlayer::SetSkill()
 	//-----------------------
 	// 攻撃力上昇
 	//-----------------------
-	if (CInputKeyboard::Trigger(DIK_3) && !m_bSlill[2])
+	if (CInputKeyboard::Trigger(DIK_O) && !m_bSlill[2])
 	{
 		//攻撃力の上昇
 		m_nAttack = 20;
@@ -419,7 +419,7 @@ void CPlayer::SetSkill()
 	//-----------------------
 	// 速度上昇
 	//-----------------------
-	if (CInputKeyboard::Trigger(DIK_4) && !m_bSlill[3])
+	if (CInputKeyboard::Trigger(DIK_P) && !m_bSlill[3])
 	{
 		//速度の上昇
 		m_nSpeed = 10.0f;
