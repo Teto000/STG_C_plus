@@ -138,6 +138,9 @@
     <ClCompile Include="gamemode.cpp">
       <Filter>ソース ファイル\Application\Object</Filter>
     </ClCompile>
+    <ClCompile Include="timer.cpp">
+      <Filter>ソース ファイル\Application\Object\2D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -238,6 +241,9 @@
     </ClInclude>
     <ClInclude Include="gamemode.h">
       <Filter>ヘッダー ファイル\Application\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="timer.h">
+      <Filter>ヘッダー ファイル\Application\Object\2D</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

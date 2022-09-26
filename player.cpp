@@ -86,8 +86,8 @@ HRESULT CPlayer::Init(D3DXVECTOR3 pos)
 	m_nMagic = 100;				//MP
 	m_nMaxMagic = 100;			//Å‘åMP
 	m_nRemMagic = 100;			//c‚èMP
-	m_fWidth = 90.0f;			//•
-	m_fHeight = 100.0f;			//‚‚³
+	m_fWidth = 70.0f;			//•
+	m_fHeight = 80.0f;			//‚‚³
 	m_nAttack = 10;				//UŒ‚—Í
 	m_nShotTime = 20;			//’e‚Ì”­ËŠÔ
 	m_nSpeed = fPlayerSpeed;	//‘¬“x

@@ -22,6 +22,7 @@
 #include "score.h"
 #include "bg.h"
 #include "skill.h"
+#include "timer.h"
 
 //------------------------
 // 静的メンバ変数宣言
@@ -31,6 +32,7 @@ CEnemy	  *CGame::m_pEnemy = nullptr;		//敵
 CScore	  *CGame::m_pScore = nullptr;		//スコア
 CBg		  *CGame::m_pBG = nullptr;			//背景
 CSkill	  *CGame::m_pSkill[nMaxSkill] = {};	//スキル
+CTimer	  *CGame::m_pTimer;					//タイマー
 
 //===========================
 // コンストラクタ
@@ -74,6 +76,9 @@ HRESULT CGame::Init()
 
 	//スコアの生成
 	m_pScore = CScore::Create(CScore::MODE_GAME);
+
+	//タイマーの生成
+	m_pTimer = CTimer::Create();
 
 	m_pSkill[0] = CSkill::Create(CSkill::SKILLTYPE_HEAL);
 	m_pSkill[1] = CSkill::Create(CSkill::SKILLTYPE_SPEEDUP_FIRE);

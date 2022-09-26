@@ -33,7 +33,7 @@
 // 静的メンバ変数宣言
 //------------------------
 const float CEnemy::fBulletSpeed_Homing = 1.01f;	//弾の速度(ホーミング)
-int CEnemy::m_nLevel = 0;	//レベル
+int CEnemy::m_nLevel = 1;	//レベル
 
 //===========================
 // コンストラクタ
@@ -404,7 +404,7 @@ bool CEnemy::Destroy()
 	//--------------------------
 	if (m_nLife <= 0)
 	{
-		CLevel::AddExp(5);				//経験値の取得
+		CLevel::AddExp(5 * m_nLevel);	//経験値の取得
 		CScore::AddScore(10);			//スコアの加算
 		//m_pExplosion->Create(m_pos);	//爆発の生成
 
@@ -427,7 +427,7 @@ bool CEnemy::Destroy()
 			break;
 
 		case ENEMYTYPE_BIG:
-			CLevel::AddExp(10);				//経験値の取得
+			CLevel::AddExp(10 * m_nLevel);	//経験値の取得
 			break;
 
 		default:

@@ -20,6 +20,7 @@ class CEnemy;	//敵
 class CScore;	//スコア
 class CBg;		//背景
 class CSkill;	//スキル
+class CTimer;	//タイム
 
 //-------------------------
 // ゲームクラスの定義
@@ -82,6 +83,7 @@ private:
 	static CScore	*m_pScore;				//スコアクラス
 	static CBg		*m_pBG;					//背景クラス
 	static CSkill	*m_pSkill[nMaxSkill];	//スキルクラス
+	static CTimer	*m_pTimer;				//タイマークラス
 };
 
 #endif // !_APPLICATION_H_
