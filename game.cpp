@@ -169,6 +169,8 @@ void CGame::Update()
 
 		if (nTime >= 180)
 		{//1•ª‚ªŒo‰ß‚µ‚½‚ç
+			Sleep(300);
+
 			//ƒŠƒUƒ‹ƒg‰æ–Ê‚ÖˆÚ“®
 			CApplication::SetMode(CApplication::MODE_RESULT);
 		}

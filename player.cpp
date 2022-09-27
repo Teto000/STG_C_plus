@@ -259,6 +259,8 @@ void CPlayer::Update()
 		//“G‚ÌÁ–Å
 		Uninit();
 
+		Sleep(300);
+
 		//ƒŠƒUƒ‹ƒg‰æ–Ê‚ÉˆÚs
 		CApplication::SetMode(CApplication::MODE_RESULT);
 		return;
