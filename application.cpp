@@ -73,7 +73,7 @@ HRESULT CApplication::Init(HINSTANCE hInstance, HWND hWnd)
 	m_pSound = new CSound;			//サウンド
 
 	//レンダリングの初期化
-	if (FAILED(m_pRenderer->Init(hWnd, TRUE)))
+	if (FAILED(m_pRenderer->Init(hWnd, FALSE)))
 	{//初期化処理が失敗した場合
 		return -1;
 	}
