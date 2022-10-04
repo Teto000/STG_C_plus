@@ -88,7 +88,7 @@ HRESULT CPlayer::Init(D3DXVECTOR3 pos)
 	m_nRemMagic = 100;			//c‚èMP
 	m_fWidth = 70.0f;			//•
 	m_fHeight = 80.0f;			//‚‚³
-	m_nAttack = 10;				//UŒ‚—Í
+	m_nAttack = 15;				//UŒ‚—Í
 	m_nShotTime = 20;			//’e‚Ì”­ËŠÔ
 	m_nSpeed = fPlayerSpeed;	//‘¬“x
 
@@ -407,7 +407,7 @@ void CPlayer::SetSkill()
 	if (CInputKeyboard::Trigger(DIK_O) && !m_bSlill[2])
 	{
 		//UŒ‚—Í‚Ìã¸
-		m_nAttack = 20;
+		m_nAttack = 30;
 
 		//MP‚ÌŒ¸­
 		AddMagic(-10);
