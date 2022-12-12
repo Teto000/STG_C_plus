@@ -55,6 +55,7 @@ public:
 	int GetLife();
 	int GetRemLife();
 	int GetAttack();
+	bool GetUsedSkill(int nNum) { return m_bSlill[nNum]; }
 	PLAYERSTATE GetState();
 
 	//------------------

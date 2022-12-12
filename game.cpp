@@ -167,7 +167,7 @@ void CGame::Update()
 	{//タイムアタックモードなら
 		int nTime = m_pTimer->GetTime();
 
-		if (nTime >= 180)
+		if (nTime >= 270)
 		{//1分が経過したら
 			Sleep(300);
 

@@ -405,38 +405,51 @@ bool CEnemy::Destroy()
 	//--------------------------
 	if (m_nLife <= 0)
 	{
-		CLevel::AddExp(5 * m_nLevel);	//経験値の取得
+		CLevel::AddExp(10 * m_nLevel);	//経験値の取得
 		//m_pExplosion->Create(m_pos);	//爆発の生成
 
 		switch (m_type)
 		{
 		case ENEMYTYPE_NORMAL:
-			CScore::AddScore(100 * m_nLevel);			//スコアの加算
+			CScore::AddScore(200 * m_nLevel);			//スコアの加算
 			break;
 
 		case ENEMYTYPE_HORMING:
-			CScore::AddScore(150 * m_nLevel);
+			CScore::AddScore(300 * m_nLevel);
 			break;
 
 		case ENEMYTYPE_HPITEM:
 			//アイテムの生成
-			m_pItem = CItem::Create(m_pos, CItem::ITEMTYPE_HPHEAL);
+			//m_pItem = CItem::Create(m_pos, CItem::ITEMTYPE_HPHEAL);
 			CScore::AddScore(100 * m_nLevel);
 			break;
 
 		case ENEMYTYPE_MPITEM:
 			//アイテムの生成
-			m_pItem = CItem::Create(m_pos, CItem::ITEMTYPE_MPHEAL);
+			//m_pItem = CItem::Create(m_pos, CItem::ITEMTYPE_MPHEAL);
 			CScore::AddScore(100 * m_nLevel);
 			break;
 
 		case ENEMYTYPE_BIG:
-			CLevel::AddExp(10 * m_nLevel);	//経験値の取得
+			CLevel::AddExp(30 * m_nLevel);	//経験値の取得
 			CScore::AddScore(300 * m_nLevel);
 			break;
 
 		default:
 			break;
+		}
+
+		int nRand = rand() % 15;
+
+		if (nRand == 0)
+		{
+			//アイテムの生成
+			m_pItem = CItem::Create(m_pos, CItem::ITEMTYPE_HPHEAL);
+		}
+		else if (nRand == 1)
+		{
+			//アイテムの生成
+			m_pItem = CItem::Create(m_pos, CItem::ITEMTYPE_HPHEAL);
 		}
 
 		return true;

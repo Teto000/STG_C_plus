@@ -94,9 +94,6 @@ void CSkill::Uninit()
 void CSkill::Update()
 {
 	CObject2D::Update();
-
-	//ˆÊ’u‚ÉˆÚ“®—Ê‚ð‰ÁŽZ
-	m_pos = CObject2D::AddMove(m_move);
 }
 
 //===========================

@@ -198,8 +198,8 @@ void CPlayer::Update()
 	//--------------------------
 	for (int i = 0; i < nMaxSkill; i++)
 	{
-		if (!m_bSlill[i])
-		{
+		if (!m_bSlill[i] && m_nMagic >= 10)
+		{//スキルを使用していない & MPが10以上なら
 			SetSkill();
 		}
 	}
@@ -375,12 +375,6 @@ void CPlayer::SetSkill()
 		//HP減少時の処理
 		m_Hp->SetLife(m_nLife, m_nRemLife);
 
-		//MPの減少
-		AddMagic(-10);
-
-		//サウンドの再生
-		CSound::PlaySound(CSound::SOUND_LABEL_SE_SKILL);
-
 		m_bSlill[0] = true;
 	}
 
@@ -391,12 +385,6 @@ void CPlayer::SetSkill()
 	{//2キーが押されたら
 		//発射間隔の減少
 		m_nShotTime = 10;
-
-		//MPの減少
-		AddMagic(-10);
-
-		//サウンドの再生
-		CSound::PlaySound(CSound::SOUND_LABEL_SE_SKILL);
 
 		m_bSlill[1]= true;
 	}
@@ -409,12 +397,6 @@ void CPlayer::SetSkill()
 		//攻撃力の上昇
 		m_nAttack = 30;
 
-		//MPの減少
-		AddMagic(-10);
-
-		//サウンドの再生
-		CSound::PlaySound(CSound::SOUND_LABEL_SE_SKILL);
-
 		m_bSlill[2] = true;
 	}
 
@@ -426,14 +408,14 @@ void CPlayer::SetSkill()
 		//速度の上昇
 		m_nSpeed = 10.0f;
 
-		//MPの減少
-		AddMagic(-10);
-
-		//サウンドの再生
-		CSound::PlaySound(CSound::SOUND_LABEL_SE_SKILL);
-
 		m_bSlill[3] = true;
 	}
+
+	//MPの減少
+	AddMagic(-10);
+
+	//サウンドの再生
+	CSound::PlaySound(CSound::SOUND_LABEL_SE_SKILL);
 }
 
 //===========================
