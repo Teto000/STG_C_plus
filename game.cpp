@@ -120,25 +120,28 @@ void CGame::Update()
 	//------------------------
 	// スキルの色変更
 	//------------------------
-	if (CInputKeyboard::Trigger(DIK_U) && !m_bSkill[0])
-	{
-		m_pSkill[0]->CObject2D::SetColor(D3DXCOLOR(0.4f, 0.4f, 0.4f, 1.0f));
-		m_bSkill[0] = true;
-	}
-	else if (CInputKeyboard::Trigger(DIK_I) && !m_bSkill[1])
-	{
-		m_pSkill[1]->CObject2D::SetColor(D3DXCOLOR(0.4f, 0.4f, 0.4f, 1.0f));
-		m_bSkill[1] = true;
-	}
-	else if (CInputKeyboard::Trigger(DIK_O) && !m_bSkill[2])
-	{
-		m_pSkill[2]->CObject2D::SetColor(D3DXCOLOR(0.4f, 0.4f, 0.4f, 1.0f));
-		m_bSkill[2] = true;
-	}
-	else if (CInputKeyboard::Trigger(DIK_P) && !m_bSkill[3])
-	{
-		m_pSkill[3]->CObject2D::SetColor(D3DXCOLOR(0.4f, 0.4f, 0.4f, 1.0f));
-		m_bSkill[3] = true;
+	if (m_pPlayer->GetMagic() >= 10)
+	{//プレイヤーのMPが10以上なら
+		if (CInputKeyboard::Trigger(DIK_U) && !m_bSkill[0])
+		{
+			m_pSkill[0]->CObject2D::SetColor(D3DXCOLOR(0.4f, 0.4f, 0.4f, 1.0f));
+			m_bSkill[0] = true;
+		}
+		else if (CInputKeyboard::Trigger(DIK_I) && !m_bSkill[1])
+		{
+			m_pSkill[1]->CObject2D::SetColor(D3DXCOLOR(0.4f, 0.4f, 0.4f, 1.0f));
+			m_bSkill[1] = true;
+		}
+		else if (CInputKeyboard::Trigger(DIK_O) && !m_bSkill[2])
+		{
+			m_pSkill[2]->CObject2D::SetColor(D3DXCOLOR(0.4f, 0.4f, 0.4f, 1.0f));
+			m_bSkill[2] = true;
+		}
+		else if (CInputKeyboard::Trigger(DIK_P) && !m_bSkill[3])
+		{
+			m_pSkill[3]->CObject2D::SetColor(D3DXCOLOR(0.4f, 0.4f, 0.4f, 1.0f));
+			m_bSkill[3] = true;
+		}
 	}
 
 	//-------------------------

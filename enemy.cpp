@@ -439,16 +439,18 @@ bool CEnemy::Destroy()
 			break;
 		}
 
+		//ランダムな値を生成
 		int nRand = rand() % 15;
 
+		//アイテムの生成
 		if (nRand == 0)
 		{
-			//アイテムの生成
+			//HP回復
 			m_pItem = CItem::Create(m_pos, CItem::ITEMTYPE_HPHEAL);
 		}
 		else if (nRand == 1)
 		{
-			//アイテムの生成
+			//MP回復
 			m_pItem = CItem::Create(m_pos, CItem::ITEMTYPE_HPHEAL);
 		}
 
