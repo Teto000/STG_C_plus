@@ -457,6 +457,9 @@ void CPlayer::SetSkill()
 		AddMagic(-10);
 
 		m_bSlill[0] = true;
+
+		//サウンドの再生
+		CSound::PlaySound(CSound::SOUND_LABEL_SE_SKILL);
 	}
 
 	//-----------------------
@@ -471,6 +474,9 @@ void CPlayer::SetSkill()
 		AddMagic(-10);
 
 		m_bSlill[1]= true;
+
+		//サウンドの再生
+		CSound::PlaySound(CSound::SOUND_LABEL_SE_SKILL);
 	}
 
 	//-----------------------
@@ -485,6 +491,9 @@ void CPlayer::SetSkill()
 		AddMagic(-10);
 
 		m_bSlill[2] = true;
+
+		//サウンドの再生
+		CSound::PlaySound(CSound::SOUND_LABEL_SE_SKILL);
 	}
 
 	//-----------------------
@@ -499,10 +508,10 @@ void CPlayer::SetSkill()
 		AddMagic(-10);
 
 		m_bSlill[3] = true;
-	}
 
-	//サウンドの再生
-	CSound::PlaySound(CSound::SOUND_LABEL_SE_SKILL);
+		//サウンドの再生
+		CSound::PlaySound(CSound::SOUND_LABEL_SE_SKILL);
+	}
 }
 
 //===========================
