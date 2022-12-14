@@ -23,6 +23,7 @@ class CFade;		//フェード
 
 class CRenderer;	//レンダラー
 class CInput;		//インプット
+class CInputJoypad;
 class CTexture;		//テクスチャ
 class CSound;		//サウンド
 
@@ -71,6 +72,7 @@ public:
 
 	static CRenderer *GetRenderer();	//レンダラーの取得
 	static CInput	 *GetInput();		//インプットの取得
+	static CInputJoypad*	GetJoypad() { return m_pJoypad; }
 	static CTexture  *GetTexture();		//テクスチャの取得
 	static CSound	 *GetSound();		//サウンドの取得
 
@@ -88,6 +90,7 @@ private:
 
 	static CRenderer*		m_pRenderer;	//レンダラークラス
 	static CInput*			m_pInput;		//インプットクラス
+	static CInputJoypad*	m_pJoypad;		//ジョイパッド
 	static CTexture*		m_pTexture;		//テクスチャクラス
 	static CSound*			m_pSound;		//サウンドクラス
 

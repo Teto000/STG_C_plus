@@ -67,6 +67,7 @@ public:
 
 private:
 	D3DXVECTOR3 OperationPlayer();	//操作
+	D3DXVECTOR3 MoveJoypad();
 	void InvincibleTime();			//無敵時間
 	void Animation();				//テクスチャアニメーション
 

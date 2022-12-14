@@ -15,6 +15,7 @@
 #include "application.h"
 #include "object2D.h"
 #include "input_keybord.h"
+#include "input_joypad.h"
 #include "texture.h"
 #include "sound.h"
 #include "bullet.h"
@@ -152,7 +153,8 @@ void CPlayer::Update()
 	//--------------------
 	// プレイヤーの操作
 	//--------------------
-	D3DXVECTOR3 move = OperationPlayer();
+	//D3DXVECTOR3 move = OperationPlayer();
+	D3DXVECTOR3 move = MoveJoypad();
 
 	//---------------------------
 	// テクスチャアニメーション
@@ -345,6 +347,82 @@ D3DXVECTOR3 CPlayer::OperationPlayer()
 	else if (CInputKeyboard::Press(DIK_S) == true)
 	{//Sキーが押された
 		m_move.y += cosf(D3DX_PI * 0.0f) * m_nSpeed;			//下移動
+	}
+
+	return m_move;
+}
+
+//===========================
+// ジョイパッドを使った移動
+//===========================
+D3DXVECTOR3 CPlayer::MoveJoypad()
+{
+	// ジョイパッドでの操作
+	CInputJoypad* joypad = CApplication::GetJoypad();
+	D3DXVECTOR3 stick = joypad->Stick(CInputJoypad::JOYKEY_LEFT_STICK, 0);
+
+	//if (joypad->IsJoyPadUse(0) == false)
+	//{//ジョイパッドが使われていないなら
+	//	return ;
+	//}
+
+	//スティックを動かす値の設定
+	float fMoveValue = 0.5f;
+
+	//-----------------------------------
+	// 右移動
+	//-----------------------------------
+	if (stick.x >= fMoveValue)
+	{
+		if (stick.y <= -fMoveValue)
+		{//奥移動
+			m_move.y += cosf(-D3DX_PI * 0.75f) * m_nSpeed;
+			m_move.x += sinf(D3DX_PI * 0.75f) * m_nSpeed;
+		}
+		else if (stick.y >= fMoveValue)
+		{//前移動
+			m_move.y += cosf(D3DX_PI * 0.25f) * m_nSpeed;
+			m_move.x += sinf(D3DX_PI * 0.25f) * m_nSpeed;
+		}
+		else
+		{
+			m_move.x += sinf(D3DX_PI * 0.5f) * m_nSpeed;
+		}
+	}
+	//-----------------------------------
+	// 左移動
+	//-----------------------------------
+	else if (stick.x <= -fMoveValue)
+	{
+		// スティックを倒した方向へ移動する
+		if (stick.y <= -fMoveValue)
+		{//奥移動
+			m_move.y += cosf(-D3DX_PI * 0.75f) * m_nSpeed;
+			m_move.x += sinf(-D3DX_PI * 0.75f) * m_nSpeed;
+		}
+		else if (stick.y >= fMoveValue)
+		{//前移動
+			m_move.y += cosf(D3DX_PI * 0.25f) * m_nSpeed;
+			m_move.x += sinf(-D3DX_PI * 0.25f) * m_nSpeed;
+		}
+		else
+		{
+			m_move.x += sinf(-D3DX_PI * 0.5f) * m_nSpeed;
+		}
+	}
+	//-----------------------------------
+	// 奥移動
+	//-----------------------------------
+	else if (stick.y <= -fMoveValue)
+	{
+		m_move.y += cosf(-D3DX_PI * 1.0f) * m_nSpeed;
+	}
+	//-----------------------------------
+	// 前移動
+	//-----------------------------------
+	else if (stick.y >= fMoveValue)
+	{
+		m_move.y += cosf(D3DX_PI * 0.0f) * m_nSpeed;
 	}
 
 	return m_move;

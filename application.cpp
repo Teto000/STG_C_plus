@@ -37,6 +37,7 @@ CApplication::MODE	CApplication::m_mode = MODE_MAX;		//ゲームモード
 
 CRenderer*	CApplication::m_pRenderer = nullptr;//レンダラー
 CInput*		CApplication::m_pInput = nullptr;	//インプット
+CInputJoypad*	CApplication::m_pJoypad = nullptr;		//ジョイパッド
 CTexture*	CApplication::m_pTexture = nullptr;	//テクスチャ
 CSound*		CApplication::m_pSound = nullptr;	//サウンド
 
@@ -81,6 +82,12 @@ HRESULT CApplication::Init(HINSTANCE hInstance, HWND hWnd)
 	//インプットの初期化
 	m_pInput->Init(hInstance, hWnd);
 
+	//----------------------------
+	// ジョイパッドの生成と初期化
+	//----------------------------
+	m_pJoypad = new CInputJoypad;
+	m_pJoypad->Init();
+
 	//サウンドの初期化
 	m_pSound->Init(hWnd);
 
@@ -122,6 +129,16 @@ void CApplication::Uninit()
 		m_pInput = nullptr;
 	}
 
+	//----------------------------
+	// ジョイパッドの終了処理
+	//----------------------------
+	if (m_pJoypad != nullptr)
+	{
+		m_pJoypad->Uninit();
+		delete m_pJoypad;
+		m_pJoypad = nullptr;
+	}
+
 	//サウンドの終了
 	if (m_pSound != nullptr)
 	{
@@ -139,6 +156,9 @@ void CApplication::Update()
 {
 	//インプットの更新
 	m_pInput->Update();	//最初にやる
+
+	//ジョイパッドの更新
+	m_pJoypad->Update();
 
 	//レンダリングの更新
 	m_pRenderer->Update();
