@@ -153,8 +153,8 @@ void CPlayer::Update()
 	//--------------------
 	// プレイヤーの操作
 	//--------------------
-	//D3DXVECTOR3 move = OperationPlayer();
-	D3DXVECTOR3 move = MoveJoypad();
+	D3DXVECTOR3 move = OperationPlayer();
+	//D3DXVECTOR3 move = MoveJoypad();
 
 	//---------------------------
 	// テクスチャアニメーション
@@ -569,7 +569,7 @@ void CPlayer::AddMagic(int nValue)
 {
 	if (m_nMagic + nValue < m_nMaxMagic)
 	{//最大MPを超えないなら
-		m_nMagic += nValue;	//プレイヤーの体力の加算
+		m_nMagic += nValue;	//プレイヤーのMPの加算
 	}
 	else 
 	{
@@ -577,7 +577,7 @@ void CPlayer::AddMagic(int nValue)
 		m_nMagic = m_nMaxMagic;
 	}
 
-	//残り体力を計算
+	//残りMPを計算
 	m_nRemMagic = m_nMagic * 100 / m_nMaxMagic;
 
 	//MP減少時の処理
